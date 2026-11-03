@@ -1,0 +1,256 @@
+# Big M — refonte du site bigm-burger.fr
+
+Brief de développement pour Claude Code. Le design est **validé par le client** : le dossier `prototype/` est la référence visuelle et fonctionnelle. Il faut le reproduire dans WordPress, à l'identique, sans réinventer le design.
+
+## 1. Contexte
+
+- **Client :** Big M, chaîne française de fast-food 100 % halal, née à Bondy en 2019.
+- **Agence :** The Follow Movement / JustFollow. C'est l'agence qui mettra le site à jour après la livraison, avec Elementor.
+- **Site actuel :** WordPress vieux de 6 ans, sur thème + Slider Revolution. On ne le met pas à jour, on repart d'une **installation neuve**.
+- **Hébergement :** Hostinger, sur un compte distinct de celui qui a été infecté par un malware. On développe d'abord sur une **préprod en sous-domaine** (ex. `preprod.bigm-burger.fr`), avec `noindex`.
+- **Référence d'usage :** burgerking.fr. Le slider s'inspire de McDonald's Japon : la slide active est au centre et les voisines sont visibles.
+
+## 2. Stack
+
+- WordPress (dernière version), PHP 8.2+.
+- **Elementor Pro.** Thème : **Hello Elementor + un thème enfant** `bigm-child` qui contient les tokens, les polices, le JS et les widgets personnalisés.
+- **Plugin maison `bigm-core`.** Il contient les types de contenu, les champs, les widgets Elementor et les shortcodes. Il est versionné sur Git.
+- **Champs :** ACF Pro, ou à défaut des meta boxes natives. Choisir l'un des deux et s'y tenir.
+- **Restaurants :** le plugin **storelocator** de l'agence (dépôt GitHub et Claude Code de l'utilisateur). On l'intègre, on ne le réécrit pas.
+- **Plugins interdits :** Slider Revolution, page builders tiers, « nulled ». Garder le moins de plugins possible.
+
+## 3. Charte (reprendre `prototype/assets/site.css`)
+
+| Token | Valeur | Usage |
+|---|---|---|
+| `--bg` | `#faf8f5` | Fond blanc cassé |
+| `--tile` | `#f2ede7` | Fond des vignettes |
+| `--ink` | `#2b1406` | Texte, pied de page |
+| `--muted` | `#6b4a3a` | Texte secondaire |
+| `--orange` | `#fa5c19` | Grands aplats (bande appli, bouton central mobile) |
+| `--btn` | `#c8400a` | Boutons, avec texte blanc (contraste AA) |
+| `--yellow` | `#ffc21a` | Badges « Nouveau » |
+
+- **Polices :** Fredoka 500/600 pour les titres, Figtree 400/600 pour le texte. Elles sont **auto-hébergées** en woff2 dans `prototype/assets/fonts/` : pas de Google Fonts en externe (RGPD).
+- **Rayons :** 20 à 28 px pour les cartes, 12 px pour les boutons, 24 px pour la capsule du header.
+- **Accessibilité :**
+  - focus visible ;
+  - zones tactiles de 44 px minimum ;
+  - `prefers-reduced-motion` respecté (aucune lecture auto, ni animation, ni halo) ;
+  - `prefers-reduced-transparency` respecté (header et barres opaques).
+
+## 4. Pages et gabarits
+
+| Prototype | WordPress | Notes |
+|---|---|---|
+| `index.html` | Page d'accueil (Elementor) | Sections dans l'ordre : slider à la une, bande appli, restaurants, services, classiques, « Big M les a réunis » (4 affiches 1967 / 1971 / 1993 / 1957), actualités, franchise + recrutement |
+| `carte.html` | Archive du type de contenu Produit (`/carte/`) | Barre de catégories, bannières dynamiques, grille de catégories, bloc allergènes |
+| `categorie.html` | Archive de la taxonomie (`/carte/burgers/`) | Bannières de la catégorie, filtres (viande + 14 allergènes), produits regroupés par sous-catégorie |
+| `produit.html` | Single Produit (`/produit/smash-naan/`) | Bandeau, nom, description, ingrédients, allergènes (« contient » et « traces »), valeurs nutritionnelles, « Ça va bien avec » |
+| — | Restaurants (`/restaurants/`) | Plugin storelocator, habillé aux couleurs de la charte |
+| — | Franchise (`/devenir-franchise/`) | Reprendre le contenu et le formulaire de la page actuelle |
+| — | Recrutement (`/recrutement/`) | Formulaire avec envoi de CV |
+| — | Actualités (`/actualites/`) | Fusion des anciennes rubriques News et Presse, par catégorie |
+| — | Jeu concours, mentions légales, confidentialité, cookies | |
+
+**Header (Theme Builder) :**
+- une capsule flottante arrondie, sticky, avec un fond translucide flouté, qui s'affine quand on défile ;
+- menu à gauche, logo au centre, « Restaurants » et « Commander » à droite ;
+- un menu latéral (tiroir) pour les autres liens.
+
+**Barre d'onglets mobile (≤ 760 px) :**
+- Accueil, La carte, **bouton central Commander** (logo dans une pastille surélevée), Restos, Plus (qui ouvre le tiroir) ;
+- elle est cachée sur ordinateur.
+
+**Footer :** brun, avec réseaux sociaux, badges des stores, liens et la mention « mangerbouger.fr » **obligatoire**.
+
+## 5. Contenus gérés en admin (le cœur du projet)
+
+Le client doit pouvoir **tout changer sans toucher au code**.
+
+### 5.1 Type de contenu `bigm_produit`
+
+- **Titre, description, image principale.**
+- **Vidéo de vignette (optionnelle) :**
+  - fichiers MP4 + WebM et une image d'aperçu ;
+  - s'il y a une vidéo, elle remplace la photo dans la vignette ;
+  - elle se lance seule, en boucle et sans son, quand la vignette est visible, et se met en pause hors écran.
+- **Taxonomie `bigm_categorie`** (hiérarchique) : Nouveautés, Menus, Burgers (sous-catégories Bœuf / Poulet), Poulet, Tex-Mex, Petite faim, Desserts, Boissons. Chaque catégorie a :
+  - une icône (SVG) ;
+  - une image et une vidéo de vignette ;
+  - **ses bannières** (voir 5.2).
+- **Badge** optionnel (Nouveau, Édition limitée…).
+- **Ingrédients :** une liste ordonnée.
+- **Allergènes :** cases à cocher sur les **14 allergènes réglementaires**, une colonne « Contient » et une colonne « Traces ». Ces données alimentent le filtre de la catégorie.
+- **Valeurs nutritionnelles :** énergie, matières grasses, dont saturées, glucides, dont sucres, protéines, sel, pour une portion et pour 100 g.
+- **Produits associés** pour « Ça va bien avec ».
+- **Lien de commande :** un lien global défini dans les réglages (Uber Eats, Deliveroo ou l'appli), avec la possibilité de le surcharger par produit.
+- **Pas de prix**, c'est une demande du client.
+
+### 5.2 Sliders et bannières (`bigm_slider`)
+
+Un slider est une liste de slides. **Chaque slide contient :**
+- un type : image ou vidéo ;
+- une image ordinateur et une image mobile, ou bien une vidéo MP4 + WebM avec son image d'aperçu ;
+- un texte alternatif ;
+- un lien ;
+- des dates de début et de fin (facultatives) pour programmer les offres.
+
+**Où ils s'affichent :**
+- le slider « À la une » de l'accueil ;
+- le slider de bannières de `/carte/` ;
+- un slider de bannières par catégorie.
+
+**Comportement à reprendre de `prototype/assets/site.js` (bloc « Slider à la une »), sans le changer :**
+- slide centrée avec les voisines visibles, défilement en boucle ;
+- glisser au doigt ou à la souris avec l'élan du geste ;
+- animation en ressort, sans rebond ;
+- une photo reste 6 s (5 s pour les bannières) ; une vidéo passe à la slide suivante quand elle se termine ;
+- pause au survol, quand le slider sort de l'écran et via le bouton pause ;
+- navigation au clavier, par les points ou par les flèches.
+
+**Widget :** un widget Elementor « Big M Slider » avec deux formats, `hero` (2:1) et `bannière` (3:1, et 2:1 sur mobile).
+
+### 5.3 Autres contenus
+
+- **Actualités :** articles natifs, catégories News et Presse.
+- **Réglages Big M** (page d'options) :
+  - lien Commander ;
+  - liens App Store et Google Play ;
+  - réseaux sociaux ;
+  - les chiffres de la franchise : contrat de 5 ans, 30 000 € HT d'entrée, 5 000 € HT de formation, 5 % de redevance d'enseigne, 2 % de redevance communication.
+
+## 6. Widgets Elementor à créer (`bigm-core`)
+
+1. **Big M Slider :** hero et bannière, photo ou vidéo (voir 5.2).
+2. **Grille de catégories :** les tuiles de `carte.html`, avec la vidéo de fond optionnelle.
+3. **Grille de produits :**
+   - filtres par viande et par allergènes ;
+   - regroupement par sous-catégorie ;
+   - un message quand aucun produit ne correspond ;
+   - le filtrage se fait côté client, comme dans le prototype.
+4. **Carrousel « Nos classiques ».**
+5. **Bloc fiche produit :** ingrédients, allergènes et valeurs nutritionnelles, en sections dépliables.
+6. **Barre de catégories sticky** (en capsule).
+7. **Barre d'onglets mobile :** elle peut aussi être injectée par le thème enfant, avec ses liens réglables.
+
+Chaque widget s'appuie sur les classes CSS du prototype. Le CSS et le JS sont mis dans la file d'attente **seulement sur les pages qui en ont besoin**.
+
+## 7. Animations (à conserver)
+
+- **Boutons :**
+  - au survol, ils se soulèvent avec un reflet lumineux qui les traverse, et l'icône penche ;
+  - au clic, ils s'enfoncent et une onde part de l'endroit touché ;
+  - c'est le bloc « Boutons » de `site.js` / `site.css`.
+- **Cartes et vignettes :** elles se soulèvent au survol et s'enfoncent au toucher.
+- **Apparitions :** à l'arrivée au défilement (`data-reveal`), en décalé.
+- **Header :** il s'affine quand on défile.
+- **Bouton central mobile :** un halo qui pulse.
+
+Tout cela est désactivé quand `prefers-reduced-motion` est actif.
+
+## 8. Restaurants (storelocator)
+
+- Installer le plugin depuis le dépôt de l'agence.
+- Importer les restaurants : adresse, horaires, services, liens de livraison. **Les données sont à fournir par le client.**
+- Habiller le plugin aux couleurs de la charte : cartes blanches arrondies, bouton `--btn`, épingles orange.
+- Brancher dessus le bloc « Tous nos restaurants » de l'accueil : la recherche doit renvoyer vers `/restaurants/?q=…`.
+
+## 9. Formulaires (Elementor Pro Forms)
+
+- **Franchise :**
+  - nom, prénom, e-mail, téléphone ;
+  - zone géographique, département ou ville, adresse si connue ;
+  - situation actuelle, métier et expériences ;
+  - apport hors emprunt (130–150 k€ / 150–200 k€ / plus de 200 k€) ;
+  - délai du projet (3 / 6 / 12 mois et plus) ;
+  - questions.
+- **Recrutement :**
+  - prénom, nom ;
+  - ville(s) où la personne peut travailler ;
+  - adresse, téléphone ;
+  - CV et lettre de motivation (jusqu'à 3 fichiers, PDF ou DOCX, 5 Mo maximum) ;
+  - message.
+- **Pour les deux :** anti-spam (honeypot + Cloudflare Turnstile ou reCAPTCHA v3), notification par e-mail, case de consentement RGPD.
+
+## 10. Migration et SEO
+
+- **Redirections 301 depuis l'ancien site :**
+  - `/nos-restaurants/` → `/restaurants/`
+  - `/contact/` → `/recrutement/`
+  - `/news/` et `/presse/` → `/actualites/`
+  - `/devenir-franchise/` → `/devenir-franchise/`
+  - `/concours/` → `/jeu-concours/`
+  - `/app/` → le lien Commander
+- **Articles :** reprendre les articles existants (News / Presse) avec leurs images.
+- **Référencement technique :**
+  - un titre et une meta description par page ;
+  - un plugin SEO léger, ou les réglages natifs + un sitemap ;
+  - Open Graph ;
+  - données structurées `Restaurant` / `LocalBusiness` sur les restaurants ;
+  - `FAQPage` si on ajoute une FAQ plus tard.
+- **Viewport :** autoriser le zoom. L'ancien site bloquait `maximum-scale=1`, c'est à corriger.
+
+## 11. Performance
+
+- **Images :** WebP/AVIF, en `srcset` ; en différé (`loading="lazy"`), **sauf** pour la première slide.
+- **Vidéos :**
+  - MP4 (H.264) + WebM (VP9), de 3 Mo maximum chacune ;
+  - toujours avec une image d'aperçu ;
+  - chargées seulement quand elles deviennent visibles (`preload="none"` + chargement par le JS) ;
+  - le JS choisit le format lisible (`window.bigmVideoSrc`).
+- **Polices :** préchargement de Fredoka 600.
+- **Cibles :** LCP < 2,5 s sur mobile, CLS < 0,1. Vérifier avec Lighthouse.
+- **Cache :** LiteSpeed Cache, puisque l'hébergement Hostinger est sous LiteSpeed.
+
+## 12. Sécurité
+
+- Installation neuve, comptes administrateurs nominatifs, 2FA.
+- Mises à jour automatiques des correctifs mineurs.
+- XML-RPC désactivé, édition de fichiers désactivée dans l'admin.
+- Sauvegardes quotidiennes externes.
+- Clés et mots de passe **jamais** dans le code ni dans Git.
+
+## 13. Contenus à demander au client
+
+- [ ] Photos produits en HD (PNG transparents si possible) et vidéos de produits.
+- [ ] Bannières de campagne en grand format (ordinateur 2400×1200, mobile 1200×900) et vidéos.
+- [ ] Logo en vectoriel (SVG).
+- [ ] Liste complète des produits : recettes de M1 à M16, W1 à W3, desserts, menus kids.
+- [ ] Allergènes et valeurs nutritionnelles de chaque produit (fiches fournisseurs).
+- [ ] Liste des restaurants : adresse, horaires, services, liens de livraison.
+- [ ] Lien Commander définitif (Uber Eats, Deliveroo ou l'appli).
+- [ ] Textes des mentions légales et de la politique de confidentialité à jour.
+
+**À retirer avant la mise en ligne :** les contenus marqués `[…]` dans le prototype et les vidéos de démonstration, qui ne sont que des zooms générés à partir des photos.
+
+## 14. Ordre de travail conseillé
+
+1. Préprod Hostinger, WordPress neuf, thème enfant, tokens et polices.
+2. Plugin `bigm-core` : types de contenu, taxonomies, champs, page de réglages.
+3. Header capsule, tiroir, barre d'onglets mobile, footer.
+4. Widget Big M Slider, puis l'accueil complet.
+5. Carte, catégorie et fiche produit, avec les filtres allergènes.
+6. Storelocator, formulaires, actualités.
+7. Redirections, SEO, performance, accessibilité.
+8. Recette (ordinateur, mobile, Safari iOS, Chrome Android), puis bascule.
+
+## 15. Fichiers du prototype
+
+- `prototype/index.html`, `carte.html`, `categorie.html`, `produit.html` : les pages de référence.
+- `prototype/assets/site.css` : tokens, composants, header, slider, barre d'onglets, animations.
+- `prototype/assets/site.js` : tiroir, slider, vidéos de vignettes, boutons, apparitions.
+- `prototype/assets/img/`, `video/`, `fonts/` : les visuels provisoires et les polices.
+- `prototype/build.py` et `pages.py` : le générateur des pages statiques. C'est la source du balisage, utile pour voir comment chaque composant est construit.
+
+Pour ouvrir le prototype en local : `cd prototype && python3 -m http.server 8000`, puis http://localhost:8000.
+
+## 16. Dépôt et conventions (tenu à jour pendant le développement)
+
+- **Arborescence :** `wp-content/` reproduit celle du serveur : thème `themes/bigm-child/`, mu-plugin `mu-plugins/bigm-socle.php`, puis `plugins/bigm-core/` à l'étape 2. `ops/` déploie par SSH, `docs/` décrit les procédures, `tests/lint.sh` vérifie le code avant chaque déploiement.
+- **CSS :** chaque composant reprend ses règles de `prototype/assets/site.css` (et du `<style>` de sa page), dans le même ordre, dans son propre fichier, mis en file d'attente seulement là où il sert. L'en-tête de `assets/css/base.css` liste ce qui reste à reprendre.
+- **Tokens renommés :** `--display` devient `--font-display` et `--text` devient `--font-text`, car Elementor écrit `--display: flex` sur chacun de ses conteneurs. En reprenant du CSS du prototype, remplacer ces deux noms ; `tests/check-tokens.php` le vérifie.
+- **Couleurs :** déclarées dans `assets/css/tokens.css` et dans `inc/tokens.php` (pour le kit Elementor). Après un changement : `wp bigm kit --user=<admin>`.
+- **Reset :** le `reset.css` de Hello Elementor est désactivé ; c'est celui du prototype qui s'applique (`base.css`). `theme.css` de Hello reste chargé.
+- **Elementor :** Fredoka et Figtree sont servies en local (groupe « Big M (auto-hébergées) ») et Google Fonts est forcé à « désactivé ». Points de rupture : mobile ≤ 760 px, tablette ≤ 960 px. Largeur du contenu : 1240 px.
+- **Secrets :** accès SSH et licences jamais dans Git. `ops/.env.preprod` est ignoré ; Elementor Pro s'installe à la main.
