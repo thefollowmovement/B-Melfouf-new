@@ -1,0 +1,15 @@
+# Accès aux serveurs : jamais dans Git.
+ops/.env.*
+!ops/.env.example
+*.pem
+id_rsa*
+id_ed25519*
+
+# Extensions sous licence (Elementor Pro…) et archives : jamais dans Git.
+*.zip
+
+# Système et outils
+.DS_Store
+Thumbs.db
+node_modules/
+*.log

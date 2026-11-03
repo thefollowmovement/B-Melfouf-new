@@ -1,0 +1,53 @@
+# Vérifie le code à chaque push et pull request, puis déploie sur la préprod
+# Hostinger à chaque push sur main. Le déploiement est ignoré tant que les
+# secrets PREPROD_* ne sont pas renseignés (docs/preprod-hostinger.md, étape 7).
+name: Préprod
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verifications:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntaxe, charte, polices
+        run: tests/lint.sh
+
+  deploiement:
+    needs: verifications
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: preprod
+    concurrency: preprod
+    steps:
+      - uses: actions/checkout@v4
+      - name: Envoi sur la préprod
+        env:
+          SSH_HOST: ${{ secrets.PREPROD_SSH_HOST }}
+          SSH_PORT: ${{ secrets.PREPROD_SSH_PORT }}
+          SSH_USER: ${{ secrets.PREPROD_SSH_USER }}
+          WP_PATH: ${{ secrets.PREPROD_WP_PATH }}
+          SSH_KEY: ${{ secrets.PREPROD_SSH_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.PREPROD_SSH_KNOWN_HOSTS }}
+        run: |
+          if [ -z "$SSH_HOST" ] || [ -z "$SSH_KEY" ]; then
+            echo "::notice::Secrets PREPROD_* absents : déploiement ignoré."
+            exit 0
+          fi
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          if [ -n "$SSH_KNOWN_HOSTS" ]; then
+            printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          else
+            echo "::warning::PREPROD_SSH_KNOWN_HOSTS absent : empreinte du serveur acceptée sans vérification."
+            ssh-keyscan -p "${SSH_PORT:-65002}" "$SSH_HOST" > ~/.ssh/known_hosts
+          fi
+          ops/deploy.sh
