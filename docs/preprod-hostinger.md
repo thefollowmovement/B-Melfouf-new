@@ -19,8 +19,8 @@ Le dossier est placé **sous celui du site actuel**. Hostinger n'accepte pas d'a
 
 C'est la voie utilisée pour la première installation.
 
-1. **Connecteur Hostinger** (fait par Claude) : WordPress en français, mises à jour mineures automatiques, compte `agence.tfm`, puis Hello Elementor, Elementor et Two Factor.
-2. **Connexion à l'admin** : hPanel → Sites web → `preprod.bigm-burger.fr` → **Panneau d'administration WordPress**. Le mot de passe n'a pas été communiqué ; sinon, utiliser « Mot de passe oublié » sur `/wp-login.php`.
+1. **Installer WordPress dans hPanel** : Installation automatique → WordPress, sur `preprod.bigm-burger.fr`, en français. L'API d'Hostinger ne le fait pas sur ce compte partagé : elle accepte la demande, puis l'abandonne.
+2. **Extensions** : Elementor (et Elementor Pro). Two Factor peut être installée par le connecteur Hostinger, qui sait installer, activer et supprimer des extensions sur ce compte.
 3. **Fabriquer les zips** : `ops/build-zips.sh`, ou les télécharger depuis GitHub → Actions → dernier passage du workflow « Préprod » → Artifacts → `bigm-zips`.
 4. **Extensions → Ajouter → Téléverser** : `bigm-socle.zip`, puis **Activer**.
 5. **Apparence → Thèmes → Ajouter → Téléverser** : `bigm-child.zip`, puis **Activer**.
@@ -35,12 +35,22 @@ Pour une mise à jour du thème ou du socle, téléverser le nouveau zip au mêm
 
 Sans `wp-config.php` modifié, le socle reconnaît la préprod à son adresse (`preprod.…`, `staging.…`, `….hostingersite.com`). Il coupe aussi l'éditeur de fichiers de l'admin (`DISALLOW_FILE_EDIT`).
 
+## État au 4 novembre 2026
+
+| Élément | État |
+|---|---|
+| WordPress | installé par hPanel, en français ; administrateur `TFM` (anis.b@thefollowmovement.com) |
+| Thème | Big M (`bigm-child` 0.1.0) actif, parent Hello Elementor 3.5.2 |
+| Extensions actives | Big M — socle 0.2.0, Elementor 4.3.6, Elementor Pro 4.3.2, Two Factor 0.17.0, Hostinger Tools |
+| Charte dans Elementor | appliquée : 11 couleurs, Fredoka et Figtree, 1240 px, points de rupture 960 / 760 px |
+| `.htaccess` | blocs `Big M` et `Big M preprod` en place |
+
 ## À faire à la main dans l'admin
 
 - **Elementor Pro** : télécharger le zip depuis le compte Elementor de l'agence, Extensions → Ajouter → Téléverser, puis Elementor → Licence. Le zip ne va **jamais** dans Git.
 - **Double authentification** : chaque administrateur l'active dans son profil (Comptes → Profil → Two-Factor Options).
 - **Un compte par personne**, en rôle Administrateur seulement si nécessaire.
-- **Extensions ajoutées par Hostinger** (« Hostinger AI », « Hostinger Hub », « Hostinger Reach »…) : les désactiver puis les supprimer. On garde Elementor, Elementor Pro, LiteSpeed Cache, Two Factor et Big M — socle.
+- **Extensions ajoutées par Hostinger** (« Hostinger AI », « Hostinger Hub », « Hostinger Reach », doublons inactifs) : à supprimer. On garde Elementor, Elementor Pro, Hostinger Tools, Two Factor et Big M — socle. LiteSpeed Cache sera installé à l'étape 7 (performance), pour ne pas gêner le développement.
 - **Sauvegardes** : vérifier que les sauvegardes quotidiennes d'Hostinger sont actives. Une copie externe sera ajoutée à l'étape 7 du brief.
 
 ## Vérifier
@@ -59,7 +69,7 @@ Sans `wp-config.php` modifié, le socle reconnaît la préprod à son adresse (`
 Le téléversement de zips suffit pour démarrer. Pour déployer à chaque push, il faut l'accès SSH du compte :
 
 1. hPanel → Avancé → **Accès SSH** : l'activer (le propriétaire du compte peut devoir le faire) et ajouter une clé publique.
-2. `cp ops/.env.example ops/.env.preprod`, puis remplir hôte, port (65002), utilisateur, `WP_PATH` (le dossier ci-dessus) et `WP_ADMIN` (`agence.tfm`).
+2. `cp ops/.env.example ops/.env.preprod`, puis remplir hôte, port (65002), utilisateur, `WP_PATH` (le dossier ci-dessus) et `WP_ADMIN` (`TFM`).
 3. `ops/deploy.sh` envoie le thème et le socle (en mu-plugin ; s'il est aussi installé en extension, il ne se charge qu'une fois). `ops/provision.sh` refait les réglages en ligne de commande. Il peut être relancé sans risque.
 4. Pour GitHub Actions, créer une clé réservée :
 
