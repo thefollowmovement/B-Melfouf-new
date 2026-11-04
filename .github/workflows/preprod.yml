@@ -17,8 +17,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Syntaxe, charte, polices
-        run: tests/lint.sh
+      - name: Syntaxe, charte, polices, puis zips à téléverser
+        run: ops/build-zips.sh
+      - name: Zips du thème et du socle (onglet Artifacts)
+        uses: actions/upload-artifact@v4
+        with:
+          name: bigm-zips
+          path: dist/*.zip
+          retention-days: 30
 
   deploiement:
     needs: verifications

@@ -151,17 +151,30 @@ function bigm_child_sync_elementor_kit() {
 }
 
 /*
- * Première activation du thème depuis l'admin : on applique la charte une fois.
+ * La charte est appliquée une fois : à l'activation du thème, ou au premier
+ * passage d'un administrateur si Elementor n'était pas encore actif.
  * Ensuite, c'est à la demande (wp bigm kit), pour ne pas écraser les réglages
  * faits dans Elementor.
  */
+$bigm_child_sync_once = static function () {
+	if ( get_option( 'bigm_child_kit_synced' ) || wp_doing_ajax() || ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+	if ( true === bigm_child_sync_elementor_kit() ) {
+		set_transient( 'bigm_child_kit_notice', 1, HOUR_IN_SECONDS );
+	}
+};
+add_action( 'after_switch_theme', $bigm_child_sync_once );
+add_action( 'admin_init', $bigm_child_sync_once, 20 );
+
 add_action(
-	'after_switch_theme',
+	'admin_notices',
 	static function () {
-		if ( get_option( 'bigm_child_kit_synced' ) || ! current_user_can( 'manage_options' ) ) {
+		if ( ! get_transient( 'bigm_child_kit_notice' ) ) {
 			return;
 		}
-		bigm_child_sync_elementor_kit();
+		delete_transient( 'bigm_child_kit_notice' );
+		echo '<div class="notice notice-success is-dismissible"><p><strong>Big M</strong> : charte appliquée à Elementor (couleurs et polices globales, largeur 1240 px, points de rupture 760 / 960 px).</p></div>';
 	}
 );
 

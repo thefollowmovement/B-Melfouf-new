@@ -13,3 +13,6 @@ id_ed25519*
 Thumbs.db
 node_modules/
 *.log
+
+# Zips fabriqués par ops/build-zips.sh
+dist/

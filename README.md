@@ -10,7 +10,7 @@ Nouveau site WordPress de Big M (Hello Elementor + Elementor Pro), développé p
 | Dossier | Rôle |
 |---|---|
 | `wp-content/themes/bigm-child/` | Thème enfant : charte (tokens), polices auto-hébergées, CSS et JS communs |
-| `wp-content/mu-plugins/bigm-socle.php` | Préprod non indexée, XML-RPC coupé |
+| `wp-content/mu-plugins/bigm-socle.php` | Préprod non indexée, XML-RPC et éditeur de fichiers coupés, réglages de départ |
 | `ops/` | Déploiement et mise en place de la préprod Hostinger, par SSH |
 | `docs/` | Procédures pas à pas |
 | `tests/` | Vérifications lancées avant chaque déploiement |
@@ -20,7 +20,7 @@ Nouveau site WordPress de Big M (Hello Elementor + Elementor Pro), développé p
 
 ## Avancement
 
-1. [x] Préprod Hostinger, WordPress neuf, thème enfant, tokens et polices. Le code est prêt ; la mise en place sur Hostinger est décrite dans [`docs/preprod-hostinger.md`](docs/preprod-hostinger.md).
+1. [x] Préprod Hostinger (`preprod.bigm-burger.fr`), WordPress neuf, thème enfant, tokens et polices. Procédure : [`docs/preprod-hostinger.md`](docs/preprod-hostinger.md).
 2. [ ] Plugin `bigm-core` : types de contenu, taxonomies, champs, page de réglages.
 3. [ ] Header capsule, tiroir, barre d'onglets mobile, footer.
 4. [ ] Widget Big M Slider, puis l'accueil complet.
@@ -37,7 +37,13 @@ Vérifier le code (syntaxe PHP et JS, charte, absence de Google Fonts) :
 tests/lint.sh
 ```
 
-Déployer sur la préprod (après avoir rempli `ops/.env.preprod`) :
+Fabriquer les zips à téléverser dans l'admin WordPress (sans accès SSH) :
+
+```bash
+ops/build-zips.sh
+```
+
+Déployer sur la préprod par SSH (après avoir rempli `ops/.env.preprod`) :
 
 ```bash
 ops/deploy.sh
