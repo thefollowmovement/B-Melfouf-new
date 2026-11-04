@@ -294,7 +294,8 @@ function bigm_rendu_entete_carte( array $a ): string {
 	$bouton = trim( (string) $a['bouton'] );
 	return '<div class="container"><div class="carte-head' . ( 'categorie' === $a['variante'] ? ' carte-head--categorie' : '' ) . '">'
 		. '<div><h1>' . esc_html( (string) $a['titre'] ) . '</h1>' . ( '' !== $texte ? '<p>' . esc_html( $texte ) . '</p>' : '' ) . '</div>'
-		. ( '' !== $bouton ? '<a class="btn" href="' . esc_url( $a['lien'] ? (string) $a['lien'] : bigm_url_commander() ) . '">' . bigm_core_icone( 'bag' ) . esc_html( $bouton ) . '</a>' : '' )
+		// Sans lien propre, c'est le bouton Commander, avec son icône de sac.
+		. ( '' !== $bouton ? '<a class="btn" href="' . esc_url( $a['lien'] ? (string) $a['lien'] : bigm_url_commander() ) . '">' . ( $a['lien'] ? '' : bigm_core_icone( 'bag' ) ) . esc_html( $bouton ) . '</a>' : '' )
 		. '</div></div>';
 }
 
@@ -665,4 +666,61 @@ function bigm_rendu_produits_associes( array $a ): string {
 		$tuiles .= bigm_tuile_produit( $id, '(max-width: 700px) 44vw, 260px' );
 	}
 	return '<section class="with" aria-labelledby="' . esc_attr( (string) $a['id'] ) . '"><h2 id="' . esc_attr( (string) $a['id'] ) . '">' . esc_html( (string) $a['titre'] ) . '</h2><div class="with__grid">' . $tuiles . '</div></section>';
+}
+
+/* ------------------------------------------------------------------ Actualités */
+
+/**
+ * Carte d'un article (.news-card de l'accueil) : photo, catégorie (News ou Presse) et date, titre.
+ *
+ * @param int|WP_Post $post  Article.
+ * @param int         $i     Rang, pour le décalage de l'apparition.
+ * @param string      $sizes Attribut sizes de la photo.
+ */
+function bigm_carte_article( $post, int $i = 0, string $sizes = '(max-width: 960px) 100vw, 400px' ): string {
+	$post = get_post( $post );
+	if ( ! $post ) {
+		return '';
+	}
+	$meta = bigm_article_meta( $post );
+	$img  = get_post_thumbnail_id( $post ) ? wp_get_attachment_image( (int) get_post_thumbnail_id( $post ), 'large', false, array( 'sizes' => $sizes ) ) : '';
+	return '<a class="news-card" href="' . esc_url( get_permalink( $post ) ) . '" data-reveal' . ( $i ? ' style="--i:' . ( $i % 3 ) . '"' : '' ) . '>'
+		. '<div class="news-card__img">' . $img . '</div><div class="news-card__body"><small>' . esc_html( $meta ) . '</small><h3>' . esc_html( get_the_title( $post ) ) . '</h3></div></a>';
+}
+
+/**
+ * Catégorie (News ou Presse de préférence) et date d'un article : « Presse · 9 octobre 2026 ».
+ *
+ * @param WP_Post $post Article.
+ */
+function bigm_article_meta( WP_Post $post ): string {
+	$terms = get_the_category( $post->ID );
+	$cat   = $terms ? $terms[0]->name : '';
+	foreach ( $terms as $t ) {
+		if ( in_array( $t->slug, array( 'news', 'presse' ), true ) ) {
+			$cat = $t->name;
+			break;
+		}
+	}
+	// La catégorie par défaut (« Non classé ») n'est pas affichée.
+	if ( $terms && (int) get_option( 'default_category' ) === $terms[0]->term_id && 1 === count( $terms ) ) {
+		$cat = '';
+	}
+	return trim( $cat . ' · ' . get_the_date( 'j F Y', $post ), ' ·' );
+}
+
+/**
+ * Pastilles des catégories d'articles (Tout, News, Presse…), la catégorie affichée allumée.
+ * Les catégories vides et la catégorie par défaut (« Non classé ») ne sont pas proposées.
+ */
+function bigm_rendu_categories_articles(): string {
+	$tout     = (int) get_option( 'page_for_posts' ) ? (string) get_permalink( (int) get_option( 'page_for_posts' ) ) : home_url( '/' );
+	$courante = is_category() ? (int) get_queried_object_id() : 0;
+	$liens    = '<a href="' . esc_url( $tout ) . '"' . ( $courante ? '' : ' aria-current="page"' ) . '>Tout</a>';
+	$n        = 0;
+	foreach ( get_categories( array( 'hide_empty' => true, 'exclude' => array( (int) get_option( 'default_category' ) ) ) ) as $cat ) {
+		$liens .= '<a href="' . esc_url( get_category_link( $cat ) ) . '"' . ( $cat->term_id === $courante ? ' aria-current="page"' : '' ) . '>' . esc_html( $cat->name ) . '</a>';
+		++$n;
+	}
+	return $n ? '<nav class="news-tabs" aria-label="Catégories d’articles">' . $liens . '</nav>' : '';
 }

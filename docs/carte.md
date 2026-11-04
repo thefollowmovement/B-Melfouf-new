@@ -52,7 +52,7 @@ Chaque bloc existe aussi en widget, dans la catégorie **Big M** du panneau :
 | Widget | Bloc | Réglages |
 |---|---|---|
 | Big M — Barre de catégories | Capsule collante sous l'en-tête | Premier lien, catégories vides masquées |
-| Big M — En-tête de la carte | Titre h1, texte, bouton | Selon la page (Réglages Big M ou catégorie affichée) ou saisi ; bouton et lien |
+| Big M — En-tête de page | Titre h1, texte, bouton | Selon la page (Réglages Big M ou catégorie affichée) ou saisi ; bouton et lien |
 | Big M Slider | Bannières | Source « Bannières de la page affichée » ; « Espace sous les bannières » à couper au-dessus des filtres |
 | Big M — Grille de catégories | Vignettes de `/carte/` | Toutes les catégories, ou choisies une par une avec un libellé propre (« Burgers doublés ») |
 | Big M — Bandeau des allergènes | Bandeau brun | Titre, texte, bouton, lien |

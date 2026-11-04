@@ -3,7 +3,7 @@
  * Plugin Name:  Big M — contenu de démonstration
  * Description:  Importe les visuels et les contenus du prototype (sliders, produits, articles) et crée la page d'accueil Elementor. Temporaire : à supprimer avant la mise en ligne. Outils → Démo Big M.
  * Author:       The Follow Movement
- * Version:      0.2.0
+ * Version:      0.3.0
  * Requires PHP: 8.2
  * Requires Plugins: bigm-core, elementor
  *
@@ -12,7 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'BIGM_DEMO_VERSION', '0.2.0' );
+define( 'BIGM_DEMO_VERSION', '0.3.0' );
 define( 'BIGM_DEMO_MEDIAS', __DIR__ . '/medias/' );
 
 /**
@@ -299,7 +299,10 @@ function bigm_demo_importer(): array {
 	update_post_meta( $naan, '_bigm_allergenes_traces', array( 'sesame', 'oeufs', 'soja' ) );
 	update_post_meta( $naan, '_bigm_associes', array( $p_ids['Frites'], $p_ids['Nuggets'], $p_ids['Street Cola'] ) );
 	$rapport[] = count( $p_ids ) . ' produits';
-	$rapport   = array_merge( $rapport, bigm_demo_carte( $s_ids['carte'] ) );
+	$rapport   = array_merge( $rapport, bigm_demo_carte( $s_ids['carte'] ), bigm_demo_restaurants() );
+	if ( post_type_exists( 'tfmsl_store' ) ) {
+		update_option( 'bigm_demo_restaurants', 1, false );
+	}
 
 	// 4. Vignettes des catégories (grille de la carte).
 	foreach ( array(
@@ -513,6 +516,11 @@ function bigm_demo_importer(): array {
 	update_option( 'page_for_posts', $articles );
 	\Elementor\Plugin::$instance->files_manager->clear_cache();
 	$rapport[] = 'page d’accueil Elementor (page d’accueil du site) et page Actualités (page des articles)';
+	$rapport   = array_merge( $rapport, bigm_demo_actualites(), bigm_demo_formulaires() );
+	update_option( 'bigm_demo_actualites', 1, false );
+	if ( class_exists( '\ElementorPro\Plugin' ) ) {
+		update_option( 'bigm_demo_formulaires', 1, false );
+	}
 
 	update_option( 'bigm_demo_version', BIGM_DEMO_VERSION, false );
 	update_option(
@@ -583,6 +591,544 @@ function bigm_demo_carte( int $slider_carte = 0 ): array {
 	return $rapport;
 }
 
+/**
+ * Page Elementor créée une fois (retrouvée par son adresse), gardée par la suppression de la démo.
+ *
+ * @param string                           $slug     Adresse.
+ * @param string                           $titre    Titre.
+ * @param array<int, array<string, mixed>> $elements Widgets du conteneur : [ type, réglages ], ou éléments Elementor complets.
+ * @return int Page (0 si elle existait déjà).
+ */
+function bigm_demo_page_elementor( string $slug, string $titre, array $elements ): int {
+	if ( get_page_by_path( $slug ) ) {
+		return 0;
+	}
+	$zero = array(
+		'unit'     => 'px',
+		'top'      => '0',
+		'right'    => '0',
+		'bottom'   => '0',
+		'left'     => '0',
+		'isLinked' => true,
+	);
+	$data = array(
+		array(
+			'id'       => bigm_demo_eid(),
+			'elType'   => 'container',
+			'isInner'  => false,
+			'settings' => array(
+				'content_width' => 'full',
+				'padding'       => $zero,
+				'flex_gap'      => array(
+					'unit'     => 'px',
+					'size'     => 0,
+					'column'   => '0',
+					'row'      => '0',
+					'isLinked' => true,
+				),
+			),
+			'elements' => array_map(
+				static fn( array $w ): array => isset( $w['elType'] ) ? $w : array(
+					'id'         => bigm_demo_eid(),
+					'elType'     => 'widget',
+					'widgetType' => $w[0],
+					'settings'   => $w[1],
+					'elements'   => array(),
+				),
+				$elements
+			),
+		),
+	);
+	$id   = wp_insert_post(
+		array(
+			'post_type'   => 'page',
+			'post_title'  => $titre,
+			'post_name'   => $slug,
+			'post_status' => 'publish',
+		)
+	);
+	if ( ! $id || is_wp_error( $id ) ) {
+		return 0;
+	}
+	update_post_meta( $id, '_wp_page_template', 'elementor_header_footer' );
+	update_post_meta( $id, '_elementor_edit_mode', 'builder' );
+	update_post_meta( $id, '_elementor_template_type', 'wp-page' );
+	update_post_meta( $id, '_elementor_version', defined( 'ELEMENTOR_VERSION' ) ? ELEMENTOR_VERSION : '' );
+	update_post_meta( $id, '_elementor_data', wp_slash( wp_json_encode( $data ) ) );
+	return (int) $id;
+}
+
+/**
+ * Restaurants (étape 6) : page « Restaurants » avec le store locator du plugin StoreLocatore,
+ * et trois restaurants d'exemple, si le plugin est actif. Les adresses sont à fournir par le client.
+ *
+ * @return string[] Rapport.
+ */
+function bigm_demo_restaurants(): array {
+	if ( ! post_type_exists( 'tfmsl_store' ) ) {
+		return array();
+	}
+	$rapport = array();
+	$deja    = get_posts(
+		array(
+			'post_type'      => 'tfmsl_store',
+			'post_status'    => 'any',
+			'posts_per_page' => 1,
+			'fields'         => 'ids',
+		)
+	);
+	if ( ! $deja ) {
+		$medias = (array) get_option( 'bigm_demo_medias', array() );
+		$photo  = (int) ( $medias['b-restaurant-saint-ouen.jpg'] ?? 0 );
+		// Villes connues de Big M (Bondy, Saint-Ouen, siège à Villeneuve-la-Garenne), au centre-ville.
+		foreach ( array(
+			array( 'Big M Bondy', 'Bondy', '93140', '48.9022', '2.4828' ),
+			array( 'Big M Saint-Ouen', 'Saint-Ouen-sur-Seine', '93400', '48.9119', '2.3337' ),
+			array( 'Big M Villeneuve-la-Garenne', 'Villeneuve-la-Garenne', '92390', '48.9367', '2.3253' ),
+		) as $r ) {
+			$id = bigm_demo_post(
+				array(
+					'post_type'    => 'tfmsl_store',
+					'post_title'   => $r[0] . ' [Démo]',
+					'post_content' => '[Présentation du restaurant à fournir par le client]',
+				)
+			);
+			foreach ( array(
+				'tfmsl_address'      => '[Adresse à fournir]',
+				'tfmsl_city'         => $r[1],
+				'tfmsl_zip'          => $r[2],
+				'tfmsl_country'      => 'France',
+				'tfmsl_lat'          => $r[3],
+				'tfmsl_lng'          => $r[4],
+				'tfmsl_services'     => 'Sur place, Click & collect, Livraison',
+				'tfmsl_cuisine_type' => 'Burgers halal',
+			) as $cle => $valeur ) {
+				update_post_meta( $id, $cle, $valeur );
+			}
+			if ( $photo ) {
+				update_post_meta( $id, 'tfmsl_store_photo', $photo );
+			}
+		}
+		$rapport[] = '3 restaurants d’exemple (adresses et horaires à fournir)';
+	}
+	$page = bigm_demo_page_elementor(
+		'restaurants',
+		'Nos restaurants',
+		array(
+			array(
+				'bigm-entete-carte',
+				array(
+					'source' => 'manuel',
+					'titre'  => 'Nos restaurants',
+					'texte'  => "Sur place, en click & collect ou en livraison\u{202F}: trouvez le Big M le plus proche.",
+					'bouton' => 'Commander',
+				),
+			),
+			array(
+				'tfmsl_store_locator',
+				array(
+					'title'                    => '',
+					'search_placeholder'       => 'Ville, code postal…',
+					'locator_height'           => array(
+						'unit' => 'px',
+						'size' => 640,
+					),
+					'sidebar_bg'               => '#f2ede7',
+					'sidebar_title_color'      => '#2b1406',
+					'search_bg'                => '#ffffff',
+					'search_color'             => '#2b1406',
+					'search_placeholder_color' => '#6b4a3a',
+					'geo_btn_bg'               => '#c8400a',
+					'geo_btn_color'            => '#ffffff',
+					'card_bg'                  => '#ffffff',
+					'card_bg_hover'            => '#ffffff',
+					'card_radius'              => array(
+						'unit' => 'px',
+						'size' => 20,
+					),
+					'card_image_radius'        => array(
+						'unit' => 'px',
+						'size' => 12,
+					),
+					'card_name_color'          => '#2b1406',
+					'card_address_color'       => '#6b4a3a',
+					'card_pin_color'           => '#fa5c19',
+					'card_link_color'          => '#2b1406',
+					'card_link_color_hover'    => '#c8400a',
+					'pin_color'                => '#fa5c19',
+					'cluster_bg'               => '#c8400a',
+					'cluster_color'            => '#ffffff',
+					'popup_radius'             => array(
+						'unit' => 'px',
+						'size' => 20,
+					),
+					'popup_title_color'        => '#2b1406',
+					'popup_address_color'      => '#6b4a3a',
+					'popup_link_color'         => '#c8400a',
+					'popup_link_text'          => 'Voir le restaurant',
+				),
+			),
+		)
+	);
+	if ( $page ) {
+		$rapport[] = 'page Restaurants (store locator)';
+	}
+	return $rapport;
+}
+
+/**
+ * Actualités (étape 6) : catégories sous /actualites/ (/actualites/presse/) et chapeau de la page
+ * Actualités. Ne remplace pas un réglage ou un texte déjà saisi.
+ *
+ * @return string[] Rapport.
+ */
+function bigm_demo_actualites(): array {
+	$rapport = array();
+	if ( '' === (string) get_option( 'category_base' ) ) {
+		global $wp_rewrite;
+		$wp_rewrite->set_category_base( 'actualites' );
+		$wp_rewrite->flush_rules( false );
+		$rapport[] = 'catégories d’articles sous /actualites/ (Réglages → Permaliens)';
+	}
+	$page = (int) get_option( 'page_for_posts' );
+	if ( $page && '' === trim( (string) get_post_field( 'post_content', $page ) ) ) {
+		wp_update_post(
+			array(
+				'ID'           => $page,
+				'post_content' => 'Ouvertures de restaurants, nouveautés de la carte et articles de presse : toute l’actualité de Big M.',
+			)
+		);
+		$rapport[] = 'chapeau de la page Actualités';
+	}
+	return $rapport;
+}
+
+/**
+ * Champ d'un formulaire Elementor Pro (repeater form_fields).
+ *
+ * @param string               $id    Identifiant (custom_id).
+ * @param string               $type  Type (text, email, tel, textarea, radio, upload, honeypot…).
+ * @param string               $label Libellé.
+ * @param array<string, mixed> $extra Autres réglages (required, width, placeholder…).
+ * @return array<string, mixed>
+ */
+function bigm_demo_champ( string $id, string $type, string $label, array $extra = array() ): array {
+	return array_merge(
+		array(
+			'_id'          => bigm_demo_eid(),
+			'custom_id'    => $id,
+			'field_type'   => $type,
+			'field_label'  => $label,
+			'placeholder'  => '',
+			'required'     => '',
+			'width'        => '100',
+			'width_mobile' => '100',
+		),
+		$extra
+	);
+}
+
+/**
+ * Formulaire Elementor Pro (widget « form ») : envoi par e-mail et enregistrement dans
+ * Elementor → Soumissions, anti-spam (champ piège, reCAPTCHA v3 dès que ses clés sont saisies),
+ * consentement obligatoire.
+ *
+ * @param string                           $nom    Nom du formulaire.
+ * @param string                           $sujet  Sujet de l'e-mail.
+ * @param string                           $bouton Texte du bouton.
+ * @param array<int, array<string, mixed>> $champs Champs propres au formulaire.
+ * @return array<string, mixed> Élément Elementor.
+ */
+function bigm_demo_formulaire( string $nom, string $sujet, string $bouton, array $champs ): array {
+	$requis = array( 'required' => 'true' );
+	$champs = array_merge(
+		$champs,
+		array(
+			bigm_demo_champ( 'site_web', 'honeypot', 'Site web' ),
+			bigm_demo_champ( 'recaptcha', 'recaptcha_v3', 'reCAPTCHA', array( 'recaptcha_badge' => 'bottomleft' ) ),
+			bigm_demo_champ(
+				'consentement',
+				'acceptance',
+				'Consentement',
+				$requis + array( 'acceptance_text' => 'J’accepte que Big M utilise ces informations pour étudier ma candidature et me recontacter. En savoir plus : <a href="' . esc_url( home_url( '/politique-de-confidentialite/' ) ) . '">politique de confidentialité</a>.' )
+			),
+		)
+	);
+	$email  = function_exists( 'bigm_reglage' ) ? (string) bigm_reglage( 'contact_email' ) : '';
+	return array(
+		'id'         => bigm_demo_eid(),
+		'elType'     => 'widget',
+		'widgetType' => 'form',
+		'settings'   => array(
+			'form_name'          => $nom,
+			'form_fields'        => $champs,
+			'show_labels'        => 'true',
+			'mark_required'      => 'yes',
+			'input_size'         => 'md',
+			'column_gap'         => array(
+				'unit' => 'px',
+				'size' => 16,
+			),
+			'row_gap'            => array(
+				'unit' => 'px',
+				'size' => 18,
+			),
+			'button_text'        => $bouton,
+			'button_size'        => 'md',
+			'button_width'       => '',
+			'button_align'       => 'start',
+			'submit_actions'     => array( 'email', 'save-to-database' ),
+			'email_to'           => $email ? $email : (string) get_option( 'admin_email' ),
+			'email_subject'      => $sujet,
+			'email_content'      => '[all-fields]',
+			'email_from_name'    => 'Site Big M',
+			'email_reply_to'     => 'email',
+			'email_content_type' => 'html',
+			'custom_messages'    => 'yes',
+			'success_message'    => "Merci\u{202F}! Votre candidature est bien envoyée\u{202F}: nous revenons vers vous rapidement.",
+			'error_message'      => 'L’envoi n’a pas abouti. Réessayez dans un instant.',
+		) + bigm_demo_style_formulaire(),
+		'elements'   => array(),
+	);
+}
+
+/**
+ * Réglages de style du widget Formulaire aux couleurs de la charte. Sans eux, Elementor applique
+ * les couleurs et typographies globales du kit et un fond de champ blanc.
+ * Complété par assets/css/formulaires.css de bigm-core (hauteur des champs, focus, consentement).
+ *
+ * @return array<string, mixed>
+ */
+function bigm_demo_style_formulaire(): array {
+	$px    = static fn( float $taille ): array => array(
+		'unit' => 'px',
+		'size' => $taille,
+	);
+	$cotes = static fn( string $v ): array => array(
+		'unit'     => 'px',
+		'top'      => $v,
+		'right'    => $v,
+		'bottom'   => $v,
+		'left'     => $v,
+		'isLinked' => true,
+	);
+	$typo  = static fn( string $prefixe, string $famille, string $graisse, float $taille ): array => array(
+		"{$prefixe}_typography"  => 'custom',
+		"{$prefixe}_font_family" => $famille,
+		"{$prefixe}_font_weight" => $graisse,
+		"{$prefixe}_font_size"   => $px( $taille ),
+	);
+	return array(
+		'label_color'                   => '#2b1406',
+		'label_spacing'                 => $px( 6 ),
+		'mark_required_color'           => '#c8400a',
+		'field_text_color'              => '#2b1406',
+		'field_background_color'        => '#faf8f5',
+		'field_border_color'            => 'rgba(43, 20, 6, 0.22)',
+		'field_border_width'            => $cotes( '1.5' ),
+		'field_border_radius'           => $cotes( '12' ),
+		'button_background_color'       => '#c8400a',
+		'button_text_color'             => '#ffffff',
+		'button_background_hover_color' => '#a93506',
+		'button_hover_color'            => '#ffffff',
+		'button_border_radius'          => $cotes( '12' ),
+		'success_message_color'         => '#1d6b3a',
+		'error_message_color'           => '#c8400a',
+		'inline_message_color'          => '#c8400a',
+	) + $typo( 'label', 'Figtree', '600', 15 ) + $typo( 'field', 'Figtree', '400', 17 ) + $typo( 'button', 'Fredoka', '600', 17 ) + $typo( 'message', 'Figtree', '600', 16 );
+}
+
+/**
+ * Carte blanche (conteneur « en boîte » de la largeur du site, classe bigm-formulaire) qui porte un formulaire.
+ *
+ * @param array<string, mixed> $formulaire Widget formulaire.
+ * @return array<string, mixed> Élément Elementor.
+ */
+function bigm_demo_carte_formulaire( array $formulaire ): array {
+	$cote = static fn( int $px ): array => array(
+		'unit'     => 'px',
+		'top'      => '0',
+		'right'    => (string) $px,
+		'bottom'   => '0',
+		'left'     => (string) $px,
+		'isLinked' => false,
+	);
+	return array(
+		'id'       => bigm_demo_eid(),
+		'elType'   => 'container',
+		'isInner'  => true,
+		'settings' => array(
+			'content_width'  => 'boxed',
+			'boxed_width'    => array(
+				'unit' => 'px',
+				'size' => 1240,
+			),
+			'padding'        => $cote( 32 ),
+			'padding_tablet' => $cote( 24 ),
+			'padding_mobile' => $cote( 16 ),
+			'css_classes'    => 'bigm-formulaire',
+		),
+		'elements' => array( $formulaire ),
+	);
+}
+
+/**
+ * Formulaires (étape 6) : pages « Devenir franchisé » et « Recrutement », avec leurs formulaires
+ * Elementor Pro (brief, § 9). Les textes entre crochets sont à reprendre de l'ancien site.
+ *
+ * @param bool $sans_pro Créer les pages même sans Elementor Pro (tests).
+ * @return string[] Rapport.
+ */
+function bigm_demo_formulaires( bool $sans_pro = false ): array {
+	if ( ! $sans_pro && ! class_exists( '\ElementorPro\Plugin' ) ) {
+		return array();
+	}
+	$nnbsp   = "\u{202F}";
+	$requis  = array( 'required' => 'true' );
+	$moitie  = array( 'width' => '50' );
+	$rapport = array();
+
+	$franchise = bigm_demo_page_elementor(
+		'devenir-franchise',
+		'Devenir franchisé',
+		array(
+			array(
+				'bigm-entete-carte',
+				array(
+					'source' => 'manuel',
+					'titre'  => 'Devenir franchisé',
+					'texte'  => 'Créez, transformez ou reprenez un restaurant Big M avec un concept clé en main, une formation complète et des campagnes TV.',
+					'bouton' => 'Déposer ma candidature',
+					'lien'   => array( 'url' => '#candidature' ),
+				),
+			),
+			array( 'bigm-chiffres', array( 'titre' => 'Les chiffres clés' ) ),
+			array(
+				'bigm-texte',
+				array(
+					'titre' => 'Pourquoi Big M',
+					'texte' => '<p>[Présentation de la franchise : reprendre le texte de la page actuelle, bigm-burger.fr/devenir-franchise/.]</p>',
+					'fond'  => 'yes',
+				),
+			),
+			array(
+				'bigm-texte',
+				array(
+					'titre' => 'Votre candidature',
+					'texte' => "<p>Parlez-nous de votre projet{$nnbsp}: notre équipe franchise étudie chaque candidature et vous recontacte.</p>",
+					'ancre' => 'candidature',
+				),
+			),
+			bigm_demo_carte_formulaire(
+				bigm_demo_formulaire(
+					'Candidature franchise',
+					'Candidature franchise : [field id="prenom"] [field id="nom"]',
+					'Envoyer ma candidature',
+					array(
+						bigm_demo_champ( 'nom', 'text', 'Nom', $requis + $moitie ),
+						bigm_demo_champ( 'prenom', 'text', 'Prénom', $requis + $moitie ),
+						bigm_demo_champ( 'email', 'email', 'E-mail', $requis + $moitie ),
+						bigm_demo_champ( 'telephone', 'tel', 'Téléphone', $requis + $moitie + array( 'placeholder' => '0612345678' ) ),
+						bigm_demo_champ( 'zone', 'text', 'Zone géographique souhaitée', $requis + array( 'placeholder' => 'Ex. Île-de-France, Lyon et sa région' ) ),
+						bigm_demo_champ( 'ville', 'text', 'Département ou ville', $requis + $moitie ),
+						bigm_demo_champ( 'adresse', 'text', 'Adresse du local, si vous l’avez déjà', $moitie ),
+						bigm_demo_champ( 'situation', 'text', 'Situation actuelle', $requis + array( 'placeholder' => 'Ex. salarié(e), chef d’entreprise, franchisé(e)' ) ),
+						bigm_demo_champ( 'experience', 'textarea', 'Métier et expériences', $requis + array( 'rows' => 4 ) ),
+						bigm_demo_champ(
+							'apport',
+							'radio',
+							'Apport personnel, hors emprunt',
+							$requis + array(
+								'field_options' => "De 130 000 à 150 000 €\nDe 150 000 à 200 000 €\nPlus de 200 000 €",
+								'inline_list'   => 'elementor-subgroup-inline',
+							)
+						),
+						bigm_demo_champ(
+							'delai',
+							'radio',
+							'Délai du projet',
+							$requis + array(
+								'field_options' => "3 mois\n6 mois\n12 mois et plus",
+								'inline_list'   => 'elementor-subgroup-inline',
+							)
+						),
+						bigm_demo_champ( 'questions', 'textarea', 'Vos questions', array( 'rows' => 4 ) ),
+					)
+				)
+			),
+		)
+	);
+	if ( $franchise ) {
+		$rapport[] = 'page Devenir franchisé (chiffres, formulaire)';
+	}
+
+	$recrutement = bigm_demo_page_elementor(
+		'recrutement',
+		'Recrutement',
+		array(
+			array(
+				'bigm-entete-carte',
+				array(
+					'source' => 'manuel',
+					'titre'  => "Recrutez-nous{$nnbsp}!",
+					'texte'  => "Équipiers, managers, formateurs{$nnbsp}: rejoignez Big M près de chez vous.",
+					'bouton' => 'Postuler',
+					'lien'   => array( 'url' => '#candidature' ),
+				),
+			),
+			array(
+				'bigm-texte',
+				array(
+					'titre' => 'Travailler chez Big M',
+					'texte' => '<p>[Présentation des métiers et de l’équipe : reprendre le texte de l’ancien site.]</p>',
+					'fond'  => 'yes',
+				),
+			),
+			array(
+				'bigm-texte',
+				array(
+					'titre' => 'Votre candidature',
+					'texte' => "<p>Envoyez-nous votre CV et votre lettre de motivation{$nnbsp}: nous revenons vers vous rapidement.</p>",
+					'ancre' => 'candidature',
+				),
+			),
+			bigm_demo_carte_formulaire(
+				bigm_demo_formulaire(
+					'Candidature spontanée',
+					'Candidature : [field id="prenom"] [field id="nom"]',
+					'Envoyer ma candidature',
+					array(
+						bigm_demo_champ( 'prenom', 'text', 'Prénom', $requis + $moitie ),
+						bigm_demo_champ( 'nom', 'text', 'Nom', $requis + $moitie ),
+						bigm_demo_champ( 'villes', 'text', 'Ville(s) où vous pouvez travailler', $requis + array( 'placeholder' => 'Ex. Bondy, Saint-Ouen' ) ),
+						bigm_demo_champ( 'adresse', 'text', 'Adresse', $requis ),
+						bigm_demo_champ( 'telephone', 'tel', 'Téléphone', $requis + $moitie + array( 'placeholder' => '0612345678' ) ),
+						bigm_demo_champ( 'email', 'email', 'E-mail', $moitie ),
+						bigm_demo_champ(
+							'fichiers',
+							'upload',
+							'CV et lettre de motivation (jusqu’à 3 fichiers PDF ou DOCX, 5 Mo chacun)',
+							$requis + array(
+								'allow_multiple_upload' => 'yes',
+								'max_files'             => 3,
+								'file_sizes'            => 5,
+								'file_types'            => 'pdf,docx',
+								// Joints à l'e-mail puis effacés du serveur : les CV ne restent pas en ligne.
+								'attachment_type'       => 'attach',
+							)
+						),
+						bigm_demo_champ( 'message', 'textarea', 'Message', array( 'rows' => 4 ) ),
+					)
+				)
+			),
+		)
+	);
+	if ( $recrutement ) {
+		$rapport[] = 'page Recrutement (formulaire avec envoi de CV)';
+	}
+	return $rapport;
+}
+
 /*
  * Mise à jour d'une démo déjà importée avec une version précédente de l'extension.
  */
@@ -596,6 +1142,20 @@ add_action(
 			bigm_demo_carte();
 			update_option( 'bigm_demo_version', BIGM_DEMO_VERSION, false );
 		}
+		if ( ! get_option( 'bigm_demo_actualites' ) ) {
+			bigm_demo_actualites();
+			update_option( 'bigm_demo_actualites', 1, false );
+		}
+		// Formulaires : dès qu'Elementor Pro est actif, une fois.
+		if ( class_exists( '\ElementorPro\Plugin' ) && ! get_option( 'bigm_demo_formulaires' ) ) {
+			bigm_demo_formulaires();
+			update_option( 'bigm_demo_formulaires', 1, false );
+		}
+		// Restaurants : dès que le plugin StoreLocatore est actif, une fois.
+		if ( post_type_exists( 'tfmsl_store' ) && ! get_option( 'bigm_demo_restaurants' ) ) {
+			bigm_demo_restaurants();
+			update_option( 'bigm_demo_restaurants', 1, false );
+		}
 	}
 );
 
@@ -608,7 +1168,7 @@ add_action(
 function bigm_demo_supprimer(): array {
 	$ids = get_posts(
 		array(
-			'post_type'      => array( 'bigm_produit', 'bigm_slider', 'post', 'attachment' ),
+			'post_type'      => array( 'bigm_produit', 'bigm_slider', 'post', 'attachment', 'tfmsl_store' ),
 			'post_status'    => 'any',
 			'posts_per_page' => -1,
 			'fields'         => 'ids',
@@ -621,7 +1181,7 @@ function bigm_demo_supprimer(): array {
 	}
 	delete_option( 'bigm_demo_medias' );
 	delete_option( 'bigm_demo_import' );
-	return array( count( $ids ) . ' contenus et médias de démonstration supprimés. Les pages Accueil et Actualités sont gardées.' );
+	return array( count( $ids ) . ' contenus et médias de démonstration supprimés (produits, sliders, articles, restaurants d’exemple). Les pages sont gardées.' );
 }
 
 /*

@@ -1,6 +1,6 @@
 <?php
 /**
- * Widget « Big M — En-tête de la carte » : titre h1, texte et bouton Commander de /carte/,
+ * Widget « Big M — En-tête de page » : titre h1, texte et bouton Commander de /carte/ (ou d'une autre page),
  * ou titre et texte de la catégorie affichée (.carte-head de prototype/pages.py).
  *
  * @package BigM\Core
@@ -22,7 +22,7 @@ class Bigm_Widget_Entete_Carte extends Bigm_Widget {
 
 	/** Nom dans le panneau. */
 	public function get_title() {
-		return 'Big M — En-tête de la carte';
+		return 'Big M — En-tête de page';
 	}
 
 	/** Icône du panneau. */

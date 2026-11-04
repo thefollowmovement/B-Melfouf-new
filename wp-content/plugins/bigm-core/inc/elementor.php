@@ -20,10 +20,10 @@ add_action(
 			$path = BIGM_CORE_DIR . '/assets/' . $rel;
 			return is_file( $path ) ? (string) filemtime( $path ) : BIGM_CORE_VERSION;
 		};
-		foreach ( array( 'slider', 'tuiles', 'accueil', 'barre-categories', 'carte', 'produits', 'fiche' ) as $nom ) {
+		foreach ( array( 'slider', 'tuiles', 'accueil', 'barre-categories', 'carte', 'produits', 'fiche', 'articles', 'contenus', 'formulaires' ) as $nom ) {
 			wp_register_style( "bigm-$nom", BIGM_CORE_URL . "assets/css/$nom.css", array(), $v( "css/$nom.css" ) );
 		}
-		foreach ( array( 'slider', 'carrousel', 'tuiles-video', 'filtres' ) as $nom ) {
+		foreach ( array( 'slider', 'carrousel', 'tuiles-video', 'filtres', 'formulaires' ) as $nom ) {
 			wp_register_script(
 				"bigm-$nom",
 				BIGM_CORE_URL . "assets/js/$nom.js",
@@ -73,6 +73,8 @@ add_action(
 			'produit-entete'     => 'Bigm_Widget_Produit_Entete',
 			'fiche-produit'      => 'Bigm_Widget_Fiche_Produit',
 			'produits-associes'  => 'Bigm_Widget_Produits_Associes',
+			'texte'              => 'Bigm_Widget_Texte',
+			'chiffres'           => 'Bigm_Widget_Chiffres',
 		);
 		foreach ( $classes as $fichier => $classe ) {
 			require_once BIGM_CORE_DIR . "/inc/elementor/widgets/$fichier.php";

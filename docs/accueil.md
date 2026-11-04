@@ -59,14 +59,15 @@ L'extension **Big M — contenu de démonstration** (`wp-content/plugins/bigm-de
 - 11 produits avec photos, vidéos de vignette, viande et allergènes du prototype, dont un menu ;
 - les vignettes des catégories, le texte de la catégorie Burgers et les bannières de `/carte/` (Réglages Big M) ;
 - 3 articles (News et Presse) ;
-- la page **Accueil** avec les 8 widgets, définie comme page d'accueil, et la page **Actualités**, définie comme page des articles.
+- la page **Accueil** avec les 8 widgets, définie comme page d'accueil, et la page **Actualités**, définie comme page des articles ;
+- dès que leurs extensions sont actives : la page **Nos restaurants** et 3 restaurants d'exemple (StoreLocatore), les pages **Devenir franchisé** et **Recrutement** avec leurs formulaires (Elementor Pro). Voir `docs/restaurants.md` et `docs/pages.md`.
 
 Avant la mise en ligne, il faut faire deux choses :
 
 1. Remplacer les images de la page d'accueil par celles du client.
 2. Cliquer sur « Supprimer le contenu de démonstration », puis désactiver et supprimer l'extension.
 
-La suppression retire les produits, sliders, articles et médias de démo, et garde les pages Accueil et Actualités. Les vidéos de démonstration, simples zooms générés à partir des photos, disparaissent avec elle, comme le demande le brief.
+La suppression retire les produits, sliders, articles, restaurants d'exemple et médias de démo, et garde les pages. Les vidéos de démonstration, simples zooms générés à partir des photos, disparaissent avec elle, comme le demande le brief.
 
 Les visuels ne sont pas en double dans Git : `ops/build-zips.sh` les copie depuis `prototype/assets/` dans le zip.
 

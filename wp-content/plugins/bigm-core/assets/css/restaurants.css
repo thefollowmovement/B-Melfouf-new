@@ -1,0 +1,84 @@
+/* Big M — habillage du plugin StoreLocatore (restaurants) aux couleurs de la charte :
+   cartes blanches arrondies, boutons --btn, épingles orange, polices Fredoka et Figtree.
+   Les couleurs de base viennent des réglages du plugin (valeurs par défaut posées par
+   bigm-core, inc/restaurants.php) et des réglages du widget Store – Locator de la page
+   Restaurants. Ce fichier ne corrige que ce qui est écrit en dur dans le plugin, pour un
+   fond sombre (store-public.css). Chargé seulement sur les pages restaurants. */
+
+/* ---------- store locator (liste + carte) ---------- */
+.tfmsl-locator-wrap { font-family: var(--font-text); max-width: var(--max); margin-inline: auto; padding-inline: var(--pad); }
+.tfmsl-locator { border-radius: 28px; box-shadow: 0 0 0 1px rgba(43, 20, 6, .06), 0 16px 40px -24px rgba(43, 20, 6, .35); background: var(--tile); }
+.tfmsl-locator-sidebar { gap: 14px; }
+.tfmsl-locator-title { font-family: var(--font-display); font-weight: 600; font-size: 24px; }
+.tfmsl-locator-search input { min-height: 48px; border-radius: 12px; font-size: 17px; box-shadow: inset 0 0 0 1.5px rgba(43, 20, 6, .2); }
+.tfmsl-locator-search input:focus { border-color: transparent; box-shadow: inset 0 0 0 2px var(--btn); }
+.tfmsl-locator-search input:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.tfmsl-locator-geo { width: 48px; height: 48px; border-radius: 12px; }
+.tfmsl-locator-list { gap: 12px; scrollbar-color: rgba(43, 20, 6, .25) transparent; }
+.tfmsl-locator-list::-webkit-scrollbar-thumb { background: rgba(43, 20, 6, .25); }
+.tfmsl-locator-empty { color: var(--muted); font-size: 16px; }
+.tfmsl-locator-card { border: 0; box-shadow: 0 0 0 1px rgba(43, 20, 6, .06); transition: transform .35s cubic-bezier(.34, 1.56, .64, 1), box-shadow .2s ease; }
+.tfmsl-locator-card:hover, .tfmsl-locator-card.active { border-color: transparent; transform: translateY(-2px); box-shadow: 0 0 0 2px var(--orange); }
+.tfmsl-locator-card:active { transform: scale(.98); }
+.tfmsl-locator-card-name { font-family: var(--font-display); font-weight: 600; font-size: 20px; line-height: 1.15; }
+.tfmsl-locator-card-address { font-size: 15px; }
+.tfmsl-locator-card-actions { gap: 8px 16px; flex-wrap: wrap; }
+.tfmsl-locator-card-action { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-display); font-weight: 600; font-size: 15px; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; }
+.tfmsl-locator-card-action + .tfmsl-locator-card-action::before { display: none; }
+.tfmsl-locator-map { background: var(--tile); }
+.tfmsl-marker-cluster { font-family: var(--font-display); font-weight: 600; }
+.tfmsl-popup, .tfmsl-popup-wrap .leaflet-popup-content { font-family: var(--font-text); }
+.tfmsl-popup strong { font-family: var(--font-display); font-weight: 600; font-size: 18px; }
+.tfmsl-popup-link { font-family: var(--font-display); font-weight: 600; }
+.tfmsl-locator-mobile-tabs { border: 0; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1.5px rgba(43, 20, 6, .2); padding: 4px; gap: 4px; }
+.tfmsl-locator-tab { min-height: 44px; border-radius: 999px; font-family: var(--font-display); font-size: 16px; color: var(--ink); }
+.tfmsl-locator-tab.active { background: var(--ink); color: #fff; }
+@media (max-width: 900px) {
+  .tfmsl-locator { border-radius: 22px; }
+}
+
+/* ---------- fiche d'un restaurant (templates/single-store.php du plugin) ---------- */
+.tfmsl-store-page { background: var(--bg); font-family: var(--font-text); }
+.tfmsl-store-page :is(h1, h2, h3, .tfmsl-store-name, .tfmsl-section-title) { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; }
+.tfmsl-store-page .tfmsl-hero { width: calc(100% - 2 * var(--pad)); max-width: 1240px; margin: 10px auto 0; border-radius: 28px; background: var(--orange); }
+.tfmsl-store-page .tfmsl-hero-img { filter: none; }
+.tfmsl-store-page .tfmsl-hero-overlay { background: linear-gradient(180deg, rgba(43, 20, 6, 0) 30%, rgba(43, 20, 6, .7) 100%); }
+.tfmsl-store-page .tfmsl-hero-content { left: clamp(20px, 4vw, 44px); right: clamp(20px, 4vw, 44px); bottom: clamp(20px, 3vw, 32px); }
+.tfmsl-store-name { font-size: clamp(32px, 4.4vw, 56px); text-shadow: none; }
+.tfmsl-badge { font-family: var(--font-display); font-weight: 600; }
+.tfmsl-badge-open { background: #fff; color: #1d6b3a; }
+.tfmsl-badge-open::before { background: #1d9a4f; opacity: 1; }
+.tfmsl-badge-closed { background: #fff; color: var(--btn); }
+.tfmsl-badge-closed::before { background: var(--btn); opacity: 1; }
+.tfmsl-store-container { max-width: 1240px; padding: 32px var(--pad) 0; }
+.tfmsl-card { border: 0; border-radius: var(--radius); box-shadow: none; }
+.tfmsl-card-title { font-family: var(--font-display); font-weight: 600; font-size: 22px; letter-spacing: 0; text-transform: none; color: var(--ink); }
+.tfmsl-card-title svg { color: var(--btn); }
+.tfmsl-info-item, .tfmsl-hours-list li { border-bottom-color: rgba(43, 20, 6, .1); font-size: 16px; }
+.tfmsl-info-icon { background: var(--tile); color: var(--btn); border-radius: 12px; }
+.tfmsl-info-label, .tfmsl-hours-day, .tfmsl-section-subtitle { color: var(--muted); }
+.tfmsl-info-label { font-size: 13px; }
+.tfmsl-hours-time.closed { color: var(--muted); }
+.tfmsl-hours-list li.tfmsl-today { background: var(--tile); }
+.tfmsl-today-date, .tfmsl-section-label { color: var(--btn); }
+.tfmsl-chip { background: var(--tile); border: 0; font-size: 14px; color: var(--ink); }
+.tfmsl-buttons { gap: 12px; }
+.tfmsl-store-page .tfmsl-btn { min-height: 48px; padding: 0 24px; border-radius: 12px; font-family: var(--font-display); font-weight: 600; font-size: 17px; letter-spacing: 0; }
+.tfmsl-store-page .tfmsl-btn-primary { background: var(--btn); }
+.tfmsl-store-page .tfmsl-btn-primary:hover { background: var(--btn-hover); }
+.tfmsl-store-page :is(.tfmsl-btn-secondary, .tfmsl-btn-tertiary) { border: 0; box-shadow: inset 0 0 0 2px var(--ink); color: var(--ink); }
+.tfmsl-store-page :is(.tfmsl-btn-secondary, .tfmsl-btn-tertiary):hover { box-shadow: inset 0 0 0 2px var(--btn); color: var(--btn); }
+#tfmsl-map { border: 0; border-radius: var(--radius); box-shadow: none; }
+.tfmsl-section { padding: clamp(40px, 6vw, 72px) var(--pad); }
+.tfmsl-section:nth-child(even) { background: var(--tile); }
+.tfmsl-section-title { font-size: clamp(30px, 3.4vw, 44px); }
+
+/* ---------- barre d'actions mobile du plugin, si elle est activée ---------- */
+/* Elle se place au-dessus de la barre d'onglets Big M (tabbar.css du thème). */
+@media (max-width: 760px) {
+  .tfmsl-mobile-bar { bottom: calc(90px + env(safe-area-inset-bottom, 0px)); }
+  body.single-tfmsl_store { padding-bottom: calc(170px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* ---------- épingles orange (carte d'une fiche, vignettes des cartes) ---------- */
+.tfmsl-map-marker, .tfmsl-map-marker svg { color: var(--orange); fill: var(--orange); }

@@ -31,7 +31,7 @@ class Bigm_Widget_Actualites extends Bigm_Widget {
 
 	/** Styles. */
 	public function get_style_depends(): array {
-		return array( 'bigm-accueil' );
+		return array( 'bigm-accueil', 'bigm-articles' );
 	}
 
 	/** Réglages. */
@@ -118,25 +118,10 @@ class Bigm_Widget_Actualites extends Bigm_Widget {
 		<?php echo $this->bigm_entete( $s, $id, $lien ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
   <div class="news-cards">
 		<?php
-		foreach ( $posts as $i => $p ) :
-			$terms = get_the_category( $p->ID );
-			$cat   = $terms ? $terms[0]->name : '';
-			foreach ( $terms as $t ) {
-				if ( in_array( $t->slug, array( 'news', 'presse' ), true ) ) {
-					$cat = $t->name;
-					break;
-				}
-			}
-			$meta = trim( $cat . ' · ' . get_the_date( 'j F Y', $p ), ' ·' );
-			$img  = get_post_thumbnail_id( $p ) ? wp_get_attachment_image(
-				(int) get_post_thumbnail_id( $p ),
-				'large',
-				false,
-				array( 'sizes' => '(max-width: 960px) 100vw, 400px' )
-			) : '';
-			?>
-    <a class="news-card" href="<?php echo esc_url( get_permalink( $p ) ); ?>" data-reveal<?php echo $i ? ' style="--i:' . (int) $i . '"' : ''; ?>><div class="news-card__img"><?php echo $img; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div><div class="news-card__body"><small><?php echo esc_html( $meta ); ?></small><h3><?php echo esc_html( get_the_title( $p ) ); ?></h3></div></a>
-		<?php endforeach; ?>
+		foreach ( $posts as $i => $p ) {
+			echo bigm_carte_article( $p, $i ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- échappé à la construction.
+		}
+		?>
   </div>
 </section>
 		<?php
