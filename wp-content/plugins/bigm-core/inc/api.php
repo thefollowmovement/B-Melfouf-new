@@ -234,3 +234,32 @@ function bigm_slides_actives( int $slider_id, ?string $maintenant = null ): arra
 	}
 	return $slides;
 }
+
+/**
+ * Vignette d'un produit (.tile du prototype) : photo, ou vidéo de vignette lue en boucle.
+ *
+ * @param int    $post_id Produit.
+ * @param string $sizes   Attribut sizes de l'image.
+ */
+function bigm_tuile_produit( int $post_id, string $sizes = '(max-width: 960px) 46vw, 300px' ): string {
+	$p = bigm_produit( $post_id );
+	if ( ! $p ) {
+		return '';
+	}
+	$img = $p['image_id'] ? wp_get_attachment_image(
+		$p['image_id'],
+		'medium_large',
+		false,
+		array(
+			'alt'   => '',
+			'sizes' => $sizes,
+		)
+	) : '';
+	$v     = $p['video'];
+	$video = '';
+	if ( $v ) {
+		$src   = $v['mp4'] ? $v['mp4'] : $v['webm'];
+		$video = '<video data-tile-video data-src="' . esc_url( $src ) . '"' . ( $v['mp4'] && $v['webm'] ? ' data-src-webm="' . esc_url( $v['webm'] ) . '"' : '' ) . ' muted loop playsinline preload="none" aria-hidden="true"></video>';
+	}
+	return '<a class="tile' . ( $video ? ' has-video' : '' ) . '" href="' . esc_url( $p['url'] ) . '"><div class="tile__img">' . $img . $video . '</div><span class="tile__label">' . esc_html( $p['titre'] ) . '</span></a>';
+}

@@ -3,6 +3,7 @@
 #   dist/bigm-child.zip  → Apparence > Thèmes > Ajouter > Téléverser
 #   dist/bigm-socle.zip  → Extensions > Ajouter > Téléverser
 #   dist/bigm-core.zip   → Extensions > Ajouter > Téléverser
+#   dist/bigm-demo.zip   → Extensions > Ajouter > Téléverser (temporaire : contenu de démonstration)
 #
 #   ops/build-zips.sh
 #
@@ -23,6 +24,12 @@ mkdir -p "$DIST/build/bigm-socle"
 # Le socle est un mu-plugin ; en zip, il s'installe comme une extension classique.
 cp "$ROOT/wp-content/mu-plugins/bigm-socle.php" "$DIST/build/bigm-socle/"
 (cd "$DIST/build" && zip -qr -X "$DIST/bigm-socle.zip" bigm-socle)
+# Démo : le code, plus les visuels du prototype copiés dans medias/ (pas dupliqués dans Git).
+mkdir -p "$DIST/build/bigm-demo/medias"
+cp "$ROOT/wp-content/plugins/bigm-demo/"*.php "$DIST/build/bigm-demo/"
+cp "$ROOT/prototype/assets/img/"* "$ROOT/prototype/assets/video/"* "$DIST/build/bigm-demo/medias/"
+(cd "$DIST/build" && zip -qr -X "$DIST/bigm-demo.zip" bigm-demo)
+
 rm -rf "$DIST/build"
 
 ls -l "$DIST"/*.zip

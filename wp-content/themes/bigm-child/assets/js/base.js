@@ -5,12 +5,14 @@
 // suivront avec leur composant.
 
 // Choisit le meilleur format disponible : WebM si le navigateur le lit, sinon MP4.
-window.bigmVideoSrc = (src) => {
-  if (!src) return src;
+// Dans WordPress, le WebM est un média à part : son URL arrive en second argument
+// (data-src-webm). Sans elle, on garde la règle du prototype (même nom, .webm).
+window.bigmVideoSrc = (src, webmSrc) => {
+  if (!src) return webmSrc || src;
   const t = document.createElement('video');
   const webm = t.canPlayType('video/webm; codecs="vp9"');
   const mp4 = t.canPlayType('video/mp4; codecs="avc1.42E01E"');
-  return (!mp4 && webm) ? src.replace(/\.mp4$/, '.webm') : src;
+  return (!mp4 && webm) ? (webmSrc || src.replace(/\.mp4$/, '.webm')) : src;
 };
 
 // ---------- Apparitions au défilement ----------

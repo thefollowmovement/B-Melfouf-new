@@ -43,7 +43,7 @@ foreach ( array( 'display', 'text' ) as $reserved ) {
 	}
 }
 
-foreach ( glob( $theme . '/assets/css/*.css' ) as $file ) {
+foreach ( array_merge( glob( $theme . '/assets/css/*.css' ), glob( dirname( __DIR__ ) . '/wp-content/plugins/*/assets/css/*.css' ) ) as $file ) {
 	$code = (string) preg_replace( '#/\*.*?\*/#s', '', (string) file_get_contents( $file ) ); // Sans les commentaires.
 	if ( preg_match( '/var\(--(display|text)\)/', $code ) ) {
 		$errors[] = basename( $file ) . ' : var(--display) ou var(--text) à remplacer par var(--font-display) ou var(--font-text)';

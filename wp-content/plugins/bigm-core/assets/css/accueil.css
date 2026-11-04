@@ -1,0 +1,103 @@
+/* Big M — sections de l'accueil : bande appli, restaurants, services, classiques,
+   affiches, actualités, franchise et recrutement.
+   Repris du <style> de prototype/index.html (HOME_CSS de pages.py), sans les règles
+   que la page n'utilise pas (.page-title, .news, .slide, .dots). */
+
+.carousel-ctrl { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; }
+.arrows { display: flex; gap: 10px; }
+.arrows button { width: 48px; height: 48px; border-radius: 50%; background: #fff; display: inline-flex; align-items: center; justify-content: center; transition: background-color .18s ease, opacity .18s ease; }
+.arrows button:hover:not(:disabled) { background: var(--tile); }
+.arrows button:disabled { opacity: .35; cursor: default; }
+
+.app-band { background: var(--orange); border-radius: 28px; display: grid; grid-template-columns: 0.9fr 1.1fr; align-items: center; gap: 24px; overflow: hidden; padding: 0 clamp(24px, 4vw, 56px); }
+.app-band__img { align-self: end; padding-top: 32px; }
+.app-band__img img { width: min(100%, 440px); margin-inline: auto; margin-bottom: -40px; }
+.app-band__text { display: flex; flex-direction: column; gap: 16px; padding-block: 48px; }
+.app-band__text h2 { font-size: clamp(30px, 3.4vw, 46px); color: #fff; }
+.app-band__text p { font-size: 19px; color: var(--ink); max-width: 40ch; }
+.app-band__text ul { display: flex; flex-direction: column; gap: 8px; font-weight: 600; }
+.app-band__text li { display: flex; gap: 10px; align-items: center; }
+.app-band__text li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--ink); flex: 0 0 auto; }
+
+.restos { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: stretch; }
+.restos__search { background: #fff; border-radius: 28px; padding: clamp(24px, 4vw, 48px); display: flex; flex-direction: column; gap: 18px; justify-content: center; }
+.restos__search h2 { font-size: clamp(30px, 3.4vw, 44px); }
+.restos__search label { font-weight: 600; }
+.search { display: flex; gap: 10px; }
+.search input { flex: 1 1 auto; min-width: 0; min-height: 52px; border-radius: 12px; border: 2px solid rgba(43,20,6,.2); padding: 0 16px; background: var(--bg); font-size: 16px; }
+.search input:focus { outline: none; border-color: var(--ink); }
+.restos__links { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+.restos__photo { border-radius: 28px; overflow: hidden; position: relative; min-height: 360px; }
+.restos__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.restos__photo figcaption { position: absolute; left: 16px; bottom: 16px; background: #fff; border-radius: 999px; padding: 6px 14px; font-weight: 600; font-size: 14px; }
+
+.services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.service { background: #fff; border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; text-decoration: none; }
+.service__img { aspect-ratio: 4 / 3; overflow: hidden; }
+.service__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s var(--ease); }
+.service:hover .service__img img { transform: scale(1.04); }
+.service__body { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.service__body h3 { font-size: 24px; }
+.service__body p { color: var(--muted); }
+.service__body .link { margin-top: auto; padding-top: 6px; }
+
+.classics__track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 4 * 18px) / 5); gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.classics__track::-webkit-scrollbar { display: none; }
+.classics__track .tile { scroll-snap-align: start; }
+
+.legends { background: var(--tile); }
+.legends__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.legend { display: flex; flex-direction: column; gap: 12px; }
+.legend b { font-family: var(--font-display); font-weight: 600; font-size: 34px; color: var(--btn); line-height: 1; }
+.legend img { border-radius: var(--radius); aspect-ratio: 9 / 16; object-fit: cover; width: 100%; }
+.legend span { font-weight: 600; }
+
+.news-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.news-card { background: #fff; border-radius: var(--radius); overflow: hidden; text-decoration: none; display: flex; flex-direction: column; }
+.news-card__img { aspect-ratio: 16 / 9; overflow: hidden; }
+.news-card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s var(--ease); }
+.news-card:hover .news-card__img img { transform: scale(1.04); }
+.news-card__body { padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 8px; }
+.news-card__body small { color: var(--muted); font-size: 14px; }
+.news-card__body h3 { font-size: 21px; line-height: 1.2; }
+
+.join { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 20px; }
+.join__card { border-radius: 28px; overflow: hidden; position: relative; min-height: 420px; display: flex; flex-direction: column; justify-content: flex-end; }
+.join__card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.join__card::after { content: ""; position: absolute; inset: 0; background: rgba(20, 10, 4, .42); }
+.join__body { position: relative; z-index: 1; padding: clamp(24px, 3.5vw, 44px); color: #fff; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+.join__body h2 { font-size: clamp(30px, 3.2vw, 44px); }
+.join__body p { max-width: 42ch; font-size: 18px; }
+.figures { display: flex; gap: 12px; flex-wrap: wrap; }
+.figures span { background: rgba(255,255,255,.16); border-radius: 12px; padding: 8px 14px; font-weight: 600; }
+.figures b { font-family: var(--font-display); font-size: 20px; }
+
+@media (max-width: 960px) {
+  .app-band { grid-template-columns: 1fr; }
+  .app-band__img { order: 2; }
+  .app-band__text { padding-bottom: 8px; }
+  .restos { grid-template-columns: minmax(0, 1fr); }
+  .search { flex-wrap: wrap; }
+  .search .btn { flex: 1 1 auto; }
+  .services, .news-cards { grid-template-columns: 1fr; }
+  .classics__track { grid-auto-columns: 46%; }
+  .legends__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .join { grid-template-columns: 1fr; }
+}
+
+/* « Big M les a réunis » : marge haute du prototype (style en ligne). */
+.legends { margin-top: clamp(48px, 7vw, 88px); }
+
+/* repris du bloc « animations des boutons » : cartes et flèches du carrousel */
+@media (hover: hover) and (pointer: fine) {
+  .service:hover, .news-card:hover { transform: translateY(-4px); }
+  .arrows button:hover:not(:disabled) svg { transform: translateX(var(--nudge, 2px)); }
+}
+.arrows button svg { transition: transform .3s cubic-bezier(.34, 1.56, .64, 1); }
+.arrows [data-prev] { --nudge: -2px; }
+.service, .news-card { transition: transform .35s cubic-bezier(.34, 1.56, .64, 1); }
+.service:active, .news-card:active { transform: scale(.97); transition-duration: .1s; }
+
+/* Elementor : .elementor img { height: auto; border-radius: 0 } déformerait les photos. */
+.elementor :is(.restos__photo, .service__img, .news-card__img, .join__card) img { height: 100%; }
+.elementor .legend img { border-radius: var(--radius); }

@@ -1,0 +1,48 @@
+/* Big M — slider « à la une » et bannières (.hs).
+   Repris de prototype/assets/site.css (bloc « slider à la une »), dans le même ordre. */
+
+/* ---------- slider « à la une » : slide centrée, voisines visibles, photo ou vidéo ---------- */
+.hs { --hs-w: min(1040px, 84vw); --hs-gap: 20px; --hs-ratio: 2 / 1; position: relative; padding-block: 8px 0; }
+.hs--banner { --hs-w: min(1176px, 90vw); --hs-ratio: 3 / 1; --hs-gap: 16px; }
+.hs__viewport { position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab; }
+.hs__viewport.is-dragging { cursor: grabbing; }
+.hs__track { display: flex; gap: var(--hs-gap); will-change: transform; }
+.hs__slide { flex: 0 0 var(--hs-w); aspect-ratio: var(--hs-ratio); border-radius: 22px; overflow: hidden; position: relative; background: var(--tile); transform: translateZ(0); }
+.hs__slide a { display: block; width: 100%; height: 100%; -webkit-user-drag: none; }
+.hs__media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; -webkit-user-drag: none; }
+.hs__slide::after { content: ""; position: absolute; inset: 0; background: rgba(250, 248, 245, 0.35); opacity: 1; transition: opacity .45s ease; pointer-events: none; }
+.hs__slide.is-active::after { opacity: 0; }
+.hs__arrow { position: absolute; top: 50%; z-index: 2; width: 52px; height: 52px; margin-top: -26px; border-radius: 50%; background: rgba(255, 255, 255, 0.86); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 4px 18px rgba(43, 20, 6, 0.14); transition: transform .14s var(--ease), background-color .18s ease; }
+.hs__arrow:hover { background: #fff; }
+.hs__arrow:active { transform: scale(0.92); }
+.hs__arrow--prev { left: calc((100% - var(--hs-w)) / 2 - 26px); }
+.hs__arrow--next { right: calc((100% - var(--hs-w)) / 2 - 26px); }
+.hs__bar { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 6px; }
+.hs__dots { display: flex; gap: 2px; }
+.hs__dots button { min-width: 28px; height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.hs__dots button::before { content: ""; width: 8px; height: 8px; border-radius: 99px; background: rgba(43, 20, 6, 0.22); transition: width .35s var(--ease), background-color .2s ease; }
+.hs__dots button[aria-current="true"]::before { width: 26px; background: var(--btn); }
+.hs__pause { width: 44px; height: 44px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: var(--ink); }
+.hs__pause:hover { background: var(--tile); }
+.hs__pause svg { width: 18px; height: 18px; }
+.hs__badge { position: absolute; left: 14px; bottom: 14px; z-index: 1; display: inline-flex; align-items: center; gap: 6px; background: rgba(20, 10, 4, 0.55); color: #fff; border-radius: 999px; padding: 4px 10px; font-size: 13px; font-weight: 600; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); pointer-events: none; }
+.hs__badge svg { width: 12px; height: 12px; }
+@media (max-width: 760px) {
+  .hs { --hs-w: 88vw; --hs-gap: 10px; --hs-ratio: 2 / 1; }
+  .hs--banner { --hs-w: 90vw; --hs-ratio: 2 / 1; }
+  .hs__arrow { display: none; }
+  .hs__slide { border-radius: 16px; }
+}
+
+/* repris du bloc « animations des boutons » : flèches du slider */
+@media (hover: hover) and (pointer: fine) { .hs__arrow:hover svg { transform: translateX(var(--nudge, 2px)); } }
+.hs__arrow svg { transition: transform .3s cubic-bezier(.34, 1.56, .64, 1); }
+.hs__arrow--prev { --nudge: -2px; }
+
+/* Section du slider hero de l'accueil : marge haute du prototype (style en ligne). */
+.hs-section { padding-top: 20px; }
+/* Bannières de la carte et des catégories : marge basse du prototype (style en ligne). */
+.hs-banners { margin-bottom: 32px; }
+
+/* Elementor : .elementor img { height: auto } empêcherait l'image de remplir la slide. */
+.elementor .hs__media { height: 100%; max-width: none; }

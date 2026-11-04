@@ -1,6 +1,6 @@
 # Plugin bigm-core — contenus gérés dans l'admin
 
-Le plugin `wp-content/plugins/bigm-core/` (« Big M — cœur ») porte tout ce que le client modifie sans toucher au code. Les champs sont des **meta boxes natives** : aucune extension de champs n'est nécessaire.
+Le plugin `wp-content/plugins/bigm-core/` (« Big M — cœur ») porte tout ce que le client modifie sans toucher au code, et les widgets Elementor Big M (voir `docs/accueil.md`). Les champs sont des **meta boxes natives** : aucune extension de champs n'est nécessaire.
 
 Installation sans SSH : `ops/build-zips.sh`, puis Extensions → Ajouter → Téléverser `bigm-core.zip` → Activer. L'activation crée les adresses et les catégories par défaut.
 
@@ -96,6 +96,7 @@ Les widgets des étapes 4 et 5 lisent les données par ces fonctions, jamais par
 | `bigm_slides_actives( $slider_id )` | slides visibles maintenant, avec les URL des médias et le cadrage |
 | `bigm_reglage( $cle )`, `bigm_reglage_texte( $cle )` | valeur brute ou mise en forme |
 | `bigm_lien_commande( $post_id = null )` | lien du produit, sinon le lien général |
+| `bigm_tuile_produit( $id, $sizes )` | vignette `.tile` du prototype (photo ou vidéo de vignette) |
 | `bigm_allergenes()`, `bigm_viandes()`, `bigm_nutrition_lignes()` | listes de référence |
 
 ## Tester
