@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Envoie le thème enfant et les mu-plugins Big M sur la préprod, par SSH.
+# Envoie le thème enfant, le plugin bigm-core et les mu-plugins Big M sur la préprod, par SSH.
 #
 #   ops/deploy.sh
 #
@@ -21,6 +21,16 @@ tar -C "$ROOT/wp-content/themes" -czf - bigm-child | "${SSH[@]}" "set -e
 	if [ -d bigm-child ]; then mv bigm-child bigm-child.old; fi
 	mv bigm-child.new bigm-child
 	rm -rf bigm-child.old"
+
+echo "→ Plugin bigm-core"
+tar -C "$ROOT/wp-content/plugins" -czf - bigm-core | "${SSH[@]}" "set -e
+	cd '$WP_PATH/wp-content/plugins'
+	rm -rf bigm-core.new bigm-core.old
+	mkdir bigm-core.new
+	tar -xzf - -C bigm-core.new --strip-components=1
+	if [ -d bigm-core ]; then mv bigm-core bigm-core.old; fi
+	mv bigm-core.new bigm-core
+	rm -rf bigm-core.old"
 
 echo "→ mu-plugins"
 # Seulement nos fichiers bigm-*.php : ceux d'Hostinger restent en place.

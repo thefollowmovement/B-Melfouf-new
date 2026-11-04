@@ -247,7 +247,7 @@ Pour ouvrir le prototype en local : `cd prototype && python3 -m http.server 8000
 
 ## 16. Dépôt et conventions (tenu à jour pendant le développement)
 
-- **Arborescence :** `wp-content/` reproduit celle du serveur : thème `themes/bigm-child/`, mu-plugin `mu-plugins/bigm-socle.php` (aussi livré en extension zip), puis `plugins/bigm-core/` à l'étape 2. `ops/` déploie par SSH, `docs/` décrit les procédures, `tests/lint.sh` vérifie le code avant chaque déploiement.
+- **Arborescence :** `wp-content/` reproduit celle du serveur : thème `themes/bigm-child/`, mu-plugin `mu-plugins/bigm-socle.php` (aussi livré en extension zip), et `plugins/bigm-core/`. `ops/` déploie par SSH, `docs/` décrit les procédures, `tests/lint.sh` vérifie le code avant chaque déploiement.
 - **CSS :** chaque composant reprend ses règles de `prototype/assets/site.css` (et du `<style>` de sa page), dans le même ordre, dans son propre fichier, mis en file d'attente seulement là où il sert. L'en-tête de `assets/css/base.css` liste ce qui reste à reprendre.
 - **Tokens renommés :** `--display` devient `--font-display` et `--text` devient `--font-text`, car Elementor écrit `--display: flex` sur chacun de ses conteneurs. En reprenant du CSS du prototype, remplacer ces deux noms ; `tests/check-tokens.php` le vérifie.
 - **Couleurs :** déclarées dans `assets/css/tokens.css` et dans `inc/tokens.php` (pour le kit Elementor). Après un changement : `wp bigm kit --user=<admin>`.
@@ -256,4 +256,5 @@ Pour ouvrir le prototype en local : `cd prototype && python3 -m http.server 8000
 - **Préprod :** `preprod.bigm-burger.fr`, sous-domaine du compte Hostinger `u296589459` (partagé avec l'agence), dossier `public_html/preprod` sous l'ancien site. Le socle neutralise dans son `.htaccess` le pare-feu Wordfence hérité de l'ancien site. Procédure : `docs/preprod-hostinger.md`.
 - **Socle :** `bigm-socle.php` marche en mu-plugin (SSH) ou en extension (zip) et ne se charge qu'une fois. Sans `WP_ENVIRONMENT_TYPE`, il reconnaît la préprod à son adresse (`preprod.`, `staging.`, `.hostingersite.com`). Il applique les réglages de départ au premier passage d'un administrateur.
 - **Déploiement :** sans SSH, `ops/build-zips.sh` (ou l'artefact `bigm-zips` de GitHub Actions) puis téléversement dans l'admin ; avec SSH, `ops/deploy.sh`.
+- **bigm-core :** champs en meta boxes natives (pas d'ACF). Clés `_bigm_…`, identifiants d'allergènes et de viandes du prototype. Les widgets lisent les données par les fonctions de `inc/api.php` (`bigm_produit()`, `bigm_categories()`, `bigm_slides_actives()`, `bigm_reglage()`…). Référence : `docs/bigm-core.md`. Test : `wp eval-file tests/wp/test-bigm-core.php --user=<admin>`.
 - **Secrets :** accès SSH et licences jamais dans Git. `ops/.env.preprod` est ignoré ; Elementor Pro s'installe à la main.

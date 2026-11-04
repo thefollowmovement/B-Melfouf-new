@@ -2,6 +2,7 @@
 # Fabrique les zips à téléverser dans l'admin WordPress, quand on n'a pas d'accès SSH :
 #   dist/bigm-child.zip  → Apparence > Thèmes > Ajouter > Téléverser
 #   dist/bigm-socle.zip  → Extensions > Ajouter > Téléverser
+#   dist/bigm-core.zip   → Extensions > Ajouter > Téléverser
 #
 #   ops/build-zips.sh
 #
@@ -17,6 +18,7 @@ rm -rf "$DIST"
 mkdir -p "$DIST/build/bigm-socle"
 
 (cd "$ROOT/wp-content/themes" && zip -qr -X "$DIST/bigm-child.zip" bigm-child -x '*/.DS_Store')
+(cd "$ROOT/wp-content/plugins" && zip -qr -X "$DIST/bigm-core.zip" bigm-core -x '*/.DS_Store')
 
 # Le socle est un mu-plugin ; en zip, il s'installe comme une extension classique.
 cp "$ROOT/wp-content/mu-plugins/bigm-socle.php" "$DIST/build/bigm-socle/"

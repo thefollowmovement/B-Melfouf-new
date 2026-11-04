@@ -1,0 +1,77 @@
+<?php
+/**
+ * Activation : adresses (/carte/, /produit/), catégories de la carte et
+ * catégories d'articles News et Presse. Les catégories ne sont créées qu'une
+ * fois : une catégorie supprimée par le client ne revient pas.
+ *
+ * @package BigM\Core
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Crée les catégories par défaut, si ce n'est pas déjà fait.
+ *
+ * @return string[] Catégories créées.
+ */
+function bigm_core_seed(): array {
+	if ( get_option( 'bigm_core_seeded' ) ) {
+		return array();
+	}
+	$crees = array();
+
+	$creer = static function ( array $cat, int $parent, int $ordre ) use ( &$crees ): int {
+		$existe = get_term_by( 'slug', $cat['slug'], 'bigm_categorie' );
+		if ( $existe ) {
+			return (int) $existe->term_id;
+		}
+		$t = wp_insert_term(
+			$cat['nom'],
+			'bigm_categorie',
+			array(
+				'slug'   => $cat['slug'],
+				'parent' => $parent,
+			)
+		);
+		if ( is_wp_error( $t ) ) {
+			return 0;
+		}
+		$id = (int) $t['term_id'];
+		update_term_meta( $id, '_bigm_ordre', $ordre );
+		if ( ! empty( $cat['titre'] ) ) {
+			update_term_meta( $id, '_bigm_titre', $cat['titre'] );
+		}
+		if ( ! empty( $cat['trace'] ) ) {
+			update_term_meta( $id, '_bigm_icone', bigm_icone_depuis_trace( $cat['trace'] ) );
+		}
+		$crees[] = $cat['nom'];
+		return $id;
+	};
+
+	foreach ( bigm_categories_par_defaut() as $i => $cat ) {
+		$parent = $creer( $cat, 0, $i + 1 );
+		foreach ( $cat['enfants'] ?? array() as $j => $enfant ) {
+			if ( $parent ) {
+				$creer( $enfant, $parent, $j + 1 );
+			}
+		}
+	}
+
+	foreach ( array( 'news' => 'News', 'presse' => 'Presse' ) as $slug => $nom ) {
+		if ( ! get_term_by( 'slug', $slug, 'category' ) && ! is_wp_error( wp_insert_term( $nom, 'category', array( 'slug' => $slug ) ) ) ) {
+			$crees[] = $nom;
+		}
+	}
+
+	update_option( 'bigm_core_seeded', BIGM_CORE_VERSION, false );
+	return $crees;
+}
+
+/**
+ * Activation du plugin.
+ */
+function bigm_core_activate(): void {
+	bigm_core_register_produit();
+	bigm_core_seed();
+	flush_rewrite_rules();
+}
