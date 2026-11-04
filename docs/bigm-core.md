@@ -45,11 +45,11 @@ Menu **Sliders**. Un slider est une liste de slides, à réordonner par glisser-
 
 Chaque slide affiche son état : visible, programmée ou terminée. Une slide sans aucun média n'est pas enregistrée, et un avertissement le signale.
 
-Les sliders s'affichent avec le widget Elementor « Big M Slider » (étape 4), ou en bannières d'une catégorie.
+Les sliders s'affichent avec le widget Elementor « Big M Slider » (étape 4), en bannières d'une catégorie, ou en bannières de `/carte/` (Réglages Big M → La carte).
 
 ### Réglages Big M
 
-Menu **Réglages Big M** : lien Commander, page Restaurants, App Store et Google Play, réseaux sociaux, e-mail, siège et mention du pied de page, chiffres de la franchise. Chaque champ indique son shortcode, à placer dans un widget Texte d'Elementor : `[bigm_reglage cle="franchise_droit_entree"]` affiche « 30 000 € HT ». Les nombres sont toujours mis en forme à la française.
+Menu **Réglages Big M** : lien Commander, page Restaurants, la carte (titre, texte et bannières de `/carte/`, bandeau et note des allergènes), App Store et Google Play, réseaux sociaux, e-mail, siège et mention du pied de page, chiffres de la franchise. Chaque champ indique son shortcode, à placer dans un widget Texte d'Elementor : `[bigm_reglage cle="franchise_droit_entree"]` affiche « 30 000 € HT ». Les nombres sont toujours mis en forme à la française.
 
 ### Actualités
 
@@ -62,6 +62,8 @@ Articles natifs. L'activation crée les catégories **News** et **Presse**.
 | `/carte/` | Archive des produits |
 | `/carte/burgers/`, `/carte/burgers/boeuf/` | Une catégorie, une sous-catégorie |
 | `/produit/smash-naan/` | Une fiche produit |
+
+Ces pages sont décrites dans `docs/carte.md`.
 
 ## Données (pour les développeurs)
 
@@ -85,7 +87,7 @@ Les types des médias sont vérifiés à l'enregistrement : un MP4 n'est pas acc
 
 ## Fonctions pour les widgets
 
-Les widgets des étapes 4 et 5 lisent les données par ces fonctions, jamais par `get_post_meta()` :
+Les widgets et les gabarits lisent les données par ces fonctions, jamais par `get_post_meta()` :
 
 | Fonction | Renvoie |
 |---|---|
@@ -98,6 +100,10 @@ Les widgets des étapes 4 et 5 lisent les données par ces fonctions, jamais par
 | `bigm_lien_commande( $post_id = null )` | lien du produit, sinon le lien général |
 | `bigm_tuile_produit( $id, $sizes )` | vignette `.tile` du prototype (photo ou vidéo de vignette) |
 | `bigm_allergenes()`, `bigm_viandes()`, `bigm_nutrition_lignes()` | listes de référence |
+| `bigm_categorie_principale( $id )`, `bigm_categorie_racine( $term )` | catégorie du lien « Revenir à… » (filtre `bigm_categorie_principale`), catégorie de premier niveau |
+| `bigm_slider_de_la_page()` | bannières de la catégorie affichée (ou de sa parente), ou de `/carte/` |
+
+Le balisage des composants est dans `inc/rendu.php` (`bigm_rendu_slider()`, `bigm_rendu_barre_categories()`, `bigm_rendu_grille_produits()`, `bigm_rendu_fiche_produit()`…) : un widget et un gabarit du thème produisent le même HTML. Les pages complètes sont dans `inc/pages.php`.
 
 ## Tester
 

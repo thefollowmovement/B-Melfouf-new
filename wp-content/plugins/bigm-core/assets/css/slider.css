@@ -41,8 +41,10 @@
 
 /* Section du slider hero de l'accueil : marge haute du prototype (style en ligne). */
 .hs-section { padding-top: 20px; }
-/* Bannières de la carte et des catégories : marge basse du prototype (style en ligne). */
+/* Bannières de la carte : marge basse du prototype (style en ligne). Sur la page d'une
+   catégorie, la marge des filtres suffit (comme dans le prototype). */
 .hs-banners { margin-bottom: 32px; }
+.hs-banners--serre { margin-bottom: 0; }
 
 /* Elementor : .elementor img { height: auto } empêcherait l'image de remplir la slide. */
 .elementor .hs__media { height: 100%; max-width: none; }

@@ -5,11 +5,14 @@
    Repris dans leur propre fichier : header.css (en-tête, tiroir), footer.css,
    tabbar.css (barre d'onglets mobile).
 
-   Restent dans le prototype, à reprendre avec leur composant :
-   - slider « à la une » .hs (étape 4) ;
-   - vignettes .tile et vidéos de vignettes, cartes .service / .news-card,
-     .chip, .cat-tabs, .arrows (étapes 4 et 5), avec leurs règles d'animation
-     (survol, enfoncement), pour garder l'ordre de la cascade. */
+   Repris avec leur composant, dans bigm-core (assets/css/), avec leurs règles d'animation
+   (survol, enfoncement) pour garder l'ordre de la cascade :
+   - slider.css : slider « à la une » .hs ;
+   - tuiles.css : vignettes .tile et vidéos de vignettes ;
+   - accueil.css : sections de l'accueil, cartes .service / .news-card, .arrows ;
+   - barre-categories.css : .cat-tabs ;
+   - carte.css, produits.css (.chip, .product), fiche.css : carte, catégorie, fiche produit.
+   Tout site.css est repris. */
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-padding-top: 108px; }

@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name:       Big M — cœur
- * Description:       Contenus de Big M gérés dans l'admin (produits, catégories de la carte, sliders et bannières, réglages) et widgets Elementor Big M (slider, sections de l'accueil).
+ * Description:       Contenus de Big M gérés dans l'admin (produits, catégories de la carte, sliders et bannières, réglages) et widgets Elementor Big M (slider, sections de l'accueil, carte, catégories, fiche produit).
  * Author:            The Follow Movement
- * Version:           0.3.0
+ * Version:           0.4.0
  * Requires at least: 6.5
  * Requires PHP:      8.2
  * License:           GPL-2.0-or-later
@@ -14,7 +14,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'BIGM_CORE_VERSION', '0.3.0' );
+define( 'BIGM_CORE_VERSION', '0.4.0' );
 define( 'BIGM_CORE_FILE', __FILE__ );
 define( 'BIGM_CORE_DIR', __DIR__ );
 define( 'BIGM_CORE_URL', plugin_dir_url( __FILE__ ) );
@@ -27,6 +27,8 @@ require BIGM_CORE_DIR . '/inc/slider.php';
 require BIGM_CORE_DIR . '/inc/reglages.php';
 require BIGM_CORE_DIR . '/inc/api.php';
 require BIGM_CORE_DIR . '/inc/icones.php';
+require BIGM_CORE_DIR . '/inc/rendu.php';
+require BIGM_CORE_DIR . '/inc/pages.php';
 require BIGM_CORE_DIR . '/inc/elementor.php';
 require BIGM_CORE_DIR . '/inc/activation.php';
 

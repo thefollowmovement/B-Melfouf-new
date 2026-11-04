@@ -61,7 +61,7 @@ class Bigm_Widget_Slider extends Bigm_Widget {
 				'default' => 'choisi',
 				'options' => array(
 					'choisi'    => 'Un slider du menu Sliders',
-					'categorie' => 'Bannières de la catégorie affichée',
+					'categorie' => 'Bannières de la page affichée (carte ou catégorie)',
 				),
 			)
 		);
@@ -74,6 +74,15 @@ class Bigm_Widget_Slider extends Bigm_Widget {
 				'options'     => $sliders,
 				'condition'   => array( 'source' => 'choisi' ),
 				'description' => 'Les slides, leurs dates et leurs liens se gèrent dans le menu Sliders.',
+			)
+		);
+		$this->add_control(
+			'aide_page',
+			array(
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => 'Sur une catégorie : son slider « Bannières » (Produits → Catégories), sinon celui de sa catégorie parente. Sur /carte/ : « Bannières de la carte » dans Réglages Big M.',
+				'content_classes' => 'elementor-descriptor',
+				'condition'       => array( 'source' => 'categorie' ),
 			)
 		);
 		$this->add_control(
@@ -99,6 +108,17 @@ class Bigm_Widget_Slider extends Bigm_Widget {
 			)
 		);
 		$this->add_control(
+			'marge',
+			array(
+				'label'        => 'Espace sous les bannières',
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'description'  => 'À désactiver au-dessus des filtres d’une catégorie, comme dans le prototype.',
+				'condition'    => array( 'format' => 'banniere' ),
+			)
+		);
+		$this->add_control(
 			'titre_cache',
 			array(
 				'label'       => 'Titre caché de la page (h1)',
@@ -114,80 +134,21 @@ class Bigm_Widget_Slider extends Bigm_Widget {
 	/** Rendu. */
 	protected function render() {
 		$s         = $this->get_settings_for_display();
-		$slider_id = 0;
-		if ( 'categorie' === $s['source'] ) {
-			$term      = get_queried_object();
-			$cat       = $term instanceof WP_Term && 'bigm_categorie' === $term->taxonomy ? bigm_categorie( $term ) : null;
-			$slider_id = $cat ? (int) $cat['slider_id'] : 0;
-		} else {
-			$slider_id = (int) $s['slider'];
-		}
-		$slides = $slider_id ? bigm_slides_actives( $slider_id ) : array();
-		if ( ! $slides ) {
-			$this->bigm_vide( $slider_id ? 'Aucune slide visible en ce moment dans ce slider (dates de début et de fin).' : 'Choisir un slider, ou une catégorie qui a des bannières.' );
+		$slider_id = 'categorie' === $s['source'] ? bigm_slider_de_la_page() : (int) $s['slider'];
+		$html      = bigm_rendu_slider(
+			array(
+				'slider_id'   => $slider_id,
+				'format'      => $s['format'],
+				'libelle'     => (string) $s['libelle'],
+				'titre_cache' => (string) $s['titre_cache'],
+				'id'          => $this->bigm_id( 'slider' ),
+				'marge'       => 'yes' === ( $s['marge'] ?? 'yes' ),
+			)
+		);
+		if ( '' === $html ) {
+			$this->bigm_vide( $slider_id ? 'Aucune slide visible en ce moment dans ce slider (dates de début et de fin).' : 'Choisir un slider, ou une page (carte, catégorie) qui a des bannières.' );
 			return;
 		}
-
-		$hero   = 'banniere' !== $s['format'];
-		$sizes  = $hero ? '(max-width: 760px) 88vw, min(1040px, 84vw)' : '(max-width: 760px) 90vw, min(1176px, 90vw)';
-		$track  = '';
-		foreach ( $slides as $i => $slide ) {
-			$track .= '<div class="hs__slide"><a' . ( $slide['lien'] ? ' href="' . esc_url( $slide['lien'] ) . '"' : '' ) . ' draggable="false">' . $this->media( $slide, 0 === $i, $sizes ) . '</a></div>';
-		}
-		$titre = $hero ? trim( (string) $s['titre_cache'] ) : '';
-		$id    = $this->bigm_id( 'slider' );
-
-		$html = '<div class="hs' . ( $hero ? '' : ' hs--banner' ) . '" data-hs data-interval="' . ( $hero ? 6000 : 5000 ) . '" aria-roledescription="carrousel" aria-label="' . esc_attr( (string) $s['libelle'] ) . '">'
-			. '<div class="hs__viewport"><div class="hs__track">' . $track . '</div>'
-			. '<button class="hs__arrow hs__arrow--prev" type="button" aria-label="Diapositive précédente">' . bigm_core_icone( 'left' ) . '</button>'
-			. '<button class="hs__arrow hs__arrow--next" type="button" aria-label="Diapositive suivante">' . bigm_core_icone( 'right' ) . '</button></div>'
-			. '<div class="hs__bar"><div class="hs__dots"></div><button class="hs__pause" type="button"></button></div></div>';
-
-		if ( $hero ) {
-			$html = '<section class="hs-section"' . ( $titre ? ' aria-labelledby="' . esc_attr( $id ) . '"><h1 class="sr-only" id="' . esc_attr( $id ) . '">' . esc_html( $titre ) . '</h1>' : '>' ) . $html . '</section>';
-		} else {
-			$html = '<section class="hs-banners" aria-label="' . esc_attr( (string) $s['libelle'] ) . '">' . $html . '</section>';
-		}
 		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- échappé à la construction.
-	}
-
-	/**
-	 * Média d'une slide : image (avec image mobile) ou vidéo chargée par le script.
-	 *
-	 * @param array<string, mixed> $slide   Slide de bigm_slides_actives().
-	 * @param bool                 $premier Première slide : chargée tout de suite (LCP).
-	 * @param string               $sizes   Attribut sizes.
-	 */
-	private function media( array $slide, bool $premier, string $sizes ): string {
-		$style = 'object-position:' . $slide['cadrage'];
-		if ( 'video' === $slide['type'] ) {
-			$src = $slide['mp4'] ? $slide['mp4'] : $slide['webm'];
-			return '<video class="hs__media" data-src="' . esc_url( $src ) . '"' . ( $slide['mp4'] && $slide['webm'] ? ' data-src-webm="' . esc_url( $slide['webm'] ) . '"' : '' )
-				. ( $slide['poster'] ? ' poster="' . esc_url( $slide['poster'] ) . '"' : '' )
-				. ' muted playsinline preload="none" aria-label="' . esc_attr( $slide['alt'] ) . '" style="' . esc_attr( $style ) . '"></video>';
-		}
-		$img = wp_get_attachment_image(
-			(int) $slide['image_id'],
-			'full',
-			false,
-			array(
-				'class'         => 'hs__media',
-				'alt'           => $slide['alt'],
-				'style'         => $style,
-				'draggable'     => 'false',
-				'sizes'         => $sizes,
-			) + ( $premier ? array(
-				// Première slide : chargée tout de suite et en priorité (LCP). Sans attribut
-				// loading, WordPress n'ajoute pas de « lazy » à une image en fetchpriority high.
-				'loading'       => false,
-				'fetchpriority' => 'high',
-			) : array() )
-		);
-		if ( $slide['image_mobile_id'] && $slide['image_mobile_id'] !== $slide['image_id'] ) {
-			$srcset = wp_get_attachment_image_srcset( (int) $slide['image_mobile_id'], 'full' );
-			$srcset = $srcset ? $srcset : (string) wp_get_attachment_image_url( (int) $slide['image_mobile_id'], 'full' );
-			$img    = '<picture><source media="(max-width: 760px)" srcset="' . esc_attr( $srcset ) . '" sizes="90vw">' . $img . '</picture>';
-		}
-		return $img;
 	}
 }

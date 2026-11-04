@@ -199,12 +199,13 @@ add_action(
 
 /*
  * Styles et script de l'en-tête, du pied de page et de la barre d'onglets : sur toutes les pages.
- * Le style du header et du footer de Hello Elementor n'est plus utile.
+ * Le style et le script (menu mobile) du header et du footer de Hello Elementor ne sont plus utiles.
  */
 add_action(
 	'wp_enqueue_scripts',
 	static function () {
 		wp_dequeue_style( 'hello-elementor-header-footer' );
+		wp_dequeue_script( 'hello-theme-frontend' );
 		foreach ( array( 'header', 'footer', 'tabbar' ) as $nom ) {
 			wp_enqueue_style( "bigm-$nom", bigm_child_asset_url( "assets/css/$nom.css" ), array( 'bigm-base' ), bigm_child_asset_version( "assets/css/$nom.css" ) );
 		}

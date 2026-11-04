@@ -37,6 +37,42 @@ function bigm_reglages_champs(): array {
 				),
 			),
 		),
+		'carte'      => array(
+			'titre'  => 'La carte',
+			'aide'   => 'Page /carte/ et bandeau des allergènes. Les pages des catégories prennent leur titre, leur texte et leurs bannières dans Produits → Catégories.',
+			'champs' => array(
+				'carte_titre'      => array(
+					'label'  => 'Titre de la carte',
+					'type'   => 'text',
+					'defaut' => 'Notre carte',
+				),
+				'carte_texte'      => array(
+					'label'  => 'Texte sous le titre',
+					'type'   => 'long',
+					'defaut' => "Tous nos produits sont 100\u{202F}% halal. La carte peut varier selon les restaurants.",
+				),
+				'carte_slider'     => array(
+					'label'  => 'Bannières de la carte',
+					'type'   => 'slider',
+					'defaut' => 0,
+				),
+				'allergenes_titre' => array(
+					'label'  => 'Bandeau des allergènes : titre',
+					'type'   => 'text',
+					'defaut' => 'Allergènes',
+				),
+				'allergenes_texte' => array(
+					'label'  => 'Bandeau des allergènes : texte',
+					'type'   => 'long',
+					'defaut' => 'Chaque fiche produit indique les 14 allergènes à déclaration obligatoire. Dans chaque catégorie, filtrez les produits selon vos allergies.',
+				),
+				'allergenes_note'  => array(
+					'label'  => 'Note des fiches produit',
+					'type'   => 'long',
+					'defaut' => 'Ces informations portent sur les 14 allergènes à déclaration obligatoire et viennent de nos fournisseurs. En cuisine, un contact accidentel avec d’autres allergènes ne peut pas être exclu.',
+				),
+			),
+		),
 		'appli'      => array(
 			'titre'  => 'Appli Big M',
 			'champs' => array(
@@ -209,6 +245,12 @@ function bigm_reglages_nettoyer( $input ): array {
 			case 'email':
 				$out[ $cle ] = sanitize_email( $v );
 				break;
+			case 'long':
+				$out[ $cle ] = sanitize_textarea_field( (string) ( $input[ $cle ] ?? '' ) );
+				break;
+			case 'slider':
+				$out[ $cle ] = 'bigm_slider' === get_post_type( (int) $v ) ? (int) $v : 0;
+				break;
 			case 'euros':
 			case 'pourcent':
 			case 'annees':
@@ -277,11 +319,25 @@ function bigm_reglages_page(): void {
 						<tr>
 							<th scope="row"><label for="bigm_<?php echo esc_attr( $cle ); ?>"><?php echo esc_html( $def['label'] ); ?></label></th>
 							<td>
-								<input type="<?php echo esc_attr( $type ); ?>" id="bigm_<?php echo esc_attr( $cle ); ?>" name="bigm_reglages[<?php echo esc_attr( $cle ); ?>]" value="<?php echo esc_attr( (string) $valeur ); ?>" class="<?php echo $numeric ? 'small-text' : 'regular-text'; ?>"<?php echo $numeric ? ' min="0" step="any"' : ''; ?>>
+								<?php if ( 'slider' === $def['type'] ) : ?>
+									<select id="bigm_<?php echo esc_attr( $cle ); ?>" name="bigm_reglages[<?php echo esc_attr( $cle ); ?>]">
+										<option value="0">— Aucun —</option>
+										<?php foreach ( bigm_sliders_liste() as $slider ) : ?>
+											<option value="<?php echo (int) $slider->ID; ?>"<?php selected( (int) $valeur, $slider->ID ); ?>><?php echo esc_html( get_the_title( $slider ) ); ?></option>
+										<?php endforeach; ?>
+									</select>
+									<p class="description">Un slider du menu Sliders, affiché en format bannière.</p>
+								<?php elseif ( 'long' === $def['type'] ) : ?>
+									<textarea id="bigm_<?php echo esc_attr( $cle ); ?>" name="bigm_reglages[<?php echo esc_attr( $cle ); ?>]" rows="3" class="large-text"><?php echo esc_textarea( (string) $valeur ); ?></textarea>
+								<?php else : ?>
+									<input type="<?php echo esc_attr( $type ); ?>" id="bigm_<?php echo esc_attr( $cle ); ?>" name="bigm_reglages[<?php echo esc_attr( $cle ); ?>]" value="<?php echo esc_attr( (string) $valeur ); ?>" class="<?php echo $numeric ? 'small-text' : 'regular-text'; ?>"<?php echo $numeric ? ' min="0" step="any"' : ''; ?>>
+								<?php endif; ?>
 								<?php if ( $numeric ) : ?>
 									<?php echo esc_html( $unites[ $def['type'] ] ); ?>
 								<?php endif; ?>
-								<p class="description"><code>[bigm_reglage cle="<?php echo esc_html( $cle ); ?>"]</code><?php echo $numeric && '' !== $valeur ? ' → ' . esc_html( bigm_reglage_texte( $cle ) ) : ''; ?></p>
+								<?php if ( 'slider' !== $def['type'] ) : ?>
+									<p class="description"><code>[bigm_reglage cle="<?php echo esc_html( $cle ); ?>"]</code><?php echo $numeric && '' !== $valeur ? ' → ' . esc_html( bigm_reglage_texte( $cle ) ) : ''; ?></p>
+								<?php endif; ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -306,6 +362,9 @@ add_shortcode(
 			return '';
 		}
 		$type = bigm_reglages_definitions()[ $cle ]['type'];
+		if ( 'slider' === $type ) {
+			return '';
+		}
 		$text = bigm_reglage_texte( $cle );
 		if ( 'url' === $type ) {
 			return esc_url( $text );

@@ -10,7 +10,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'BIGM_CHILD_VERSION', '0.3.0' );
+define( 'BIGM_CHILD_VERSION', '0.4.0' );
 define( 'BIGM_CHILD_DIR', get_stylesheet_directory() );
 define( 'BIGM_CHILD_URI', get_stylesheet_directory_uri() );
 

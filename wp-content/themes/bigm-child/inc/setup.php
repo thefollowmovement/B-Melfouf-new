@@ -57,3 +57,8 @@ add_filter(
  * le pied de page Big M utilisent les leurs (inc/navigation.php).
  */
 add_filter( 'hello_elementor_register_menus', '__return_false' );
+
+/*
+ * Séparateur du titre de l'onglet, celui du prototype : « Notre carte · Big M ».
+ */
+add_filter( 'document_title_separator', static fn(): string => '·' );

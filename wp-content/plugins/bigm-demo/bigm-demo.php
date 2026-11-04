@@ -3,7 +3,7 @@
  * Plugin Name:  Big M — contenu de démonstration
  * Description:  Importe les visuels et les contenus du prototype (sliders, produits, articles) et crée la page d'accueil Elementor. Temporaire : à supprimer avant la mise en ligne. Outils → Démo Big M.
  * Author:       The Follow Movement
- * Version:      0.1.0
+ * Version:      0.2.0
  * Requires PHP: 8.2
  * Requires Plugins: bigm-core, elementor
  *
@@ -12,6 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
+define( 'BIGM_DEMO_VERSION', '0.2.0' );
 define( 'BIGM_DEMO_MEDIAS', __DIR__ . '/medias/' );
 
 /**
@@ -298,6 +299,7 @@ function bigm_demo_importer(): array {
 	update_post_meta( $naan, '_bigm_allergenes_traces', array( 'sesame', 'oeufs', 'soja' ) );
 	update_post_meta( $naan, '_bigm_associes', array( $p_ids['Frites'], $p_ids['Nuggets'], $p_ids['Street Cola'] ) );
 	$rapport[] = count( $p_ids ) . ' produits';
+	$rapport   = array_merge( $rapport, bigm_demo_carte( $s_ids['carte'] ) );
 
 	// 4. Vignettes des catégories (grille de la carte).
 	foreach ( array(
@@ -512,6 +514,7 @@ function bigm_demo_importer(): array {
 	\Elementor\Plugin::$instance->files_manager->clear_cache();
 	$rapport[] = 'page d’accueil Elementor (page d’accueil du site) et page Actualités (page des articles)';
 
+	update_option( 'bigm_demo_version', BIGM_DEMO_VERSION, false );
 	update_option(
 		'bigm_demo_import',
 		array(
@@ -522,6 +525,79 @@ function bigm_demo_importer(): array {
 	);
 	return $rapport;
 }
+
+/**
+ * Carte (étape 5) : bannières de /carte/ dans Réglages Big M et chapeau de la catégorie Burgers,
+ * repris du prototype. Ne remplace pas un réglage ou un texte déjà saisi.
+ *
+ * @param int $slider_carte Slider « Carte — Offres du moment » (0 : le retrouver).
+ * @return string[] Rapport.
+ */
+function bigm_demo_carte( int $slider_carte = 0 ): array {
+	$rapport = array();
+	if ( ! $slider_carte ) {
+		$ids          = get_posts(
+			array(
+				'post_type'      => 'bigm_slider',
+				'post_status'    => 'publish',
+				'posts_per_page' => 1,
+				'fields'         => 'ids',
+				'title'          => 'Carte — Offres du moment',
+				'meta_key'       => '_bigm_demo', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+			)
+		);
+		$slider_carte = (int) ( $ids[0] ?? 0 );
+	}
+	if ( $slider_carte && ! (int) bigm_reglage( 'carte_slider' ) ) {
+		// Tous les réglages sont renvoyés : le nettoyage vide ceux qui manquent.
+		$reglages = array();
+		foreach ( array_keys( bigm_reglages_definitions() ) as $cle ) {
+			$reglages[ $cle ] = bigm_reglage( $cle );
+		}
+		$reglages['carte_slider'] = $slider_carte;
+		update_option( 'bigm_reglages', $reglages );
+		$rapport[] = 'bannières de la carte (Réglages Big M)';
+	}
+	// Un menu, pour que la vignette Menus du prototype apparaisse sur la carte.
+	$menus  = get_term_by( 'slug', 'menus', 'bigm_categorie' );
+	$medias = (array) get_option( 'bigm_demo_medias', array() );
+	if ( $menus instanceof WP_Term && ! bigm_produits_de( $menus->term_id ) && ! empty( $medias['p-menus.jpg'] ) ) {
+		$id = bigm_demo_post(
+			array(
+				'post_type'    => 'bigm_produit',
+				'post_title'   => 'Menu Simple',
+				'post_content' => 'Un smash naan, des frites et une boisson. [Description à valider]',
+				'menu_order'   => 11,
+			)
+		);
+		set_post_thumbnail( $id, (int) $medias['p-menus.jpg'] );
+		wp_set_object_terms( $id, array( $menus->term_id ), 'bigm_categorie' );
+		update_post_meta( $id, '_bigm_viande', 'boeuf' );
+		$rapport[] = 'produit Menu Simple (catégorie Menus)';
+	}
+	$burgers = get_term_by( 'slug', 'burgers', 'bigm_categorie' );
+	if ( $burgers instanceof WP_Term && '' === trim( $burgers->description ) ) {
+		wp_update_term( $burgers->term_id, 'bigm_categorie', array( 'description' => "Bœuf ou poulet, simple ou double\u{202F}: les légendes du burger, 100\u{202F}% halal." ) );
+		$rapport[] = 'texte de la catégorie Burgers';
+	}
+	return $rapport;
+}
+
+/*
+ * Mise à jour d'une démo déjà importée avec une version précédente de l'extension.
+ */
+add_action(
+	'admin_init',
+	static function () {
+		if ( ! current_user_can( 'manage_options' ) || ! get_option( 'bigm_demo_import' ) || ! function_exists( 'bigm_reglage' ) ) {
+			return;
+		}
+		if ( version_compare( (string) get_option( 'bigm_demo_version', '0.1.0' ), BIGM_DEMO_VERSION, '<' ) ) {
+			bigm_demo_carte();
+			update_option( 'bigm_demo_version', BIGM_DEMO_VERSION, false );
+		}
+	}
+);
 
 /**
  * Supprime le contenu de démonstration (produits, sliders, articles, médias).
@@ -581,6 +657,7 @@ function bigm_demo_page(): void {
 			<?php wp_nonce_field( 'bigm_demo' ); ?>
 			<?php if ( $import ) : ?>
 				<p>Importé le <?php echo esc_html( mysql2date( 'j F Y à H:i', $import['date'] ) ); ?>. <a href="<?php echo esc_url( home_url( '/' ) ); ?>">Voir l'accueil</a> · <a href="<?php echo esc_url( admin_url( 'post.php?post=' . (int) $import['accueil'] . '&action=elementor' ) ); ?>">Modifier avec Elementor</a></p>
+				<p>Carte : <a href="<?php echo esc_url( home_url( '/carte/' ) ); ?>">/carte/</a> · <a href="<?php echo esc_url( home_url( '/carte/burgers/' ) ); ?>">/carte/burgers/</a> · <a href="<?php echo esc_url( home_url( '/produit/smash-naan/' ) ); ?>">/produit/smash-naan/</a></p>
 				<p><button class="button" name="bigm_demo" value="supprimer" onclick="return confirm('Supprimer les produits, sliders, articles et médias de démonstration ?')">Supprimer le contenu de démonstration</button></p>
 				<p class="description">Avant la mise en ligne. Remplacer d'abord les images de la page d'accueil : elles viennent de la démo.</p>
 			<?php else : ?>

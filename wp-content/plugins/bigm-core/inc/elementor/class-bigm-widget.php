@@ -43,6 +43,58 @@ abstract class Bigm_Widget extends \Elementor\Widget_Base {
 	}
 
 	/**
+	 * Produit de la page (fiche produit ou modèle « Publication unique » du Theme Builder).
+	 * Dans l'éditeur, sans produit, le dernier produit publié sert d'aperçu.
+	 */
+	protected function bigm_produit_courant(): int {
+		foreach ( array( (int) get_the_ID(), (int) get_queried_object_id() ) as $id ) {
+			if ( $id && 'bigm_produit' === get_post_type( $id ) ) {
+				return $id;
+			}
+		}
+		if ( $this->bigm_dans_l_editeur() ) {
+			$ids = get_posts(
+				array(
+					'post_type'      => 'bigm_produit',
+					'posts_per_page' => 1,
+					'fields'         => 'ids',
+				)
+			);
+			return (int) ( $ids[0] ?? 0 );
+		}
+		return 0;
+	}
+
+	/**
+	 * Catégorie de la page (archive /carte/burgers/). Dans l'éditeur, sans catégorie,
+	 * la première catégorie qui a des produits sert d'aperçu.
+	 */
+	protected function bigm_categorie_courante(): ?WP_Term {
+		$term = bigm_categorie_affichee();
+		if ( ! $term && $this->bigm_dans_l_editeur() ) {
+			$terms = bigm_categories( 0, true );
+			$term  = $terms[0] ?? null;
+		}
+		return $term;
+	}
+
+	/**
+	 * Catégories de la carte pour une liste déroulante, sous-catégories en retrait.
+	 *
+	 * @return array<int|string, string>
+	 */
+	protected function bigm_options_categories(): array {
+		$options = array( 0 => '— Choisir —' );
+		foreach ( bigm_categories( 0 ) as $term ) {
+			$options[ $term->term_id ] = $term->name;
+			foreach ( bigm_categories( $term->term_id ) as $enfant ) {
+				$options[ $enfant->term_id ] = '— ' . $enfant->name;
+			}
+		}
+		return $options;
+	}
+
+	/**
 	 * Message affiché dans l'éditeur seulement, quand il n'y a rien à montrer.
 	 *
 	 * @param string $message Explication.

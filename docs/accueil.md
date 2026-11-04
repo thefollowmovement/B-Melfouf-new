@@ -6,7 +6,7 @@ L'accueil est une page Elementor construite avec les widgets de la catégorie **
 
 | Widget | Section du prototype | Ce qui se règle |
 |---|---|---|
-| **Big M Slider** | Slider « à la une », bannières | Slider (menu Sliders) ou bannières de la catégorie affichée ; format hero 2:1 (photo 6 s) ou bannière 3:1, 2:1 sur mobile (photo 5 s) ; nom du carrousel ; titre h1 caché |
+| **Big M Slider** | Slider « à la une », bannières | Slider (menu Sliders) ou bannières de la page affichée (catégorie, `/carte/`) ; format hero 2:1 (photo 6 s) ou bannière 3:1, 2:1 sur mobile (photo 5 s) ; espace sous les bannières ; nom du carrousel ; titre h1 caché |
 | **Big M — Bande appli** | Bande orange | Image du téléphone, titre, texte, avantages (un par ligne) ; badges des stores : Réglages Big M |
 | **Big M — Restaurants** | « Tous nos restaurants » | Textes, deux liens, photo et légende ; la recherche ouvre `/restaurants/?q=…` (page Restaurants des Réglages Big M) |
 | **Big M — Services** | Sur place, click & collect, livraison | Cartes : photo, cadrage, titre, texte, lien |
@@ -18,6 +18,8 @@ L'accueil est une page Elementor construite avec les widgets de la catégorie **
 Les ancres (`appli`, `restaurants`, `legendes`, `actus`, `franchise`, `recrutement`) servent aux liens des menus, comme `/#appli`.
 
 Le CSS et le JS de ces widgets ne sont chargés que sur les pages qui les utilisent (`bigm-slider`, `bigm-accueil`, `bigm-tuiles`, `bigm-carrousel`, `bigm-tuiles-video`).
+
+Les widgets de la carte, des catégories et des fiches produit sont décrits dans `docs/carte.md`.
 
 ### Construire une page avec ces widgets
 
@@ -54,8 +56,8 @@ L'extension **Big M — contenu de démonstration** (`wp-content/plugins/bigm-de
 
 - les 40 visuels et vidéos du prototype dans la médiathèque, marqués « [Démo] » ;
 - 3 sliders : accueil, offres de la carte, bannières Burgers ;
-- 10 produits avec photos, vidéos de vignette, viande et allergènes du prototype ;
-- les vignettes des catégories ;
+- 11 produits avec photos, vidéos de vignette, viande et allergènes du prototype, dont un menu ;
+- les vignettes des catégories, le texte de la catégorie Burgers et les bannières de `/carte/` (Réglages Big M) ;
 - 3 articles (News et Presse) ;
 - la page **Accueil** avec les 8 widgets, définie comme page d'accueil, et la page **Actualités**, définie comme page des articles.
 

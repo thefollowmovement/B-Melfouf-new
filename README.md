@@ -9,8 +9,8 @@ Nouveau site WordPress de Big M (Hello Elementor + Elementor Pro), développé p
 
 | Dossier | Rôle |
 |---|---|
-| `wp-content/themes/bigm-child/` | Thème enfant : charte (tokens), polices auto-hébergées, CSS et JS communs, en-tête, tiroir, barre d'onglets mobile, pied de page ([`docs/navigation.md`](docs/navigation.md)) |
-| `wp-content/plugins/bigm-core/` | Contenus gérés dans l'admin : produits, catégories, sliders, réglages ([`docs/bigm-core.md`](docs/bigm-core.md)) ; widgets Elementor Big M ([`docs/accueil.md`](docs/accueil.md)) |
+| `wp-content/themes/bigm-child/` | Thème enfant : charte (tokens), polices auto-hébergées, CSS et JS communs, en-tête, tiroir, barre d'onglets mobile, pied de page ([`docs/navigation.md`](docs/navigation.md)), gabarits de la carte, des catégories et des fiches produit |
+| `wp-content/plugins/bigm-core/` | Contenus gérés dans l'admin : produits, catégories, sliders, réglages ([`docs/bigm-core.md`](docs/bigm-core.md)) ; widgets Elementor Big M ([`docs/accueil.md`](docs/accueil.md), [`docs/carte.md`](docs/carte.md)) ; pages de la carte |
 | `wp-content/plugins/bigm-demo/` | Contenu de démonstration du prototype et page d'accueil, temporaire ([`docs/accueil.md`](docs/accueil.md)) |
 | `wp-content/mu-plugins/bigm-socle.php` | Préprod non indexée, XML-RPC et éditeur de fichiers coupés, réglages de départ |
 | `ops/` | Déploiement et mise en place de la préprod Hostinger, par SSH |
@@ -26,7 +26,7 @@ Nouveau site WordPress de Big M (Hello Elementor + Elementor Pro), développé p
 2. [x] Plugin `bigm-core` : types de contenu, taxonomies, champs (meta boxes natives), page de réglages. Détails : [`docs/bigm-core.md`](docs/bigm-core.md).
 3. [x] Header capsule, tiroir, barre d'onglets mobile, footer. Détails : [`docs/navigation.md`](docs/navigation.md).
 4. [x] Widget Big M Slider, puis l'accueil complet. Détails : [`docs/accueil.md`](docs/accueil.md).
-5. [ ] Carte, catégorie et fiche produit, avec les filtres allergènes.
+5. [x] Carte, catégorie et fiche produit, avec les filtres allergènes. Détails : [`docs/carte.md`](docs/carte.md).
 6. [ ] Storelocator, formulaires, actualités.
 7. [ ] Redirections, SEO, performance, accessibilité.
 8. [ ] Recette, puis bascule.
@@ -61,6 +61,12 @@ Tester les widgets Elementor (slider et sections de l'accueil) :
 
 ```bash
 wp eval-file tests/wp/test-bigm-widgets.php --user=IDENTIFIANT_ADMIN
+```
+
+Tester la carte, les catégories (filtres) et les fiches produit :
+
+```bash
+wp eval-file tests/wp/test-bigm-carte.php --user=IDENTIFIANT_ADMIN
 ```
 
 Tester l'en-tête, la barre d'onglets et le pied de page du thème :
