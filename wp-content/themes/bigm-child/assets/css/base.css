@@ -2,8 +2,10 @@
    Repris de prototype/assets/site.css, dans le même ordre et avec les mêmes valeurs :
    reset, typographie, conteneurs, boutons, liens, apparitions, animations des boutons.
 
+   Repris dans leur propre fichier : header.css (en-tête, tiroir), footer.css,
+   tabbar.css (barre d'onglets mobile).
+
    Restent dans le prototype, à reprendre avec leur composant :
-   - en-tête, tiroir, barre d'onglets mobile, pied de page (étape 3) ;
    - slider « à la une » .hs (étape 4) ;
    - vignettes .tile et vidéos de vignettes, cartes .service / .news-card,
      .chip, .cat-tabs, .arrows (étapes 4 et 5), avec leurs règles d'animation

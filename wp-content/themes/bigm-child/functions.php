@@ -10,7 +10,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'BIGM_CHILD_VERSION', '0.1.0' );
+define( 'BIGM_CHILD_VERSION', '0.2.0' );
 define( 'BIGM_CHILD_DIR', get_stylesheet_directory() );
 define( 'BIGM_CHILD_URI', get_stylesheet_directory_uri() );
 
@@ -18,3 +18,6 @@ require BIGM_CHILD_DIR . '/inc/tokens.php';
 require BIGM_CHILD_DIR . '/inc/setup.php';
 require BIGM_CHILD_DIR . '/inc/assets.php';
 require BIGM_CHILD_DIR . '/inc/elementor.php';
+require BIGM_CHILD_DIR . '/inc/icones.php';
+require BIGM_CHILD_DIR . '/inc/navigation.php';
+require BIGM_CHILD_DIR . '/inc/chrome.php';

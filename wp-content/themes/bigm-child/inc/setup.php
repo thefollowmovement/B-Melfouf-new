@@ -51,3 +51,9 @@ add_filter(
 		return $resources;
 	}
 );
+
+/*
+ * Emplacements de menus de Hello (« Header », « Footer ») retirés : l'en-tête et
+ * le pied de page Big M utilisent les leurs (inc/navigation.php).
+ */
+add_filter( 'hello_elementor_register_menus', '__return_false' );

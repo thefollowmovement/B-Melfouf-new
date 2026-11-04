@@ -1,6 +1,6 @@
 <?php
 /**
- * Page « Réglages Big M » : lien Commander, applis, réseaux sociaux, contact,
+ * Page « Réglages Big M » : lien Commander, page Restaurants, applis, réseaux sociaux, contact,
  * chiffres de la franchise. Une seule option : bigm_reglages.
  *
  * @package BigM\Core
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  */
 function bigm_reglages_champs(): array {
 	return array(
-		'commande'  => array(
+		'commande'   => array(
 			'titre'  => 'Commande',
 			'aide'   => 'Lien des boutons « Commander » du site. Une fiche produit peut avoir son propre lien.',
 			'champs' => array(
@@ -26,7 +26,18 @@ function bigm_reglages_champs(): array {
 				),
 			),
 		),
-		'appli'     => array(
+		'navigation' => array(
+			'titre'  => 'Navigation',
+			'aide'   => 'Lien « Restaurants » de l’en-tête. Vide : /restaurants/. Les autres liens se règlent dans Apparence → Menus.',
+			'champs' => array(
+				'restaurants_url' => array(
+					'label'  => 'Page Restaurants',
+					'type'   => 'url',
+					'defaut' => '',
+				),
+			),
+		),
+		'appli'      => array(
 			'titre'  => 'Appli Big M',
 			'champs' => array(
 				'appstore_url'   => array(
@@ -41,7 +52,7 @@ function bigm_reglages_champs(): array {
 				),
 			),
 		),
-		'reseaux'   => array(
+		'reseaux'    => array(
 			'titre'  => 'Réseaux sociaux',
 			'aide'   => 'Un champ vide n’affiche pas l’icône dans le pied de page.',
 			'champs' => array(
@@ -77,7 +88,7 @@ function bigm_reglages_champs(): array {
 				),
 			),
 		),
-		'contact'   => array(
+		'contact'    => array(
 			'titre'  => 'Contact',
 			'champs' => array(
 				'contact_email' => array(
@@ -90,9 +101,14 @@ function bigm_reglages_champs(): array {
 					'type'   => 'text',
 					'defaut' => 'Villeneuve-la-Garenne',
 				),
+				'pied_mention'  => array(
+					'label'  => 'Mention du pied de page',
+					'type'   => 'text',
+					'defaut' => "Big M, c'est ça qu'on aime\u{202F}!",
+				),
 			),
 		),
-		'franchise' => array(
+		'franchise'  => array(
 			'titre'  => 'Franchise',
 			'aide'   => 'Chiffres affichés sur la page « Devenir franchisé ».',
 			'champs' => array(

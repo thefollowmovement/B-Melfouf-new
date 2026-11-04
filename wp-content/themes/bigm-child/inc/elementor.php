@@ -191,3 +191,28 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		array( 'shortdesc' => 'Applique la charte Big M au kit Elementor actif.' )
 	);
 }
+
+/*
+ * Widgets Big M pour le Theme Builder : en-tête et pied de page.
+ */
+add_action(
+	'elementor/elements/categories_registered',
+	static function ( $manager ) {
+		$manager->add_category(
+			'bigm',
+			array(
+				'title' => 'Big M',
+				'icon'  => 'eicon-star',
+			)
+		);
+	}
+);
+
+add_action(
+	'elementor/widgets/register',
+	static function ( $widgets ) {
+		require_once BIGM_CHILD_DIR . '/inc/widgets/class-bigm-child-widget-chrome.php';
+		$widgets->register( new Bigm_Child_Widget_Entete() );
+		$widgets->register( new Bigm_Child_Widget_Pied() );
+	}
+);
