@@ -239,7 +239,7 @@ def typo(v):
 
 def walk(o):
     if isinstance(o, dict):
-        return {k: (v if k in ('url', 'custom_id', 'id', '_id', 'widgetType', 'elType', 'email_to', 'email_reply_to', 'email_content', 'custom_css') else walk(v)) for k, v in o.items()}
+        return {k: (v if k in ('url', 'custom_id', 'id', '_id', 'widgetType', 'elType', 'email_to', 'email_reply_to', 'email_content', 'custom_css', '__dynamic__', 'custom_date_format') else walk(v)) for k, v in o.items()}
     if isinstance(o, list):
         return [walk(x) for x in o]
     return typo(o)
@@ -259,3 +259,24 @@ def write(content, elements_path, template_path, title, section_path=None, secti
             json.dump({'content': [content[-1]], 'page_settings': [], 'version': '0.4',
                        'title': section_title, 'type': 'container'}, f, ensure_ascii=False, indent=1)
     print('ok', sum(1 for _ in json.dumps(content)), 'octets')
+
+
+def widget(kind, settings):
+    """Widget Elementor quelconque (type, réglages)."""
+    return {'id': eid(), 'elType': 'widget', 'widgetType': kind, 'settings': settings, 'elements': []}
+
+
+def dynamic(name, **settings):
+    """Balise dynamique d'Elementor, au format enregistré : [elementor-tag id=… name=… settings=…]."""
+    from urllib.parse import quote_plus
+    return '[elementor-tag id="%s" name="%s" settings="%s"]' % (eid(), name, quote_plus(json.dumps(settings or {}, separators=(',', ':'))))
+
+
+def write_theme_template(content, path, title, kind, page_settings=None):
+    """Modèle du Theme Builder d'Elementor Pro (archive, single-post…), à importer comme un modèle de page."""
+    content = walk(content)
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump({'content': content, 'page_settings': page_settings or [], 'version': '0.4',
+                   'title': title, 'type': kind}, f, ensure_ascii=False, indent=1)
+    print('ok', path, sum(1 for _ in json.dumps(content)), 'octets')
+

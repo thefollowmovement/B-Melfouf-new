@@ -155,6 +155,41 @@ Les photos de stock des témoignages de l'ancienne page ne sont pas reprises.
 - **Durée de conservation des CV** : à indiquer dans la politique de confidentialité ; WPForms peut supprimer les
   entrées anciennes automatiquement si besoin.
 
+## Blog — `blog-actualites.json` et `blog-article.json`
+
+Mise en page « blog » de la page Actualités (`/actualites/`, la page des articles de Réglages → Lecture) et des
+articles, avec deux modèles du **Theme Builder d'Elementor Pro**. Les cartes reprennent celles de l'accueil.
+
+- **Actualités** (`blog-actualites.json`, type Archive) : « Le blog Big M », titre « Actualités et presse »
+  (ou le nom de la catégorie sur une page de catégorie), pastilles **Tout / catégories** (la catégorie affichée
+  est en orange), **article à la une** en grand (1re page), puis cartes : image, catégorie en pastille, titre,
+  extrait, « Lire l'article », date. Pagination en pastilles. Trois cartes par ligne, deux sur tablette, une sur mobile.
+- **Article** (`blog-article.json`, type Article unique) : « ← Toutes les actualités », catégorie · date, titre,
+  image à la une arrondie, texte en colonne de lecture (intertitres Fredoka, citations soulignées d'orange,
+  liens orange), boutons de partage (Facebook, X, LinkedIn, WhatsApp, e-mail), puis « À lire aussi » :
+  trois articles de la même catégorie (à défaut, les plus récents).
+
+### Mettre en place (preprod)
+
+1. **Modèles → Modèles enregistrés → Importer des modèles** : `blog-actualites.json`, puis `blog-article.json`.
+2. **Modèles → Theme Builder** → « Big M — Actualités (blog) » → **Modifier** → **Publier** → **Ajouter une condition** :
+   - Inclure → **Archives** → **Archives des articles** ;
+   - Inclure → **Archives** → **Catégories** → Toutes.
+
+   Ne **pas** choisir « Toutes les archives » : le modèle remplacerait aussi la carte (`/carte/`) et ses catégories.
+3. « Big M — Article » → **Modifier** → **Publier** → condition : Inclure → **Articles** → **Tous**.
+4. **Réglages → Lecture** : « Les pages du site doivent afficher au plus » **10** articles (1 à la une + 9 cartes).
+5. Vider le cache du CDN.
+
+### Contenu
+
+- Les 3 articles actuels sont des articles de démonstration (« reprendre l'article de l'ancien site »).
+- L'ancien site compte **107 articles**, presque tous des retombées presse (catégorie Presse : TV, Radio,
+  Print, Web) et quelques News. Pour les reprendre : sur l'ancien site, **Outils → Exporter → Articles** ;
+  sur preprod, **Outils → Importer → WordPress** (extension WordPress Importer), en cochant le téléchargement
+  des fichiers joints. Supprimer ensuite les articles de démonstration en double.
+- Les catégories vides n'apparaissent pas dans les pastilles.
+
 ## Regénérer les modèles
 
 Les fichiers sont produits par les scripts Python 3 (sans dépendance) de ce dossier ; `bigm_elementor.py` et
@@ -174,6 +209,10 @@ python3 recrutement_page.py /tmp/elements.json nous-rejoindre.json
 
 ```bash
 python3 recrutement_wpforms.py candidature-recrutement-wpforms.json
+```
+
+```bash
+python3 blog_templates.py .
 ```
 
 Pour une page : le premier fichier contient le seul contenu Elementor (`_elementor_data`), le deuxième le modèle
