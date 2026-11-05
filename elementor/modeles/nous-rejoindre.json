@@ -1,0 +1,2580 @@
+{
+ "content": [
+  {
+   "id": "67e552d",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_gap": {
+     "column": "32",
+     "row": "32",
+     "isLinked": true,
+     "unit": "px",
+     "size": 32
+    },
+    "padding": {
+     "unit": "px",
+     "top": "64",
+     "right": "32",
+     "bottom": "64",
+     "left": "32",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "40",
+     "right": "16",
+     "bottom": "40",
+     "left": "16",
+     "isLinked": false
+    },
+    "background_background": "classic",
+    "background_color": "#FA5C19",
+    "__globals__": {
+     "background_color": "globals/colors?id=bigmorange"
+    }
+   },
+   "elements": [
+    {
+     "id": "5337caf",
+     "elType": "container",
+     "isInner": false,
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "column",
+      "flex_gap": {
+       "column": "16",
+       "row": "16",
+       "isLinked": true,
+       "unit": "px",
+       "size": 16
+      },
+      "container_type": "grid",
+      "grid_columns_grid": {
+       "unit": "fr",
+       "size": 2,
+       "sizes": []
+      },
+      "grid_columns_grid_tablet": {
+       "unit": "fr",
+       "size": 2,
+       "sizes": []
+      },
+      "grid_columns_grid_mobile": {
+       "unit": "fr",
+       "size": 1,
+       "sizes": []
+      },
+      "grid_gaps_mobile": {
+       "column": "48",
+       "row": "48",
+       "isLinked": true,
+       "unit": "px",
+       "size": 48
+      },
+      "grid_rows_grid": {
+       "unit": "fr",
+       "size": 1,
+       "sizes": []
+      },
+      "grid_gaps": {
+       "column": "48",
+       "row": "48",
+       "isLinked": true,
+       "unit": "px",
+       "size": 48
+      },
+      "grid_auto_flow": "row",
+      "grid_align_items": "center"
+     },
+     "elements": [
+      {
+       "id": "9e16a3f",
+       "elType": "container",
+       "isInner": false,
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "18",
+         "row": "18",
+         "isLinked": true,
+         "unit": "px",
+         "size": 18
+        },
+        "flex_justify_content": "center"
+       },
+       "elements": [
+        {
+         "id": "a611929",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Recrutement",
+          "header_size": "p",
+          "title_color": "#FFFFFF",
+          "__globals__": {
+           "title_color": "globals/colors?id=bigmcard"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Fredoka",
+          "typography_font_weight": "600",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 15,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 14,
+           "sizes": []
+          },
+          "typography_text_transform": "uppercase",
+          "typography_letter_spacing": {
+           "unit": "px",
+           "size": 1,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "0c5f650",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Nous rejoindre",
+          "header_size": "h1",
+          "title_color": "#FFFFFF",
+          "__globals__": {
+           "title_color": "globals/colors?id=bigmcard"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Fredoka",
+          "typography_font_weight": "600",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 64,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 40,
+           "sizes": []
+          },
+          "typography_line_height": {
+           "unit": "em",
+           "size": 1.05,
+           "sizes": []
+          },
+          "typography_letter_spacing": {
+           "unit": "px",
+           "size": -0.2,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "169d897",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>Pour être recruté·e, rien de plus simple : suivez les étapes ci-dessous, nous nous occupons du reste. Et n’oubliez pas nos quelques conseils pour optimiser votre candidature !</p>",
+          "text_color": "#FFFFFF",
+          "__globals__": {
+           "text_color": "globals/colors?id=bigmcard"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Figtree",
+          "typography_font_weight": "400",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 19,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 17,
+           "sizes": []
+          },
+          "typography_line_height": {
+           "unit": "em",
+           "size": 1.5,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "01f4758",
+         "elType": "container",
+         "isInner": false,
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "row",
+          "flex_gap": {
+           "column": "12",
+           "row": "12",
+           "isLinked": true,
+           "unit": "px",
+           "size": 12
+          },
+          "flex_wrap": "wrap",
+          "padding": {
+           "unit": "px",
+           "top": "8",
+           "right": "0",
+           "bottom": "0",
+           "left": "0",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "223281b",
+           "elType": "widget",
+           "widgetType": "button",
+           "settings": {
+            "text": "Postuler",
+            "link": {
+             "url": "#candidature",
+             "is_external": "",
+             "nofollow": "",
+             "custom_attributes": ""
+            },
+            "size": "md",
+            "border_radius": {
+             "unit": "px",
+             "top": "12",
+             "right": "12",
+             "bottom": "12",
+             "left": "12",
+             "isLinked": true
+            },
+            "text_padding": {
+             "unit": "px",
+             "top": "14",
+             "right": "24",
+             "bottom": "14",
+             "left": "24",
+             "isLinked": false
+            },
+            "button_hover_transition_duration": {
+             "unit": "s",
+             "size": 0.2,
+             "sizes": []
+            },
+            "typography_typography": "custom",
+            "typography_font_family": "Fredoka",
+            "typography_font_weight": "600",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 17,
+             "sizes": []
+            },
+            "typography_font_size_mobile": {
+             "unit": "px",
+             "size": 16,
+             "sizes": []
+            },
+            "background_background": "classic",
+            "background_color": "#FFFFFF",
+            "button_text_color": "#2B1406",
+            "border_border": "solid",
+            "border_width": {
+             "unit": "px",
+             "top": "2",
+             "right": "2",
+             "bottom": "2",
+             "left": "2",
+             "isLinked": true
+            },
+            "border_color": "#FFFFFF",
+            "button_hover_border_color": "#F2EDE7",
+            "button_background_hover_background": "classic",
+            "button_background_hover_color": "#F2EDE7",
+            "hover_color": "#2B1406",
+            "__globals__": {
+             "button_text_color": "globals/colors?id=primary",
+             "hover_color": "globals/colors?id=primary",
+             "button_background_hover_color": "globals/colors?id=bigmtile"
+            }
+           },
+           "elements": []
+          },
+          {
+           "id": "3c2e374",
+           "elType": "widget",
+           "widgetType": "button",
+           "settings": {
+            "text": "Voir nos restaurants",
+            "link": {
+             "url": "/restaurants/",
+             "is_external": "",
+             "nofollow": "",
+             "custom_attributes": ""
+            },
+            "size": "md",
+            "border_radius": {
+             "unit": "px",
+             "top": "12",
+             "right": "12",
+             "bottom": "12",
+             "left": "12",
+             "isLinked": true
+            },
+            "text_padding": {
+             "unit": "px",
+             "top": "14",
+             "right": "24",
+             "bottom": "14",
+             "left": "24",
+             "isLinked": false
+            },
+            "button_hover_transition_duration": {
+             "unit": "s",
+             "size": 0.2,
+             "sizes": []
+            },
+            "typography_typography": "custom",
+            "typography_font_family": "Fredoka",
+            "typography_font_weight": "600",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 17,
+             "sizes": []
+            },
+            "typography_font_size_mobile": {
+             "unit": "px",
+             "size": 16,
+             "sizes": []
+            },
+            "background_background": "classic",
+            "background_color": "#FFFFFF00",
+            "button_text_color": "#FFFFFF",
+            "border_border": "solid",
+            "border_width": {
+             "unit": "px",
+             "top": "2",
+             "right": "2",
+             "bottom": "2",
+             "left": "2",
+             "isLinked": true
+            },
+            "border_color": "#FFFFFF",
+            "button_background_hover_background": "classic",
+            "button_background_hover_color": "#FFFFFF",
+            "hover_color": "#2B1406",
+            "__globals__": {
+             "hover_color": "globals/colors?id=primary"
+            }
+           },
+           "elements": []
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "d985607",
+       "elType": "widget",
+       "widgetType": "image",
+       "settings": {
+        "image": {
+         "id": 44,
+         "url": "https://preprod.bigm-burger.fr/wp-content/uploads/2026/11/b-chicken-gants.jpg",
+         "alt": "Un burger au poulet préparé par des mains gantées",
+         "source": "library"
+        },
+        "image_size": "large",
+        "image_border_radius": {
+         "unit": "px",
+         "top": "28",
+         "right": "28",
+         "bottom": "28",
+         "left": "28",
+         "isLinked": true
+        },
+        "width": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "height": {
+         "unit": "px",
+         "size": 420,
+         "sizes": []
+        },
+        "height_mobile": {
+         "unit": "px",
+         "size": 260,
+         "sizes": []
+        },
+        "object-fit": "cover"
+       },
+       "elements": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "c606b6c",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_gap": {
+     "column": "32",
+     "row": "32",
+     "isLinked": true,
+     "unit": "px",
+     "size": 32
+    },
+    "padding": {
+     "unit": "px",
+     "top": "56",
+     "right": "32",
+     "bottom": "56",
+     "left": "32",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "40",
+     "right": "16",
+     "bottom": "40",
+     "left": "16",
+     "isLinked": false
+    }
+   },
+   "elements": [
+    {
+     "id": "ab82649",
+     "elType": "container",
+     "isInner": false,
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "column",
+      "flex_gap": {
+       "column": "10",
+       "row": "10",
+       "isLinked": true,
+       "unit": "px",
+       "size": 10
+      },
+      "width": {
+       "unit": "%",
+       "size": 100,
+       "sizes": []
+      }
+     },
+     "elements": [
+      {
+       "id": "ff8115e",
+       "elType": "widget",
+       "widgetType": "heading",
+       "settings": {
+        "title": "Nos métiers",
+        "header_size": "p",
+        "title_color": "#C8400A",
+        "__globals__": {
+         "title_color": "globals/colors?id=accent"
+        },
+        "typography_typography": "custom",
+        "typography_font_family": "Fredoka",
+        "typography_font_weight": "600",
+        "typography_font_size": {
+         "unit": "px",
+         "size": 15,
+         "sizes": []
+        },
+        "typography_font_size_mobile": {
+         "unit": "px",
+         "size": 14,
+         "sizes": []
+        },
+        "typography_text_transform": "uppercase",
+        "typography_letter_spacing": {
+         "unit": "px",
+         "size": 1,
+         "sizes": []
+        }
+       },
+       "elements": []
+      },
+      {
+       "id": "474e9d4",
+       "elType": "widget",
+       "widgetType": "heading",
+       "settings": {
+        "title": "Trois métiers, une même équipe",
+        "header_size": "h2",
+        "title_color": "#2B1406",
+        "__globals__": {
+         "title_color": "globals/colors?id=primary"
+        },
+        "typography_typography": "custom",
+        "typography_font_family": "Fredoka",
+        "typography_font_weight": "600",
+        "typography_font_size": {
+         "unit": "px",
+         "size": 44,
+         "sizes": []
+        },
+        "typography_font_size_mobile": {
+         "unit": "px",
+         "size": 30,
+         "sizes": []
+        },
+        "typography_line_height": {
+         "unit": "em",
+         "size": 1.05,
+         "sizes": []
+        },
+        "typography_letter_spacing": {
+         "unit": "px",
+         "size": -0.2,
+         "sizes": []
+        }
+       },
+       "elements": []
+      },
+      {
+       "id": "e1adf5f",
+       "elType": "widget",
+       "widgetType": "text-editor",
+       "settings": {
+        "editor": "<p>Débutant ou expérimenté, il y a une place pour vous dans l’un de nos restaurants.</p>",
+        "text_color": "#6B4A3A",
+        "__globals__": {
+         "text_color": "globals/colors?id=secondary"
+        },
+        "typography_typography": "custom",
+        "typography_font_family": "Figtree",
+        "typography_font_weight": "400",
+        "typography_font_size": {
+         "unit": "px",
+         "size": 19,
+         "sizes": []
+        },
+        "typography_font_size_mobile": {
+         "unit": "px",
+         "size": 17,
+         "sizes": []
+        },
+        "typography_line_height": {
+         "unit": "em",
+         "size": 1.5,
+         "sizes": []
+        }
+       },
+       "elements": []
+      }
+     ]
+    },
+    {
+     "id": "b6c7f85",
+     "elType": "container",
+     "isInner": false,
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "column",
+      "flex_gap": {
+       "column": "16",
+       "row": "16",
+       "isLinked": true,
+       "unit": "px",
+       "size": 16
+      },
+      "container_type": "grid",
+      "grid_columns_grid": {
+       "unit": "fr",
+       "size": 3,
+       "sizes": []
+      },
+      "grid_columns_grid_tablet": {
+       "unit": "fr",
+       "size": 2,
+       "sizes": []
+      },
+      "grid_columns_grid_mobile": {
+       "unit": "fr",
+       "size": 1,
+       "sizes": []
+      },
+      "grid_gaps_mobile": {
+       "column": "24",
+       "row": "24",
+       "isLinked": true,
+       "unit": "px",
+       "size": 24
+      },
+      "grid_rows_grid": {
+       "unit": "fr",
+       "size": 1,
+       "sizes": []
+      },
+      "grid_gaps": {
+       "column": "24",
+       "row": "24",
+       "isLinked": true,
+       "unit": "px",
+       "size": 24
+      },
+      "grid_auto_flow": "row",
+      "grid_align_items": "stretch"
+     },
+     "elements": [
+      {
+       "id": "370edf1",
+       "elType": "container",
+       "isInner": false,
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "14",
+         "row": "14",
+         "isLinked": true,
+         "unit": "px",
+         "size": 14
+        },
+        "background_background": "classic",
+        "background_color": "#FFFFFF",
+        "__globals__": {
+         "background_color": "globals/colors?id=bigmcard"
+        },
+        "border_radius": {
+         "unit": "px",
+         "top": "20",
+         "right": "20",
+         "bottom": "20",
+         "left": "20",
+         "isLinked": true
+        },
+        "padding": {
+         "unit": "px",
+         "top": "28",
+         "right": "28",
+         "bottom": "28",
+         "left": "28",
+         "isLinked": true
+        },
+        "padding_mobile": {
+         "unit": "px",
+         "top": "22",
+         "right": "20",
+         "bottom": "22",
+         "left": "20",
+         "isLinked": false
+        }
+       },
+       "elements": [
+        {
+         "id": "02f8899",
+         "elType": "widget",
+         "widgetType": "icon",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-hamburger",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "square",
+          "primary_color": "#F2EDE7",
+          "secondary_color": "#C8400A",
+          "size": {
+           "unit": "px",
+           "size": 28,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 14,
+           "sizes": []
+          },
+          "border_radius": {
+           "unit": "px",
+           "top": "12",
+           "right": "12",
+           "bottom": "12",
+           "left": "12",
+           "isLinked": true
+          },
+          "align": "left",
+          "__globals__": {
+           "primary_color": "globals/colors?id=bigmtile",
+           "secondary_color": "globals/colors?id=accent"
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "a61f7f3",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Équipier ou équipière",
+          "header_size": "h3",
+          "title_color": "#2B1406",
+          "__globals__": {
+           "title_color": "globals/colors?id=primary"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Fredoka",
+          "typography_font_weight": "600",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 26,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 24,
+           "sizes": []
+          },
+          "typography_line_height": {
+           "unit": "em",
+           "size": 1.05,
+           "sizes": []
+          },
+          "typography_letter_spacing": {
+           "unit": "px",
+           "size": -0.2,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "06607ca",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>En cuisine, au comptoir ou en salle, vous faites vivre le restaurant au quotidien. Débutant ? Nous vous formons.</p>",
+          "text_color": "#6B4A3A",
+          "__globals__": {
+           "text_color": "globals/colors?id=secondary"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Figtree",
+          "typography_font_weight": "400",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 17,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 17,
+           "sizes": []
+          },
+          "typography_line_height": {
+           "unit": "em",
+           "size": 1.5,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "1cf95f0",
+         "elType": "container",
+         "isInner": false,
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "flex_gap": {
+           "column": "16",
+           "row": "16",
+           "isLinked": true,
+           "unit": "px",
+           "size": 16
+          },
+          "flex_grow": 1,
+          "flex_justify_content": "flex-end"
+         },
+         "elements": [
+          {
+           "id": "e7bb8ba",
+           "elType": "widget",
+           "widgetType": "button",
+           "settings": {
+            "text": "Je postule",
+            "link": {
+             "url": "#candidature",
+             "is_external": "",
+             "nofollow": "",
+             "custom_attributes": ""
+            },
+            "size": "md",
+            "border_radius": {
+             "unit": "px",
+             "top": "12",
+             "right": "12",
+             "bottom": "12",
+             "left": "12",
+             "isLinked": true
+            },
+            "text_padding": {
+             "unit": "px",
+             "top": "0",
+             "right": "0",
+             "bottom": "0",
+             "left": "0",
+             "isLinked": true
+            },
+            "button_hover_transition_duration": {
+             "unit": "s",
+             "size": 0.2,
+             "sizes": []
+            },
+            "typography_typography": "custom",
+            "typography_font_family": "Fredoka",
+            "typography_font_weight": "600",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 17,
+             "sizes": []
+            },
+            "typography_font_size_mobile": {
+             "unit": "px",
+             "size": 16,
+             "sizes": []
+            },
+            "background_background": "classic",
+            "background_color": "#FFFFFF00",
+            "button_text_color": "#C8400A",
+            "button_background_hover_background": "classic",
+            "button_background_hover_color": "#FFFFFF00",
+            "hover_color": "#A93506",
+            "__globals__": {
+             "button_text_color": "globals/colors?id=accent",
+             "hover_color": "globals/colors?id=bigmbtnhover"
+            },
+            "selected_icon": {
+             "value": "fas fa-arrow-right",
+             "library": "fa-solid"
+            },
+            "icon_align": "row-reverse",
+            "icon_indent": {
+             "unit": "px",
+             "size": 8,
+             "sizes": []
+            }
+           },
+           "elements": []
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "941fa93",
+       "elType": "container",
+       "isInner": false,
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "14",
+         "row": "14",
+         "isLinked": true,
+         "unit": "px",
+         "size": 14
+        },
+        "background_background": "classic",
+        "background_color": "#FFFFFF",
+        "__globals__": {
+         "background_color": "globals/colors?id=bigmcard"
+        },
+        "border_radius": {
+         "unit": "px",
+         "top": "20",
+         "right": "20",
+         "bottom": "20",
+         "left": "20",
+         "isLinked": true
+        },
+        "padding": {
+         "unit": "px",
+         "top": "28",
+         "right": "28",
+         "bottom": "28",
+         "left": "28",
+         "isLinked": true
+        },
+        "padding_mobile": {
+         "unit": "px",
+         "top": "22",
+         "right": "20",
+         "bottom": "22",
+         "left": "20",
+         "isLinked": false
+        }
+       },
+       "elements": [
+        {
+         "id": "45cb8fa",
+         "elType": "widget",
+         "widgetType": "icon",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-users",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "square",
+          "primary_color": "#F2EDE7",
+          "secondary_color": "#C8400A",
+          "size": {
+           "unit": "px",
+           "size": 28,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 14,
+           "sizes": []
+          },
+          "border_radius": {
+           "unit": "px",
+           "top": "12",
+           "right": "12",
+           "bottom": "12",
+           "left": "12",
+           "isLinked": true
+          },
+          "align": "left",
+          "__globals__": {
+           "primary_color": "globals/colors?id=bigmtile",
+           "secondary_color": "globals/colors?id=accent"
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "f2b68f6",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Manager",
+          "header_size": "h3",
+          "title_color": "#2B1406",
+          "__globals__": {
+           "title_color": "globals/colors?id=primary"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Fredoka",
+          "typography_font_weight": "600",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 26,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 24,
+           "sizes": []
+          },
+          "typography_line_height": {
+           "unit": "em",
+           "size": 1.05,
+           "sizes": []
+          },
+          "typography_letter_spacing": {
+           "unit": "px",
+           "size": -0.2,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "2325354",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>Vous animez l’équipe et faites tourner le restaurant. Pour ce poste, un pré-entretien précède l’entretien.</p>",
+          "text_color": "#6B4A3A",
+          "__globals__": {
+           "text_color": "globals/colors?id=secondary"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Figtree",
+          "typography_font_weight": "400",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 17,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 17,
+           "sizes": []
+          },
+          "typography_line_height": {
+           "unit": "em",
+           "size": 1.5,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "4f25e2e",
+         "elType": "container",
+         "isInner": false,
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "flex_gap": {
+           "column": "16",
+           "row": "16",
+           "isLinked": true,
+           "unit": "px",
+           "size": 16
+          },
+          "flex_grow": 1,
+          "flex_justify_content": "flex-end"
+         },
+         "elements": [
+          {
+           "id": "2bd8b2b",
+           "elType": "widget",
+           "widgetType": "button",
+           "settings": {
+            "text": "Je postule",
+            "link": {
+             "url": "#candidature",
+             "is_external": "",
+             "nofollow": "",
+             "custom_attributes": ""
+            },
+            "size": "md",
+            "border_radius": {
+             "unit": "px",
+             "top": "12",
+             "right": "12",
+             "bottom": "12",
+             "left": "12",
+             "isLinked": true
+            },
+            "text_padding": {
+             "unit": "px",
+             "top": "0",
+             "right": "0",
+             "bottom": "0",
+             "left": "0",
+             "isLinked": true
+            },
+            "button_hover_transition_duration": {
+             "unit": "s",
+             "size": 0.2,
+             "sizes": []
+            },
+            "typography_typography": "custom",
+            "typography_font_family": "Fredoka",
+            "typography_font_weight": "600",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 17,
+             "sizes": []
+            },
+            "typography_font_size_mobile": {
+             "unit": "px",
+             "size": 16,
+             "sizes": []
+            },
+            "background_background": "classic",
+            "background_color": "#FFFFFF00",
+            "button_text_color": "#C8400A",
+            "button_background_hover_background": "classic",
+            "button_background_hover_color": "#FFFFFF00",
+            "hover_color": "#A93506",
+            "__globals__": {
+             "button_text_color": "globals/colors?id=accent",
+             "hover_color": "globals/colors?id=bigmbtnhover"
+            },
+            "selected_icon": {
+             "value": "fas fa-arrow-right",
+             "library": "fa-solid"
+            },
+            "icon_align": "row-reverse",
+            "icon_indent": {
+             "unit": "px",
+             "size": 8,
+             "sizes": []
+            }
+           },
+           "elements": []
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "3dffdc5",
+       "elType": "container",
+       "isInner": false,
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "14",
+         "row": "14",
+         "isLinked": true,
+         "unit": "px",
+         "size": 14
+        },
+        "background_background": "classic",
+        "background_color": "#FFFFFF",
+        "__globals__": {
+         "background_color": "globals/colors?id=bigmcard"
+        },
+        "border_radius": {
+         "unit": "px",
+         "top": "20",
+         "right": "20",
+         "bottom": "20",
+         "left": "20",
+         "isLinked": true
+        },
+        "padding": {
+         "unit": "px",
+         "top": "28",
+         "right": "28",
+         "bottom": "28",
+         "left": "28",
+         "isLinked": true
+        },
+        "padding_mobile": {
+         "unit": "px",
+         "top": "22",
+         "right": "20",
+         "bottom": "22",
+         "left": "20",
+         "isLinked": false
+        }
+       },
+       "elements": [
+        {
+         "id": "222506a",
+         "elType": "widget",
+         "widgetType": "icon",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-chalkboard-teacher",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "square",
+          "primary_color": "#F2EDE7",
+          "secondary_color": "#C8400A",
+          "size": {
+           "unit": "px",
+           "size": 28,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 14,
+           "sizes": []
+          },
+          "border_radius": {
+           "unit": "px",
+           "top": "12",
+           "right": "12",
+           "bottom": "12",
+           "left": "12",
+           "isLinked": true
+          },
+          "align": "left",
+          "__globals__": {
+           "primary_color": "globals/colors?id=bigmtile",
+           "secondary_color": "globals/colors?id=accent"
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "56c71b7",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Formateur ou formatrice",
+          "header_size": "h3",
+          "title_color": "#2B1406",
+          "__globals__": {
+           "title_color": "globals/colors?id=primary"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Fredoka",
+          "typography_font_weight": "600",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 26,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 24,
+           "sizes": []
+          },
+          "typography_line_height": {
+           "unit": "em",
+           "size": 1.05,
+           "sizes": []
+          },
+          "typography_letter_spacing": {
+           "unit": "px",
+           "size": -0.2,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "e3e1335",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>Vous formez et accompagnez les nouvelles recrues tout au long de leur intégration.</p>",
+          "text_color": "#6B4A3A",
+          "__globals__": {
+           "text_color": "globals/colors?id=secondary"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Figtree",
+          "typography_font_weight": "400",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 17,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 17,
+           "sizes": []
+          },
+          "typography_line_height": {
+           "unit": "em",
+           "size": 1.5,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "00a6ce7",
+         "elType": "container",
+         "isInner": false,
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "flex_gap": {
+           "column": "16",
+           "row": "16",
+           "isLinked": true,
+           "unit": "px",
+           "size": 16
+          },
+          "flex_grow": 1,
+          "flex_justify_content": "flex-end"
+         },
+         "elements": [
+          {
+           "id": "ae0189e",
+           "elType": "widget",
+           "widgetType": "button",
+           "settings": {
+            "text": "Je postule",
+            "link": {
+             "url": "#candidature",
+             "is_external": "",
+             "nofollow": "",
+             "custom_attributes": ""
+            },
+            "size": "md",
+            "border_radius": {
+             "unit": "px",
+             "top": "12",
+             "right": "12",
+             "bottom": "12",
+             "left": "12",
+             "isLinked": true
+            },
+            "text_padding": {
+             "unit": "px",
+             "top": "0",
+             "right": "0",
+             "bottom": "0",
+             "left": "0",
+             "isLinked": true
+            },
+            "button_hover_transition_duration": {
+             "unit": "s",
+             "size": 0.2,
+             "sizes": []
+            },
+            "typography_typography": "custom",
+            "typography_font_family": "Fredoka",
+            "typography_font_weight": "600",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 17,
+             "sizes": []
+            },
+            "typography_font_size_mobile": {
+             "unit": "px",
+             "size": 16,
+             "sizes": []
+            },
+            "background_background": "classic",
+            "background_color": "#FFFFFF00",
+            "button_text_color": "#C8400A",
+            "button_background_hover_background": "classic",
+            "button_background_hover_color": "#FFFFFF00",
+            "hover_color": "#A93506",
+            "__globals__": {
+             "button_text_color": "globals/colors?id=accent",
+             "hover_color": "globals/colors?id=bigmbtnhover"
+            },
+            "selected_icon": {
+             "value": "fas fa-arrow-right",
+             "library": "fa-solid"
+            },
+            "icon_align": "row-reverse",
+            "icon_indent": {
+             "unit": "px",
+             "size": 8,
+             "sizes": []
+            }
+           },
+           "elements": []
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "12429f3",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_gap": {
+     "column": "32",
+     "row": "32",
+     "isLinked": true,
+     "unit": "px",
+     "size": 32
+    },
+    "padding": {
+     "unit": "px",
+     "top": "40",
+     "right": "32",
+     "bottom": "40",
+     "left": "32",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "32",
+     "right": "16",
+     "bottom": "32",
+     "left": "16",
+     "isLinked": false
+    }
+   },
+   "elements": [
+    {
+     "id": "13dc14d",
+     "elType": "container",
+     "isInner": false,
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "column",
+      "flex_gap": {
+       "column": "10",
+       "row": "10",
+       "isLinked": true,
+       "unit": "px",
+       "size": 10
+      },
+      "width": {
+       "unit": "%",
+       "size": 100,
+       "sizes": []
+      }
+     },
+     "elements": [
+      {
+       "id": "b1affa4",
+       "elType": "widget",
+       "widgetType": "heading",
+       "settings": {
+        "title": "Vous préparer, nous convaincre",
+        "header_size": "p",
+        "title_color": "#C8400A",
+        "__globals__": {
+         "title_color": "globals/colors?id=accent"
+        },
+        "typography_typography": "custom",
+        "typography_font_family": "Fredoka",
+        "typography_font_weight": "600",
+        "typography_font_size": {
+         "unit": "px",
+         "size": 15,
+         "sizes": []
+        },
+        "typography_font_size_mobile": {
+         "unit": "px",
+         "size": 14,
+         "sizes": []
+        },
+        "typography_text_transform": "uppercase",
+        "typography_letter_spacing": {
+         "unit": "px",
+         "size": 1,
+         "sizes": []
+        }
+       },
+       "elements": []
+      },
+      {
+       "id": "8194fa2",
+       "elType": "widget",
+       "widgetType": "heading",
+       "settings": {
+        "title": "Mettez toutes les chances de votre côté",
+        "header_size": "h2",
+        "title_color": "#2B1406",
+        "__globals__": {
+         "title_color": "globals/colors?id=primary"
+        },
+        "typography_typography": "custom",
+        "typography_font_family": "Fredoka",
+        "typography_font_weight": "600",
+        "typography_font_size": {
+         "unit": "px",
+         "size": 44,
+         "sizes": []
+        },
+        "typography_font_size_mobile": {
+         "unit": "px",
+         "size": 30,
+         "sizes": []
+        },
+        "typography_line_height": {
+         "unit": "em",
+         "size": 1.05,
+         "sizes": []
+        },
+        "typography_letter_spacing": {
+         "unit": "px",
+         "size": -0.2,
+         "sizes": []
+        }
+       },
+       "elements": []
+      },
+      {
+       "id": "01600b3",
+       "elType": "widget",
+       "widgetType": "text-editor",
+       "settings": {
+        "editor": "<p>Big M vous aide à préparer votre entretien de recrutement. Préparez-vous attentivement : vous serez plus à l’aise le jour J.</p>",
+        "text_color": "#6B4A3A",
+        "__globals__": {
+         "text_color": "globals/colors?id=secondary"
+        },
+        "typography_typography": "custom",
+        "typography_font_family": "Figtree",
+        "typography_font_weight": "400",
+        "typography_font_size": {
+         "unit": "px",
+         "size": 19,
+         "sizes": []
+        },
+        "typography_font_size_mobile": {
+         "unit": "px",
+         "size": 17,
+         "sizes": []
+        },
+        "typography_line_height": {
+         "unit": "em",
+         "size": 1.5,
+         "sizes": []
+        }
+       },
+       "elements": []
+      }
+     ]
+    },
+    {
+     "id": "f16baff",
+     "elType": "container",
+     "isInner": false,
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "column",
+      "flex_gap": {
+       "column": "16",
+       "row": "16",
+       "isLinked": true,
+       "unit": "px",
+       "size": 16
+      },
+      "container_type": "grid",
+      "grid_columns_grid": {
+       "unit": "fr",
+       "size": 2,
+       "sizes": []
+      },
+      "grid_columns_grid_tablet": {
+       "unit": "fr",
+       "size": 2,
+       "sizes": []
+      },
+      "grid_columns_grid_mobile": {
+       "unit": "fr",
+       "size": 1,
+       "sizes": []
+      },
+      "grid_gaps_mobile": {
+       "column": "24",
+       "row": "24",
+       "isLinked": true,
+       "unit": "px",
+       "size": 24
+      },
+      "grid_rows_grid": {
+       "unit": "fr",
+       "size": 1,
+       "sizes": []
+      },
+      "grid_gaps": {
+       "column": "24",
+       "row": "24",
+       "isLinked": true,
+       "unit": "px",
+       "size": 24
+      },
+      "grid_auto_flow": "row",
+      "grid_align_items": "stretch"
+     },
+     "elements": [
+      {
+       "id": "baed326",
+       "elType": "container",
+       "isInner": false,
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "14",
+         "row": "14",
+         "isLinked": true,
+         "unit": "px",
+         "size": 14
+        },
+        "background_background": "classic",
+        "background_color": "#FFFFFF",
+        "__globals__": {
+         "background_color": "globals/colors?id=bigmcard"
+        },
+        "border_radius": {
+         "unit": "px",
+         "top": "20",
+         "right": "20",
+         "bottom": "20",
+         "left": "20",
+         "isLinked": true
+        },
+        "padding": {
+         "unit": "px",
+         "top": "28",
+         "right": "28",
+         "bottom": "28",
+         "left": "28",
+         "isLinked": true
+        },
+        "padding_mobile": {
+         "unit": "px",
+         "top": "22",
+         "right": "20",
+         "bottom": "22",
+         "left": "20",
+         "isLinked": false
+        }
+       },
+       "elements": [
+        {
+         "id": "92e6b70",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Des astuces pour votre CV",
+          "header_size": "h3",
+          "title_color": "#2B1406",
+          "__globals__": {
+           "title_color": "globals/colors?id=primary"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Fredoka",
+          "typography_font_weight": "600",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 26,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 24,
+           "sizes": []
+          },
+          "typography_line_height": {
+           "unit": "em",
+           "size": 1.05,
+           "sizes": []
+          },
+          "typography_letter_spacing": {
+           "unit": "px",
+           "size": -0.2,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "d586e53",
+         "elType": "widget",
+         "widgetType": "icon-list",
+         "settings": {
+          "icon_list": [
+           {
+            "_id": "e94837c",
+            "text": "Indiquez le poste que vous souhaitez et vos disponibilités (pour un CDD, par exemple).",
+            "selected_icon": {
+             "value": "fas fa-check-circle",
+             "library": "fa-solid"
+            }
+           },
+           {
+            "_id": "f76153e",
+            "text": "Précisez les emplois que vous avez occupés, même de courte durée, et ce que vous y avez appris.",
+            "selected_icon": {
+             "value": "fas fa-check-circle",
+             "library": "fa-solid"
+            }
+           },
+           {
+            "_id": "80a9a39",
+            "text": "Vous avez des passions, des loisirs, vous faites du bénévolat ? C’est le moment de nous le dire.",
+            "selected_icon": {
+             "value": "fas fa-check-circle",
+             "library": "fa-solid"
+            }
+           }
+          ],
+          "icon_color": "#C8400A",
+          "text_color": "#2B1406",
+          "icon_size": {
+           "unit": "px",
+           "size": 20,
+           "sizes": []
+          },
+          "space_between": {
+           "unit": "px",
+           "size": 14,
+           "sizes": []
+          },
+          "text_indent": {
+           "unit": "px",
+           "size": 10,
+           "sizes": []
+          },
+          "__globals__": {
+           "icon_color": "globals/colors?id=accent",
+           "text_color": "globals/colors?id=text"
+          },
+          "icon_typography_typography": "custom",
+          "icon_typography_font_family": "Figtree",
+          "icon_typography_font_weight": "400",
+          "icon_typography_font_size": {
+           "unit": "px",
+           "size": 17,
+           "sizes": []
+          },
+          "icon_typography_font_size_mobile": {
+           "unit": "px",
+           "size": 16,
+           "sizes": []
+          },
+          "icon_typography_line_height": {
+           "unit": "em",
+           "size": 1.4,
+           "sizes": []
+          }
+         },
+         "elements": []
+        }
+       ]
+      },
+      {
+       "id": "3378d63",
+       "elType": "container",
+       "isInner": false,
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "14",
+         "row": "14",
+         "isLinked": true,
+         "unit": "px",
+         "size": 14
+        },
+        "background_background": "classic",
+        "background_color": "#FFFFFF",
+        "__globals__": {
+         "background_color": "globals/colors?id=bigmcard"
+        },
+        "border_radius": {
+         "unit": "px",
+         "top": "20",
+         "right": "20",
+         "bottom": "20",
+         "left": "20",
+         "isLinked": true
+        },
+        "padding": {
+         "unit": "px",
+         "top": "28",
+         "right": "28",
+         "bottom": "28",
+         "left": "28",
+         "isLinked": true
+        },
+        "padding_mobile": {
+         "unit": "px",
+         "top": "22",
+         "right": "20",
+         "bottom": "22",
+         "left": "20",
+         "isLinked": false
+        }
+       },
+       "elements": [
+        {
+         "id": "7b21aad",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Et après ?",
+          "header_size": "h3",
+          "title_color": "#2B1406",
+          "__globals__": {
+           "title_color": "globals/colors?id=primary"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Fredoka",
+          "typography_font_weight": "600",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 26,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 24,
+           "sizes": []
+          },
+          "typography_line_height": {
+           "unit": "em",
+           "size": 1.05,
+           "sizes": []
+          },
+          "typography_letter_spacing": {
+           "unit": "px",
+           "size": -0.2,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "b16c665",
+         "elType": "widget",
+         "widgetType": "icon-list",
+         "settings": {
+          "icon_list": [
+           {
+            "_id": "cb9871f",
+            "text": "Vous recevez vite une réponse. Si votre candidature n’est pas retenue, vous le saurez par e-mail : ne vous laissez pas abattre, vous pouvez postuler dans un autre restaurant.",
+            "selected_icon": {
+             "value": "fas fa-envelope-open-text",
+             "library": "fa-solid"
+            }
+           },
+           {
+            "_id": "84182bb",
+            "text": "Bonne nouvelle ? Nous vous l’annonçons par téléphone, e-mail ou SMS.",
+            "selected_icon": {
+             "value": "fas fa-comment-dots",
+             "library": "fa-solid"
+            }
+           },
+           {
+            "_id": "3b60197",
+            "text": "Vient ensuite l’entretien (ou un pré-entretien pour le poste de manager) : nous vous indiquons la date, le lieu, l’heure et le nom de votre interlocuteur.",
+            "selected_icon": {
+             "value": "fas fa-handshake",
+             "library": "fa-solid"
+            }
+           }
+          ],
+          "icon_color": "#C8400A",
+          "text_color": "#2B1406",
+          "icon_size": {
+           "unit": "px",
+           "size": 20,
+           "sizes": []
+          },
+          "space_between": {
+           "unit": "px",
+           "size": 16,
+           "sizes": []
+          },
+          "text_indent": {
+           "unit": "px",
+           "size": 12,
+           "sizes": []
+          },
+          "icon_self_vertical_align": "flex-start",
+          "icon_vertical_offset": {
+           "unit": "px",
+           "size": 2,
+           "sizes": []
+          },
+          "__globals__": {
+           "icon_color": "globals/colors?id=accent",
+           "text_color": "globals/colors?id=text"
+          },
+          "icon_typography_typography": "custom",
+          "icon_typography_font_family": "Figtree",
+          "icon_typography_font_weight": "400",
+          "icon_typography_font_size": {
+           "unit": "px",
+           "size": 17,
+           "sizes": []
+          },
+          "icon_typography_font_size_mobile": {
+           "unit": "px",
+           "size": 16,
+           "sizes": []
+          },
+          "icon_typography_line_height": {
+           "unit": "em",
+           "size": 1.45,
+           "sizes": []
+          }
+         },
+         "elements": []
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "6a05fa9",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_gap": {
+     "column": "32",
+     "row": "32",
+     "isLinked": true,
+     "unit": "px",
+     "size": 32
+    },
+    "padding": {
+     "unit": "px",
+     "top": "72",
+     "right": "32",
+     "bottom": "72",
+     "left": "32",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "48",
+     "right": "16",
+     "bottom": "48",
+     "left": "16",
+     "isLinked": false
+    },
+    "background_background": "classic",
+    "background_color": "#2B1406",
+    "__globals__": {
+     "background_color": "globals/colors?id=primary"
+    },
+    "margin": {
+     "unit": "px",
+     "top": "40",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": false
+    }
+   },
+   "elements": [
+    {
+     "id": "c7841f8",
+     "elType": "container",
+     "isInner": false,
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "column",
+      "flex_gap": {
+       "column": "16",
+       "row": "16",
+       "isLinked": true,
+       "unit": "px",
+       "size": 16
+      },
+      "container_type": "grid",
+      "grid_columns_grid": {
+       "unit": "fr",
+       "size": 2,
+       "sizes": []
+      },
+      "grid_columns_grid_tablet": {
+       "unit": "fr",
+       "size": 2,
+       "sizes": []
+      },
+      "grid_columns_grid_mobile": {
+       "unit": "fr",
+       "size": 1,
+       "sizes": []
+      },
+      "grid_gaps_mobile": {
+       "column": "48",
+       "row": "48",
+       "isLinked": true,
+       "unit": "px",
+       "size": 48
+      },
+      "grid_rows_grid": {
+       "unit": "fr",
+       "size": 1,
+       "sizes": []
+      },
+      "grid_gaps": {
+       "column": "48",
+       "row": "48",
+       "isLinked": true,
+       "unit": "px",
+       "size": 48
+      },
+      "grid_auto_flow": "row",
+      "grid_align_items": "center"
+     },
+     "elements": [
+      {
+       "id": "e0f331e",
+       "elType": "widget",
+       "widgetType": "image",
+       "settings": {
+        "image": {
+         "id": 206,
+         "url": "https://preprod.bigm-burger.fr/wp-content/uploads/2026/11/A7409086-1-e1793815908585.jpg",
+         "alt": "La devanture d’un restaurant Big M",
+         "source": "library"
+        },
+        "image_size": "large",
+        "image_border_radius": {
+         "unit": "px",
+         "top": "28",
+         "right": "28",
+         "bottom": "28",
+         "left": "28",
+         "isLinked": true
+        },
+        "width": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "height": {
+         "unit": "px",
+         "size": 440,
+         "sizes": []
+        },
+        "height_mobile": {
+         "unit": "px",
+         "size": 260,
+         "sizes": []
+        },
+        "object-fit": "cover"
+       },
+       "elements": []
+      },
+      {
+       "id": "c883db6",
+       "elType": "container",
+       "isInner": false,
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "20",
+         "row": "20",
+         "isLinked": true,
+         "unit": "px",
+         "size": 20
+        },
+        "flex_justify_content": "center"
+       },
+       "elements": [
+        {
+         "id": "5d2488f",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Ils ont rejoint Big M",
+          "header_size": "p",
+          "title_color": "#FA5C19",
+          "__globals__": {
+           "title_color": "globals/colors?id=bigmorange"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Fredoka",
+          "typography_font_weight": "600",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 15,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 14,
+           "sizes": []
+          },
+          "typography_text_transform": "uppercase",
+          "typography_letter_spacing": {
+           "unit": "px",
+           "size": 1,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "b7b7be0",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Une équipe qui vous fait grandir",
+          "header_size": "h2",
+          "title_color": "#FFFFFF",
+          "__globals__": {
+           "title_color": "globals/colors?id=bigmcard"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Fredoka",
+          "typography_font_weight": "600",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 40,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "typography_line_height": {
+           "unit": "em",
+           "size": 1.05,
+           "sizes": []
+          },
+          "typography_letter_spacing": {
+           "unit": "px",
+           "size": -0.2,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "6e55224",
+         "elType": "container",
+         "isInner": false,
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "flex_gap": {
+           "column": "4",
+           "row": "4",
+           "isLinked": true,
+           "unit": "px",
+           "size": 4
+          }
+         },
+         "elements": [
+          {
+           "id": "6adedb3",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "settings": {
+            "editor": "<p>« L’ambiance et la qualité de travail au sein de Big M sont inégalables. Nous sommes souvent challengés à devenir meilleurs, et à le transmettre à nos collaborateurs. »</p>",
+            "text_color": "#FFFFFF",
+            "__globals__": {
+             "text_color": "globals/colors?id=bigmcard"
+            },
+            "typography_typography": "custom",
+            "typography_font_family": "Figtree",
+            "typography_font_weight": "400",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 19,
+             "sizes": []
+            },
+            "typography_font_size_mobile": {
+             "unit": "px",
+             "size": 17,
+             "sizes": []
+            },
+            "typography_line_height": {
+             "unit": "em",
+             "size": 1.5,
+             "sizes": []
+            }
+           },
+           "elements": []
+          },
+          {
+           "id": "8b93f97",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "settings": {
+            "editor": "<p><strong>Yacine</strong>, formateur</p>",
+            "text_color": "#F6E4D6",
+            "__globals__": {
+             "text_color": "globals/colors?id=bigmfooterink"
+            },
+            "typography_typography": "custom",
+            "typography_font_family": "Figtree",
+            "typography_font_weight": "400",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 15,
+             "sizes": []
+            },
+            "typography_font_size_mobile": {
+             "unit": "px",
+             "size": 15,
+             "sizes": []
+            },
+            "typography_line_height": {
+             "unit": "em",
+             "size": 1.5,
+             "sizes": []
+            }
+           },
+           "elements": []
+          }
+         ]
+        },
+        {
+         "id": "28a0996",
+         "elType": "container",
+         "isInner": false,
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "flex_gap": {
+           "column": "4",
+           "row": "4",
+           "isLinked": true,
+           "unit": "px",
+           "size": 4
+          }
+         },
+         "elements": [
+          {
+           "id": "bb4f066",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "settings": {
+            "editor": "<p>« Je suis manager au Big M de Bondy depuis quelques mois. J’ai été formé et accompagné tout au long de mon intégration. C’est une expérience forte en responsabilités, qui m’a énormément apporté. »</p>",
+            "text_color": "#FFFFFF",
+            "__globals__": {
+             "text_color": "globals/colors?id=bigmcard"
+            },
+            "typography_typography": "custom",
+            "typography_font_family": "Figtree",
+            "typography_font_weight": "400",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 19,
+             "sizes": []
+            },
+            "typography_font_size_mobile": {
+             "unit": "px",
+             "size": 17,
+             "sizes": []
+            },
+            "typography_line_height": {
+             "unit": "em",
+             "size": 1.5,
+             "sizes": []
+            }
+           },
+           "elements": []
+          },
+          {
+           "id": "13d5467",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "settings": {
+            "editor": "<p><strong>Mina L.</strong>, manager à Bondy</p>",
+            "text_color": "#F6E4D6",
+            "__globals__": {
+             "text_color": "globals/colors?id=bigmfooterink"
+            },
+            "typography_typography": "custom",
+            "typography_font_family": "Figtree",
+            "typography_font_weight": "400",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 15,
+             "sizes": []
+            },
+            "typography_font_size_mobile": {
+             "unit": "px",
+             "size": 15,
+             "sizes": []
+            },
+            "typography_line_height": {
+             "unit": "em",
+             "size": 1.5,
+             "sizes": []
+            }
+           },
+           "elements": []
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ff9c871",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_gap": {
+     "column": "32",
+     "row": "32",
+     "isLinked": true,
+     "unit": "px",
+     "size": 32
+    },
+    "padding": {
+     "unit": "px",
+     "top": "64",
+     "right": "32",
+     "bottom": "64",
+     "left": "32",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "40",
+     "right": "16",
+     "bottom": "40",
+     "left": "16",
+     "isLinked": false
+    },
+    "_element_id": "candidature",
+    "flex_align_items": "center"
+   },
+   "elements": [
+    {
+     "id": "6463e14",
+     "elType": "container",
+     "isInner": false,
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "column",
+      "flex_gap": {
+       "column": "28",
+       "row": "28",
+       "isLinked": true,
+       "unit": "px",
+       "size": 28
+      },
+      "width": {
+       "unit": "px",
+       "size": 860,
+       "sizes": []
+      },
+      "width_tablet": {
+       "unit": "%",
+       "size": 100,
+       "sizes": []
+      }
+     },
+     "elements": [
+      {
+       "id": "c361113",
+       "elType": "container",
+       "isInner": false,
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "10",
+         "row": "10",
+         "isLinked": true,
+         "unit": "px",
+         "size": 10
+        },
+        "width": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        }
+       },
+       "elements": [
+        {
+         "id": "16e91b6",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Faites votre check-list !",
+          "header_size": "p",
+          "title_color": "#C8400A",
+          "__globals__": {
+           "title_color": "globals/colors?id=accent"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Fredoka",
+          "typography_font_weight": "600",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 15,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 14,
+           "sizes": []
+          },
+          "typography_text_transform": "uppercase",
+          "typography_letter_spacing": {
+           "unit": "px",
+           "size": 1,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "9101379",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Un premier pas : votre candidature",
+          "header_size": "h2",
+          "title_color": "#2B1406",
+          "__globals__": {
+           "title_color": "globals/colors?id=primary"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Fredoka",
+          "typography_font_weight": "600",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 44,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "typography_line_height": {
+           "unit": "em",
+           "size": 1.05,
+           "sizes": []
+          },
+          "typography_letter_spacing": {
+           "unit": "px",
+           "size": -0.2,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "481f7a7",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>Remplissez le formulaire et joignez votre CV, et votre lettre de motivation si vous en avez une. Nous nous occupons du reste.</p>",
+          "text_color": "#6B4A3A",
+          "__globals__": {
+           "text_color": "globals/colors?id=secondary"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Figtree",
+          "typography_font_weight": "400",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 19,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 17,
+           "sizes": []
+          },
+          "typography_line_height": {
+           "unit": "em",
+           "size": 1.5,
+           "sizes": []
+          }
+         },
+         "elements": []
+        }
+       ]
+      },
+      {
+       "id": "b303cdb",
+       "elType": "container",
+       "isInner": false,
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "14",
+         "row": "14",
+         "isLinked": true,
+         "unit": "px",
+         "size": 14
+        },
+        "background_background": "classic",
+        "background_color": "#FFFFFF",
+        "__globals__": {
+         "background_color": "globals/colors?id=bigmcard"
+        },
+        "border_radius": {
+         "unit": "px",
+         "top": "20",
+         "right": "20",
+         "bottom": "20",
+         "left": "20",
+         "isLinked": true
+        },
+        "padding": {
+         "unit": "px",
+         "top": "36",
+         "right": "36",
+         "bottom": "36",
+         "left": "36",
+         "isLinked": true
+        },
+        "padding_mobile": {
+         "unit": "px",
+         "top": "22",
+         "right": "20",
+         "bottom": "22",
+         "left": "20",
+         "isLinked": false
+        }
+       },
+       "elements": [
+        {
+         "id": "2cce8fa",
+         "elType": "widget",
+         "widgetType": "wpforms",
+         "settings": {
+          "form_id": "0",
+          "display_form_name": "",
+          "display_form_description": "",
+          "wpformsTheme": "default",
+          "isMigrated": "true",
+          "fieldSize": "medium",
+          "fieldBorderStyle": "solid",
+          "fieldBorderSize": "1",
+          "fieldBorderRadius": "12",
+          "fieldBackgroundColor": "#FFFFFF",
+          "fieldBorderColor": "#2B140626",
+          "fieldTextColor": "#2B1406",
+          "fieldMenuColor": "#FFFFFF",
+          "labelSize": "medium",
+          "labelColor": "#2B1406",
+          "labelSublabelColor": "#6B4A3A",
+          "labelErrorColor": "#D63637",
+          "buttonSize": "medium",
+          "buttonBorderStyle": "none",
+          "buttonBorderRadius": "12",
+          "buttonBackgroundColor": "#C8400A",
+          "buttonTextColor": "#FFFFFF",
+          "containerPadding": "0",
+          "containerBorderStyle": "none",
+          "containerShadowSize": "none",
+          "backgroundImage": "none",
+          "backgroundUrl": {
+           "url": "",
+           "id": ""
+          },
+          "pageBreakColor": "#C8400A",
+          "__globals__": {
+           "fieldTextColor": "globals/colors?id=text",
+           "labelColor": "globals/colors?id=text",
+           "buttonBackgroundColor": "globals/colors?id=accent",
+           "pageBreakColor": "globals/colors?id=accent"
+          },
+          "custom_css": "selector { --wpforms-background-url: none; }\nselector .wpforms-container { margin: 0; }\nselector .wpforms-container .wpforms-form {\n  --wpforms-label-size-font-size: 15px;\n  --wpforms-label-size-line-height: 20px;\n  --wpforms-field-size-input-height: 48px;\n  --wpforms-field-size-padding-h: 16px;\n  --wpforms-button-size-height: 52px;\n  --wpforms-button-size-padding-h: 28px;\n  --wpforms-button-size-font-size: 17px;\n  --wpforms-button-size-margin-top: 8px;\n}\nselector .wpforms-field-label,\nselector .wpforms-field-label-inline,\nselector .wpforms-field-description,\nselector input, selector select, selector textarea { font-family: 'Figtree', sans-serif; }\nselector .wpforms-field-label { font-weight: 600; }\nselector .wpforms-field-label-inline { font-weight: 400; hyphens: manual; }\nselector .wpforms-required-label { color: var(--e-global-color-accent, #C8400A); }\nselector button.wpforms-submit { font-family: 'Fredoka', sans-serif; font-weight: 600; }\nselector button.wpforms-submit:hover { background: var(--e-global-color-bigmbtnhover, #A93506); }\nselector .wpforms-confirmation-container-full {\n  background: var(--e-global-color-bigmtile, #F2EDE7); border: 0; border-radius: 12px;\n  color: var(--e-global-color-text, #2B1406); font-family: 'Figtree', sans-serif; font-size: 17px; padding: 20px 24px;\n}\nselector .wpforms-confirmation-container-full p { margin: 0; }"
+         },
+         "elements": []
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "page_settings": {
+  "hide_title": "yes"
+ },
+ "version": "0.4",
+ "title": "Big M — Nous rejoindre",
+ "type": "page"
+}

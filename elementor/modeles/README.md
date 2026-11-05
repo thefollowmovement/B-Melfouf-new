@@ -28,7 +28,7 @@ doublon « Approvisionnement négocié » retiré. Logos de compétitions et de 
 | `devenir-franchise.json` | Modèle Elementor de la page entière (formulaire WPForms inclus). |
 | `devenir-franchise-candidature.json` | La seule section « Candidature » : sert à remplacer l'ancien formulaire Elementor Pro sur une page déjà publiée. |
 | `candidature-franchise-wpforms.json` | Formulaire WPForms à importer (WPForms → Outils → Importer). |
-| `franchise_page.py`, `franchise_wpforms.py` | Générateurs des fichiers ci-dessus. |
+| `franchise_page.py`, `franchise_wpforms.py` | Générateurs des fichiers ci-dessus (briques communes : `bigm_elementor.py`, `bigm_wpforms.py`). |
 
 ### Mettre la page en ligne (nouvelle page)
 
@@ -83,9 +83,82 @@ doublon « Approvisionnement négocié » retiré. Logos de compétitions et de 
 - **Ancien formulaire Elementor Pro** : une fois la page passée à WPForms, les éventuels envois de test restent dans
   Elementor → Soumissions ; on peut les supprimer.
 
-### Regénérer le modèle
+## Nous rejoindre — `nous-rejoindre.json`
 
-Le modèle est produit par `franchise_page.py` (Python 3, sans dépendance) :
+Page de recrutement du nouveau site, d'après l'ancienne page « Nous Rejoindre » (<https://bigm-burger.fr/contact/>),
+avec la même charte que la page « Devenir franchisé ». Adresse prévue : **`/recrutement/`**, celle des liens
+« Recrutez-nous ! » du menu et du bouton « Postuler » de l'accueil (pas de lien à changer, seulement les libellés).
+
+### Sections
+
+1. **Bandeau orange** : « Nous rejoindre », texte d'accueil de l'ancienne page, boutons « Postuler » (→ `#candidature`)
+   et « Voir nos restaurants » (→ `/restaurants/`), photo du burger préparé en cuisine (n° 44).
+2. **Nos métiers** : équipier ou équipière, manager, formateur ou formatrice (les métiers de la carte de l'accueil).
+3. **Vous préparer, nous convaincre** : les astuces pour le CV et « Et après ? » (réponse, annonce, entretien), repris de l'ancienne page.
+4. **Ils ont rejoint Big M** (aplat brun) : témoignages de Yacine (formateur) et Mina L. (manager à Bondy), photo de la devanture (n° 206).
+5. **Candidature** (ancre `#candidature`) : formulaire **WPForms** « Candidature — Nous rejoindre ».
+
+Les photos de stock des témoignages de l'ancienne page ne sont pas reprises.
+
+### Fichiers
+
+| Fichier | Rôle |
+| ------- | ---- |
+| `nous-rejoindre.json` | Modèle Elementor de la page (formulaire WPForms inclus). |
+| `candidature-recrutement-wpforms.json` | Formulaire WPForms à importer (WPForms → Outils → Importer). |
+| `recrutement_page.py`, `recrutement_wpforms.py` | Générateurs des fichiers ci-dessus. |
+
+### Mettre la page en ligne (preprod)
+
+1. **WPForms → Outils → Importer** → `candidature-recrutement-wpforms.json` → **Importer les formulaires**.
+2. **Modèles → Modèles enregistrés → Importer des modèles** → `nous-rejoindre.json` → Importer.
+3. **Pages → Ajouter** : titre « Nous rejoindre », slug **`recrutement`**, modèle de page **Elementor pleine largeur**.
+4. **Modifier avec Elementor** → icône dossier → **Mes modèles** → « Big M — Nous rejoindre » → **Insérer**.
+5. Cliquer sur le formulaire (en bas) → **Formulaire** : « Candidature — Nous rejoindre » → **Publier**.
+6. Photos : les copies créées à l'import n'ont pas de texte alternatif (comme pour la page franchise).
+7. Vider le cache du CDN, puis envoyer une candidature d'essai avec un CV (voir plus bas).
+
+### Renommer « Recrutez-nous ! » en « Nous rejoindre »
+
+- **Apparence → Menus** : menus « Big M — En-tête » et « Big M — Menu latéral », élément « Recrutez-nous ! » →
+  **Titre de la navigation** : « Nous rejoindre ». Dans « Big M — Pied de page : L'entreprise », « Recrutement » peut
+  aussi devenir « Nous rejoindre ».
+- **Accueil** : modifier avec Elementor → widget « Big M — Nous rejoindre » → section **Recrutement** → **Titre** : « Nous rejoindre ».
+- Les valeurs par défaut écrites dans le code (thème `bigm-child`, `inc/navigation.php` ; extension `bigm-core`,
+  widget `rejoindre.php`) disent encore « Recrutez-nous ! ». Elles ne servent que si les menus sont vides ou si
+  le widget n'a jamais été réglé : à changer à la prochaine mise à jour du thème et de l'extension.
+
+### Formulaire de candidature (WPForms)
+
+- Deux champs par ligne (un par ligne sur mobile) : prénom | nom, e-mail | téléphone, poste souhaité | ville(s) où
+  travailler ; puis CV et lettre de motivation, message (facultatif), consentement.
+- Par rapport à l'ancien formulaire (n° 1006) : **e-mail ajouté** (il n'y en avait pas), **poste souhaité ajouté**,
+  **adresse postale retirée** (la ville où l'on veut travailler suffit ; moins de données personnelles à garder).
+- **Fichiers** : 3 au plus, 5 Mo chacun, PDF, Word (doc, docx, odt) ou photo (jpg, png). Glisser-déposer.
+  Les fichiers sont **joints à l'e-mail** et gardés dans **WPForms → Entrées**. Ils ne vont pas dans la médiathèque,
+  et leurs liens ne s'ouvrent que pour un **administrateur connecté** (WPForms → formulaire → champ CV → Avancé → Restrictions).
+- E-mail à `contact@bigm-burger.fr`, réponse directe au candidat. Sujet : `Candidature : [prénom] [nom], [poste] ([villes])`.
+- Message après envoi : « Merci ! Votre candidature a bien été envoyée… » (reprend « Et après ? »).
+- Anti-spam WPForms activé ; envois indésirables gardés dans Entrées → Spam.
+- Même style que le formulaire franchise (réglages et CSS personnalisé du widget, sans l'image grise).
+- **Tester** : envoyer une candidature avec un petit PDF, vérifier l'e-mail (pièce jointe) et la ligne dans Entrées,
+  puis la supprimer.
+
+### À vérifier avant la mise en production
+
+- **Destinataire** : `contact@bigm-burger.fr` par défaut. L'ancien formulaire envoyait peut-être à une adresse de
+  recrutement : à corriger dans WPForms → Candidature — Nous rejoindre → Réglages → Notifications.
+- **Textes des métiers** (section 2) : écrits pour la page, à relire par l'équipe.
+- **Témoignages** : repris de l'ancien site ; vérifier que Yacine et Mina L. sont d'accord pour apparaître sur le nouveau.
+- **Ancienne adresse** : l'ancien site utilisait `/contact/`. À la mise en ligne, rediriger `/contact/` vers `/recrutement/`
+  (et `/devenir-franchise/` garde son adresse).
+- **Durée de conservation des CV** : à indiquer dans la politique de confidentialité ; WPForms peut supprimer les
+  entrées anciennes automatiquement si besoin.
+
+## Regénérer les modèles
+
+Les fichiers sont produits par les scripts Python 3 (sans dépendance) de ce dossier ; `bigm_elementor.py` et
+`bigm_wpforms.py` contiennent les briques communes (couleurs, cartes, boutons, widget WPForms, champs).
 
 ```bash
 python3 franchise_page.py /tmp/elements.json devenir-franchise.json devenir-franchise-candidature.json
@@ -95,5 +168,13 @@ python3 franchise_page.py /tmp/elements.json devenir-franchise.json devenir-fran
 python3 franchise_wpforms.py candidature-franchise-wpforms.json
 ```
 
-Le premier fichier contient le seul contenu Elementor (`_elementor_data`), le deuxième le modèle de la page,
-le troisième la seule section Candidature. Le second script produit le formulaire WPForms.
+```bash
+python3 recrutement_page.py /tmp/elements.json nous-rejoindre.json
+```
+
+```bash
+python3 recrutement_wpforms.py candidature-recrutement-wpforms.json
+```
+
+Pour une page : le premier fichier contient le seul contenu Elementor (`_elementor_data`), le deuxième le modèle
+à importer, le troisième (facultatif) la seule section Candidature.
