@@ -4,9 +4,10 @@ Contenu repris de https://bigm-burger.fr/devenir-franchise/ (orthographe corrig�
 mise en forme de la charte Big M (kit Elementor de bigm-child : couleurs globales,
 Fredoka / Figtree, cartes blanches arrondies sur fond crème, boutons arrondis).
 
-Usage : python3 -I franchise_page.py <elements.json> <modele.json>
+Usage : python3 -I franchise_page.py <elements.json> <modele.json> [section.json]
   - elements.json : contenu à mettre dans _elementor_data (page de test locale) ;
-  - modele.json   : modèle à importer dans Elementor (Modèles → Importer).
+  - modele.json   : modèle de la page entière à importer dans Elementor (Modèles → Importer) ;
+  - section.json  : la seule section « Candidature », pour la remplacer sur une page déjà publiée.
 """
 import json
 import random
@@ -266,56 +267,51 @@ histoire = section([
     ], cols=2, gap_px=24, align='stretch'),
 ], padding=(32, 24))
 
-# ── 8. Candidature (formulaire Elementor Pro) ──────────────────────────
-def field(cid, ftype, label, width='50', required=True, placeholder='', **extra):
-    f = {'_id': eid(), 'custom_id': cid, 'field_type': ftype, 'field_label': label, 'placeholder': placeholder,
-         'required': 'true' if required else '', 'width': width, 'width_mobile': '100'}
-    f.update(extra)
-    return f
+# ── 8. Candidature (formulaire WPForms) ────────────────────────────────
+# Le formulaire « Candidature franchise » est importé dans WPForms (franchise_wpforms.py) :
+# les candidatures arrivent par e-mail et dans WPForms → Entrées. Son numéro n'est connu
+# qu'après l'import, d'où form_id « 0 » : on choisit le formulaire dans le widget.
+# Style : réglages du widget WPForms (couleurs, arrondis, tailles) + CSS du widget (polices,
+# hauteurs, survol du bouton, message de confirmation), pour garder le rendu de la maquette.
+WPFORMS_CSS = """selector .wpforms-container { margin: 0; }
+selector .wpforms-container .wpforms-form {
+  --wpforms-label-size-font-size: 15px;
+  --wpforms-label-size-line-height: 20px;
+  --wpforms-field-size-input-height: 48px;
+  --wpforms-field-size-padding-h: 16px;
+  --wpforms-button-size-height: 52px;
+  --wpforms-button-size-padding-h: 28px;
+  --wpforms-button-size-font-size: 17px;
+  --wpforms-button-size-margin-top: 8px;
+}
+selector .wpforms-field-label,
+selector .wpforms-field-label-inline,
+selector .wpforms-field-description,
+selector input, selector select, selector textarea { font-family: 'Figtree', sans-serif; }
+selector .wpforms-field-label { font-weight: 600; }
+selector .wpforms-field-label-inline { font-weight: 400; }
+selector .wpforms-required-label { color: var(--e-global-color-accent, #C8400A); }
+selector button.wpforms-submit { font-family: 'Fredoka', sans-serif; font-weight: 600; }
+selector button.wpforms-submit:hover { background: var(--e-global-color-bigmbtnhover, #A93506); }
+selector .wpforms-confirmation-container-full {
+  background: var(--e-global-color-bigmtile, #F2EDE7); border: 0; border-radius: 12px;
+  color: var(--e-global-color-text, #2B1406); font-family: 'Figtree', sans-serif; font-size: 17px; padding: 20px 24px;
+}
+selector .wpforms-confirmation-container-full p { margin: 0; }"""
 
-form = {'id': eid(), 'elType': 'widget', 'widgetType': 'form', 'settings': {
-    'form_name': 'Candidature franchise',
-    'form_fields': [
-        field('prenom', 'text', 'Prénom'),
-        field('nom', 'text', 'Nom'),
-        field('email', 'email', 'E-mail'),
-        field('telephone', 'tel', 'Téléphone'),
-        field('zone', 'text', 'Zone géographique du restaurant', placeholder='Département ou ville'),
-        field('adresse', 'text', 'Adresse du local (si connue)', required=False),
-        field('situation', 'text', 'Situation actuelle', width='100', placeholder='Métier, expériences…'),
-        field('apport', 'select', 'Apport personnel (hors emprunt bancaire)',
-              field_options='Choisissez une tranche|\n130 000 € – 150 000 €\n150 000 € – 200 000 €\nPlus de 200 000 €'),
-        field('delai', 'select', 'Délai pour réaliser votre projet',
-              field_options='Choisissez un délai|\n3 mois\n6 mois\n12 mois\nPlus de 12 mois'),
-        field('questions', 'textarea', 'Questions supplémentaires', width='100', required=False, rows=4),
-        field('rgpd', 'acceptance', 'Données personnelles', width='100',
-              acceptance_text='J’accepte que Big M utilise ces informations pour étudier ma candidature et me recontacter.'),
-    ],
-    'input_size': 'md', 'show_labels': 'true', 'mark_required': 'yes', 'label_position': 'above',
-    'button_text': 'Envoyer ma candidature', 'button_size': 'md', 'button_align': 'start',
-    'submit_actions': ['email', 'save-to-database'],
-    'email_to': 'contact@bigm-burger.fr',
-    'email_subject': 'Candidature franchise : [field id="prenom"] [field id="nom"] ([field id="zone"])',
-    'email_content': '[all-fields]',
-    'email_from_name': 'Site Big M',
-    'email_reply_to': 'email',
-    'email_content_type': 'html',
-    'custom_messages': 'yes',
-    'success_message': 'Merci ! Votre candidature a bien été envoyée.',
-    'error_message': 'L’envoi a échoué. Merci de réessayer.',
-    'required_field_message': 'Ce champ est obligatoire.',
-    'invalid_message': 'Ce champ n’est pas valide.',
-    # Style : champs blancs arrondis, libellés Figtree gras, bouton Big M
-    'column_gap': px(16), 'row_gap': px(16), 'label_spacing': px(6),
-    'label_color': INK, 'mark_required_color': BTN, 'field_text_color': INK, 'field_background_color': '#FFFFFF',
-    'field_border_color': '#2B140626', 'field_border_width': box(1), 'field_border_radius': box(12),
-    **font('label_typography', 'Figtree', 600, 15),
-    **font('field_typography', 'Figtree', 400, 16),
-    'button_background_color': BTN, 'button_text_color': '#FFFFFF', 'button_background_hover_color': BTN_HOVER, 'button_hover_color': '#FFFFFF',
-    'button_border_radius': box(12), 'button_text_padding': box(14, 28),
-    **font('button_typography', 'Fredoka', 600, 17),
-    '__globals__': glob(label_color='text', field_text_color='text', mark_required_color='accent',
-                        button_background_color='accent', button_background_hover_color='bigmbtnhover'),
+form = {'id': eid(), 'elType': 'widget', 'widgetType': 'wpforms', 'settings': {
+    'form_id': '0',
+    'display_form_name': '', 'display_form_description': '',
+    'wpformsTheme': 'default', 'isMigrated': 'true',
+    'fieldSize': 'medium', 'fieldBorderStyle': 'solid', 'fieldBorderSize': '1', 'fieldBorderRadius': '12',
+    'fieldBackgroundColor': '#FFFFFF', 'fieldBorderColor': '#2B140626', 'fieldTextColor': INK, 'fieldMenuColor': '#FFFFFF',
+    'labelSize': 'medium', 'labelColor': INK, 'labelSublabelColor': MUTED, 'labelErrorColor': '#D63637',
+    'buttonSize': 'medium', 'buttonBorderStyle': 'none', 'buttonBorderRadius': '12',
+    'buttonBackgroundColor': BTN, 'buttonTextColor': '#FFFFFF',
+    'containerPadding': '0', 'containerBorderStyle': 'none', 'containerShadowSize': 'none',
+    'pageBreakColor': BTN,
+    '__globals__': glob(fieldTextColor='text', labelColor='text', buttonBackgroundColor='accent', pageBreakColor='accent'),
+    'custom_css': WPFORMS_CSS,
 }, 'elements': []}
 
 candidature = section([
@@ -344,7 +340,7 @@ def typo(v):
 
 def walk(o):
     if isinstance(o, dict):
-        return {k: (v if k in ('url', 'custom_id', 'id', '_id', 'widgetType', 'elType', 'email_to', 'email_reply_to', 'email_content') else walk(v)) for k, v in o.items()}
+        return {k: (v if k in ('url', 'custom_id', 'id', '_id', 'widgetType', 'elType', 'email_to', 'email_reply_to', 'email_content', 'custom_css') else walk(v)) for k, v in o.items()}
     if isinstance(o, list):
         return [walk(x) for x in o]
     return typo(o)
@@ -357,4 +353,8 @@ with open(sys.argv[1], 'w', encoding='utf-8') as f:
 with open(sys.argv[2], 'w', encoding='utf-8') as f:
     json.dump({'content': content, 'page_settings': {'hide_title': 'yes'}, 'version': '0.4',
                'title': 'Big M — Devenir franchisé', 'type': 'page'}, f, ensure_ascii=False, indent=1)
+if len(sys.argv) > 3:
+    with open(sys.argv[3], 'w', encoding='utf-8') as f:
+        json.dump({'content': [content[-1]], 'page_settings': [], 'version': '0.4',
+                   'title': 'Big M — Candidature franchise (WPForms)', 'type': 'container'}, f, ensure_ascii=False, indent=1)
 print('ok', sum(1 for _ in json.dumps(content)), 'octets')
