@@ -65,6 +65,10 @@ doublon « Approvisionnement négocié » retiré. Logos de compétitions et de 
 - **Style** : réglé dans le widget WPForms (onglet Style : champs blancs, bordure brune légère, arrondis 12 px,
   bouton couleur Big M) et dans son **CSS personnalisé** (onglet Avancé : polices Fredoka / Figtree, hauteurs,
   survol du bouton, encadré de confirmation crème). Les couleurs suivent le kit Elementor.
+- **Image grise derrière le formulaire** : venait de la 1re version de `devenir-franchise-candidature.json`
+  (Elementor remplaçait l'image de fond vide de WPForms par son image de remplacement). Corrigé dans le modèle ;
+  sur une page déjà construite avec l'ancienne version, ajouter au **CSS personnalisé** du widget WPForms :
+  `selector { --wpforms-background-url: none; }`.
 - **Tester** : envoyer une candidature d'essai, vérifier l'e-mail et la ligne dans WPForms → Entrées, puis la supprimer.
 
 ### À vérifier avant la mise en production

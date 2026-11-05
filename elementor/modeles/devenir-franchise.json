@@ -4075,6 +4075,11 @@
           "containerPadding": "0",
           "containerBorderStyle": "none",
           "containerShadowSize": "none",
+          "backgroundImage": "none",
+          "backgroundUrl": {
+           "url": "",
+           "id": ""
+          },
           "pageBreakColor": "#C8400A",
           "__globals__": {
            "fieldTextColor": "globals/colors?id=text",
@@ -4082,7 +4087,7 @@
            "buttonBackgroundColor": "globals/colors?id=accent",
            "pageBreakColor": "globals/colors?id=accent"
           },
-          "custom_css": "selector .wpforms-container { margin: 0; }\nselector .wpforms-container .wpforms-form {\n  --wpforms-label-size-font-size: 15px;\n  --wpforms-label-size-line-height: 20px;\n  --wpforms-field-size-input-height: 48px;\n  --wpforms-field-size-padding-h: 16px;\n  --wpforms-button-size-height: 52px;\n  --wpforms-button-size-padding-h: 28px;\n  --wpforms-button-size-font-size: 17px;\n  --wpforms-button-size-margin-top: 8px;\n}\nselector .wpforms-field-label,\nselector .wpforms-field-label-inline,\nselector .wpforms-field-description,\nselector input, selector select, selector textarea { font-family: 'Figtree', sans-serif; }\nselector .wpforms-field-label { font-weight: 600; }\nselector .wpforms-field-label-inline { font-weight: 400; }\nselector .wpforms-required-label { color: var(--e-global-color-accent, #C8400A); }\nselector button.wpforms-submit { font-family: 'Fredoka', sans-serif; font-weight: 600; }\nselector button.wpforms-submit:hover { background: var(--e-global-color-bigmbtnhover, #A93506); }\nselector .wpforms-confirmation-container-full {\n  background: var(--e-global-color-bigmtile, #F2EDE7); border: 0; border-radius: 12px;\n  color: var(--e-global-color-text, #2B1406); font-family: 'Figtree', sans-serif; font-size: 17px; padding: 20px 24px;\n}\nselector .wpforms-confirmation-container-full p { margin: 0; }"
+          "custom_css": "selector { --wpforms-background-url: none; }\nselector .wpforms-container { margin: 0; }\nselector .wpforms-container .wpforms-form {\n  --wpforms-label-size-font-size: 15px;\n  --wpforms-label-size-line-height: 20px;\n  --wpforms-field-size-input-height: 48px;\n  --wpforms-field-size-padding-h: 16px;\n  --wpforms-button-size-height: 52px;\n  --wpforms-button-size-padding-h: 28px;\n  --wpforms-button-size-font-size: 17px;\n  --wpforms-button-size-margin-top: 8px;\n}\nselector .wpforms-field-label,\nselector .wpforms-field-label-inline,\nselector .wpforms-field-description,\nselector input, selector select, selector textarea { font-family: 'Figtree', sans-serif; }\nselector .wpforms-field-label { font-weight: 600; }\nselector .wpforms-field-label-inline { font-weight: 400; hyphens: manual; }\nselector .wpforms-required-label { color: var(--e-global-color-accent, #C8400A); }\nselector button.wpforms-submit { font-family: 'Fredoka', sans-serif; font-weight: 600; }\nselector button.wpforms-submit:hover { background: var(--e-global-color-bigmbtnhover, #A93506); }\nselector .wpforms-confirmation-container-full {\n  background: var(--e-global-color-bigmtile, #F2EDE7); border: 0; border-radius: 12px;\n  color: var(--e-global-color-text, #2B1406); font-family: 'Figtree', sans-serif; font-size: 17px; padding: 20px 24px;\n}\nselector .wpforms-confirmation-container-full p { margin: 0; }"
          },
          "elements": []
         }

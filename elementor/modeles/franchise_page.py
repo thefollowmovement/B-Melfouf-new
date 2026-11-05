@@ -273,7 +273,9 @@ histoire = section([
 # qu'après l'import, d'où form_id « 0 » : on choisit le formulaire dans le widget.
 # Style : réglages du widget WPForms (couleurs, arrondis, tailles) + CSS du widget (polices,
 # hauteurs, survol du bouton, message de confirmation), pour garder le rendu de la maquette.
-WPFORMS_CSS = """selector .wpforms-container { margin: 0; }
+# La 1re ligne du CSS neutralise l'image de fond du formulaire (voir backgroundUrl plus bas).
+WPFORMS_CSS = """selector { --wpforms-background-url: none; }
+selector .wpforms-container { margin: 0; }
 selector .wpforms-container .wpforms-form {
   --wpforms-label-size-font-size: 15px;
   --wpforms-label-size-line-height: 20px;
@@ -289,7 +291,7 @@ selector .wpforms-field-label-inline,
 selector .wpforms-field-description,
 selector input, selector select, selector textarea { font-family: 'Figtree', sans-serif; }
 selector .wpforms-field-label { font-weight: 600; }
-selector .wpforms-field-label-inline { font-weight: 400; }
+selector .wpforms-field-label-inline { font-weight: 400; hyphens: manual; }
 selector .wpforms-required-label { color: var(--e-global-color-accent, #C8400A); }
 selector button.wpforms-submit { font-family: 'Fredoka', sans-serif; font-weight: 600; }
 selector button.wpforms-submit:hover { background: var(--e-global-color-bigmbtnhover, #A93506); }
@@ -309,6 +311,9 @@ form = {'id': eid(), 'elType': 'widget', 'widgetType': 'wpforms', 'settings': {
     'buttonSize': 'medium', 'buttonBorderStyle': 'none', 'buttonBorderRadius': '12',
     'buttonBackgroundColor': BTN, 'buttonTextColor': '#FFFFFF',
     'containerPadding': '0', 'containerBorderStyle': 'none', 'containerShadowSize': 'none',
+    # Image de fond vide explicite : sinon Elementor, à l'import, essaie de télécharger la valeur
+    # par défaut de WPForms (« url() »), échoue et met son image grise de remplacement.
+    'backgroundImage': 'none', 'backgroundUrl': {'url': '', 'id': ''},
     'pageBreakColor': BTN,
     '__globals__': glob(fieldTextColor='text', labelColor='text', buttonBackgroundColor='accent', pageBreakColor='accent'),
     'custom_css': WPFORMS_CSS,
