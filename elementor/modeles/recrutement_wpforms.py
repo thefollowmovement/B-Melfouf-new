@@ -3,7 +3,7 @@
 
 Reprend l'ancien formulaire n° 1006 de https://bigm-burger.fr/contact/, avec deux changements :
   - ajout de l'e-mail (absent de l'ancien formulaire, alors que les réponses partent par e-mail)
-    et du poste souhaité (équipier, manager, formateur, comme la carte de l'accueil) ;
+    et du poste souhaité (équipier, formateur, manager, directeur, comme la page « Nous rejoindre ») ;
   - adresse postale complète retirée : la ville où l'on veut travailler suffit pour orienter la candidature.
 CV et lettre de motivation : 3 fichiers maximum, joints à l'e-mail et gardés dans WPForms → Entrées.
 
@@ -24,7 +24,7 @@ fields = [
     email(4),
     phone(5),
     select(6, 'Poste souhaité', 'Choisissez un poste',
-           ['Équipier ou équipière', 'Manager', 'Formateur ou formatrice', 'Je ne sais pas encore']),
+           ['Équipier ou équipière', 'Formateur ou formatrice', 'Manager', 'Directeur ou directrice', 'Je ne sais pas encore']),
     text(7, 'Ville(s) où vous aimeriez travailler', placeholder='Ex. Bondy, Saint-Ouen…'),
     file_upload(CV, 'CV et lettre de motivation', 'PDF, Word ou photo : 3 fichiers maximum, 5 Mo chacun.',
                 'pdf,doc,docx,odt,jpg,jpeg,png', 5, 3),

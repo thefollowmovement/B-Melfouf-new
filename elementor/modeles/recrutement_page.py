@@ -42,10 +42,12 @@ def metier(ico, title, body):
                 flex_gap=gap(14))
 
 metiers = section([
-    section_head('Nos métiers', 'Trois métiers, une même équipe', 'Débutant ou expérimenté, il y a une place pour vous dans l’un de nos restaurants.'),
+    section_head('Nos métiers', 'Quatre métiers, une même équipe', 'Débutant ou expérimenté, il y a une place pour vous dans l’un de nos restaurants.'),
+    # Du premier poste à la direction du restaurant ; deux par ligne (quatre colonnes seraient trop étroites).
     row([metier('fas fa-hamburger', 'Équipier ou équipière', 'En cuisine, au comptoir ou en salle, vous faites vivre le restaurant au quotidien. Débutant ? Nous vous formons.'),
+         metier('fas fa-chalkboard-teacher', 'Formateur ou formatrice', 'Vous formez et accompagnez les nouvelles recrues tout au long de leur intégration.'),
          metier('fas fa-users', 'Manager', 'Vous animez l’équipe et faites tourner le restaurant. Pour ce poste, un pré-entretien précède l’entretien.'),
-         metier('fas fa-chalkboard-teacher', 'Formateur ou formatrice', 'Vous formez et accompagnez les nouvelles recrues tout au long de leur intégration.')], cols=3),
+         metier('fas fa-user-tie', 'Directeur ou directrice', 'Vous dirigez le restaurant : vous recrutez et faites grandir l’équipe, et vous veillez à la qualité, au service et aux résultats.')], cols=2),
 ], padding=(56, 40))
 
 # ── 3. Vous préparer, nous convaincre ──────────────────────────────────

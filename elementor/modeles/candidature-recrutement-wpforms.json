@@ -103,20 +103,27 @@
       "icon_style": ""
      },
      "2": {
-      "label": "Manager",
-      "value": "",
-      "image": "",
-      "icon": "",
-      "icon_style": ""
-     },
-     "3": {
       "label": "Formateur ou formatrice",
       "value": "",
       "image": "",
       "icon": "",
       "icon_style": ""
      },
+     "3": {
+      "label": "Manager",
+      "value": "",
+      "image": "",
+      "icon": "",
+      "icon_style": ""
+     },
      "4": {
+      "label": "Directeur ou directrice",
+      "value": "",
+      "image": "",
+      "icon": "",
+      "icon_style": ""
+     },
+     "5": {
       "label": "Je ne sais pas encore",
       "value": "",
       "image": "",

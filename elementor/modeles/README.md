@@ -93,7 +93,8 @@ avec la même charte que la page « Devenir franchisé ». Adresse prévue : **`
 
 1. **Bandeau orange** : « Nous rejoindre », texte d'accueil de l'ancienne page, boutons « Postuler » (→ `#candidature`)
    et « Voir nos restaurants » (→ `/restaurants/`), photo du burger préparé en cuisine (n° 44).
-2. **Nos métiers** : équipier ou équipière, manager, formateur ou formatrice (les métiers de la carte de l'accueil).
+2. **Nos métiers** : équipier ou équipière, formateur ou formatrice, manager, directeur ou directrice (du premier poste
+   à la direction du restaurant), deux cartes par ligne. Mêmes postes, dans le même ordre, dans le champ « Poste souhaité » du formulaire.
 3. **Vous préparer, nous convaincre** : les astuces pour le CV et « Et après ? » (réponse, annonce, entretien), repris de l'ancienne page.
 4. **Ils ont rejoint Big M** (aplat brun) : témoignages de Yacine (formateur) et Mina L. (manager à Bondy), photo de la devanture (n° 206).
 5. **Candidature** (ancre `#candidature`) : formulaire **WPForms** « Candidature — Nous rejoindre ».

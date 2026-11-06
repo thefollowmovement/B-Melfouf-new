@@ -422,7 +422,7 @@
    ]
   },
   {
-   "id": "c606b6c",
+   "id": "e94837c",
    "elType": "container",
    "isInner": false,
    "settings": {
@@ -512,7 +512,7 @@
        "elType": "widget",
        "widgetType": "heading",
        "settings": {
-        "title": "Trois métiers, une même équipe",
+        "title": "Quatre métiers, une même équipe",
         "header_size": "h2",
         "title_color": "#2B1406",
         "__globals__": {
@@ -578,7 +578,7 @@
      ]
     },
     {
-     "id": "b6c7f85",
+     "id": "92e6b70",
      "elType": "container",
      "isInner": false,
      "settings": {
@@ -594,7 +594,7 @@
       "container_type": "grid",
       "grid_columns_grid": {
        "unit": "fr",
-       "size": 3,
+       "size": 2,
        "sizes": []
       },
       "grid_columns_grid_tablet": {
@@ -925,7 +925,7 @@
          "widgetType": "icon",
          "settings": {
           "selected_icon": {
-           "value": "fas fa-users",
+           "value": "fas fa-chalkboard-teacher",
            "library": "fa-solid"
           },
           "view": "stacked",
@@ -963,7 +963,7 @@
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
-          "title": "Manager",
+          "title": "Formateur ou formatrice",
           "header_size": "h3",
           "title_color": "#2B1406",
           "__globals__": {
@@ -1000,7 +1000,7 @@
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
-          "editor": "<p>Vous animez l’équipe et faites tourner le restaurant. Pour ce poste, un pré-entretien précède l’entretien.</p>",
+          "editor": "<p>Vous formez et accompagnez les nouvelles recrues tout au long de leur intégration.</p>",
           "text_color": "#6B4A3A",
           "__globals__": {
            "text_color": "globals/colors?id=secondary"
@@ -1169,7 +1169,7 @@
          "widgetType": "icon",
          "settings": {
           "selected_icon": {
-           "value": "fas fa-chalkboard-teacher",
+           "value": "fas fa-users",
            "library": "fa-solid"
           },
           "view": "stacked",
@@ -1207,7 +1207,7 @@
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
-          "title": "Formateur ou formatrice",
+          "title": "Manager",
           "header_size": "h3",
           "title_color": "#2B1406",
           "__globals__": {
@@ -1244,7 +1244,7 @@
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
-          "editor": "<p>Vous formez et accompagnez les nouvelles recrues tout au long de leur intégration.</p>",
+          "editor": "<p>Vous animez l’équipe et faites tourner le restaurant. Pour ce poste, un pré-entretien précède l’entretien.</p>",
           "text_color": "#6B4A3A",
           "__globals__": {
            "text_color": "globals/colors?id=secondary"
@@ -1361,13 +1361,257 @@
          ]
         }
        ]
+      },
+      {
+       "id": "13dc14d",
+       "elType": "container",
+       "isInner": false,
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "14",
+         "row": "14",
+         "isLinked": true,
+         "unit": "px",
+         "size": 14
+        },
+        "background_background": "classic",
+        "background_color": "#FFFFFF",
+        "__globals__": {
+         "background_color": "globals/colors?id=bigmcard"
+        },
+        "border_radius": {
+         "unit": "px",
+         "top": "20",
+         "right": "20",
+         "bottom": "20",
+         "left": "20",
+         "isLinked": true
+        },
+        "padding": {
+         "unit": "px",
+         "top": "28",
+         "right": "28",
+         "bottom": "28",
+         "left": "28",
+         "isLinked": true
+        },
+        "padding_mobile": {
+         "unit": "px",
+         "top": "22",
+         "right": "20",
+         "bottom": "22",
+         "left": "20",
+         "isLinked": false
+        }
+       },
+       "elements": [
+        {
+         "id": "b6c7f85",
+         "elType": "widget",
+         "widgetType": "icon",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-user-tie",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "square",
+          "primary_color": "#F2EDE7",
+          "secondary_color": "#C8400A",
+          "size": {
+           "unit": "px",
+           "size": 28,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 14,
+           "sizes": []
+          },
+          "border_radius": {
+           "unit": "px",
+           "top": "12",
+           "right": "12",
+           "bottom": "12",
+           "left": "12",
+           "isLinked": true
+          },
+          "align": "left",
+          "__globals__": {
+           "primary_color": "globals/colors?id=bigmtile",
+           "secondary_color": "globals/colors?id=accent"
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "c606b6c",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Directeur ou directrice",
+          "header_size": "h3",
+          "title_color": "#2B1406",
+          "__globals__": {
+           "title_color": "globals/colors?id=primary"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Fredoka",
+          "typography_font_weight": "600",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 26,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 24,
+           "sizes": []
+          },
+          "typography_line_height": {
+           "unit": "em",
+           "size": 1.05,
+           "sizes": []
+          },
+          "typography_letter_spacing": {
+           "unit": "px",
+           "size": -0.2,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "b1affa4",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>Vous dirigez le restaurant : vous recrutez et faites grandir l’équipe, et vous veillez à la qualité, au service et aux résultats.</p>",
+          "text_color": "#6B4A3A",
+          "__globals__": {
+           "text_color": "globals/colors?id=secondary"
+          },
+          "typography_typography": "custom",
+          "typography_font_family": "Figtree",
+          "typography_font_weight": "400",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 17,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 17,
+           "sizes": []
+          },
+          "typography_line_height": {
+           "unit": "em",
+           "size": 1.5,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "01600b3",
+         "elType": "container",
+         "isInner": false,
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "flex_gap": {
+           "column": "16",
+           "row": "16",
+           "isLinked": true,
+           "unit": "px",
+           "size": 16
+          },
+          "flex_grow": 1,
+          "flex_justify_content": "flex-end"
+         },
+         "elements": [
+          {
+           "id": "8194fa2",
+           "elType": "widget",
+           "widgetType": "button",
+           "settings": {
+            "text": "Je postule",
+            "link": {
+             "url": "#candidature",
+             "is_external": "",
+             "nofollow": "",
+             "custom_attributes": ""
+            },
+            "size": "md",
+            "border_radius": {
+             "unit": "px",
+             "top": "12",
+             "right": "12",
+             "bottom": "12",
+             "left": "12",
+             "isLinked": true
+            },
+            "text_padding": {
+             "unit": "px",
+             "top": "0",
+             "right": "0",
+             "bottom": "0",
+             "left": "0",
+             "isLinked": true
+            },
+            "button_hover_transition_duration": {
+             "unit": "s",
+             "size": 0.2,
+             "sizes": []
+            },
+            "typography_typography": "custom",
+            "typography_font_family": "Fredoka",
+            "typography_font_weight": "600",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 17,
+             "sizes": []
+            },
+            "typography_font_size_mobile": {
+             "unit": "px",
+             "size": 16,
+             "sizes": []
+            },
+            "background_background": "classic",
+            "background_color": "#FFFFFF00",
+            "button_text_color": "#C8400A",
+            "button_background_hover_background": "classic",
+            "button_background_hover_color": "#FFFFFF00",
+            "hover_color": "#A93506",
+            "__globals__": {
+             "button_text_color": "globals/colors?id=accent",
+             "hover_color": "globals/colors?id=bigmbtnhover"
+            },
+            "selected_icon": {
+             "value": "fas fa-arrow-right",
+             "library": "fa-solid"
+            },
+            "icon_align": "row-reverse",
+            "icon_indent": {
+             "unit": "px",
+             "size": 8,
+             "sizes": []
+            }
+           },
+           "elements": []
+          }
+         ]
+        }
+       ]
       }
      ]
     }
    ]
   },
   {
-   "id": "12429f3",
+   "id": "6e55224",
    "elType": "container",
    "isInner": false,
    "settings": {
@@ -1399,7 +1643,7 @@
    },
    "elements": [
     {
-     "id": "13dc14d",
+     "id": "baed326",
      "elType": "container",
      "isInner": false,
      "settings": {
@@ -1420,7 +1664,7 @@
      },
      "elements": [
       {
-       "id": "b1affa4",
+       "id": "f76153e",
        "elType": "widget",
        "widgetType": "heading",
        "settings": {
@@ -1453,7 +1697,7 @@
        "elements": []
       },
       {
-       "id": "8194fa2",
+       "id": "80a9a39",
        "elType": "widget",
        "widgetType": "heading",
        "settings": {
@@ -1490,7 +1734,7 @@
        "elements": []
       },
       {
-       "id": "01600b3",
+       "id": "d586e53",
        "elType": "widget",
        "widgetType": "text-editor",
        "settings": {
@@ -1523,7 +1767,7 @@
      ]
     },
     {
-     "id": "f16baff",
+     "id": "8b93f97",
      "elType": "container",
      "isInner": false,
      "settings": {
@@ -1576,7 +1820,7 @@
      },
      "elements": [
       {
-       "id": "baed326",
+       "id": "3378d63",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -1621,7 +1865,7 @@
        },
        "elements": [
         {
-         "id": "92e6b70",
+         "id": "7b21aad",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -1658,13 +1902,13 @@
          "elements": []
         },
         {
-         "id": "d586e53",
+         "id": "b16c665",
          "elType": "widget",
          "widgetType": "icon-list",
          "settings": {
           "icon_list": [
            {
-            "_id": "e94837c",
+            "_id": "cb9871f",
             "text": "Indiquez le poste que vous souhaitez et vos disponibilités (pour un CDD, par exemple).",
             "selected_icon": {
              "value": "fas fa-check-circle",
@@ -1672,7 +1916,7 @@
             }
            },
            {
-            "_id": "f76153e",
+            "_id": "84182bb",
             "text": "Précisez les emplois que vous avez occupés, même de courte durée, et ce que vous y avez appris.",
             "selected_icon": {
              "value": "fas fa-check-circle",
@@ -1680,7 +1924,7 @@
             }
            },
            {
-            "_id": "80a9a39",
+            "_id": "3b60197",
             "text": "Vous avez des passions, des loisirs, vous faites du bénévolat ? C’est le moment de nous le dire.",
             "selected_icon": {
              "value": "fas fa-check-circle",
@@ -1733,7 +1977,7 @@
        ]
       },
       {
-       "id": "3378d63",
+       "id": "6adedb3",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -1778,7 +2022,7 @@
        },
        "elements": [
         {
-         "id": "7b21aad",
+         "id": "f16baff",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -1815,13 +2059,13 @@
          "elements": []
         },
         {
-         "id": "b16c665",
+         "id": "b7b7be0",
          "elType": "widget",
          "widgetType": "icon-list",
          "settings": {
           "icon_list": [
            {
-            "_id": "cb9871f",
+            "_id": "12429f3",
             "text": "Vous recevez vite une réponse. Si votre candidature n’est pas retenue, vous le saurez par e-mail : ne vous laissez pas abattre, vous pouvez postuler dans un autre restaurant.",
             "selected_icon": {
              "value": "fas fa-envelope-open-text",
@@ -1829,7 +2073,7 @@
             }
            },
            {
-            "_id": "84182bb",
+            "_id": "e0f331e",
             "text": "Bonne nouvelle ? Nous vous l’annonçons par téléphone, e-mail ou SMS.",
             "selected_icon": {
              "value": "fas fa-comment-dots",
@@ -1837,7 +2081,7 @@
             }
            },
            {
-            "_id": "3b60197",
+            "_id": "5d2488f",
             "text": "Vient ensuite l’entretien (ou un pré-entretien pour le poste de manager) : nous vous indiquons la date, le lieu, l’heure et le nom de votre interlocuteur.",
             "selected_icon": {
              "value": "fas fa-handshake",
@@ -1900,7 +2144,7 @@
    ]
   },
   {
-   "id": "6a05fa9",
+   "id": "b303cdb",
    "elType": "container",
    "isInner": false,
    "settings": {
@@ -1945,7 +2189,7 @@
    },
    "elements": [
     {
-     "id": "c7841f8",
+     "id": "2cce8fa",
      "elType": "container",
      "isInner": false,
      "settings": {
@@ -1998,7 +2242,7 @@
      },
      "elements": [
       {
-       "id": "e0f331e",
+       "id": "bb4f066",
        "elType": "widget",
        "widgetType": "image",
        "settings": {
@@ -2037,7 +2281,7 @@
        "elements": []
       },
       {
-       "id": "c883db6",
+       "id": "c361113",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -2054,7 +2298,7 @@
        },
        "elements": [
         {
-         "id": "5d2488f",
+         "id": "13d5467",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -2087,7 +2331,7 @@
          "elements": []
         },
         {
-         "id": "b7b7be0",
+         "id": "28a0996",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -2124,7 +2368,7 @@
          "elements": []
         },
         {
-         "id": "6e55224",
+         "id": "6a05fa9",
          "elType": "container",
          "isInner": false,
          "settings": {
@@ -2140,7 +2384,7 @@
          },
          "elements": [
           {
-           "id": "6adedb3",
+           "id": "c883db6",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -2171,7 +2415,7 @@
            "elements": []
           },
           {
-           "id": "8b93f97",
+           "id": "c7841f8",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -2204,7 +2448,7 @@
          ]
         },
         {
-         "id": "28a0996",
+         "id": "481f7a7",
          "elType": "container",
          "isInner": false,
          "settings": {
@@ -2220,7 +2464,7 @@
          },
          "elements": [
           {
-           "id": "bb4f066",
+           "id": "16e91b6",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -2251,7 +2495,7 @@
            "elements": []
           },
           {
-           "id": "13d5467",
+           "id": "9101379",
            "elType": "widget",
            "widgetType": "text-editor",
            "settings": {
@@ -2290,7 +2534,7 @@
    ]
   },
   {
-   "id": "ff9c871",
+   "id": "c265a94",
    "elType": "container",
    "isInner": false,
    "settings": {
@@ -2324,7 +2568,7 @@
    },
    "elements": [
     {
-     "id": "6463e14",
+     "id": "5125cda",
      "elType": "container",
      "isInner": false,
      "settings": {
@@ -2350,7 +2594,7 @@
      },
      "elements": [
       {
-       "id": "c361113",
+       "id": "358a008",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -2371,7 +2615,7 @@
        },
        "elements": [
         {
-         "id": "16e91b6",
+         "id": "6463e14",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -2404,7 +2648,7 @@
          "elements": []
         },
         {
-         "id": "9101379",
+         "id": "ff9c871",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -2441,7 +2685,7 @@
          "elements": []
         },
         {
-         "id": "481f7a7",
+         "id": "6f6e7c6",
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
@@ -2474,7 +2718,7 @@
        ]
       },
       {
-       "id": "b303cdb",
+       "id": "3b4a971",
        "elType": "container",
        "isInner": false,
        "settings": {
@@ -2519,7 +2763,7 @@
        },
        "elements": [
         {
-         "id": "2cce8fa",
+         "id": "73b2953",
          "elType": "widget",
          "widgetType": "wpforms",
          "settings": {
