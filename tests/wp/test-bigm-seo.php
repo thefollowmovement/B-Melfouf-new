@@ -163,6 +163,17 @@ $regles_ok = get_option( 'rewrite_rules' );
 update_option( 'rewrite_rules', array_filter( (array) $regles_ok, static fn( $k ) => ! str_starts_with( (string) $k, 'actualites/' ), ARRAY_FILTER_USE_KEY ) );
 $repare = bigm_core_verifier_regles();
 $ok( $repare && preg_grep( '#^actualites/\(#', array_keys( (array) get_option( 'rewrite_rules' ) ) ) && ! bigm_core_verifier_regles(), 'règles sans /actualites/… (préprod, filtres News / Presse en 404) : recalculées, une seule fois' );
+$pagination = bigm_core_regle_pagination();
+if ( $pagination ) {
+	$avec = (array) get_option( 'rewrite_rules' );
+	$cle  = array_key_first( $pagination );
+	$ok( isset( $avec[ $cle ] ) && array_search( $cle, array_keys( $avec ), true ) < array_search( 'actualites/(.+?)/?$', array_keys( $avec ), true ), '/actualites/page/2/ : pagination de la page des articles avant les règles des catégories' );
+	unset( $avec[ $cle ] );
+	update_option( 'rewrite_rules', $avec );
+	$ok( bigm_core_verifier_regles() && isset( get_option( 'rewrite_rules' )[ $cle ] ), 'règles sans cette pagination (préprod) : recalculées' );
+} else {
+	WP_CLI::log( '  --    pas de page des articles à /actualites/ : pagination non vérifiée' );
+}
 $vide = wp_insert_term( 'Catégorie test SEO', 'bigm_categorie' );
 if ( ! is_wp_error( $vide ) ) {
 	$page( array( 'tax_query' => array( array( 'taxonomy' => 'bigm_categorie', 'field' => 'term_id', 'terms' => $vide['term_id'] ) ), 'bigm_categorie' => 'categorie-test-seo' ) );

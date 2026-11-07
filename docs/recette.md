@@ -65,6 +65,10 @@ Safari (iOS) et Chrome (Android) sur de vrais téléphones restent à faire : vo
 - Accueil (Lighthouse mobile) : LCP encore à 4,3 s. Le visuel de Nos Box était bien chargé tout de suite, mais restait invisible jusqu'au script des apparitions, chargé en dernier.
   - Corrigé dans bigm-child 0.6.2 : les blocs déjà à l'écran s'affichent dès la fin de la page.
   - Le reste vient du temps de réponse du serveur (0,6 s, pas de cache de pages) : installer LiteSpeed Cache (`docs/seo.md`).
+- Second parcours (160 pages, ordinateur et mobile) : aucune erreur JavaScript, aucun débordement sur mobile. Une régression trouvée et corrigée dans bigm-core 0.6.3 :
+  - la pagination de la page Actualités (`/actualites/page/2/`) répondait en 404 ;
+  - cause : les règles des catégories, maintenant sous `/actualites/`, passaient avant elle et lisaient « page/2 » comme un nom de catégorie ;
+  - correction : une règle de pagination placée en tête. bigm-core la remet de lui-même si elle manque.
 - Pastilles Tout / News / Presse du modèle « Blog — Actualités » : « Tout » (un widget Bouton) n'est pas aligné avec les deux autres (le widget Catégories de WordPress) et n'est jamais marqué actif. bigm-core 0.6.2 ajoute le shortcode `[bigm_categories_articles]`, qui affiche les trois pastilles ensemble (voir ci-dessous).
 
 ## À corriger dans l'admin (préprod)
