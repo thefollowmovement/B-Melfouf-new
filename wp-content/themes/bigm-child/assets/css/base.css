@@ -1,0 +1,90 @@
+/* Big M — styles de base, communs à toutes les pages.
+   Repris de prototype/assets/site.css, dans le même ordre et avec les mêmes valeurs :
+   reset, typographie, conteneurs, boutons, liens, apparitions, animations des boutons.
+
+   Repris dans leur propre fichier : header.css (en-tête, tiroir), footer.css,
+   tabbar.css (barre d'onglets mobile).
+
+   Repris avec leur composant, dans bigm-core (assets/css/), avec leurs règles d'animation
+   (survol, enfoncement) pour garder l'ordre de la cascade :
+   - slider.css : slider « à la une » .hs ;
+   - tuiles.css : vignettes .tile et vidéos de vignettes ;
+   - accueil.css : sections de l'accueil, cartes .service / .news-card, .arrows ;
+   - barre-categories.css : .cat-tabs ;
+   - carte.css, produits.css (.chip, .product), fiche.css : carte, catégorie, fiche produit.
+   Tout site.css est repris. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 108px; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-text); font-size: 17px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+h1, h2, h3, p, figure, ul, ol { margin: 0; }
+ul[class], ol[class] { list-style: none; padding: 0; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+button, input { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; line-height: 1.05; text-wrap: balance; }
+
+.container { max-width: var(--max); margin-inline: auto; padding-inline: var(--pad); }
+.section { padding-block: clamp(48px, 7vw, 88px); }
+.section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+.section-head h2 { font-size: clamp(30px, 3.4vw, 44px); }
+.section-head p { color: var(--muted); max-width: 52ch; margin-top: 8px; }
+
+/* boutons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 24px; border-radius: 12px; background: var(--btn); color: #fff; font-family: var(--font-display); font-weight: 600; font-size: 17px; text-decoration: none; white-space: nowrap; transition: background-color .18s ease, transform .14s var(--ease); }
+.btn:hover { background: var(--btn-hover); }
+.btn:active { transform: scale(0.96); transition-duration: .08s; }
+.btn--light { background: #fff; color: var(--ink); }
+.btn--light:hover { background: var(--tile); }
+.btn--outline { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+.elementor .btn--outline { box-shadow: inset 0 0 0 2px var(--ink); } /* Elementor : .elementor a { box-shadow: none } effacerait le contour */
+.btn--outline:hover { background: var(--ink); color: #fff; }
+.btn svg { width: 20px; height: 20px; flex: 0 0 auto; }
+.link { font-family: var(--font-display); font-weight: 600; color: var(--btn); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.link svg { width: 18px; height: 18px; flex: 0 0 auto; }
+
+/* apparitions */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity .6s var(--ease), transform .7s var(--ease); transition-delay: calc(var(--i, 0) * 70ms); }
+  .js [data-reveal].is-in { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }
+
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- animations des boutons ---------- */
+.btn { position: relative; overflow: hidden; isolation: isolate; transition: background-color .2s ease, transform .35s cubic-bezier(.34, 1.56, .64, 1), box-shadow .25s ease; }
+.btn::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.38) 50%, transparent 65%); transform: translateX(-120%); }
+.btn svg { transition: transform .35s cubic-bezier(.34, 1.56, .64, 1); }
+.ripple { position: absolute; border-radius: 50%; background: currentColor; opacity: .22; transform: scale(0); pointer-events: none; animation: ripple .6s cubic-bezier(.22, 1, .36, 1) forwards; z-index: -1; }
+@keyframes ripple { to { transform: scale(1); opacity: 0; } }
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -8px rgba(200, 64, 10, .55); }
+  .btn--light:hover, .btn--outline:hover { box-shadow: 0 8px 20px -10px rgba(43, 20, 6, .4); }
+  .btn:hover::before { transition: transform .7s cubic-bezier(.22, 1, .36, 1); transform: translateX(120%); }
+  .btn:hover svg { transform: rotate(-12deg) scale(1.12); }
+  .link:hover svg { transform: translateX(4px); }
+}
+.btn:active { transform: scale(.95); transition-duration: .1s; box-shadow: none; }
+.link svg { transition: transform .3s cubic-bezier(.34, 1.56, .64, 1); }
+@keyframes wiggle { 0%,100% { transform: rotate(0); } 25% { transform: rotate(-12deg); } 60% { transform: rotate(9deg); } }
+@keyframes pop { 0% { transform: scale(.88); } 100% { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .btn::before { display: none; } }
+
+/* ---------- textes saisis dans l'admin ----------
+   Absent du prototype. Le reset ci-dessus met à zéro les marges des paragraphes
+   et retire les puces des listes à classe (les listes de l'éditeur de blocs en ont une).
+   On rétablit l'espacement dans le widget Texte d'Elementor, le contenu des articles
+   et les pages hors Elementor. Les réglages faits dans Elementor restent prioritaires. */
+.elementor-widget-text-editor :is(p, ul, ol, blockquote),
+.elementor-widget-theme-post-content :is(p, ul, ol, blockquote, figure, table),
+.page-content :is(p, ul, ol, blockquote, figure, table) { margin-block-end: 0.9em; }
+.elementor-widget-text-editor :is(p, ul, ol, blockquote):last-child,
+.elementor-widget-theme-post-content :is(p, ul, ol, blockquote, figure, table):last-child,
+.page-content :is(p, ul, ol, blockquote, figure, table):last-child { margin-block-end: 0; }
+.elementor-widget-text-editor :is(ul, ol),
+.elementor-widget-theme-post-content :is(ul, ol),
+.page-content :is(ul, ol) { list-style: revert; padding-inline-start: 1.4em; }

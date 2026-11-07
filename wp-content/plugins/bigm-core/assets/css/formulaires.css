@@ -1,0 +1,32 @@
+/* Big M — formulaires Elementor Pro (franchise, recrutement) aux couleurs de la charte.
+   Absents du prototype : champs et boutons reprennent la recherche de restaurants (.search)
+   et les boutons .btn de site.css. Chargé seulement sur les pages qui ont un formulaire.
+   La carte blanche est le conteneur Elementor (largeur « en boîte ») qui porte la classe
+   bigm-formulaire : sa boîte intérieure .e-con-inner devient la carte. */
+
+.bigm-formulaire > .e-con-inner { background: #fff; border-radius: 28px; padding: clamp(24px, 4vw, 48px); }
+.bigm-formulaire .elementor-form { font-family: var(--font-text); }
+/* Couleurs, bordures, arrondis et polices : réglages de style du widget (onglet Style d'Elementor).
+   Ici, ce que le widget ne règle pas. */
+.bigm-formulaire :is(.elementor-field-textual, .elementor-select-wrapper select) { min-height: 48px; padding: 0 16px; }
+.bigm-formulaire textarea.elementor-field-textual { padding-block: 12px; }
+.bigm-formulaire :is(.elementor-field-textual, .elementor-select-wrapper select):focus { outline: none; box-shadow: 0 0 0 2px var(--btn); }
+.bigm-formulaire :is(.elementor-field-textual, .elementor-select-wrapper select):focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.bigm-formulaire .elementor-field-textual::placeholder { color: var(--muted); opacity: .75; }
+.bigm-formulaire .elementor-field-subgroup { gap: 8px 10px; }
+.bigm-formulaire .elementor-field-option { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
+.bigm-formulaire :is(input[type="radio"], input[type="checkbox"]) { width: 20px; height: 20px; accent-color: var(--btn); }
+.bigm-formulaire .elementor-field-type-acceptance .elementor-field-option { align-items: flex-start; }
+.bigm-formulaire .elementor-field-type-acceptance label { font-size: 14px; font-weight: 400; color: var(--muted); line-height: 1.45; }
+.bigm-formulaire .elementor-field-type-acceptance a { color: var(--btn); }
+.bigm-formulaire .elementor-upload-field { padding: 12px; width: 100%; font-size: 15px; }
+.bigm-formulaire .elementor-upload-field::file-selector-button { margin-right: 12px; min-height: 40px; padding: 0 16px; border: 0; border-radius: 10px; background: var(--ink); color: #fff; font-family: var(--font-display); font-weight: 600; cursor: pointer; }
+/* Bouton : comme les boutons .btn (hauteur, appui, animation). */
+.bigm-formulaire .elementor-button { min-height: 48px; padding: 0 28px; transition: background-color .2s ease, transform .35s cubic-bezier(.34, 1.56, .64, 1); }
+.bigm-formulaire .elementor-button:active { transform: scale(.95); }
+.bigm-formulaire .elementor-message { margin-top: 16px; padding: 14px 18px; border-radius: 12px; }
+.bigm-formulaire .elementor-message-success { background: #e7f4ea; }
+.bigm-formulaire .elementor-message-danger { background: #fbe9e2; }
+.bigm-formulaire .elementor-error :is(.elementor-field-textual, .elementor-upload-field) { box-shadow: 0 0 0 2px var(--btn); }
+.bigm-formulaire .elementor-form-help-inline { margin-top: 6px; background: none; padding: 0; font-size: 14px; }
+@media (prefers-reduced-motion: reduce) { .bigm-formulaire .elementor-button { transition: none; } }

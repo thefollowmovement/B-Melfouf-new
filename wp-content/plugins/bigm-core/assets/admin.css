@@ -1,0 +1,64 @@
+/* Big M — admin. Couleurs de la charte pour les repères (orange des boutons, encre). */
+
+.bigm-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 20px; }
+.bigm-grid p { margin: 8px 0; }
+.bigm-grid__full { grid-column: 1 / -1; }
+.bigm-grid label { display: block; margin-bottom: 4px; }
+.bigm-grid .description { display: block; margin-top: 4px; }
+@media (max-width: 782px) { .bigm-grid { grid-template-columns: 1fr; } }
+
+/* Sélecteur de média */
+.bigm-media { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 10px 0; }
+.bigm-media__label { flex: 0 0 100%; font-weight: 600; }
+.bigm-media__preview:empty { display: none; }
+.bigm-media__preview img { display: block; width: 64px; height: 64px; object-fit: cover; border-radius: 6px; border: 1px solid #dcdcde; }
+.bigm-media__file { display: inline-block; padding: 4px 8px; border-radius: 4px; background: #f0f0f1; font-family: monospace; font-size: 12px; }
+.bigm-media .description { flex: 0 0 100%; }
+#side-sortables .bigm-media__preview img { width: 48px; height: 48px; }
+
+/* Allergènes et valeurs nutritionnelles */
+.bigm-allergenes th[scope=row] { width: 60%; }
+.bigm-allergenes th[scope=row] .description { font-weight: 400; font-size: 12px; }
+.bigm-allergenes td, .bigm-allergenes thead th:not(:first-child) { text-align: center; vertical-align: middle; }
+.bigm-allergenes input[type=checkbox] { width: 20px; height: 20px; }
+.bigm-allergenes label { display: inline-block; padding: 8px; }
+.bigm-nutrition td, .bigm-nutrition thead th:not(:first-child) { text-align: center; }
+.bigm-nutrition input { width: 90px; text-align: right; }
+
+/* Produits associés */
+.bigm-associes { max-height: 260px; overflow-y: auto; border: 1px solid #dcdcde; border-radius: 4px; padding: 6px 10px; columns: 2 220px; }
+.bigm-associes label { display: block; padding: 4px 0; break-inside: avoid; }
+
+/* Icône de catégorie */
+.bigm-icone-apercu { display: inline-flex; width: 32px; height: 32px; color: #c8400a; vertical-align: middle; }
+.bigm-icone-apercu svg { width: 100%; height: 100%; }
+td .bigm-icone-apercu, .column-bigm_icone .bigm-icone-apercu { width: 28px; height: 28px; }
+.column-bigm_icone { width: 44px; }
+.column-bigm_ordre { width: 70px; }
+
+/* Liste des produits */
+.column-bigm_image { width: 56px; }
+.column-bigm_image img { border-radius: 6px; }
+.column-bigm_badge, .column-bigm_viande { width: 120px; }
+
+/* Slides */
+.bigm-slides { margin: 12px 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.bigm-slide { border: 1px solid #dcdcde; border-radius: 8px; background: #fff; }
+.bigm-slide__bar { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 1px solid #f0f0f1; background: #f6f7f7; border-radius: 8px 8px 0 0; }
+.bigm-slide__handle { cursor: move; color: #787c82; }
+.bigm-slide__title { flex: 1 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bigm-slide__status { font-size: 12px; padding: 2px 8px; border-radius: 99px; background: #e7f5ec; color: #00632a; white-space: nowrap; }
+.bigm-slide__status[data-status="Programmée"] { background: #fff4d6; color: #6b4a00; }
+.bigm-slide__status[data-status="Terminée"] { background: #f0f0f1; color: #50575e; }
+.bigm-slide__up, .bigm-slide__down { min-width: 28px; min-height: 28px; }
+.bigm-slide__body { padding: 4px 16px 12px; }
+.bigm-slide__type { display: flex; gap: 18px; margin: 10px 0 4px; }
+.bigm-slide__medias { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0 24px; }
+.bigm-slide[data-type="image"] .bigm-slide__medias--video, .bigm-slide[data-type="video"] .bigm-slide__medias--image { display: none; }
+.bigm-slide--placeholder { border: 2px dashed #c8400a; border-radius: 8px; background: #fff7f2; }
+
+/* Réglages */
+.bigm-reglages h2 { margin-top: 32px; padding-top: 16px; border-top: 1px solid #dcdcde; }
+.bigm-reglages h2:first-of-type { border-top: 0; }
+.bigm-reglages .form-table .description code { font-size: 12px; }
+.bigm-reglages input[type=number] { width: 9em; }

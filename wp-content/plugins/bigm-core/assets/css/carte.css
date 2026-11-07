@@ -1,0 +1,15 @@
+/* Big M — en-tête de la carte et des catégories, grille des catégories, bandeau des allergènes.
+   Repris de prototype/pages.py : CARTE_CSS (sans la barre de catégories : barre-categories.css)
+   et .carte-head de CATEG_CSS. Les vignettes .tile sont dans tuiles.css. */
+
+.carte-head { padding-block: 36px 24px; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.carte-head h1 { font-size: clamp(36px, 4.4vw, 56px); }
+.carte-head p { color: var(--muted); margin-top: 8px; }
+/* page d'une catégorie (CATEG_CSS) */
+.carte-head--categorie { display: block; padding-block: 32px 20px; }
+.cat-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; }
+.cat-grid .tile { scroll-margin-top: 200px; }
+.allergy-band { margin-top: 48px; background: var(--ink); color: #fff; border-radius: 28px; padding: clamp(24px, 4vw, 44px); display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.allergy-band h2 { font-size: clamp(26px, 2.8vw, 36px); color: #fff; }
+.allergy-band p { max-width: 60ch; margin-top: 8px; color: #f6e4d6; }
+@media (max-width: 960px) { .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } }
