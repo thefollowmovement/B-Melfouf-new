@@ -359,7 +359,8 @@ function bigm_import_page(): void {
 		<input type="hidden" name="page" value="bigm-import-carte">
 		<input type="hidden" name="lot" value="1">
 		<?php wp_nonce_field( 'bigm_import_carte', '_wpnonce', false ); ?>
-		<p><label><input type="checkbox" name="demo" value="1" checked> Mettre les produits de démonstration à la corbeille</label></p>
+		<p><label><input type="checkbox" name="demo" value="1"> Mettre les produits de démonstration à la corbeille</label><br>
+			<span class="description">Avant de cocher : remplacer les produits de démonstration là où ils ont été choisis un par un (carrousel « Nos classiques » de l’accueil, « Ça va bien avec »), sinon ces blocs restent vides. On peut relancer l’import juste pour ça : il ne recrée rien.</span></p>
 		<p><button class="button button-primary">Importer la carte</button></p>
 	</form>
 	<?php

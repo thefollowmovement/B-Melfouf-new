@@ -104,7 +104,7 @@ python3 -I ops/carte/carte.py chemin/Allergenes_BigM.xlsx [chemin/page-uber-eats
 | Viandes | Plusieurs par produit (Beef Chicken et Monster : bœuf et poulet). D'après les recettes : steak → bœuf ; chicken, escalope, tenders, nuggets, poulet tandoori ou curry → poulet. Fritures et fromages panés : végétarien. Desserts et sauces : aucune. |
 | Codes M1 à M17, W1 à W3 | Créés en brouillon « (nom à compléter) » : le tableau ne donne pas leur nom |
 | Produit déjà présent (même adresse) | Il garde son nom, ses catégories, son statut, sa description et sa photo ; il reçoit les viandes et les allergènes du fichier, qui font foi. Sa description et sa photo ne sont remplies que si elles sont vides. |
-| Démonstration | Option : les produits de la démo vont à la corbeille (récupérables) |
+| Démonstration | Option, décochée par défaut : les produits de la démo vont à la corbeille (récupérables). Avant, remplacer ceux choisis un par un (carrousel « Nos classiques » de l'accueil, « Ça va bien avec »), sinon ces blocs restent vides. |
 
 La page de l'import liste les produits **à vérifier** (viande inconnue, nom manquant), avec un lien vers chacun.
 
