@@ -3,7 +3,7 @@
  * Plugin Name:  Big M — contenu de démonstration
  * Description:  Importe les visuels et les contenus du prototype (sliders, produits, articles) et crée la page d'accueil Elementor. Temporaire : à supprimer avant la mise en ligne. Outils → Démo Big M.
  * Author:       The Follow Movement
- * Version:      0.3.0
+ * Version:      0.4.0
  * Requires PHP: 8.2
  * Requires Plugins: bigm-core, elementor
  *
@@ -12,7 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'BIGM_DEMO_VERSION', '0.3.0' );
+define( 'BIGM_DEMO_VERSION', '0.4.0' );
 define( 'BIGM_DEMO_MEDIAS', __DIR__ . '/medias/' );
 
 /**
@@ -516,11 +516,8 @@ function bigm_demo_importer(): array {
 	update_option( 'page_for_posts', $articles );
 	\Elementor\Plugin::$instance->files_manager->clear_cache();
 	$rapport[] = 'page d’accueil Elementor (page d’accueil du site) et page Actualités (page des articles)';
-	$rapport   = array_merge( $rapport, bigm_demo_actualites(), bigm_demo_formulaires() );
+	$rapport   = array_merge( $rapport, bigm_demo_actualites() );
 	update_option( 'bigm_demo_actualites', 1, false );
-	if ( class_exists( '\ElementorPro\Plugin' ) ) {
-		update_option( 'bigm_demo_formulaires', 1, false );
-	}
 
 	update_option( 'bigm_demo_version', BIGM_DEMO_VERSION, false );
 	update_option(
@@ -724,49 +721,23 @@ function bigm_demo_restaurants(): array {
 					'bouton' => 'Commander',
 				),
 			),
-			array(
-				'tfmsl_store_locator',
+			// Dans la largeur du site. Couleurs : habillage « Aux couleurs du site » du plugin (kit Elementor).
+			bigm_demo_boite(
 				array(
-					'title'                    => '',
-					'search_placeholder'       => 'Ville, code postal…',
-					'locator_height'           => array(
-						'unit' => 'px',
-						'size' => 640,
+					'id'         => bigm_demo_eid(),
+					'elType'     => 'widget',
+					'widgetType' => 'tfmsl_store_locator',
+					'settings'   => array(
+						'title'              => '',
+						'search_placeholder' => 'Ville, code postal…',
+						'locator_height'     => array(
+							'unit' => 'px',
+							'size' => 640,
+						),
+						'popup_link_text'    => 'Voir le restaurant',
 					),
-					'sidebar_bg'               => '#f2ede7',
-					'sidebar_title_color'      => '#2b1406',
-					'search_bg'                => '#ffffff',
-					'search_color'             => '#2b1406',
-					'search_placeholder_color' => '#6b4a3a',
-					'geo_btn_bg'               => '#c8400a',
-					'geo_btn_color'            => '#ffffff',
-					'card_bg'                  => '#ffffff',
-					'card_bg_hover'            => '#ffffff',
-					'card_radius'              => array(
-						'unit' => 'px',
-						'size' => 20,
-					),
-					'card_image_radius'        => array(
-						'unit' => 'px',
-						'size' => 12,
-					),
-					'card_name_color'          => '#2b1406',
-					'card_address_color'       => '#6b4a3a',
-					'card_pin_color'           => '#fa5c19',
-					'card_link_color'          => '#2b1406',
-					'card_link_color_hover'    => '#c8400a',
-					'pin_color'                => '#fa5c19',
-					'cluster_bg'               => '#c8400a',
-					'cluster_color'            => '#ffffff',
-					'popup_radius'             => array(
-						'unit' => 'px',
-						'size' => 20,
-					),
-					'popup_title_color'        => '#2b1406',
-					'popup_address_color'      => '#6b4a3a',
-					'popup_link_color'         => '#c8400a',
-					'popup_link_text'          => 'Voir le restaurant',
-				),
+					'elements'   => array(),
+				)
 			),
 		)
 	);
@@ -777,20 +748,14 @@ function bigm_demo_restaurants(): array {
 }
 
 /**
- * Actualités (étape 6) : catégories sous /actualites/ (/actualites/presse/) et chapeau de la page
- * Actualités. Ne remplace pas un réglage ou un texte déjà saisi.
+ * Actualités (étape 6) : chapeau de la page Actualités, s'il est vide. Les catégories sous
+ * /actualites/ sont réglées par bigm-core (inc/activation.php).
  *
  * @return string[] Rapport.
  */
 function bigm_demo_actualites(): array {
 	$rapport = array();
-	if ( '' === (string) get_option( 'category_base' ) ) {
-		global $wp_rewrite;
-		$wp_rewrite->set_category_base( 'actualites' );
-		$wp_rewrite->flush_rules( false );
-		$rapport[] = 'catégories d’articles sous /actualites/ (Réglages → Permaliens)';
-	}
-	$page = (int) get_option( 'page_for_posts' );
+	$page    = (int) get_option( 'page_for_posts' );
 	if ( $page && '' === trim( (string) get_post_field( 'post_content', $page ) ) ) {
 		wp_update_post(
 			array(
@@ -939,12 +904,24 @@ function bigm_demo_style_formulaire(): array {
 }
 
 /**
- * Carte blanche (conteneur « en boîte » de la largeur du site, classe bigm-formulaire) qui porte un formulaire.
+ * Carte blanche (conteneur « en boîte », classe bigm-formulaire) qui porte un formulaire.
  *
  * @param array<string, mixed> $formulaire Widget formulaire.
  * @return array<string, mixed> Élément Elementor.
  */
 function bigm_demo_carte_formulaire( array $formulaire ): array {
+	return bigm_demo_boite( $formulaire, 'bigm-formulaire' );
+}
+
+/**
+ * Conteneur « en boîte » de la largeur du site (1240 px), avec la marge latérale des sections
+ * Big M, autour d'un élément qui n'a pas sa propre largeur (widget d'une autre extension).
+ *
+ * @param array<string, mixed> $element Élément Elementor.
+ * @param string               $classe  Classe CSS du conteneur.
+ * @return array<string, mixed> Élément Elementor.
+ */
+function bigm_demo_boite( array $element, string $classe = '' ): array {
 	$cote = static fn( int $px ): array => array(
 		'unit'     => 'px',
 		'top'      => '0',
@@ -966,9 +943,9 @@ function bigm_demo_carte_formulaire( array $formulaire ): array {
 			'padding'        => $cote( 32 ),
 			'padding_tablet' => $cote( 24 ),
 			'padding_mobile' => $cote( 16 ),
-			'css_classes'    => 'bigm-formulaire',
+			'css_classes'    => $classe,
 		),
-		'elements' => array( $formulaire ),
+		'elements' => array( $element ),
 	);
 }
 
@@ -1146,11 +1123,8 @@ add_action(
 			bigm_demo_actualites();
 			update_option( 'bigm_demo_actualites', 1, false );
 		}
-		// Formulaires : dès qu'Elementor Pro est actif, une fois.
-		if ( class_exists( '\ElementorPro\Plugin' ) && ! get_option( 'bigm_demo_formulaires' ) ) {
-			bigm_demo_formulaires();
-			update_option( 'bigm_demo_formulaires', 1, false );
-		}
+		// Les pages Franchise et Recrutement à formulaire Elementor Pro ne sont plus créées
+		// d'office : elles se créent par un bouton (Outils → Démo Big M), si on les veut.
 		// Restaurants : dès que le plugin StoreLocatore est actif, une fois.
 		if ( post_type_exists( 'tfmsl_store' ) && ! get_option( 'bigm_demo_restaurants' ) ) {
 			bigm_demo_restaurants();
@@ -1176,12 +1150,53 @@ function bigm_demo_supprimer(): array {
 			'meta_value'     => '1', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 		)
 	);
+	$supprimes = 0;
+	$gardes    = 0;
+	// Contenus, puis médias : un média encore utilisé hors de la démo (page Elementor,
+	// texte, image à la une, réglage) est gardé.
+	usort( $ids, static fn( int $a, int $b ): int => ( 'attachment' === get_post_type( $a ) ) <=> ( 'attachment' === get_post_type( $b ) ) );
 	foreach ( $ids as $id ) {
-		'attachment' === get_post_type( $id ) ? wp_delete_attachment( $id, true ) : wp_delete_post( $id, true );
+		if ( 'attachment' === get_post_type( $id ) ) {
+			if ( bigm_demo_media_utilise( $id ) ) {
+				delete_post_meta( $id, '_bigm_demo' );
+				++$gardes;
+				continue;
+			}
+			wp_delete_attachment( $id, true );
+		} else {
+			wp_delete_post( $id, true );
+		}
+		++$supprimes;
 	}
 	delete_option( 'bigm_demo_medias' );
 	delete_option( 'bigm_demo_import' );
-	return array( count( $ids ) . ' contenus et médias de démonstration supprimés (produits, sliders, articles, restaurants d’exemple). Les pages sont gardées.' );
+	$rapport = array( $supprimes . ' contenus et médias de démonstration supprimés (produits, sliders, articles, restaurants d’exemple). Les pages sont gardées.' );
+	if ( $gardes ) {
+		$rapport[] = $gardes . ' médias gardés : ils servent encore dans des pages (à remplacer par ceux du client).';
+	}
+	return $rapport;
+}
+
+/**
+ * Un média de la démo est-il encore utilisé hors de la démo : dans le contenu ou les données
+ * Elementor d'une page, d'un article ou d'un modèle, en image à la une, ou dans un réglage ?
+ *
+ * @param int $id Média.
+ */
+function bigm_demo_media_utilise( int $id ): bool {
+	global $wpdb;
+	$fichier = wp_basename( (string) get_attached_file( $id ) );
+	$nom     = preg_replace( '/\.[a-z0-9]+$/i', '', $fichier ); // Couvre aussi les tailles (nom-300x200.jpg).
+	if ( '' === $nom ) {
+		return false;
+	}
+	$demo  = "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_bigm_demo'";
+	$like  = '%' . $wpdb->esc_like( $nom ) . '%';
+	$texte = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_status <> 'trash' AND post_type NOT IN ('attachment','revision') AND post_content LIKE %s AND ID NOT IN ($demo)", $like ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+	$meta  = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} m INNER JOIN {$wpdb->posts} p ON p.ID = m.post_id WHERE p.post_status <> 'trash' AND p.post_type <> 'revision' AND m.meta_key = '_elementor_data' AND m.meta_value LIKE %s AND m.post_id NOT IN ($demo)", $like ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+	$une   = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = '_thumbnail_id' AND meta_value = %d AND post_id NOT IN ($demo)", $id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+	$logo  = in_array( $id, array( (int) get_theme_mod( 'custom_logo' ), (int) get_option( 'site_icon' ) ), true );
+	return $texte || $meta || $une || $logo;
 }
 
 /*
@@ -1203,7 +1218,11 @@ function bigm_demo_page(): void {
 	}
 	$rapport = array();
 	if ( isset( $_POST['bigm_demo'] ) && check_admin_referer( 'bigm_demo' ) ) {
-		$rapport = 'supprimer' === $_POST['bigm_demo'] ? bigm_demo_supprimer() : bigm_demo_importer();
+		$action  = sanitize_key( wp_unslash( $_POST['bigm_demo'] ) );
+		$rapport = 'supprimer' === $action ? bigm_demo_supprimer() : ( 'formulaires' === $action ? bigm_demo_formulaires() : bigm_demo_importer() );
+		if ( 'formulaires' === $action && ! $rapport ) {
+			$rapport = array( 'Rien à créer : Elementor Pro est inactif, ou les pages devenir-franchise et recrutement existent déjà.' );
+		}
 	}
 	$import = get_option( 'bigm_demo_import' );
 	?>
@@ -1219,7 +1238,10 @@ function bigm_demo_page(): void {
 				<p>Importé le <?php echo esc_html( mysql2date( 'j F Y à H:i', $import['date'] ) ); ?>. <a href="<?php echo esc_url( home_url( '/' ) ); ?>">Voir l'accueil</a> · <a href="<?php echo esc_url( admin_url( 'post.php?post=' . (int) $import['accueil'] . '&action=elementor' ) ); ?>">Modifier avec Elementor</a></p>
 				<p>Carte : <a href="<?php echo esc_url( home_url( '/carte/' ) ); ?>">/carte/</a> · <a href="<?php echo esc_url( home_url( '/carte/burgers/' ) ); ?>">/carte/burgers/</a> · <a href="<?php echo esc_url( home_url( '/produit/smash-naan/' ) ); ?>">/produit/smash-naan/</a></p>
 				<p><button class="button" name="bigm_demo" value="supprimer" onclick="return confirm('Supprimer les produits, sliders, articles et médias de démonstration ?')">Supprimer le contenu de démonstration</button></p>
-				<p class="description">Avant la mise en ligne. Remplacer d'abord les images de la page d'accueil : elles viennent de la démo.</p>
+				<p class="description">Avant la mise en ligne. Les médias encore utilisés dans des pages sont gardés : pensez à les remplacer par ceux du client.</p>
+				<h2>Pages à formulaire Elementor Pro (facultatif)</h2>
+				<p>Crée les pages <code>/devenir-franchise/</code> et <code>/recrutement/</code> avec un formulaire Elementor Pro (champs du brief), si elles n'existent pas encore. Inutile si ces pages sont faites autrement (par exemple avec WPForms).</p>
+				<p><button class="button" name="bigm_demo" value="formulaires">Créer les pages à formulaire</button></p>
 			<?php else : ?>
 				<p><button class="button button-primary" name="bigm_demo" value="importer">Importer le contenu de démonstration</button></p>
 				<p class="description">Prend jusqu'à une minute. Définit la page d'accueil et la page des articles du site.</p>

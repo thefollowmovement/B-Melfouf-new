@@ -607,7 +607,8 @@ function bigm_rendu_fiche_produit( array $a ): string {
 		return '';
 	}
 	$section = static function ( string $cle, string $titre, string $corps ) use ( $a ): string {
-		return '<details' . ( in_array( $cle, (array) $a['ouvertes'], true ) ? ' open' : '' ) . '><summary>' . esc_html( $titre ) . ' ' . bigm_core_icone( 'right' ) . '</summary><div class="acc__body">' . $corps . '</div></details>';
+		// Titre h2 dans le résumé : les « Contient » et « Traces » (h3) suivent alors un h2 (ordre des titres).
+		return '<details' . ( in_array( $cle, (array) $a['ouvertes'], true ) ? ' open' : '' ) . '><summary><h2 class="acc__titre">' . esc_html( $titre ) . '</h2> ' . bigm_core_icone( 'right' ) . '</summary><div class="acc__body">' . $corps . '</div></details>';
 	};
 	$liste   = static fn( array $items, string $classe ): string => '<ul class="' . $classe . '">' . implode( '', array_map( static fn( string $t ): string => '<li>' . esc_html( $t ) . '</li>', $items ) ) . '</ul>';
 
@@ -673,11 +674,13 @@ function bigm_rendu_produits_associes( array $a ): string {
 /**
  * Carte d'un article (.news-card de l'accueil) : photo, catégorie (News ou Presse) et date, titre.
  *
- * @param int|WP_Post $post  Article.
- * @param int         $i     Rang, pour le décalage de l'apparition.
- * @param string      $sizes Attribut sizes de la photo.
+ * @param int|WP_Post $post   Article.
+ * @param int         $i      Rang, pour le décalage de l'apparition.
+ * @param string      $sizes  Attribut sizes de la photo.
+ * @param string      $niveau Balise du titre : h3 sous un titre de section, h2 directement sous le h1.
  */
-function bigm_carte_article( $post, int $i = 0, string $sizes = '(max-width: 960px) 100vw, 400px' ): string {
+function bigm_carte_article( $post, int $i = 0, string $sizes = '(max-width: 960px) 100vw, 400px', string $niveau = 'h3' ): string {
+	$niveau = 'h2' === $niveau ? 'h2' : 'h3';
 	$post = get_post( $post );
 	if ( ! $post ) {
 		return '';
@@ -685,7 +688,7 @@ function bigm_carte_article( $post, int $i = 0, string $sizes = '(max-width: 960
 	$meta = bigm_article_meta( $post );
 	$img  = get_post_thumbnail_id( $post ) ? wp_get_attachment_image( (int) get_post_thumbnail_id( $post ), 'large', false, array( 'sizes' => $sizes ) ) : '';
 	return '<a class="news-card" href="' . esc_url( get_permalink( $post ) ) . '" data-reveal' . ( $i ? ' style="--i:' . ( $i % 3 ) . '"' : '' ) . '>'
-		. '<div class="news-card__img">' . $img . '</div><div class="news-card__body"><small>' . esc_html( $meta ) . '</small><h3>' . esc_html( get_the_title( $post ) ) . '</h3></div></a>';
+		. '<div class="news-card__img">' . $img . '</div><div class="news-card__body"><small>' . esc_html( $meta ) . '</small><' . $niveau . '>' . esc_html( get_the_title( $post ) ) . '</' . $niveau . '></div></a>';
 }
 
 /**

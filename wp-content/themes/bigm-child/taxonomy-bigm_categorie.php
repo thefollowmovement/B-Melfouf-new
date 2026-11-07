@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 get_header();
-if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'archive' ) ) {
+if ( ! bigm_child_emplacement( 'archive' ) ) {
 	$bigm_term = get_queried_object();
 	if ( function_exists( 'bigm_page_categorie' ) && $bigm_term instanceof WP_Term ) {
 		echo bigm_page_categorie( $bigm_term ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- échappé par bigm-core.

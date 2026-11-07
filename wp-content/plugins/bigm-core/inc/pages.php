@@ -96,7 +96,7 @@ function bigm_page_actualites(): string {
 	$i      = 0;
 	while ( have_posts() ) {
 		the_post();
-		$cartes .= bigm_carte_article( get_post(), $i++ );
+		$cartes .= bigm_carte_article( get_post(), $i++, '(max-width: 960px) 100vw, 400px', 'h2' );
 	}
 	$liste = $cartes ? '<div class="news-cards news-cards--liste">' . $cartes . '</div>' : '<p class="news-none">Aucun article pour le moment.</p>';
 	$pages = get_the_posts_pagination(

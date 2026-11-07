@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 get_header();
-if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'archive' ) ) {
+if ( ! bigm_child_emplacement( 'archive' ) ) {
 	if ( function_exists( 'bigm_page_actualites' ) ) {
 		echo bigm_page_actualites(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- échappé par bigm-core.
 	} else {

@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name:  Big M — socle
- * Description:  Préprod fermée aux moteurs de recherche, XML-RPC et éditeur de fichiers coupés, réglages de départ appliqués une fois. Fonctionne en mu-plugin (wp-content/mu-plugins/) ou en extension classique (wp-content/plugins/bigm-socle/).
+ * Description:  Préprod fermée aux moteurs de recherche, XML-RPC et éditeur de fichiers coupés, en-têtes de sécurité, comptes non énumérables, réglages de départ appliqués une fois. Fonctionne en mu-plugin (wp-content/mu-plugins/) ou en extension classique (wp-content/plugins/bigm-socle/).
  * Author:       The Follow Movement
- * Version:      0.2.0
+ * Version:      0.3.0
  * Requires PHP: 8.2
  *
  * @package BigM\Socle
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 if ( defined( 'BIGM_SOCLE_VERSION' ) ) {
 	return;
 }
-define( 'BIGM_SOCLE_VERSION', '0.2.0' );
+define( 'BIGM_SOCLE_VERSION', '0.3.0' );
 
 // Pas d'éditeur de thèmes ni d'extensions dans l'admin.
 if ( ! defined( 'DISALLOW_FILE_EDIT' ) ) {
@@ -80,14 +80,69 @@ if ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) {
 	header( 'Content-Type: text/plain; charset=utf-8' );
 	exit( 'XML-RPC est désactivé.' );
 }
+remove_action( 'wp_head', 'rsd_link' );
+
+/*
+ * En-têtes de sécurité des pages (brief, § 12) :
+ * - pas de devinette du type de fichier par le navigateur ;
+ * - adresse d'origine réduite au domaine quand on quitte le site ;
+ * - site affichable dans un cadre seulement par lui-même (aperçu d'Elementor) ;
+ * - caméra, micro, paiement et USB coupés ; géolocalisation réservée au site
+ *   (bouton « Me localiser » des restaurants et des promos).
+ * Filtre « bigm_socle_headers » pour en changer.
+ */
 add_filter(
 	'wp_headers',
 	static function ( array $headers ): array {
 		unset( $headers['X-Pingback'] );
-		return $headers;
+		$securite = array(
+			'X-Content-Type-Options' => 'nosniff',
+			'Referrer-Policy'        => 'strict-origin-when-cross-origin',
+			'X-Frame-Options'        => 'SAMEORIGIN',
+			'Permissions-Policy'     => 'camera=(), microphone=(), payment=(), usb=(), geolocation=(self)',
+		);
+		return array_merge( $headers, (array) apply_filters( 'bigm_socle_headers', $securite ) );
 	}
 );
-remove_action( 'wp_head', 'rsd_link' );
+
+/*
+ * Identifiants des comptes non devinables par les visiteurs :
+ * - pas de liste des utilisateurs dans l'API REST ;
+ * - pas de pages auteur (/?author=1 renverrait vers /author/identifiant/) ;
+ * - pas de nom d'auteur dans les aperçus oEmbed.
+ * Les personnes connectées (éditeur, Elementor) ne sont pas concernées.
+ */
+add_filter(
+	'rest_endpoints',
+	static function ( array $routes ): array {
+		if ( is_user_logged_in() ) {
+			return $routes;
+		}
+		foreach ( array_keys( $routes ) as $route ) {
+			if ( str_starts_with( $route, '/wp/v2/users' ) ) {
+				unset( $routes[ $route ] );
+			}
+		}
+		return $routes;
+	}
+);
+add_action(
+	'template_redirect',
+	static function () {
+		if ( ! is_user_logged_in() && ( is_author() || isset( $_GET['author'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			wp_safe_redirect( home_url( '/' ), 301, 'Big M' );
+			exit;
+		}
+	},
+	0
+);
+add_filter(
+	'oembed_response_data',
+	static function ( array $data ): array {
+		unset( $data['author_name'], $data['author_url'] );
+		return $data;
+	}
+);
 
 if ( ! function_exists( 'bigm_socle_htaccess_rules' ) ) {
 	/**

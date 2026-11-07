@@ -49,7 +49,7 @@ Les sliders s'affichent avec le widget Elementor « Big M Slider » (étape 4), 
 
 ### Réglages Big M
 
-Menu **Réglages Big M** : lien Commander, page Restaurants, la carte (titre, texte et bannières de `/carte/`, bandeau et note des allergènes), App Store et Google Play, réseaux sociaux, e-mail, siège et mention du pied de page, chiffres de la franchise. Chaque champ indique son shortcode, à placer dans un widget Texte d'Elementor : `[bigm_reglage cle="franchise_droit_entree"]` affiche « 30 000 € HT ». Les nombres sont toujours mis en forme à la française.
+Menu **Réglages Big M** : lien Commander, page Restaurants, la carte (titre, texte et bannières de `/carte/`, bandeau et note des allergènes), App Store et Google Play, réseaux sociaux, e-mail, siège et mention du pied de page, chiffres de la franchise, image de partage (Référencement), règles de redirection et journal des adresses introuvables ([`seo.md`](seo.md)). Chaque champ indique son shortcode, à placer dans un widget Texte d'Elementor : `[bigm_reglage cle="franchise_droit_entree"]` affiche « 30 000 € HT ». Les nombres sont toujours mis en forme à la française.
 
 ### Actualités
 

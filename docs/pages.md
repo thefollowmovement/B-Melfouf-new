@@ -2,17 +2,17 @@
 
 Étape 6 du brief, hors restaurants (voir `docs/restaurants.md`). Ces pages n'ont pas d'équivalent dans le prototype : elles en reprennent les composants (en-têtes, cartes blanches arrondies, boutons, cartes d'articles).
 
-## Pages créées par la démo
+## Pages de la démo
 
-L'extension de démonstration les crée une fois, dès qu'Elementor Pro est actif. Elles sont gardées quand on supprime la démo.
+Les pages à formulaire ne sont plus créées d'office : sur la préprod, les pages **Devenir franchisé** (`/devenir-franchise/`) et **Nous rejoindre** (`/nous-rejoindre/`) existent déjà, avec des formulaires WPForms. Pour les pages Elementor Pro décrites ici, il faut le demander : **Outils → Démo Big M → Créer les pages à formulaire**. Une page qui existe déjà à la même adresse n'est jamais remplacée. Choisir l'une des deux solutions et supprimer l'autre, pour ne garder qu'une extension de formulaires.
 
 | Page | Contenu |
 |---|---|
 | `/devenir-franchise/` | En-tête, **Chiffres de la franchise** (Réglages Big M), « Pourquoi Big M », formulaire de candidature |
 | `/recrutement/` | En-tête, « Travailler chez Big M », formulaire avec envoi de CV |
-| `/actualites/` | Page des articles : en-tête, catégories (Tout, News, Presse), cartes, pages de 9 articles |
+| `/actualites/` | Page des articles : en-tête, catégories (Tout, News, Presse), cartes, pages de 9 articles. Créée avec l'accueil. |
 
-Les textes entre crochets sont à remplacer par ceux de l'ancien site. Celui-ci n'était pas accessible pendant le développement : il faut reprendre le texte de la page franchise actuelle. Ils se modifient dans Elementor (widget **Big M — Section texte**).
+Les pages créées par la démo sont gardées quand on la supprime. Les textes entre crochets sont à remplacer par ceux de l'ancien site, dans Elementor (widget **Big M — Section texte**).
 
 ## Formulaires (Elementor Pro)
 
@@ -48,7 +48,7 @@ Pour les deux formulaires :
 
 1. **Clés reCAPTCHA v3.** Créer les clés sur Google reCAPTCHA (type v3, domaine du site), puis les saisir dans **Elementor → Réglages → Intégrations**. Tant qu'elles manquent, seuls les administrateurs voient un avertissement dans le formulaire. Cloudflare Turnstile n'existe pas dans Elementor Pro : il faudrait une extension en plus.
 2. **Adresses de réception.** Confirmer avec le client qui reçoit les candidatures (franchise et recrutement).
-3. **Envoi des e-mails.** Vérifier qu'ils arrivent : l'expéditeur est une adresse du domaine. Un SMTP authentifié (Hostinger) est conseillé à l'étape 7.
+3. **Envoi des e-mails.** Vérifier qu'ils arrivent : l'expéditeur est une adresse du domaine. Un SMTP authentifié (boîte e-mail Hostinger du domaine) est conseillé : `docs/seo.md`, « Avant la mise en ligne ».
 4. **Politique de confidentialité.** La compléter : durée de conservation des soumissions, envoi des CV par e-mail.
 
 ## Widgets ajoutés
@@ -69,11 +69,11 @@ Les articles sont natifs (menu **Articles**), rangés dans les catégories **New
 | `/actualites/presse/`, `/actualites/news/` | Une catégorie : son nom et sa description |
 | `/{article}/` | Retour aux actualités, catégorie et date, titre, photo, texte, « À lire aussi » (3 articles, de la même catégorie d'abord) |
 
-La démo règle la base des catégories sur `actualites` (**Réglages → Permaliens**). La catégorie par défaut (« Non classé ») n'apparaît ni dans les pastilles ni sur les cartes.
+bigm-core règle la base des catégories sur `actualites` à son installation (**Réglages → Permaliens**), si elle était vide. La catégorie par défaut (« Non classé ») n'apparaît ni dans les pastilles ni sur les cartes.
 
 Les gabarits sont dans le thème : `home.php`, `category.php`, `single-post.php`. Ils appellent `bigm_page_actualites()` et `bigm_page_article()` de bigm-core. Un modèle du Theme Builder d'Elementor Pro, s'il vise ces pages, les remplace. Les cartes d'articles de l'accueil et de la page Actualités partagent le même balisage et `assets/css/articles.css`.
 
-La reprise des articles de l'ancien site, avec leurs images, est prévue avec les redirections (étape 7).
+Les articles de l'ancien site se reprennent avec leurs images par **Outils → Reprise des articles** (`docs/seo.md`).
 
 ## Tester
 
@@ -81,7 +81,7 @@ La reprise des articles de l'ancien site, avec leurs images, est prévue avec le
 wp eval-file tests/wp/test-bigm-contenus.php --user=IDENTIFIANT_ADMIN
 ```
 
-Il fait 30 vérifications :
+Il fait 31 vérifications :
 
 - sections de texte, chiffres, en-tête de page ;
 - cartes, pastilles et articles des actualités ;

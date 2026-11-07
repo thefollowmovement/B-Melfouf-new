@@ -157,6 +157,8 @@ add_action(
 		$ours = in_array( $screen->post_type, array( 'bigm_produit', 'bigm_slider' ), true ) && in_array( $hook, array( 'post.php', 'post-new.php' ), true );
 		$ours = $ours || ( 'bigm_categorie' === $screen->taxonomy && in_array( $hook, array( 'edit-tags.php', 'term.php' ), true ) );
 		$ours = $ours || 'toplevel_page_bigm-reglages' === $hook;
+		// Bloc Référencement (image de partage) des pages et articles.
+		$ours = $ours || ( in_array( $screen->post_type, array( 'page', 'post' ), true ) && in_array( $hook, array( 'post.php', 'post-new.php' ), true ) );
 		if ( ! $ours ) {
 			return;
 		}

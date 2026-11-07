@@ -1,16 +1,17 @@
 <?php
 /**
- * Restaurants : intégration du plugin StoreLocatore de l'agence (boutiques tfmsl_store),
- * sans le modifier. Tout passe par les filtres et options de WordPress :
+ * Restaurants : réglages du plugin StoreLocatore de l'agence (boutiques tfmsl_store) pour Big M,
+ * sans le modifier. Depuis sa version 2.2, le plugin charge ses fichiers seulement là où ils
+ * servent, lit la recherche ?q= de l'accueil, normalise la recherche et propose un style
+ * « Clair, aux couleurs du site » (couleurs et polices du kit Elementor, donc de la charte).
+ * Il reste ici :
  *
- * - les fiches sont publiées sous /restaurants/{restaurant}/ et la liste sous /restaurants/ ;
- * - la liste affiche la page « Restaurants » (adresse restaurants), composée dans Elementor
- *   avec le widget « Store – Locator » du plugin ;
- * - les couleurs par défaut du plugin sont celles de la charte, et une feuille d'habillage
- *   (assets/css/restaurants.css) reprend les cartes, boutons et épingles de Big M ;
- * - la recherche de l'accueil (/restaurants/?q=…) est appliquée au store locator
- *   (assets/js/restaurants.js) ;
- * - les fichiers du plugin (jQuery, Leaflet) ne sont chargés que sur les pages restaurants.
+ * - les adresses : fiches sous /restaurants/{restaurant}/, sans liste du plugin ; /restaurants/
+ *   est la page qui contient le widget Store – Locator (le plugin la trouve seul) ;
+ * - les mots : « Restaurants » au lieu de « Boutiques » ;
+ * - deux réglages par défaut, tant qu'ils n'ont pas été enregistrés : fiche en style clair,
+ *   barre d'actions mobile coupée (la barre d'onglets Big M occupe le bas de l'écran) ;
+ * - le type de cuisine « Burgers halal » par défaut, pour les données structurées Restaurant.
  *
  * Rien ne se passe si le plugin n'est pas actif.
  *
@@ -26,14 +27,6 @@ function bigm_storelocator_actif(): bool {
 	return post_type_exists( 'tfmsl_store' );
 }
 
-/**
- * Page « Restaurants » (adresse restaurants), affichée à la place de la liste du plugin.
- */
-function bigm_page_restaurants_id(): int {
-	$page = get_page_by_path( 'restaurants' );
-	return $page instanceof WP_Post && 'publish' === $page->post_status ? (int) $page->ID : 0;
-}
-
 /*
  * Adresses et libellés : « Restaurants » au lieu de « Boutiques ».
  */
@@ -47,7 +40,8 @@ add_filter(
 			'slug'       => 'restaurants',
 			'with_front' => false,
 		);
-		$args['has_archive'] = 'restaurants';
+		// Pas de liste du plugin : /restaurants/ est la page Elementor du store locator.
+		$args['has_archive'] = false;
 		$args['labels']      = array_merge(
 			(array) ( $args['labels'] ?? array() ),
 			array(
@@ -80,15 +74,21 @@ add_filter(
 	'gettext_storelocatore',
 	static function ( string $traduction, string $texte ): string {
 		static $textes = array(
-			'Boutiques'                                    => 'Restaurants',
-			'Boutique'                                     => 'Restaurant',
-			'Trouvez votre boutique'                       => 'Trouvez votre restaurant',
-			'Voir la boutique →'                           => 'Voir le restaurant',
+			'Boutiques'                                     => 'Restaurants',
+			'Boutique'                                      => 'Restaurant',
+			'Trouvez votre boutique'                        => 'Trouvez votre restaurant',
+			'Voir la boutique →'                            => 'Voir le restaurant',
 			'Aucune boutique trouvée pour cette recherche.' => 'Aucun restaurant ne correspond à cette recherche.',
-			'Rechercher une ville, une boutique…'          => 'Rechercher une ville, un restaurant…',
-			'%d boutique(s) disponible(s)'                 => '%d restaurant(s)',
-			'Voir la fiche de la boutique'                 => 'Voir la fiche du restaurant',
-			'Présentez ce code en boutique.'               => 'Présentez ce code au restaurant.',
+			'Rechercher une ville, une boutique…'           => 'Rechercher une ville, un restaurant…',
+			'%d boutique(s) disponible(s)'                  => '%d restaurant(s)',
+			'Voir la fiche de la boutique'                  => 'Voir la fiche du restaurant',
+			'Présentez ce code en boutique.'                => 'Présentez ce code au restaurant.',
+			'Toutes nos boutiques'                          => 'Tous nos restaurants',
+			'Voir la boutique'                              => 'Voir le restaurant',
+			'Rechercher une boutique'                       => 'Rechercher un restaurant',
+			'Nos dernières boutiques'                       => 'Nos derniers restaurants',
+			'Aucune promo en cours pour cette boutique.'    => 'Aucune promo en cours dans ce restaurant.',
+			'Boutique introuvable.'                         => 'Restaurant introuvable.',
 		);
 		return $textes[ $texte ] ?? $traduction;
 	},
@@ -97,140 +97,47 @@ add_filter(
 );
 
 /*
- * Couleurs et police par défaut du plugin : celles de la charte (assets/css/tokens.css du thème).
- * Ne s'applique que tant que les réglages du plugin n'ont pas été enregistrés.
+ * Réglages par défaut du plugin pour Big M, tant qu'ils n'ont pas été enregistrés :
+ * fiche en style clair (couleurs du kit Elementor), barre d'actions mobile coupée.
  */
-foreach ( array(
-	'tfmsl_primary_color'   => '#ffffff',
-	'tfmsl_secondary_color' => '#f2ede7',
-	'tfmsl_accent_color'    => '#c8400a',
-	'tfmsl_text_color'      => '#2b1406',
-	'tfmsl_bg_color'        => '#faf8f5',
-	'tfmsl_font_family'     => 'var(--font-text)',
-	// Barre d'actions mobile du plugin : coupée par défaut, la barre d'onglets Big M occupe le bas de l'écran.
-	'tfmsl_mobile_bar'      => '0',
-) as $bigm_option => $bigm_valeur ) {
-	add_filter( "default_option_{$bigm_option}", static fn() => $bigm_valeur, 20 );
-}
+add_filter( 'default_option_tfmsl_store_style', static fn() => 'site', 20 );
+add_filter( 'default_option_tfmsl_mobile_bar', static fn() => '0', 20 );
 
 /*
- * Permaliens recalculés une fois après l'activation du plugin ou une mise à jour de bigm-core.
- */
-add_action(
-	'init',
-	static function () {
-		if ( ! bigm_storelocator_actif() ) {
-			return;
-		}
-		if ( get_option( 'bigm_core_permaliens_restaurants' ) !== BIGM_CORE_VERSION ) {
-			flush_rewrite_rules( false );
-			update_option( 'bigm_core_permaliens_restaurants', BIGM_CORE_VERSION, false );
-		}
-	},
-	100
-);
-
-/*
- * /restaurants/ : la page « Restaurants » (Elementor) remplace la liste du plugin.
- * Le plugin choisit son gabarit à la priorité 10 ; celui du thème reprend la main à la priorité 20.
- */
-add_filter(
-	'archive_template',
-	static function ( string $template ): string {
-		if ( is_post_type_archive( 'tfmsl_store' ) && bigm_page_restaurants_id() ) {
-			$theme = locate_template( array( 'archive-tfmsl_store.php' ) );
-			return $theme ? $theme : $template;
-		}
-		return $template;
-	},
-	20
-);
-
-/**
- * Contenu de la page « Restaurants » (Elementor, sinon le contenu de la page).
- */
-function bigm_page_restaurants(): string {
-	$id = bigm_page_restaurants_id();
-	if ( ! $id ) {
-		return '';
-	}
-	if ( did_action( 'elementor/loaded' ) ) {
-		$document = \Elementor\Plugin::$instance->documents->get( $id );
-		if ( $document && $document->is_built_with_elementor() ) {
-			return (string) \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $id, true );
-		}
-	}
-	return (string) apply_filters( 'the_content', get_post_field( 'post_content', $id ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- filtre de WordPress.
-}
-
-/**
- * La page affichée a-t-elle besoin des fichiers du plugin (store locator, fiche, carte) ?
- */
-function bigm_page_utilise_storelocator(): bool {
-	if ( is_singular( 'tfmsl_store' ) || is_post_type_archive( 'tfmsl_store' ) || get_query_var( 'tfmsl_review' ) ) {
-		return true;
-	}
-	if ( isset( $_GET['elementor-preview'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- lecture seule.
-		return true;
-	}
-	$id = (int) get_queried_object_id();
-	return $id && str_contains( (string) get_post_meta( $id, '_elementor_data', true ), '"widgetType":"tfmsl_' );
-}
-
-/*
- * Fichiers du plugin : il charge sa feuille de style, son script, jQuery et Leaflet sur toutes
- * les pages du site. On ne les garde que là où ils servent ; on y ajoute l'habillage Big M.
+ * Si la barre d'actions mobile du plugin est activée malgré tout, elle se place
+ * au-dessus de la barre d'onglets Big M (tabbar.css du thème : 68 px + 10 px de marge).
  */
 add_action(
 	'wp_enqueue_scripts',
 	static function () {
-		if ( ! bigm_storelocator_actif() ) {
-			return;
-		}
-		if ( ! bigm_page_utilise_storelocator() ) {
-			wp_dequeue_style( 'tfmsl-public' );
-			wp_dequeue_script( 'tfmsl-public' );
-			return;
-		}
-		$v = static function ( string $rel ): string {
-			$path = BIGM_CORE_DIR . '/assets/' . $rel;
-			return is_file( $path ) ? (string) filemtime( $path ) : BIGM_CORE_VERSION;
-		};
-		wp_enqueue_style( 'bigm-restaurants', BIGM_CORE_URL . 'assets/css/restaurants.css', array( 'tfmsl-public' ), $v( 'css/restaurants.css' ) );
-		wp_enqueue_script(
-			'bigm-restaurants',
-			BIGM_CORE_URL . 'assets/js/restaurants.js',
-			array(),
-			$v( 'js/restaurants.js' ),
-			array(
-				'in_footer' => true,
-				'strategy'  => 'defer',
-			)
-		);
-		// /restaurants/ : styles de la page Elementor et du store locator dès le <head>.
-		if ( is_post_type_archive( 'tfmsl_store' ) && bigm_page_restaurants_id() ) {
-			wp_enqueue_style( 'bigm-carte' );
-			wp_enqueue_style( 'tfmsl-leaflet' );
-			wp_enqueue_style( 'tfmsl-markercluster' );
-			wp_enqueue_style( 'tfmsl-markercluster-default' );
-			wp_enqueue_script( 'tfmsl-markercluster' );
-			if ( did_action( 'elementor/loaded' ) && class_exists( '\Elementor\Core\Files\CSS\Post' ) ) {
-				\Elementor\Core\Files\CSS\Post::create( bigm_page_restaurants_id() )->enqueue();
-			}
+		if ( wp_style_is( 'tfmsl-public', 'enqueued' ) ) {
+			wp_add_inline_style( 'tfmsl-public', '@media (max-width: 760px) { .tfmsl-mobile-bar { bottom: calc(90px + env(safe-area-inset-bottom, 0px)); } body.single-tfmsl_store { padding-bottom: calc(170px + env(safe-area-inset-bottom, 0px)); } }' );
 		}
 	},
 	30
 );
 
 /*
- * Titre de l'onglet de /restaurants/ : celui de la page « Restaurants ».
+ * Données structurées des restaurants : le plugin écrit « Restaurant » quand le type de cuisine
+ * est rempli, « LocalBusiness » sinon. Sans saisie, on lui donne celui de Big M (brief, § 10).
  */
 add_filter(
-	'document_title_parts',
-	static function ( array $parts ): array {
-		if ( is_post_type_archive( 'tfmsl_store' ) && bigm_page_restaurants_id() ) {
-			$parts['title'] = get_the_title( bigm_page_restaurants_id() );
+	'get_post_metadata',
+	static function ( $valeur, $post_id, $cle, $seul ) {
+		static $lecture = false;
+		if ( 'tfmsl_cuisine_type' !== $cle || $lecture || 'tfmsl_store' !== get_post_type( (int) $post_id ) ) {
+			return $valeur;
 		}
-		return $parts;
-	}
+		$lecture = true;
+		$reelle  = (string) get_post_meta( (int) $post_id, 'tfmsl_cuisine_type', true );
+		$lecture = false;
+		if ( '' !== $reelle ) {
+			return $valeur;
+		}
+		$defaut = 'Burgers halal';
+		return $seul ? $defaut : array( $defaut );
+	},
+	10,
+	4
 );
+

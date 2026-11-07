@@ -177,9 +177,8 @@ if ( function_exists( 'bigm_demo_formulaire' ) ) {
 WP_CLI::log( 'Restaurants (plugin StoreLocatore)' );
 if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() ) {
 	$type = get_post_type_object( 'tfmsl_store' );
-	$ok( 'restaurants' === $type->rewrite['slug'] && 'restaurants' === $type->has_archive && 'Restaurants' === $type->labels->name, 'adresses /restaurants/… et libellés « Restaurants »' );
-	$ok( home_url( '/restaurants/' ) === get_post_type_archive_link( 'tfmsl_store' ), 'liste des restaurants : /restaurants/' );
-	$ok( '#c8400a' === apply_filters( 'default_option_tfmsl_accent_color', '#e94560', 'tfmsl_accent_color', true ) && '0' === apply_filters( 'default_option_tfmsl_mobile_bar', '1', 'tfmsl_mobile_bar', true ), 'plugin : couleurs de la charte et barre mobile coupée par défaut' );
+	$ok( 'restaurants' === $type->rewrite['slug'] && ! $type->has_archive && 'Restaurants' === $type->labels->name, 'fiches sous /restaurants/…, pas de liste du plugin, libellés « Restaurants »' );
+	$ok( 'site' === apply_filters( 'default_option_tfmsl_store_style', 'dark', 'tfmsl_store_style', true ) && '0' === apply_filters( 'default_option_tfmsl_mobile_bar', '1', 'tfmsl_mobile_bar', true ), 'plugin : fiche aux couleurs du site et barre mobile coupée par défaut' );
 	$ok( 'Voir le restaurant' === __( 'Voir la boutique →', 'storelocatore' ) && 'Aucun restaurant ne correspond à cette recherche.' === __( 'Aucune boutique trouvée pour cette recherche.', 'storelocatore' ), 'textes du plugin : « restaurant » au lieu de « boutique »' );
 	$resto   = wp_insert_post(
 		array(
@@ -189,16 +188,15 @@ if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() )
 		)
 	);
 	$posts[] = $resto;
+	$ok( 'Burgers halal' === get_post_meta( $resto, 'tfmsl_cuisine_type', true ), 'type de cuisine par défaut (données structurées « Restaurant »)' );
+	update_post_meta( $resto, 'tfmsl_cuisine_type', 'Fast-food' );
+	$ok( 'Fast-food' === get_post_meta( $resto, 'tfmsl_cuisine_type', true ), 'type de cuisine saisi : conservé' );
+	$ok( str_starts_with( (string) get_permalink( $resto ), home_url( '/restaurants/' ) ), 'fiche d’un restaurant : /restaurants/{restaurant}/' );
 	$page( array( 'p' => $posts[0] ) );
-	$a = $assets();
-	$ok( ! in_array( 'tfmsl-public', $a, true ) && ! in_array( 'bigm-restaurants', $a, true ), 'page sans restaurant : fichiers du plugin (jQuery, Leaflet) non chargés' );
-	$page( array( 'post_type' => 'tfmsl_store' ) );
-	$a = $assets();
-	$ok( in_array( 'tfmsl-public', $a, true ) && in_array( 'bigm-restaurants', $a, true ), '/restaurants/ : fichiers du plugin et habillage Big M' );
+	$ok( ! in_array( 'tfmsl-public', $assets(), true ), 'page sans restaurant : fichiers du plugin (jQuery, Leaflet) non chargés' );
 	$page( array( 'p' => $resto, 'post_type' => 'tfmsl_store' ) );
-	$ok( in_array( 'bigm-restaurants', $assets(), true ), 'fiche d’un restaurant : habillage Big M' );
-	$page( array( 'post_type' => 'tfmsl_store' ) );
-	$ok( bigm_page_restaurants_id() ? str_ends_with( apply_filters( 'archive_template', '/plugin/archive-store.php' ), 'archive-tfmsl_store.php' ) : '/plugin/archive-store.php' === apply_filters( 'archive_template', '/plugin/archive-store.php' ), '/restaurants/ : la page Restaurants (Elementor) si elle existe, sinon la liste du plugin' );
+	$ok( in_array( 'tfmsl-public', $assets(), true ), 'fiche d’un restaurant : fichiers du plugin chargés' );
+	$ok( null === bigm_seo_page( true ), 'fiche d’un restaurant : référencement laissé au plugin (titre, description, LocalBusiness)' );
 } else {
 	WP_CLI::log( '  --    StoreLocatore inactif : restaurants non vérifiés' );
 }

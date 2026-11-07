@@ -19,6 +19,8 @@
 .acc details { background: #fff; border-radius: var(--radius); }
 .acc summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; font-family: var(--font-display); font-weight: 600; font-size: 22px; }
 .acc summary::-webkit-details-marker { display: none; }
+/* Titre h2 du résumé (ordre des titres) : même aspect que le texte du résumé du prototype. */
+.acc__titre { font: inherit; letter-spacing: normal; }
 .acc summary svg { transition: transform .2s var(--ease); transform: rotate(90deg); }
 .acc details[open] summary svg { transform: rotate(-90deg); }
 .acc__body { padding: 0 24px 24px; display: flex; flex-direction: column; gap: 14px; }

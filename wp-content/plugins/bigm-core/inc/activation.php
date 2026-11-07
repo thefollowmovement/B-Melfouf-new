@@ -75,3 +75,29 @@ function bigm_core_activate(): void {
 	bigm_core_seed();
 	flush_rewrite_rules();
 }
+
+/**
+ * Mise à jour de bigm-core (zip téléversé : l'activation ne se relance pas).
+ * Une fois par version : catégories d'articles sous /actualites/ si la base est vide
+ * (une seule fois, pour ne pas revenir sur un choix fait ensuite dans Réglages → Permaliens),
+ * puis permaliens recalculés (adresses /carte/, /produit/, /restaurants/…).
+ */
+function bigm_core_mise_a_jour(): void {
+	global $wp_rewrite;
+	if ( '' === (string) get_option( 'category_base' ) && ! get_option( 'bigm_core_base_categories' ) ) {
+		$wp_rewrite->set_category_base( 'actualites' );
+	}
+	update_option( 'bigm_core_base_categories', 1, false );
+	flush_rewrite_rules( false );
+}
+
+add_action(
+	'init',
+	static function () {
+		if ( get_option( 'bigm_core_version' ) !== BIGM_CORE_VERSION ) {
+			bigm_core_mise_a_jour();
+			update_option( 'bigm_core_version', BIGM_CORE_VERSION, false );
+		}
+	},
+	100
+);

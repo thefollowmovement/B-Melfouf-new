@@ -73,6 +73,28 @@ function bigm_reglages_champs(): array {
 				),
 			),
 		),
+		'referencement' => array(
+			'titre'  => 'Référencement',
+			'aide'   => 'Image affichée quand une page est partagée (Facebook, WhatsApp, LinkedIn…) et qu’elle n’a ni image de partage ni image mise en avant. 1200 × 630 conseillé. Titres et descriptions : bloc « Référencement » de chaque page, article ou produit, et de chaque catégorie.',
+			'champs' => array(
+				'partage_image' => array(
+					'label'  => 'Image de partage par défaut',
+					'type'   => 'media',
+					'defaut' => 0,
+				),
+			),
+		),
+		'redirections' => array(
+			'titre'  => 'Redirections',
+			'aide'   => 'Adresses de l’ancien site renvoyées vers le nouveau (301), une règle par ligne : « /ancienne/ /nouvelle/ ». « /debut/* /autre/* » couvre toutes les adresses qui commencent ainsi ; [commander] renvoie vers le lien Commander. Une règle ne joue que si l’adresse n’existe pas sur le site. Les adresses introuvables sont listées en bas de page.',
+			'champs' => array(
+				'redirections' => array(
+					'label'  => 'Règles',
+					'type'   => 'regles',
+					'defaut' => function_exists( 'bigm_redirections_par_defaut' ) ? bigm_redirections_par_defaut() : '',
+				),
+			),
+		),
 		'appli'      => array(
 			'titre'  => 'Appli Big M',
 			'champs' => array(
@@ -246,7 +268,11 @@ function bigm_reglages_nettoyer( $input ): array {
 				$out[ $cle ] = sanitize_email( $v );
 				break;
 			case 'long':
+			case 'regles':
 				$out[ $cle ] = sanitize_textarea_field( (string) ( $input[ $cle ] ?? '' ) );
+				break;
+			case 'media':
+				$out[ $cle ] = bigm_nettoyer_media( $input[ $cle ] ?? 0, 'image/' );
 				break;
 			case 'slider':
 				$out[ $cle ] = 'bigm_slider' === get_post_type( (int) $v ) ? (int) $v : 0;
@@ -327,6 +353,10 @@ function bigm_reglages_page(): void {
 										<?php endforeach; ?>
 									</select>
 									<p class="description">Un slider du menu Sliders, affiché en format bannière.</p>
+								<?php elseif ( 'media' === $def['type'] ) : ?>
+									<?php bigm_champ_media( 'bigm_reglages[' . $cle . ']', (int) $valeur, 'image', '' ); ?>
+								<?php elseif ( 'regles' === $def['type'] ) : ?>
+									<textarea id="bigm_<?php echo esc_attr( $cle ); ?>" name="bigm_reglages[<?php echo esc_attr( $cle ); ?>]" rows="16" class="large-text code" spellcheck="false"><?php echo esc_textarea( (string) $valeur ); ?></textarea>
 								<?php elseif ( 'long' === $def['type'] ) : ?>
 									<textarea id="bigm_<?php echo esc_attr( $cle ); ?>" name="bigm_reglages[<?php echo esc_attr( $cle ); ?>]" rows="3" class="large-text"><?php echo esc_textarea( (string) $valeur ); ?></textarea>
 								<?php else : ?>
@@ -335,7 +365,7 @@ function bigm_reglages_page(): void {
 								<?php if ( $numeric ) : ?>
 									<?php echo esc_html( $unites[ $def['type'] ] ); ?>
 								<?php endif; ?>
-								<?php if ( 'slider' !== $def['type'] ) : ?>
+								<?php if ( ! in_array( $def['type'], array( 'slider', 'regles', 'media' ), true ) ) : ?>
 									<p class="description"><code>[bigm_reglage cle="<?php echo esc_html( $cle ); ?>"]</code><?php echo $numeric && '' !== $valeur ? ' → ' . esc_html( bigm_reglage_texte( $cle ) ) : ''; ?></p>
 								<?php endif; ?>
 							</td>
@@ -346,6 +376,7 @@ function bigm_reglages_page(): void {
 			<?php submit_button(); ?>
 		</form>
 		<p class="description">Les codes entre crochets s’insèrent dans un widget Texte d’Elementor pour afficher la valeur à jour.</p>
+		<?php do_action( 'bigm_reglages_apres' ); ?>
 	</div>
 	<?php
 }
@@ -362,7 +393,7 @@ add_shortcode(
 			return '';
 		}
 		$type = bigm_reglages_definitions()[ $cle ]['type'];
-		if ( 'slider' === $type ) {
+		if ( in_array( $type, array( 'slider', 'regles', 'media' ), true ) ) {
 			return '';
 		}
 		$text = bigm_reglage_texte( $cle );

@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 get_header();
-if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'single' ) ) {
+if ( ! bigm_child_emplacement( 'single' ) ) {
 	if ( function_exists( 'bigm_page_article' ) ) {
 		while ( have_posts() ) {
 			the_post();

@@ -226,7 +226,8 @@ function bigm_slides_actives( int $slider_id, ?string $maintenant = null ): arra
 			'image_mobile_id' => (int) $s['image_mobile'],
 			'mp4'             => $video ? bigm_media_url( (int) $s['mp4'] ) : '',
 			'webm'            => $video ? bigm_media_url( (int) $s['webm'] ) : '',
-			'poster'          => $video ? bigm_media_url( (int) $s['poster'] ) : '',
+			// Image d'aperçu à 1536 px au plus : l'original peut peser plusieurs centaines de Ko.
+			'poster'          => $video && $s['poster'] ? (string) ( wp_get_attachment_image_url( (int) $s['poster'], '1536x1536' ) ?: bigm_media_url( (int) $s['poster'] ) ) : '',
 			'alt'             => (string) $s['alt'],
 			'lien'            => (string) $s['lien'],
 			'cadrage'         => $s['cadrage'] ? (string) $s['cadrage'] : '50% 50%',

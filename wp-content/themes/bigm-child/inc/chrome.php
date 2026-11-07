@@ -153,15 +153,15 @@ function bigm_child_pied_html(): string {
       </div>
     </div>
     <div>
-      <h3>Produits</h3>
+      <h2>Produits</h2>
       <ul><?php echo $colonne( 'bigm-pied-produits' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></ul>
     </div>
     <div>
-      <h3>L'entreprise</h3>
+      <h2>L'entreprise</h2>
       <ul><?php echo $colonne( 'bigm-pied-entreprise' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></ul>
     </div>
     <div>
-      <h3>Contact</h3>
+      <h2>Contact</h2>
       <ul>
 		<?php if ( $email ) : ?>
         <li><a href="mailto:<?php echo esc_attr( antispambot( $email ) ); ?>"><?php echo esc_html( antispambot( $email ) ); ?></a></li>
@@ -222,3 +222,30 @@ add_action(
 	},
 	21
 );
+
+/**
+ * Zone principale (<main id="content">) autour d'un modèle du Theme Builder d'Elementor Pro :
+ * le lien « Aller au contenu » de Hello y mène, et la page a son repère principal.
+ *
+ * @param string $emplacement « archive » ou « single ».
+ * @return bool Un modèle a été affiché.
+ */
+function bigm_child_emplacement( string $emplacement ): bool {
+	if ( ! function_exists( 'elementor_theme_do_location' ) ) {
+		return false;
+	}
+	ob_start();
+	$fait = elementor_theme_do_location( $emplacement );
+	$html = (string) ob_get_clean();
+	if ( $fait ) {
+		echo '<main id="content">' . $html . '</main>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- rendu Elementor.
+	}
+	return (bool) $fait;
+}
+
+/*
+ * Pages Elementor « pleine largeur » (en-tête et pied de page du thème) : même zone principale.
+ */
+add_action( 'elementor/page_templates/header-footer/before_content', static fn() => print( '<main id="content">' ) );
+add_action( 'elementor/page_templates/header-footer/after_content', static fn() => print( '</main>' ) );
+

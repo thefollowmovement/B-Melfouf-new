@@ -12,6 +12,8 @@
   .tabbar__item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; height: 100%; text-decoration: none; color: #8a7a70; font-family: var(--font-display); font-weight: 600; font-size: 12px; -webkit-tap-highlight-color: transparent; background: none; }
   .tabbar__item svg { width: 24px; height: 24px; transition: transform .35s cubic-bezier(.34, 1.56, .64, 1); }
   .tabbar__item:active svg { transform: scale(.82); }
+  /* Contraste AA (brief, § 3) : le gris du prototype (#8a7a70) n'atteint que 4,1:1 sur la barre blanche. */
+  .tabbar__item { color: #7a6a60; }
   .tabbar__item[aria-current="page"] { color: var(--btn); }
   .tabbar__item[aria-current="page"] svg { animation: pop .4s cubic-bezier(.34, 1.56, .64, 1); }
   .tabbar__item[aria-current="page"] .tabbar__ico { fill: currentColor; fill-opacity: .18; }
@@ -21,6 +23,8 @@
   .tabbar__fab:active img { transform: rotate(-10deg); }
   .tabbar__fab::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 3px solid var(--orange); opacity: 0; animation: halo 2.8s ease-out infinite 1.5s; z-index: -1; }
   .tabbar__label { position: absolute; left: 50%; bottom: 5px; transform: translateX(-50%); font-family: var(--font-display); font-weight: 600; font-size: 12px; color: var(--btn); pointer-events: none; }
+  /* Contraste AA : la barre est translucide, le libellé passe au ton plus foncé des boutons. */
+  .tabbar__label { color: var(--btn-hover); }
   @keyframes halo { 0% { transform: scale(1); opacity: .6; } 70%, 100% { transform: scale(1.45); opacity: 0; } }
 }
 @media (max-width: 760px) and (prefers-reduced-transparency: reduce) { .tabbar__bar { background: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; } }
