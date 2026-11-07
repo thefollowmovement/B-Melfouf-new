@@ -32,12 +32,13 @@ Sans visuel du contenu, la photo de la carte le remplace.
 - Le bloc garde la hauteur de la Box la plus haute : rien ne saute quand on change de Box.
 - Les visuels des autres Box sont préchargés quand on approche du bloc : le changement est immédiat.
 - Style et script (`assets/box.css`, `assets/box.js`, sans dépendance) ne sont chargés que sur les pages qui ont le widget.
+- Le visuel de la première Box est chargé tout de suite (il est souvent le plus grand élément de l'écran sur mobile) ; les autres en différé.
 - Le contour de la carte choisie est un pseudo-élément : le reset de Hello Elementor retire `box-shadow` et
   `outline` des boutons qui ont le focus.
 
 ## Installation
 
-Extensions → Ajouter → Téléverser `bigm-box.zip` → Activer. Puis, sur l'accueil (Modifier avec Elementor) :
+Extensions → Ajouter → Téléverser `bigm-box.zip` (fabriqué par `ops/build-zips.sh`, avec les autres zips) → Activer. Puis, sur l'accueil (Modifier avec Elementor) :
 supprimer le widget « Big M — Bande appli » et glisser « Big M — Nos Box » à sa place.
 
 Le lien Commander de secours du thème pointe vers `/#appli`, l'ancre de la Bande appli : une fois la bande

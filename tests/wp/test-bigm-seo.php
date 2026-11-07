@@ -159,6 +159,18 @@ $ok( $s && get_post_type_archive_link( 'bigm_produit' ) === $s['url'], '/carte/ 
 $ok( ! wp_sitemaps_get_server()->registry->get_provider( 'users' ), 'plan du site : pas de liste des comptes' );
 $ok( ! isset( apply_filters( 'wp_sitemaps_taxonomies', array( 'post_format' => 1, 'category' => 1 ) )['post_format'] ), 'plan du site : pas de formats d’articles' );
 $ok( 'actualites' === get_option( 'category_base' ), 'catégories d’articles sous /actualites/' );
+$regles_ok = get_option( 'rewrite_rules' );
+update_option( 'rewrite_rules', array_filter( (array) $regles_ok, static fn( $k ) => ! str_starts_with( (string) $k, 'actualites/' ), ARRAY_FILTER_USE_KEY ) );
+$repare = bigm_core_verifier_regles();
+$ok( $repare && preg_grep( '#^actualites/\(#', array_keys( (array) get_option( 'rewrite_rules' ) ) ) && ! bigm_core_verifier_regles(), 'règles sans /actualites/… (préprod, filtres News / Presse en 404) : recalculées, une seule fois' );
+$vide = wp_insert_term( 'Catégorie test SEO', 'bigm_categorie' );
+if ( ! is_wp_error( $vide ) ) {
+	$page( array( 'tax_query' => array( array( 'taxonomy' => 'bigm_categorie', 'field' => 'term_id', 'terms' => $vide['term_id'] ) ), 'bigm_categorie' => 'categorie-test-seo' ) );
+	$s = bigm_seo_page( true );
+	$ok( $s && str_starts_with( $s['description'], 'Catégorie test SEO Big M' ), 'catégorie sans description : phrase générique' );
+	wp_delete_term( $vide['term_id'], 'bigm_categorie' );
+}
+$ok( str_contains( (string) apply_filters( 'embed_oembed_html', '<iframe src="https://www.youtube.com/embed/abc"></iframe>', 'https://youtu.be/abc', array(), 0 ), 'youtube-nocookie.com/embed/abc' ), 'vidéos YouTube en mode confidentialité renforcée (pas de cookie avant la lecture)' );
 
 WP_CLI::log( 'Performance' );
 if ( wp_image_editor_supports( array( 'mime_type' => 'image/webp' ) ) ) {
@@ -249,6 +261,17 @@ $ok( has_term( 'presse', 'category', $r['id'] ) && has_tag( 'Radio', $r['id'] ) 
 $ok( 'deja' === bigm_reprise_article( $article, $source )['etat'], 'article déjà repris : pas de doublon' );
 if ( ! $avait_presse && ( $t = get_term_by( 'slug', 'presse', 'category' ) ) ) {
 	$termes[] = (int) $t->term_id;
+}
+
+if ( function_exists( 'bigm_demo_textes_legaux' ) ) {
+	WP_CLI::log( 'Pages légales et jeu concours (démo)' );
+	$textes = bigm_demo_textes_legaux();
+	$liens  = function_exists( 'bigm_child_menus' ) ? wp_list_pluck( bigm_child_menus()['bigm-pied-legal']['liens'], 1 ) : array();
+	$ok( array( 'mentions-legales', 'politique-de-confidentialite', 'cookies', 'jeu-concours' ) === array_keys( $textes ), 'quatre pages : mentions légales, confidentialité, cookies, jeu concours' );
+	$ok( ! $liens || ! array_diff( array( '/mentions-legales/', '/politique-de-confidentialite/', '/cookies/' ), $liens ), 'mêmes adresses que les liens du pied de page' );
+	$tout = wp_json_encode( $textes, JSON_UNESCAPED_UNICODE );
+	$ok( str_contains( $tout, '884 901 448' ) && str_contains( $tout, 'Yaniss Ourabia' ) && str_contains( $tout, 'Hostinger' ) && ! str_contains( $tout, 'Gravatar' ), 'mentions de l’ancien site reprises (RCS, publication), hébergeur renseigné, plus de texte WordPress par défaut' );
+	$ok( "Qui sommes-nous\u{202F}?" === bigm_demo_typo( 'Qui sommes-nous ?' ) && "«\u{202F}Nous rejoindre\u{202F}»" === bigm_demo_typo( '« Nous rejoindre »' ) && 'https://a.fr' === bigm_demo_typo( 'https://a.fr' ), 'typographie : espaces fines avant « ? » et dans les guillemets, adresses intactes' );
 }
 
 if ( defined( 'BIGM_SOCLE_VERSION' ) ) {

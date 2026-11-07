@@ -31,7 +31,13 @@
 .drawer__close:hover { background: var(--tile); }
 
 @media (max-width: 960px) {
-  .header__nav, .header__right > a.hide-sm { display: none; }
+  .header__nav { display: none; }
+  /* Lien Restaurants en icône seule, en face du bouton menu ; son nom reste lu par les lecteurs d'écran. */
+  .header__right { gap: 8px; }
+  .header__right > a.hide-sm { width: 44px; height: 44px; justify-content: center; border-radius: 10px; font-size: 0; gap: 0; }
+  .header__right > a.hide-sm svg { width: 24px; height: 24px; }
+  .header__right > a.hide-sm:hover { background: var(--tile); color: inherit; }
+  .header__right > a.hide-sm[aria-current="page"] { color: var(--btn); }
   .header { padding: 10px 10px 0; }
   .header__inner, .header.is-scrolled .header__inner { height: 60px; border-radius: 20px; padding-inline: 8px; }
   .header__logo img, .header.is-scrolled .header__logo img { height: 46px; }

@@ -18,7 +18,7 @@ Ces quatre éléments viennent du thème enfant `bigm-child` (`inc/chrome.php`),
 
 Les menus sont créés au premier passage d'un administrateur, avec les liens du prototype, et placés dans leurs emplacements. Un emplacement laissé vide affiche ces mêmes liens.
 
-Les liens sont des chemins (`/carte/`, `/recrutement/`). Ils suivent donc l'adresse du site : rien à réécrire quand la préprod devient le site en ligne.
+Les liens sont des chemins (`/carte/`, `/nous-rejoindre/`). Ils suivent donc l'adresse du site : rien à réécrire quand la préprod devient le site en ligne.
 
 La mention « Pour votre santé, mangez au moins cinq fruits et légumes par jour. www.mangerbouger.fr » est obligatoire. Elle est fixe dans le thème.
 

@@ -94,11 +94,6 @@ Supprimer ensuite la clé privée de l'ordinateur. Chaque push sur `main` déplo
 
 Le dossier `public_html` de `bigm-burger.fr` contient encore les restes de la migration Duplicator du 9 avril 2024. Parmi eux, un export complet de la base de données (`20240409_bigm_…_database.sql`, 41 Mo), les listes de fichiers et l'installateur. Rien dans le `.htaccess` n'en bloque le téléchargement. Il faut les sortir du dossier public, ou les supprimer, depuis le gestionnaire de fichiers d'hPanel.
 
-## Bascule en production (pour l'étape 8 du brief)
+## Bascule en production
 
-Quand l'installation devient le site en ligne, avec l'adresse `bigm-burger.fr` :
-
-1. Le socle repasse de lui-même en production : plus de `noindex`, et le bloc `Big M preprod` du `.htaccess` se vide au premier passage d'un administrateur.
-2. Si `WP_ENVIRONMENT_TYPE` a été défini dans `wp-config.php`, le passer à `production`.
-3. Décocher « Demander aux moteurs de ne pas indexer » dans Réglages → Lecture.
-4. Vérifier que la balise `noindex` et l'en-tête `X-Robots-Tag` ont disparu.
+Procédure complète, avec sauvegardes, commandes et retour arrière : [`bascule.md`](bascule.md). En résumé, le socle repasse de lui-même en production (plus de `noindex`, bloc `Big M preprod` du `.htaccess` vidé au premier passage d'un administrateur) ; il reste à décocher « Demander aux moteurs de ne pas indexer » dans Réglages → Lecture et à passer `WP_ENVIRONMENT_TYPE` à `production` s'il est défini.

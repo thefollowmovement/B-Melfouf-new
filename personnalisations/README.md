@@ -10,4 +10,4 @@ Réglages faits dans l'admin WordPress, gardés ici pour ne pas les perdre.
   passe en orange sur cette page, et garde son nom « Restaurants » pour les lecteurs d'écran.
   Sur ordinateur, rien ne change.
 
-À reporter dans `bigm-child/assets/css/header.css` à la prochaine mise à jour du thème (puis retirer du CSS additionnel).
+**Reporté dans le thème** (`bigm-child/assets/css/header.css`, version 0.6.1, en 44 × 44 px : taille tactile minimale du brief). Une fois le thème 0.6.1 installé, vider ce CSS additionnel.

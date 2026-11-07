@@ -12,9 +12,11 @@
   .tabbar__item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; height: 100%; text-decoration: none; color: #8a7a70; font-family: var(--font-display); font-weight: 600; font-size: 12px; -webkit-tap-highlight-color: transparent; background: none; }
   .tabbar__item svg { width: 24px; height: 24px; transition: transform .35s cubic-bezier(.34, 1.56, .64, 1); }
   .tabbar__item:active svg { transform: scale(.82); }
-  /* Contraste AA (brief, § 3) : le gris du prototype (#8a7a70) n'atteint que 4,1:1 sur la barre blanche. */
-  .tabbar__item { color: #7a6a60; }
-  .tabbar__item[aria-current="page"] { color: var(--btn); }
+  /* Contraste AA (brief, § 3) : la barre est translucide (92 % de blanc). Au pire, sur un fond noir,
+     elle vaut #ebebeb : le gris du prototype (#8a7a70) n'y atteint que 3,4:1 ; #706056 atteint 5:1,
+     et l'onglet actif prend le ton foncé des boutons (5,5:1). */
+  .tabbar__item { color: #706056; }
+  .tabbar__item[aria-current="page"] { color: var(--btn-hover); }
   .tabbar__item[aria-current="page"] svg { animation: pop .4s cubic-bezier(.34, 1.56, .64, 1); }
   .tabbar__item[aria-current="page"] .tabbar__ico { fill: currentColor; fill-opacity: .18; }
   .tabbar__fab { position: relative; justify-self: center; align-self: start; margin-top: -26px; width: 72px; height: 72px; border-radius: 50%; background: var(--ink); border: 4px solid #fff; box-shadow: 0 8px 22px -4px rgba(43, 20, 6, .45), 0 0 0 2px var(--orange); display: flex; align-items: center; justify-content: center; overflow: hidden; isolation: isolate; text-decoration: none; transition: transform .35s cubic-bezier(.34, 1.56, .64, 1); -webkit-tap-highlight-color: transparent; color: #fff; }

@@ -3,7 +3,7 @@
  * Plugin Name:  Big M — contenu de démonstration
  * Description:  Importe les visuels et les contenus du prototype (sliders, produits, articles) et crée la page d'accueil Elementor. Temporaire : à supprimer avant la mise en ligne. Outils → Démo Big M.
  * Author:       The Follow Movement
- * Version:      0.4.0
+ * Version:      0.5.0
  * Requires PHP: 8.2
  * Requires Plugins: bigm-core, elementor
  *
@@ -12,7 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'BIGM_DEMO_VERSION', '0.4.0' );
+define( 'BIGM_DEMO_VERSION', '0.5.0' );
 define( 'BIGM_DEMO_MEDIAS', __DIR__ . '/medias/' );
 
 /**
@@ -516,7 +516,8 @@ function bigm_demo_importer(): array {
 	update_option( 'page_for_posts', $articles );
 	\Elementor\Plugin::$instance->files_manager->clear_cache();
 	$rapport[] = 'page d’accueil Elementor (page d’accueil du site) et page Actualités (page des articles)';
-	$rapport   = array_merge( $rapport, bigm_demo_actualites() );
+	$rapport   = array_merge( $rapport, bigm_demo_actualites(), bigm_demo_pages_legales() );
+	update_option( 'bigm_demo_pages_legales', 1, false );
 	update_option( 'bigm_demo_actualites', 1, false );
 
 	update_option( 'bigm_demo_version', BIGM_DEMO_VERSION, false );
@@ -743,6 +744,197 @@ function bigm_demo_restaurants(): array {
 	);
 	if ( $page ) {
 		$rapport[] = 'page Restaurants (store locator)';
+	}
+	return $rapport;
+}
+
+/**
+ * Typographie française d'un texte : espace fine insécable avant « : ; ! ? » et dans les guillemets.
+ *
+ * @param string $html Texte.
+ */
+function bigm_demo_typo( string $html ): string {
+	$html = (string) preg_replace( '/ (?=[:;!?»])/u', "\u{202F}", $html );
+	return (string) preg_replace( '/« /u', "«\u{202F}", $html );
+}
+
+/**
+ * Textes des pages légales et de la page Jeu concours, d'après les pages de l'ancien site
+ * (« Mention légales » et « Politique de confidentialité »), mis à jour pour le nouveau site.
+ *
+ * @return array<string, array{titre: string, chapeau: string, description: string, sections: array<int, array{0: string, 1: string, 2?: string, 3?: string}>}>
+ */
+function bigm_demo_textes_legaux(): array {
+	$contact = '<a href="mailto:contact@bigm-burger.fr">contact@bigm-burger.fr</a>';
+	$maj     = '<p><em>Dernière mise à jour : novembre 2026.</em></p>';
+	return array(
+		'mentions-legales'            => array(
+			'titre'       => 'Mentions légales',
+			'chapeau'     => 'L’éditeur et l’hébergeur du site bigm-burger.fr.',
+			'description' => 'Mentions légales du site bigm-burger.fr : éditeur (Big M cie), responsable de la publication, hébergeur et propriété intellectuelle.',
+			'sections'    => array(
+				array(
+					'',
+					'<p>Conformément aux dispositions de la loi n° 2004-575 du 21 juin 2004 pour la confiance en l’économie numérique, il est précisé aux utilisateurs du site bigm-burger.fr l’identité des différents intervenants dans le cadre de sa réalisation et de son suivi.</p>
+<h2>Édition du site</h2>
+<p>Le site bigm-burger.fr est édité par la société <strong>Big M cie</strong>, société par actions simplifiée au capital de 1 000 euros, dont le siège social est situé 44 avenue du 8 mai 1945, 92390 Villeneuve-la-Garenne, immatriculée au Registre du commerce et des sociétés de Nanterre sous le numéro 884 901 448.</p>
+<h2>Responsable de la publication</h2>
+<p>Yaniss Ourabia.</p>
+<h2>Nous contacter</h2>
+<p>Par e-mail : ' . $contact . '</p>
+<h2>Hébergeur</h2>
+<p>Le site bigm-burger.fr est hébergé par la société Hostinger International Ltd, 61 Lordou Vironos Street, 6023 Larnaca, Chypre (<a href="https://www.hostinger.fr">www.hostinger.fr</a>).</p>
+<h2>Conception et réalisation</h2>
+<p>The Follow Movement.</p>
+<h2>Propriété intellectuelle</h2>
+<p>Les textes, photos, vidéos, logos et marques présents sur ce site sont la propriété de Big M cie ou de ses partenaires. Toute reproduction ou réutilisation, totale ou partielle, sans autorisation écrite préalable est interdite.</p>
+<p>Les photos des produits sont non contractuelles.</p>
+<h2>Données personnelles et cookies</h2>
+<p>Pour savoir quelles données sont recueillies sur ce site et comment exercer vos droits, consultez notre <a href="/politique-de-confidentialite/">politique de confidentialité</a> et la page <a href="/cookies/">Gestion des cookies</a>.</p>' . $maj,
+				),
+			),
+		),
+		'politique-de-confidentialite' => array(
+			'titre'       => 'Politique de confidentialité',
+			'chapeau'     => 'Les données que nous recueillons sur ce site, pourquoi, et vos droits.',
+			'description' => 'Politique de confidentialité de bigm-burger.fr : données recueillies (candidatures, avis), durées de conservation, prestataires et droits.',
+			'sections'    => array(
+				array(
+					'',
+					'<h2>Qui sommes-nous ?</h2>
+<p>L’adresse de notre site est : https://bigm-burger.fr. Il est édité par Big M cie, 44 avenue du 8 mai 1945, 92390 Villeneuve-la-Garenne (voir les <a href="/mentions-legales/">mentions légales</a>), responsable des traitements de données décrits sur cette page.</p>
+<p>Pour toute question sur vos données : ' . $contact . '.</p>
+<h2>Les données que nous recueillons</h2>
+<p>Vous pouvez consulter le site sans créer de compte ni nous donner d’informations personnelles. Nous recueillons des données seulement dans les cas suivants.</p>
+<h3>Candidature à la franchise</h3>
+<p>Le formulaire « Devenir franchisé » nous transmet votre nom, votre prénom, votre e-mail, votre téléphone et les informations sur votre projet (zone géographique, situation, expérience, apport, délai, questions). Elles servent uniquement à étudier votre candidature et à vous recontacter.</p>
+<h3>Candidature à un emploi</h3>
+<p>Le formulaire « Nous rejoindre » nous transmet votre identité, vos coordonnées, les villes où vous pouvez travailler, votre CV, votre lettre de motivation et votre message. Ils servent uniquement à étudier votre candidature.</p>
+<h3>Avis sur un restaurant</h3>
+<p>Si vous donnez votre avis sur un restaurant par son QR code, nous recevons votre note et, si vous les indiquez, votre message, votre nom et votre contact, pour améliorer le service et vous répondre. Si vous participez au jeu proposé à cette occasion, nous enregistrons votre e-mail et votre nom pour vous envoyer votre gain.</p>
+<h3>Recherche d’un restaurant</h3>
+<p>Le bouton « Me localiser » utilise la position de votre appareil, seulement si vous l’acceptez, pour trouver les restaurants les plus proches. Elle sert à ce calcul et n’est pas conservée.</p>
+<h3>Statistiques des restaurants</h3>
+<p>Nous comptons les visites des pages des restaurants et les clics sur leurs boutons (itinéraire, appel, commande), sans cookie, avec une empreinte de l’adresse IP qui ne la conserve pas en clair.</p>
+<h2>Durées de conservation</h2>
+<ul>
+<li>Candidatures à la franchise : 3 ans après notre dernier échange.</li>
+<li>Candidatures à un emploi : 2 ans après notre dernier échange, sauf si vous demandez leur suppression avant.</li>
+<li>Avis et participations au jeu : 3 ans au plus.</li>
+</ul>
+<h2>Qui reçoit vos données ?</h2>
+<p>Les candidatures sont enregistrées sur le site et envoyées par e-mail aux équipes de Big M concernées (franchise, recrutement). Les avis sont lus par l’équipe du restaurant et par Big M. Nous ne vendons ni ne louons vos données.</p>
+<p>Le site s’appuie sur quelques prestataires :</p>
+<ul>
+<li>Hostinger, qui héberge le site ;</li>
+<li>OpenStreetMap, qui fournit les fonds de la carte des restaurants ;</li>
+<li>YouTube, pour les vidéos de certains articles.</li>
+</ul>
+<p>Les formulaires sont protégés contre les envois automatiques (robots) sans service extérieur ni cookie.</p>
+<h2>Cookies</h2>
+<p>Le site n’utilise pas de cookies publicitaires ni de mesure d’audience. Le détail est sur la page <a href="/cookies/">Gestion des cookies</a>.</p>
+<h2>Contenu embarqué depuis d’autres sites</h2>
+<p>Les articles de ce site peuvent inclure des contenus intégrés (par exemple des vidéos, images, articles…). Le contenu intégré depuis d’autres sites se comporte de la même manière que si le visiteur se rendait sur cet autre site.</p>
+<p>Ces sites web pourraient collecter des données sur vous, utiliser des cookies, embarquer des outils de suivi tiers, suivre vos interactions avec ces contenus embarqués si vous disposez d’un compte connecté sur leur site web. Les vidéos YouTube sont intégrées en mode « confidentialité renforcée » : YouTube ne dépose pas de cookie avant que vous lanciez la lecture.</p>
+<p>Les liens vers Uber Eats, Deliveroo, l’App Store, Google Play et nos réseaux sociaux mènent vers ces services : leurs propres politiques de confidentialité s’appliquent alors.</p>
+<h2>Vos droits</h2>
+<p>Vous pouvez demander à accéder à vos données, à les faire corriger ou supprimer, à en limiter l’utilisation ou à vous y opposer, et à les recevoir dans un format courant. Écrivez à ' . $contact . '.</p>
+<p>Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL (<a href="https://www.cnil.fr">www.cnil.fr</a>).</p>
+<h2>Sécurité</h2>
+<p>Le site est servi en connexion chiffrée (HTTPS). L’administration du site est réservée à l’équipe de Big M et à son agence, avec des comptes nominatifs.</p>' . $maj,
+				),
+			),
+		),
+		'cookies'                     => array(
+			'titre'       => 'Gestion des cookies',
+			'chapeau'     => 'Ce que le site enregistre dans votre navigateur, et comment le gérer.',
+			'description' => 'Cookies du site bigm-burger.fr : pas de publicité ni de mesure d’audience ; ce qui est enregistré et comment le gérer.',
+			'sections'    => array(
+				array(
+					'',
+					'<h2>Pas de publicité, pas de pistage</h2>
+<p>Le site bigm-burger.fr n’utilise ni cookies publicitaires, ni outils de mesure d’audience, ni boutons de réseaux sociaux qui suivent votre navigation. C’est pourquoi aucun bandeau ne vous demande votre accord : les seuls éléments enregistrés servent au fonctionnement du site.</p>
+<p>Si nous ajoutons un jour des outils de mesure d’audience ou de publicité, un bandeau vous demandera votre accord avant tout dépôt, et vous pourrez le retirer à tout moment.</p>
+<h2>Ce que le site peut enregistrer</h2>
+<ul>
+<li><strong>Restaurant choisi.</strong> Si vous choisissez un restaurant pour voir ses offres, ce choix est gardé dans votre navigateur (stockage local) pour vos prochaines visites. Il n’est pas envoyé à Big M.</li>
+<li><strong>Vidéos YouTube.</strong> Intégrées en mode « confidentialité renforcée », elles ne déposent pas de cookie avant que vous lanciez la lecture. Ensuite, ce sont les règles de YouTube qui s’appliquent.</li>
+<li><strong>Espace d’administration.</strong> Les cookies de connexion de WordPress (<code>wordpress_logged_in_…</code>, <code>wordpress_test_cookie</code>, <code>wp-settings-…</code>) ne concernent que l’équipe qui gère le site. Le cookie de connexion dure deux jours (deux semaines avec « Se souvenir de moi »), celui des préférences d’affichage un an.</li>
+</ul>
+<h2>Gérer les cookies dans votre navigateur</h2>
+<p>Vous pouvez à tout moment supprimer ou bloquer les cookies et les données de sites dans les réglages de votre navigateur (rubrique « Confidentialité » ou « Vie privée »). Le site restera consultable ; seul le restaurant choisi pour les offres sera oublié.</p>
+<p>La CNIL explique comment faire, navigateur par navigateur, sur <a href="https://www.cnil.fr">www.cnil.fr</a>.</p>
+<h2>En savoir plus</h2>
+<p>Consultez notre <a href="/politique-de-confidentialite/">politique de confidentialité</a>, ou écrivez-nous : ' . $contact . '.</p>' . $maj,
+				),
+			),
+		),
+		'jeu-concours'                => array(
+			'titre'       => 'Jeu concours',
+			'chapeau'     => 'Pas de jeu concours en ce moment.',
+			'description' => 'Les jeux concours Big M : aucun jeu en cours pour le moment, les prochains seront annoncés ici et sur nos réseaux sociaux.',
+			'sections'    => array(
+				array(
+					'Revenez bientôt',
+					'<p>Il n’y a pas de jeu concours en cours. Big M en organise régulièrement, souvent avec ses partenaires de livraison : les prochains seront annoncés sur cette page et sur nos réseaux sociaux (liens en bas de page).</p>
+<p>En attendant, découvrez les nouveautés de la carte.</p>',
+					'Voir la carte',
+					'/carte/',
+				),
+			),
+		),
+	);
+}
+
+/**
+ * Pages légales (mentions légales, confidentialité, cookies) et page Jeu concours : créées une
+ * fois, gardées quand on supprime la démo. Une page publiée à la même adresse n'est pas touchée ;
+ * le brouillon « Politique de confidentialité » créé par WordPress à l'installation est remplacé.
+ *
+ * @return string[] Rapport.
+ */
+function bigm_demo_pages_legales(): array {
+	if ( ! did_action( 'elementor/loaded' ) ) {
+		return array();
+	}
+	$rapport = array();
+	foreach ( bigm_demo_textes_legaux() as $slug => $page ) {
+		$existe = get_page_by_path( $slug );
+		if ( $existe && 'publish' !== $existe->post_status && (int) get_option( 'wp_page_for_privacy_policy' ) === (int) $existe->ID && $existe->post_modified_gmt === $existe->post_date_gmt ) {
+			wp_delete_post( $existe->ID, true ); // Brouillon de WordPress, jamais modifié.
+		}
+		$elements = array(
+			array(
+				'bigm-entete-carte',
+				array(
+					'source' => 'manuel',
+					'titre'  => $page['titre'],
+					'texte'  => bigm_demo_typo( $page['chapeau'] ),
+					'bouton' => '',
+				),
+			),
+		);
+		foreach ( $page['sections'] as $section ) {
+			$elements[] = array(
+				'bigm-texte',
+				array(
+					'titre'  => bigm_demo_typo( $section[0] ),
+					'texte'  => bigm_demo_typo( $section[1] ),
+					'bouton' => $section[2] ?? '',
+					'lien'   => array( 'url' => $section[3] ?? '' ),
+					'fond'   => 'yes',
+				),
+			);
+		}
+		$id = bigm_demo_page_elementor( $slug, $page['titre'], $elements );
+		if ( ! $id ) {
+			continue;
+		}
+		update_post_meta( $id, '_bigm_seo_description', bigm_demo_typo( $page['description'] ) );
+		if ( 'politique-de-confidentialite' === $slug ) {
+			update_option( 'wp_page_for_privacy_policy', $id );
+		}
+		$rapport[] = 'page « ' . $page['titre'] . ' »';
 	}
 	return $rapport;
 }
@@ -1112,6 +1304,11 @@ function bigm_demo_formulaires( bool $sans_pro = false ): array {
 add_action(
 	'admin_init',
 	static function () {
+		// Pages légales et Jeu concours : une fois, démo importée ou non (il faut Elementor).
+		if ( current_user_can( 'manage_options' ) && ! get_option( 'bigm_demo_pages_legales' ) && did_action( 'elementor/loaded' ) && function_exists( 'bigm_reglage' ) ) {
+			bigm_demo_pages_legales();
+			update_option( 'bigm_demo_pages_legales', 1, false );
+		}
 		if ( ! current_user_can( 'manage_options' ) || ! get_option( 'bigm_demo_import' ) || ! function_exists( 'bigm_reglage' ) ) {
 			return;
 		}

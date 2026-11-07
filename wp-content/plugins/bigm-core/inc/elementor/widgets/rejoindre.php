@@ -112,7 +112,7 @@ class Bigm_Widget_Rejoindre extends Bigm_Widget {
 	protected function register_controls() {
 		$nnbsp = "\u{202F}";
 		$this->carte( 'franchise', 'Franchise', array( 'Devenez franchisé Big M', 'Créez, transformez ou reprenez un restaurant avec un concept clé en main, une formation complète et des campagnes TV.', 'Déposer ma candidature', '/devenir-franchise/', 'franchise' ) );
-		$this->carte( 'recrutement', 'Recrutement', array( "Recrutez-nous{$nnbsp}!", "Équipiers, managers, formateurs{$nnbsp}: rejoignez Big M près de chez vous.", 'Postuler', '/recrutement/', 'recrutement' ) );
+		$this->carte( 'recrutement', 'Recrutement', array( "Recrutez-nous{$nnbsp}!", "Équipiers, managers, formateurs{$nnbsp}: rejoignez Big M près de chez vous.", 'Postuler', '/nous-rejoindre/', 'recrutement' ) );
 	}
 
 	/** Rendu. */
@@ -133,7 +133,7 @@ class Bigm_Widget_Rejoindre extends Bigm_Widget {
 		}
 		$cartes = array(
 			'franchise'   => array( 'btn', '/devenir-franchise/' ),
-			'recrutement' => array( 'btn btn--light', '/recrutement/' ),
+			'recrutement' => array( 'btn btn--light', '/nous-rejoindre/' ),
 		);
 		?>
 <section class="container" aria-label="Nous rejoindre">

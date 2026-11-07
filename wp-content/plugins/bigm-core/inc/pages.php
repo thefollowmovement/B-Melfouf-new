@@ -279,3 +279,12 @@ add_action(
 	25
 );
 
+
+/*
+ * Vidéos YouTube intégrées (articles repris de l'ancien site) : mode « confidentialité renforcée »,
+ * sans cookie avant la lecture (page Gestion des cookies).
+ */
+add_filter(
+	'embed_oembed_html',
+	static fn( $html ) => is_string( $html ) ? str_replace( array( 'https://www.youtube.com/embed/', 'https://youtube.com/embed/' ), 'https://www.youtube-nocookie.com/embed/', $html ) : $html
+);

@@ -131,6 +131,13 @@ function bigm_seo_calcul(): ?array {
 		$page['titre']       = trim( (string) get_term_meta( $term->term_id, '_bigm_seo_titre', true ) );
 		$page['description'] = trim( (string) get_term_meta( $term->term_id, '_bigm_seo_description', true ) );
 		$page['description'] = '' !== $page['description'] ? $page['description'] : bigm_seo_extrait( (string) $term->description );
+		if ( '' === $page['description'] ) {
+			// Catégorie sans description : une phrase générique plutôt que rien.
+			$nom                 = html_entity_decode( $term->name, ENT_QUOTES );
+			$page['description'] = 'bigm_categorie' === $term->taxonomy
+				? sprintf( "%s Big M\u{202F}: toute la sélection de la carte, 100\u{202F}%% halal, avec les allergènes et les valeurs nutritionnelles de chaque produit.", $nom )
+				: sprintf( "Actualités Big M, rubrique %s\u{202F}: ouvertures de restaurants, nouveautés de la carte et articles de presse.", $nom );
+		}
 		$lien                = get_term_link( $term );
 		$page['url']         = is_string( $lien ) ? $lien : '';
 		if ( 'bigm_categorie' === $term->taxonomy && function_exists( 'bigm_categorie' ) ) {

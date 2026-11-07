@@ -10,6 +10,9 @@
 .prose-section h2 { font-size: clamp(30px, 3.4vw, 44px); }
 .prose { max-width: 72ch; font-size: 18px; line-height: 1.65; }
 .prose :is(h3, h4) { margin-block: 1.2em .4em; font-size: 22px; }
+/* Pages longues (mentions légales, confidentialité) : intertitres h2 dans le texte, plus petits que le titre de section. */
+.prose h2 { margin-block: 1.6em .5em; font-size: clamp(24px, 2.4vw, 28px); }
+.prose > h2:first-child { margin-block-start: 0; }
 .prose a { color: var(--btn); text-underline-offset: 3px; }
 .prose-section--carte .prose-section__inner { background: #fff; border-radius: 28px; padding: clamp(24px, 4vw, 48px); }
 

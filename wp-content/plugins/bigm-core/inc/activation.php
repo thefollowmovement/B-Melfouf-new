@@ -101,3 +101,27 @@ add_action(
 	},
 	100
 );
+
+/**
+ * Catégories d'articles : adresses toujours à jour. La catégorie est déclarée au début de chaque
+ * requête avec la base de ce moment ; quand la base vient de changer (mise à jour ci-dessus),
+ * les règles recalculées dans la même requête gardent l'ancienne (/category/news/ au lieu de
+ * /actualites/news/). On les recalcule donc dès que la catégorie déclarée a la bonne base
+ * et que les règles enregistrées ne la connaissent pas.
+ *
+ * @return bool Règles recalculées.
+ */
+function bigm_core_verifier_regles(): bool {
+	$base     = trim( (string) get_option( 'category_base' ), '/' );
+	$regles   = get_option( 'rewrite_rules' );
+	$category = get_taxonomy( 'category' );
+	if ( '' === $base || ! is_array( $regles ) || ! $regles || ! $category || $base !== ( $category->rewrite['slug'] ?? '' ) ) {
+		return false;
+	}
+	if ( preg_grep( '#(^|/)' . preg_quote( $base, '#' ) . '/\\(#', array_keys( $regles ) ) ) {
+		return false;
+	}
+	flush_rewrite_rules( false );
+	return true;
+}
+add_action( 'init', 'bigm_core_verifier_regles', 101 );

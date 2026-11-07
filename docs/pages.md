@@ -9,10 +9,23 @@ Les pages à formulaire ne sont plus créées d'office : sur la préprod, les pa
 | Page | Contenu |
 |---|---|
 | `/devenir-franchise/` | En-tête, **Chiffres de la franchise** (Réglages Big M), « Pourquoi Big M », formulaire de candidature |
-| `/recrutement/` | En-tête, « Travailler chez Big M », formulaire avec envoi de CV |
+| `/recrutement/` | En-tête, « Travailler chez Big M », formulaire avec envoi de CV. Sur la préprod, la page de recrutement est `/nous-rejoindre/` (WPForms) : les liens par défaut y mènent, et `/recrutement/` y est redirigé. |
 | `/actualites/` | Page des articles : en-tête, catégories (Tout, News, Presse), cartes, pages de 9 articles. Créée avec l'accueil. |
 
 Les pages créées par la démo sont gardées quand on la supprime. Les textes entre crochets sont à remplacer par ceux de l'ancien site, dans Elementor (widget **Big M — Section texte**).
+
+## Pages légales et jeu concours
+
+La démo (0.5) les crée une fois, au premier passage d'un administrateur, avec Elementor (widgets **En-tête de page** et **Section texte** sur carte blanche). Elles sont gardées quand on supprime la démo. Une page déjà publiée à la même adresse n'est pas remplacée ; le brouillon « Politique de confidentialité » créé par WordPress l'est.
+
+| Page | Contenu |
+|---|---|
+| `/mentions-legales/` | Repris de l'ancienne page (`/privacy-policy/`, « Mention légales ») : éditeur Big M cie, RCS, responsable de la publication, contact. Ajouts : hébergeur (resté vide sur l'ancienne page), propriété intellectuelle, renvoi vers les données personnelles. |
+| `/politique-de-confidentialite/` | L'ancienne page était le modèle par défaut de WordPress (commentaires, Gravatar). Gardé : sa structure et le paragraphe « Contenu embarqué ». Mis à jour : candidatures franchise et recrutement, avis en restaurant, géolocalisation, statistiques, durées de conservation, prestataires, droits, CNIL. Déclarée comme page de confidentialité de WordPress. |
+| `/cookies/` | Nouvelle (pas de page sur l'ancien site) : pas de publicité ni de mesure d'audience, donc pas de bandeau ; restaurant choisi gardé dans le navigateur, YouTube en confidentialité renforcée, cookies de l'administration |
+| `/jeu-concours/` | « Pas de jeu concours en ce moment », renvoi vers les réseaux sociaux et bouton vers la carte. À remplacer par le règlement du prochain jeu. |
+
+**À faire valider par le client :** hébergeur, durées de conservation (3 ans pour la franchise, 2 ans pour le recrutement, recommandations de la CNIL), responsable de la publication. Si un outil de mesure d'audience ou un reCAPTCHA est ajouté, mettre à jour les pages Confidentialité et Cookies (et prévoir un bandeau de consentement pour la mesure d'audience).
 
 ## Formulaires (Elementor Pro)
 
