@@ -54,6 +54,7 @@ function bigm_viandes(): array {
 		array(
 			'boeuf'      => 'Bœuf',
 			'poulet'     => 'Poulet',
+			'dinde'      => 'Dinde',
 			'poisson'    => 'Poisson',
 			'vegetarien' => 'Végétarien',
 		)

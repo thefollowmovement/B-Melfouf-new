@@ -280,6 +280,7 @@ $fiche_import = array(
 $r1      = bigm_import_produit( $fiche_import );
 $posts[] = $r1['id'];
 $d1      = bigm_produit( $r1['id'] );
+$ok( array() === $d1['associes'], 'produit importé sans « Ça va bien avec » : aucun produit associé (pas lui-même)' );
 $ok( 'cree' === $r1['etat'] && 'draft' === get_post_status( $r1['id'] ) && 4 === (int) get_post_field( 'menu_order', $r1['id'] ) && has_term( 'import-test-sous', 'bigm_categorie', $r1['id'] ), 'produit créé : brouillon, ordre, catégorie' );
 $ok( array( 'boeuf', 'poulet' ) === $d1['viandes'] && array( 'gluten' ) === $d1['allergenes']['contient'] && array( 'lait' ) === $d1['allergenes']['traces'] && ! $r1['image'], 'viandes et allergènes (traces sans ce qui est déjà « contient »), photo refusée hors https' );
 wp_update_post(
@@ -294,6 +295,25 @@ $r2 = bigm_import_produit( array_merge( $fiche_import, array( 'contient' => arra
 $d2 = bigm_produit( $r1['id'] );
 $ok( 'maj' === $r2['etat'] && $r2['id'] === $r1['id'] && 'Nom retouché' === $d2['titre'] && str_contains( $d2['description'], 'Texte retouché.' ) && has_term( 'import-test', 'bigm_categorie', $r1['id'] ) && ! has_term( 'import-test-sous', 'bigm_categorie', $r1['id'] ), 'nouvel import : nom, texte et catégories retouchés gardés' );
 $ok( array( 'soja' ) === $d2['allergenes']['contient'] && array() === $d2['allergenes']['traces'], 'nouvel import : allergènes du fichier (ils font foi)' );
+$code    = bigm_import_produit(
+	array(
+		'titre'      => 'Z9 (nom à compléter)',
+		'slug'       => 'z9-test',
+		'categories' => array( 'import-test' ),
+		'statut'     => 'draft',
+	)
+);
+$posts[] = $code['id'];
+bigm_import_produit(
+	array(
+		'titre'      => 'Z9 – Menu test',
+		'slug'       => 'z9-test',
+		'categories' => array( 'import-test-sous' ),
+		'statut'     => 'publish',
+		'badge'      => 'Nouveau',
+	)
+);
+$ok( 'Z9 – Menu test' === get_the_title( $code['id'] ) && 'publish' === get_post_status( $code['id'] ) && has_term( 'import-test-sous', 'bigm_categorie', $code['id'] ) && 'Nouveau' === get_post_meta( $code['id'], '_bigm_badge', true ), 'nom provisoire (codes M1…) : nom, catégorie, statut et badge du nouveau fichier' );
 
 wp_reset_postdata();
 wp_delete_attachment( $img, true );

@@ -72,7 +72,7 @@ Les clés commencent par `_bigm_` : elles n'apparaissent pas dans le bloc « Cha
 | Où | Clé | Valeur |
 |---|---|---|
 | Produit | `_bigm_badge` | texte |
-| | `_bigm_viande` | liste parmi `boeuf`, `poulet`, `poisson`, `vegetarien` (filtre `bigm_viandes`) ; un texte seul avant la 0.6.4, lu par `bigm_produit_viandes()` |
+| | `_bigm_viande` | liste parmi `boeuf`, `poulet`, `dinde`, `poisson`, `vegetarien` (filtre `bigm_viandes`) ; un texte seul avant la 0.6.4, lu par `bigm_produit_viandes()` |
 | | `_bigm_lien_commande` | URL, vide = lien général |
 | | `_bigm_ingredients` | tableau de textes |
 | | `_bigm_allergenes_contient`, `_bigm_allergenes_traces` | tableaux d'identifiants : `gluten`, `lait`, `oeufs`, `moutarde`, `sesame`, `soja`, `celeri`, `poissons`, `crustaces`, `mollusques`, `arachides`, `fruitsacoque`, `sulfites`, `lupin` (ceux du prototype) |

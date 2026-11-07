@@ -87,11 +87,12 @@ Dans l'éditeur, les widgets de la fiche montrent le dernier produit publié, et
 
 **Produits → Importer la carte** crée les produits et les catégories à partir de `data/carte.json` (dans bigm-core), par lots de 10.
 
-Le fichier est fabriqué par `ops/carte/carte.py` à partir de deux sources :
+Le fichier est fabriqué par `ops/carte/carte.py` à partir de :
 - le tableau des allergènes du client (onglet « Liste consolidée ») ;
-- si on l'a, la page Uber Eats d'un restaurant, enregistrée depuis le navigateur : descriptions, photos, menus, boissons.
+- `ops/carte/uber-eats-bondy.json`, recopié de la carte Uber Eats de Big M Bondy (capture d'écran fournie par l'agence ; Uber Eats bloque la lecture automatique) : noms des menus, menus, boissons, sauces vendues à part, descriptions complètes (celles coupées par « … » sur la capture ne sont pas reprises) ;
+- facultatif, la page Uber Eats enregistrée en HTML, pour les photos (celles de la capture font 146 px, avec le bouton « + » d'Uber Eats par-dessus : inutilisables).
 
-Le fichier xlsx n'est pas dans Git. L'onglet « Recettes » (confidentiel) sert seulement à savoir quelle viande contient chaque produit.
+Le fichier xlsx n'est pas dans Git. L'onglet « Recettes » (confidentiel) sert seulement à savoir quelle viande contient chaque produit ; l'onglet « Articles » donne les allergènes des sauces vendues à part.
 
 ```bash
 python3 -I ops/carte/carte.py chemin/Allergenes_BigM.xlsx [chemin/page-uber-eats.html]
@@ -102,8 +103,10 @@ python3 -I ops/carte/carte.py chemin/Allergenes_BigM.xlsx [chemin/page-uber-eats
 | Catégories | Créées si leur adresse n'existe pas (Wraps, Sauces) ; les autres ne changent pas. Burgers → Bœuf / Poulet selon la viande (brief, § 5.1). Nuggets, Tenders et Boîte Mix sont aussi dans Poulet. |
 | Allergènes | X du tableau → « Contient », O → « Peut contenir (traces) » |
 | Viandes | Plusieurs par produit (Beef Chicken et Monster : bœuf et poulet). D'après les recettes : steak → bœuf ; chicken, escalope, tenders, nuggets, poulet tandoori ou curry → poulet. Fritures et fromages panés : végétarien. Desserts et sauces : aucune. |
-| Codes M1 à M17, W1 à W3 | Créés en brouillon « (nom à compléter) » : le tableau ne donne pas leur nom |
-| Produit déjà présent (même adresse) | Il garde son nom, ses catégories, son statut, sa description et sa photo ; il reçoit les viandes et les allergènes du fichier, qui font foi. Sa description et sa photo ne sont remplies que si elles sont vides. |
+| Menus | Sous-catégories de Menus : Burgers doublés (codes M1… W4 du tableau, avec leur nom Uber Eats), Menus simples, Menus wraps, Menus burgers grill, Menus enfant. W1 à W4 aussi dans Nouveautés, badge « Nouveau ». Allergènes et viandes : ceux des produits du menu réunis (boisson au choix non comprise), plus ceux de la ligne du tableau s'il y en a une. |
+| Codes absents d'Uber Eats (M8, M12, M17) | En brouillon « (nom à compléter) » |
+| Dinde | Le bacon des recettes est du « bacon de dinde » (Uber Eats, L Bacon M) : viande Dinde dans le filtre |
+| Produit déjà présent (même adresse) | Il reçoit les viandes et les allergènes du fichier, qui font foi. Si son nom n'a pas été retouché depuis l'import (ou s'il est provisoire, « nom à compléter »), il suit aussi le fichier pour le nom, les catégories, le statut, l'ordre et le badge ; s'il a été renommé dans l'admin, ils ne changent pas. Description et photo ne sont remplies que si elles sont vides. |
 | Démonstration | Option, décochée par défaut : les produits de la démo vont à la corbeille (récupérables). Avant, remplacer ceux choisis un par un (carrousel « Nos classiques » de l'accueil, « Ça va bien avec »), sinon ces blocs restent vides. |
 
 La page de l'import liste les produits **à vérifier** (viande inconnue, nom manquant), avec un lien vers chacun.
@@ -116,7 +119,7 @@ Le tableau des allergènes est une **version de travail** (onglet « Points clé
 wp eval-file tests/wp/test-bigm-carte.php --user=IDENTIFIANT_ADMIN
 ```
 
-Il fait 46 vérifications :
+Il fait 48 vérifications :
 
 - widgets enregistrés ;
 - lien de retour et catégorie principale ;

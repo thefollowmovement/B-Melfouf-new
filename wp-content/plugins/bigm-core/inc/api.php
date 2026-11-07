@@ -116,7 +116,8 @@ function bigm_produit( $post ): ?array {
 		'associes'       => array_values(
 			array_filter(
 				array_map( 'intval', (array) get_post_meta( $id, '_bigm_associes', true ) ),
-				static fn( int $a ): bool => 'publish' === get_post_status( $a )
+				// Sans choix, la méta vaut '' : (int) '' = 0, et get_post_status( 0 ) lirait le produit affiché.
+				static fn( int $a ): bool => $a > 0 && $a !== $id && 'publish' === get_post_status( $a )
 			)
 		),
 		'lien_commande'  => bigm_lien_commande( $id ),
