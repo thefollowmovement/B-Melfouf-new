@@ -1,0 +1,2218 @@
+{
+ "version": "2026-11-07",
+ "sources": [
+  "tableau des allergènes (Liste consolidée, version de travail)"
+ ],
+ "categories": [
+  {
+   "slug": "nouveautes",
+   "nom": "Nouveautés",
+   "titre": "Nos nouveautés",
+   "ordre": 1
+  },
+  {
+   "slug": "menus",
+   "nom": "Menus",
+   "titre": "Nos menus",
+   "ordre": 2
+  },
+  {
+   "slug": "burgers",
+   "nom": "Burgers",
+   "titre": "Nos burgers",
+   "ordre": 3
+  },
+  {
+   "slug": "boeuf",
+   "nom": "Bœuf",
+   "parent": "burgers",
+   "ordre": 1
+  },
+  {
+   "slug": "burgers-poulet",
+   "nom": "Poulet",
+   "parent": "burgers",
+   "ordre": 2
+  },
+  {
+   "slug": "poulet",
+   "nom": "Poulet",
+   "titre": "Notre poulet",
+   "ordre": 4
+  },
+  {
+   "slug": "wraps",
+   "nom": "Wraps",
+   "titre": "Nos wraps",
+   "ordre": 5,
+   "trace": "M4 7c5-3 11-3 16 0l-2 12c-4 2-8 2-12 0z M7 9.5c3 1.4 7 1.4 10 0"
+  },
+  {
+   "slug": "petite-faim",
+   "nom": "Petite faim",
+   "titre": "Petite faim",
+   "ordre": 7
+  },
+  {
+   "slug": "desserts",
+   "nom": "Desserts",
+   "titre": "Nos desserts",
+   "ordre": 8
+  },
+  {
+   "slug": "sauces",
+   "nom": "Sauces",
+   "titre": "Nos sauces",
+   "ordre": 9,
+   "trace": "M10 3h4v3l2 3v11a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V9l2-3z M8 13h8"
+  },
+  {
+   "slug": "boissons",
+   "nom": "Boissons",
+   "titre": "Nos boissons",
+   "ordre": 10
+  }
+ ],
+ "produits": [
+  {
+   "titre": "Cheeseburger M",
+   "slug": "cheeseburger-m",
+   "source": "Cheeseburger M",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "oeufs",
+    "sesame"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 1,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "M Burger",
+   "slug": "m-burger",
+   "source": "M Burger",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten"
+   ],
+   "traces": [
+    "oeufs",
+    "lait",
+    "sesame"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 2,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Double Cheese Bacon",
+   "slug": "double-cheese-bacon",
+   "source": "Double Cheese Bacon",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "oeufs",
+    "sesame"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 3,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Double Cheeseburger M",
+   "slug": "double-cheeseburger-m",
+   "source": "Double Cheeseburger M",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "oeufs",
+    "sesame"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 4,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Triple Cheeseburger M",
+   "slug": "triple-cheeseburger-m",
+   "source": "Triple Cheeseburger M",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "oeufs",
+    "sesame"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 5,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Géant",
+   "slug": "geant",
+   "source": "Géant",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "sesame",
+    "poissons"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 6,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Big",
+   "slug": "big",
+   "source": "Big",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 7,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Beef Chicken",
+   "slug": "beef-chicken",
+   "source": "Beef Chicken",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 8,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Big Thunder",
+   "slug": "big-thunder",
+   "source": "Big Thunder",
+   "categories": [
+    "burgers-poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 1,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Long Beef M",
+   "slug": "long-beef-m",
+   "source": "Long Beef M",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "fruitsacoque",
+    "soja"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 9,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Long Chicken",
+   "slug": "long-chicken",
+   "source": "Long Chicken",
+   "categories": [
+    "burgers-poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "fruitsacoque",
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 2,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Long Smoky Bacon",
+   "slug": "long-smoky-bacon",
+   "source": "Long Smoky Bacon",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "lait",
+    "sesame"
+   ],
+   "traces": [
+    "oeufs",
+    "fruitsacoque",
+    "soja",
+    "moutarde"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 10,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Chicken M",
+   "slug": "chicken-m",
+   "source": "Chicken M",
+   "categories": [
+    "burgers-poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 3,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "M Luxe Beef",
+   "slug": "m-luxe-beef",
+   "source": "M Luxe Beef",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 11,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "M Luxe Chicken",
+   "slug": "m-luxe-chicken",
+   "source": "M Luxe Chicken",
+   "categories": [
+    "burgers-poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 4,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Le Frenchy",
+   "slug": "le-frenchy",
+   "source": "Le Frenchy",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "sesame"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 12,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Le Frenchy Pepper",
+   "slug": "le-frenchy-pepper",
+   "source": "Le Frenchy Pepper",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "sesame"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 13,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Long Bacon M",
+   "slug": "long-bacon-m",
+   "source": "Long bacon M",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 14,
+   "statut": "publish",
+   "a_verifier": "pas de recette : viande à confirmer"
+  },
+  {
+   "titre": "Little Géant",
+   "slug": "little-geant",
+   "source": "Little Géant",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "sesame",
+    "sulfites",
+    "poissons"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 15,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Little Big",
+   "slug": "little-big",
+   "source": "Little Big",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "sulfites"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 16,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Monster",
+   "slug": "monster",
+   "source": "Monster",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sesame",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 17,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Jumbo",
+   "slug": "jumbo",
+   "source": "Jumbo",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 18,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Naan Géant",
+   "slug": "naan-geant",
+   "source": "Naan Géant",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "sesame",
+    "sulfites",
+    "poissons"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 19,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Naan Big",
+   "slug": "naan-big",
+   "source": "Naan Big",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "sesame",
+    "sulfites"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 20,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Naan Thunder",
+   "slug": "naan-thunder",
+   "source": "Naan Thunder",
+   "categories": [
+    "burgers-poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [
+    "sesame",
+    "sulfites"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 5,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Mbao Beef",
+   "slug": "mbao-beef",
+   "source": "Mbao Beef",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "lait",
+    "soja",
+    "sesame",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 21,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Mbao Chicken",
+   "slug": "mbao-chicken",
+   "source": "Mbao Chicken",
+   "categories": [
+    "burgers-poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "lait",
+    "soja",
+    "sesame",
+    "sulfites",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 6,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "M1 (nom à compléter)",
+   "slug": "m1",
+   "source": "M1",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 1,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "M2 (nom à compléter)",
+   "slug": "m2",
+   "source": "M2",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 2,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "M3 (nom à compléter)",
+   "slug": "m3",
+   "source": "M3",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 3,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "M5 (nom à compléter)",
+   "slug": "m5",
+   "source": "M5",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 4,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "M6 (nom à compléter)",
+   "slug": "m6",
+   "source": "M6",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 5,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "M7 (nom à compléter)",
+   "slug": "m7",
+   "source": "M7",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 6,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "M8 (nom à compléter)",
+   "slug": "m8",
+   "source": "M8",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 7,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "M9 (nom à compléter)",
+   "slug": "m9",
+   "source": "M9",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 8,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "M10 (nom à compléter)",
+   "slug": "m10",
+   "source": "M10",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 9,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "M12 (nom à compléter)",
+   "slug": "m12",
+   "source": "M12",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 10,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "M13 (nom à compléter)",
+   "slug": "m13",
+   "source": "M13",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 11,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "M14 (nom à compléter)",
+   "slug": "m14",
+   "source": "M14",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 12,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "M15 (nom à compléter)",
+   "slug": "m15",
+   "source": "M15",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 13,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "M16 (nom à compléter)",
+   "slug": "m16",
+   "source": "M16",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 14,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "M17 (nom à compléter)",
+   "slug": "m17",
+   "source": "M17",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 15,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "W1 (nom à compléter)",
+   "slug": "w1",
+   "source": "W1",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 16,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "W2 (nom à compléter)",
+   "slug": "w2",
+   "source": "W2",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 17,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "W3 (nom à compléter)",
+   "slug": "w3",
+   "source": "W3",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 18,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "Menu kids",
+   "slug": "menu-kids",
+   "source": "Menu kids",
+   "categories": [
+    "menus"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 1,
+   "statut": "publish",
+   "a_verifier": "contenu du menu"
+  },
+  {
+   "titre": "Croq Monsieur",
+   "slug": "croq-monsieur",
+   "source": "Croq Monsieur",
+   "categories": [
+    "petite-faim"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "lait"
+   ],
+   "traces": [
+    "oeufs",
+    "soja",
+    "sesame",
+    "moutarde",
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 1,
+   "statut": "publish",
+   "a_verifier": "viande du bacon (bœuf ? dinde ?)"
+  },
+  {
+   "titre": "Boîte Mix",
+   "slug": "boite-mix",
+   "source": "Boîte Mix",
+   "categories": [
+    "petite-faim",
+    "poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sulfites",
+    "celeri"
+   ],
+   "traces": [
+    "soja",
+    "moutarde"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 2,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Wrap Tandoori",
+   "slug": "wrap-tandoori",
+   "source": "Wrap Tandoori",
+   "categories": [
+    "wraps"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 1,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Wrap Curry",
+   "slug": "wrap-curry",
+   "source": "Wrap Curry",
+   "categories": [
+    "wraps"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 2,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Wrap Steak",
+   "slug": "wrap-steak",
+   "source": "Wrap Steak",
+   "categories": [
+    "wraps"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 3,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Wrap Kebab",
+   "slug": "wrap-kebab",
+   "source": "Wrap Kebab",
+   "categories": [
+    "wraps"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait"
+   ],
+   "traces": [
+    "soja",
+    "moutarde",
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 4,
+   "statut": "publish",
+   "a_verifier": "viande kebab (veau, dinde, bœuf ?)"
+  },
+  {
+   "titre": "Wrap Tenders",
+   "slug": "wrap-tenders",
+   "source": "Wrap Tenders",
+   "categories": [
+    "wraps"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 5,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Chick'n Box Curry",
+   "slug": "chickn-box-curry",
+   "source": "CHICK'N BOX CURRY",
+   "categories": [
+    "poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "oeufs",
+    "lait",
+    "soja",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [
+    "gluten",
+    "sesame",
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 2,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Chick'n Box Tandoori",
+   "slug": "chickn-box-tandoori",
+   "source": "CHICK'N BOX TANDOORI",
+   "categories": [
+    "poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "oeufs",
+    "lait",
+    "soja",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [
+    "gluten",
+    "sesame",
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 3,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Nuggets",
+   "slug": "nuggets",
+   "source": "Nuggets (petite faim)",
+   "categories": [
+    "petite-faim",
+    "poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "celeri"
+   ],
+   "traces": [
+    "oeufs",
+    "lait",
+    "soja",
+    "moutarde"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 3,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Tenders",
+   "slug": "tenders",
+   "source": "Tenders (petite faim)",
+   "categories": [
+    "petite-faim",
+    "poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "celeri"
+   ],
+   "traces": [
+    "oeufs",
+    "lait",
+    "soja",
+    "moutarde"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 4,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Mozza sticks",
+   "slug": "mozza-sticks",
+   "source": "Mozza-stick",
+   "categories": [
+    "petite-faim"
+   ],
+   "viandes": [
+    "vegetarien"
+   ],
+   "contient": [
+    "gluten",
+    "lait"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 5,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Bouchées camembert",
+   "slug": "bouchees-camembert",
+   "source": "Bouchée camembert",
+   "categories": [
+    "petite-faim"
+   ],
+   "viandes": [
+    "vegetarien"
+   ],
+   "contient": [
+    "gluten",
+    "lait"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 6,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Chili cheese nuggets",
+   "slug": "chili-cheese-nuggets",
+   "source": "Chilli cheese nuggets",
+   "categories": [
+    "petite-faim"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "lait"
+   ],
+   "traces": [
+    "oeufs",
+    "soja",
+    "moutarde",
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 7,
+   "statut": "publish",
+   "a_verifier": "pas de recette : végétarien ?"
+  },
+  {
+   "titre": "Mini smoky cheese",
+   "slug": "mini-smoky-cheese",
+   "source": "Mini smoky cheese",
+   "categories": [
+    "petite-faim"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "lait"
+   ],
+   "traces": [
+    "oeufs",
+    "soja",
+    "moutarde",
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 8,
+   "statut": "publish",
+   "a_verifier": "pas de recette : viande ou végétarien ?"
+  },
+  {
+   "titre": "Onion rings panko",
+   "slug": "onion-rings-panko",
+   "source": "Panko Onion rings",
+   "categories": [
+    "petite-faim"
+   ],
+   "viandes": [
+    "vegetarien"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sulfites"
+   ],
+   "traces": [
+    "soja",
+    "moutarde",
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 9,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Frites",
+   "slug": "frites",
+   "source": "Frite",
+   "categories": [
+    "petite-faim"
+   ],
+   "viandes": [
+    "vegetarien"
+   ],
+   "contient": [],
+   "traces": [
+    "gluten",
+    "lait",
+    "soja",
+    "moutarde",
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 10,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Frites cheddar crispy",
+   "slug": "frites-cheddar-crispy",
+   "source": "Frite cheedar cripsy",
+   "categories": [
+    "petite-faim"
+   ],
+   "viandes": [
+    "vegetarien"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 11,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Frites cheddar",
+   "slug": "frites-cheddar",
+   "source": "Frite cheddar",
+   "categories": [
+    "petite-faim"
+   ],
+   "viandes": [
+    "vegetarien"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 12,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Frites cheddar crispy bacon",
+   "slug": "frites-cheddar-crispy-bacon",
+   "source": "Frite cheddar cripsy bacon",
+   "categories": [
+    "petite-faim"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 13,
+   "statut": "publish",
+   "a_verifier": "viande du bacon"
+  },
+  {
+   "titre": "My Can Magic Red",
+   "slug": "my-can-magic-red",
+   "source": "My Can Magic Red",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait"
+   ],
+   "traces": [
+    "fruitsacoque",
+    "soja",
+    "sesame",
+    "moutarde"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 1,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "My Can Paris Best",
+   "slug": "my-can-paris-best",
+   "source": "My Can Paris Best",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja"
+   ],
+   "traces": [
+    "sesame",
+    "moutarde"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 2,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "My Can Choco Bomb",
+   "slug": "my-can-choco-bomb",
+   "source": "My Can Choco Bomb",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja"
+   ],
+   "traces": [
+    "sesame",
+    "moutarde"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 3,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "My Can Tropical Island",
+   "slug": "my-can-tropical-island",
+   "source": "My Can Tropical Island",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "fruitsacoque",
+    "soja",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 4,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Tarte choco-coco",
+   "slug": "tarte-choco-coco",
+   "source": "Tarte Choco coco",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "fruitsacoque"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 5,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Tarte au Daim",
+   "slug": "tarte-au-daim",
+   "source": "Tarte au daim",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "oeufs",
+    "lait",
+    "fruitsacoque",
+    "soja"
+   ],
+   "traces": [
+    "arachides"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 6,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Little Cream Fraise",
+   "slug": "little-cream-fraise",
+   "source": "Little Cream Fraise",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja",
+    "sesame",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 7,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Little Cream Caramel",
+   "slug": "little-cream-caramel",
+   "source": "Little Cream Caramel",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja",
+    "sesame",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 8,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Little Cream Chocolat",
+   "slug": "little-cream-chocolat",
+   "source": "Little Cream Chocolat",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja",
+    "sesame",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 9,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "My Can Pistachoise",
+   "slug": "my-can-pistachoise",
+   "source": "My Can Pistachoise",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "fruitsacoque"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 10,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "My Chou Choco",
+   "slug": "my-chou-choco",
+   "source": "My Chou Choco",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "fruitsacoque",
+    "soja"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 11,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "My Chou Bueno",
+   "slug": "my-chou-bueno",
+   "source": "My Chou Bueno",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 12,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "My Chou Dubaï pistache",
+   "slug": "my-chou-dubai-pistache",
+   "source": "My Chou Dubai (Pistache)",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 13,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Big Ice Spéculoos",
+   "slug": "big-ice-speculoos",
+   "source": "BIG ICE spéculos",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja",
+    "sesame",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 14,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Big Ice Daim",
+   "slug": "big-ice-daim",
+   "source": "BIG ICE daim",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja",
+    "sesame",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 15,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Big Ice M&M's",
+   "slug": "big-ice-m-ms",
+   "source": "BIG ICE m&ms",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja",
+    "sesame",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 16,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Big Ice Oreo",
+   "slug": "big-ice-oreo",
+   "source": "BIG ICE oréo",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja",
+    "sesame",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 17,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Mayonnaise",
+   "slug": "mayonnaise",
+   "source": "Mayonnaise aux œufs",
+   "categories": [
+    "sauces"
+   ],
+   "viandes": [],
+   "contient": [
+    "oeufs",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 1,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Sauce Burger",
+   "slug": "sauce-burger",
+   "source": "Sauce Burger",
+   "categories": [
+    "sauces"
+   ],
+   "viandes": [],
+   "contient": [
+    "oeufs",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 2,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Sauce Géant",
+   "slug": "sauce-geant",
+   "source": "Sauce géant",
+   "categories": [
+    "sauces"
+   ],
+   "viandes": [],
+   "contient": [
+    "oeufs",
+    "moutarde"
+   ],
+   "traces": [
+    "poissons"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 3,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Sauce Poivre",
+   "slug": "sauce-poivre",
+   "source": "Sauce Poivre",
+   "categories": [
+    "sauces"
+   ],
+   "viandes": [],
+   "contient": [
+    "oeufs",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 4,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Sauce Bao",
+   "slug": "sauce-bao",
+   "source": "Sauce bao",
+   "categories": [
+    "sauces"
+   ],
+   "viandes": [],
+   "contient": [
+    "soja",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 5,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Sauce Monster",
+   "slug": "sauce-monster",
+   "source": "Sauce Monster",
+   "categories": [
+    "sauces"
+   ],
+   "viandes": [],
+   "contient": [
+    "oeufs",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 6,
+   "statut": "publish",
+   "a_verifier": ""
+  }
+ ]
+}

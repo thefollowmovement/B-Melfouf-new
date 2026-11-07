@@ -47,6 +47,19 @@ function bigm_lien_commande( ?int $post_id = null ): string {
 }
 
 /**
+ * Viandes d'un produit (Bœuf, Poulet…), dans l'ordre de bigm_viandes().
+ *
+ * @param int $id Produit.
+ * @return string[]
+ */
+function bigm_produit_viandes( int $id ): array {
+	// Une seule viande (texte) avant la 0.6.4, plusieurs (liste) depuis : les deux se lisent.
+	$valeur = get_post_meta( $id, '_bigm_viande', true );
+	$liste  = is_array( $valeur ) ? $valeur : ( '' === (string) $valeur ? array() : array( (string) $valeur ) );
+	return array_values( array_intersect( array_keys( bigm_viandes() ), $liste ) );
+}
+
+/**
  * Toutes les données d'un produit.
  *
  * @param int|WP_Post $post Produit.
@@ -87,7 +100,8 @@ function bigm_produit( $post ): ?array {
 		'image_id'       => (int) get_post_thumbnail_id( $post ),
 		'video'          => bigm_video( get_post_meta( $id, '_bigm_video', true ) ),
 		'badge'          => (string) get_post_meta( $id, '_bigm_badge', true ),
-		'viande'         => (string) get_post_meta( $id, '_bigm_viande', true ),
+		'viande'         => (string) ( bigm_produit_viandes( $id )[0] ?? '' ),
+		'viandes'        => bigm_produit_viandes( $id ),
 		'ingredients'    => array_values( array_filter( (array) get_post_meta( $id, '_bigm_ingredients', true ) ) ),
 		'allergenes'     => array(
 			'contient'        => $contient,

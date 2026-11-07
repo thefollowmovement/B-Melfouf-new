@@ -83,13 +83,40 @@ Dans l'éditeur, les widgets de la fiche montrent le dernier produit publié, et
 - **Mentions de maquette retirées.** La phrase « Données d'exemple pour la maquette » et les valeurs nutritionnelles `[—]` ne sont pas reprises : le tableau n'apparaît que lorsque des valeurs sont saisies.
 - **Vignettes de la carte.** La grille montre les catégories réelles. Les vignettes du prototype (« Burgers enflammés », « Sandwichs », « Baos ») s'obtiennent avec la grille « choisies une par une », si ces catégories sont créées.
 
+## Importer la carte
+
+**Produits → Importer la carte** crée les produits et les catégories à partir de `data/carte.json` (dans bigm-core), par lots de 10.
+
+Le fichier est fabriqué par `ops/carte/carte.py` à partir de deux sources :
+- le tableau des allergènes du client (onglet « Liste consolidée ») ;
+- si on l'a, la page Uber Eats d'un restaurant, enregistrée depuis le navigateur : descriptions, photos, menus, boissons.
+
+Le fichier xlsx n'est pas dans Git. L'onglet « Recettes » (confidentiel) sert seulement à savoir quelle viande contient chaque produit.
+
+```bash
+python3 -I ops/carte/carte.py chemin/Allergenes_BigM.xlsx [chemin/page-uber-eats.html]
+```
+
+| Sujet | Règle |
+|---|---|
+| Catégories | Créées si leur adresse n'existe pas (Wraps, Sauces) ; les autres ne changent pas. Burgers → Bœuf / Poulet selon la viande (brief, § 5.1). Nuggets, Tenders et Boîte Mix sont aussi dans Poulet. |
+| Allergènes | X du tableau → « Contient », O → « Peut contenir (traces) » |
+| Viandes | Plusieurs par produit (Beef Chicken et Monster : bœuf et poulet). D'après les recettes : steak → bœuf ; chicken, escalope, tenders, nuggets, poulet tandoori ou curry → poulet. Fritures et fromages panés : végétarien. Desserts et sauces : aucune. |
+| Codes M1 à M17, W1 à W3 | Créés en brouillon « (nom à compléter) » : le tableau ne donne pas leur nom |
+| Produit déjà présent (même adresse) | Il garde son nom, ses catégories, son statut, sa description et sa photo ; il reçoit les viandes et les allergènes du fichier, qui font foi. Sa description et sa photo ne sont remplies que si elles sont vides. |
+| Démonstration | Option : les produits de la démo vont à la corbeille (récupérables) |
+
+La page de l'import liste les produits **à vérifier** (viande inconnue, nom manquant), avec un lien vers chacun.
+
+Le tableau des allergènes est une **version de travail** (onglet « Points clés ») : soja des burgers au poulet, sauces Delka, fiches manquantes. Une fois validé, relancer le script et l'import : seuls les allergènes et les viandes changent.
+
 ## Tester
 
 ```bash
 wp eval-file tests/wp/test-bigm-carte.php --user=IDENTIFIANT_ADMIN
 ```
 
-Il fait 38 vérifications :
+Il fait 46 vérifications :
 
 - widgets enregistrés ;
 - lien de retour et catégorie principale ;
@@ -97,4 +124,5 @@ Il fait 38 vérifications :
 - groupes, vignettes et filtres d'une catégorie ;
 - barre et grille de catégories ;
 - styles et scripts chargés par page, titres d'onglet ;
-- réglages de la carte.
+- réglages de la carte ;
+- import de la carte (catégories, produits, nouvel import qui garde les retouches).

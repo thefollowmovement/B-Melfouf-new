@@ -16,3 +16,10 @@ node_modules/
 
 # Zips fabriqués par ops/build-zips.sh
 dist/
+
+# Python
+__pycache__/
+*.pyc
+
+# Tableaux du client (allergènes, recettes) : jamais dans Git.
+*.xlsx

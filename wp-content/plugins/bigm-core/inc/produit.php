@@ -114,8 +114,8 @@ add_action(
 function bigm_produit_box_fiche( WP_Post $post ): void {
 	wp_nonce_field( 'bigm_produit_save', 'bigm_produit_nonce' );
 	$badge  = (string) get_post_meta( $post->ID, '_bigm_badge', true );
-	$viande = (string) get_post_meta( $post->ID, '_bigm_viande', true );
-	$lien   = (string) get_post_meta( $post->ID, '_bigm_lien_commande', true );
+	$viandes = bigm_produit_viandes( $post->ID );
+	$lien    = (string) get_post_meta( $post->ID, '_bigm_lien_commande', true );
 	$global = bigm_reglage( 'commander_url' );
 	?>
 	<div class="bigm-grid">
@@ -125,15 +125,13 @@ function bigm_produit_box_fiche( WP_Post $post ): void {
 			<datalist id="bigm_badges"><option value="Nouveau"><option value="Édition limitée"><option value="Best-seller"></datalist>
 			<span class="description">Pastille jaune sur la vignette. Laisser vide pour ne rien afficher.</span>
 		</p>
-		<p>
-			<label for="bigm_viande"><strong>Viande</strong></label>
-			<select id="bigm_viande" name="bigm_viande" class="widefat">
-				<option value="">— Aucune —</option>
-				<?php foreach ( bigm_viandes() as $slug => $label ) : ?>
-					<option value="<?php echo esc_attr( $slug ); ?>"<?php selected( $viande, $slug ); ?>><?php echo esc_html( $label ); ?></option>
-				<?php endforeach; ?>
-			</select>
-			<span class="description">Sert au filtre « Bœuf / Poulet » de la catégorie.</span>
+		<p role="group" aria-labelledby="bigm_viandes_titre">
+			<strong id="bigm_viandes_titre">Viande</strong><br>
+			<?php foreach ( bigm_viandes() as $slug => $label ) : ?>
+				<label style="margin-right:12px"><input type="checkbox" name="bigm_viandes[]" value="<?php echo esc_attr( $slug ); ?>"<?php checked( in_array( $slug, $viandes, true ) ); ?>> <?php echo esc_html( $label ); ?></label>
+			<?php endforeach; ?>
+			<br>
+			<span class="description">Sert au filtre « Bœuf / Poulet » de la catégorie. Plusieurs cases si le produit en contient plusieurs (Beef Chicken).</span>
 		</p>
 		<p class="bigm-grid__full">
 			<label for="bigm_lien_commande"><strong>Lien de commande</strong></label>
@@ -278,8 +276,7 @@ add_action(
 		$in = wp_unslash( $_POST );
 
 		update_post_meta( $post_id, '_bigm_badge', sanitize_text_field( $in['bigm_badge'] ?? '' ) );
-		$viande = sanitize_key( $in['bigm_viande'] ?? '' );
-		update_post_meta( $post_id, '_bigm_viande', array_key_exists( $viande, bigm_viandes() ) ? $viande : '' );
+		update_post_meta( $post_id, '_bigm_viande', bigm_nettoyer_slugs( $in['bigm_viandes'] ?? array(), array_keys( bigm_viandes() ) ) );
 		update_post_meta( $post_id, '_bigm_lien_commande', esc_url_raw( trim( (string) ( $in['bigm_lien_commande'] ?? '' ) ) ) );
 
 		$lignes = preg_split( '/\R/', (string) ( $in['bigm_ingredients'] ?? '' ) );
@@ -337,8 +334,7 @@ add_action(
 		} elseif ( 'bigm_badge' === $col ) {
 			echo esc_html( (string) get_post_meta( $post_id, '_bigm_badge', true ) );
 		} elseif ( 'bigm_viande' === $col ) {
-			$viande = (string) get_post_meta( $post_id, '_bigm_viande', true );
-			echo esc_html( bigm_viandes()[ $viande ] ?? '' );
+			echo esc_html( implode( ', ', array_intersect_key( bigm_viandes(), array_flip( bigm_produit_viandes( $post_id ) ) ) ) );
 		}
 	},
 	10,

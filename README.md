@@ -90,6 +90,12 @@ Tester l'en-tête, la barre d'onglets et le pied de page du thème :
 wp eval-file tests/wp/test-bigm-child.php --user=IDENTIFIANT_ADMIN
 ```
 
+Refaire le fichier de la carte à importer (Produits → Importer la carte), depuis le tableau des allergènes du client et, si on l'a, la page Uber Eats enregistrée :
+
+```bash
+python3 -I ops/carte/carte.py chemin/Allergenes_BigM.xlsx chemin/page-uber-eats.html
+```
+
 Préparer une installation WordPress neuve (une fois, après le premier déploiement) :
 
 ```bash

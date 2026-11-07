@@ -1,6 +1,7 @@
 // Big M — filtres de la page d'une catégorie : viande, allergènes, message quand rien ne correspond.
 // Repris du script de prototype/pages.py (page categorie.html). Seuls changements : le filtre
-// travaille dans sa grille ([data-filtres]) et le libellé du bouton vient du balisage.
+// travaille dans sa grille ([data-filtres]), le libellé du bouton vient du balisage, et un produit
+// peut avoir plusieurs viandes (data-meat="boeuf poulet").
 (() => {
   // Éditeur Elementor : un widget modifié est ré-affiché, on initialise ce qu'il contient.
   const surElementor = (sel, fn) => {
@@ -24,7 +25,7 @@
     const apply = () => {
       cards.forEach((c) => {
         const al = c.dataset.allergens.split(' ');
-        c.hidden = (meat !== 'tous' && c.dataset.meat !== meat) || al.some((x) => off.has(x));
+        c.hidden = (meat !== 'tous' && !c.dataset.meat.split(' ').includes(meat)) || al.some((x) => off.has(x));
       });
       let any = false;
       groups.forEach((g) => { const v = [...g.querySelectorAll('.product')].some((c) => !c.hidden); g.hidden = !v; any = any || v; });

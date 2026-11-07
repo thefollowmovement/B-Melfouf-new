@@ -405,7 +405,7 @@ function bigm_carte_produit( array $p, int $i ): string {
 	) : '';
 	$video = bigm_video_vignette( $p['video'] );
 	$badge = '' !== $p['badge'] ? '<span class="badge">' . esc_html( $p['badge'] ) . '</span>' : '';
-	return '<a class="product' . ( $video ? ' has-video' : '' ) . '" href="' . esc_url( $p['url'] ) . '" data-meat="' . esc_attr( $p['viande'] ) . '" data-allergens="' . esc_attr( implode( ' ', $p['allergenes']['contient'] ) ) . '" data-reveal style="--i:' . ( $i % 4 ) . '">'
+	return '<a class="product' . ( $video ? ' has-video' : '' ) . '" href="' . esc_url( $p['url'] ) . '" data-meat="' . esc_attr( implode( ' ', $p['viandes'] ?? array( $p['viande'] ) ) ) . '" data-allergens="' . esc_attr( implode( ' ', $p['allergenes']['contient'] ) ) . '" data-reveal style="--i:' . ( $i % 4 ) . '">'
 		. '<span class="product__name">' . esc_html( $p['titre'] ) . '</span><div class="product__img">' . $badge . $img . $video . '</div></a>';
 }
 
@@ -500,7 +500,7 @@ function bigm_rendu_grille_produits( array $a ): string {
 	$filtres = '';
 	if ( $a['filtres'] ) {
 		// Viandes présentes dans la catégorie, dans l'ordre de la liste de référence.
-		$presentes = array_unique( array_filter( array_merge( ...array_map( static fn( array $g ): array => wp_list_pluck( $g['produits'], 'viande' ), $groupes ) ) ) );
+		$presentes = array_unique( array_filter( array_merge( ...array_map( static fn( array $g ): array => array_merge( array(), ...wp_list_pluck( $g['produits'], 'viandes' ) ), $groupes ) ) ) );
 		$viandes   = array_intersect_key( bigm_viandes(), array_flip( $presentes ) );
 		$chips     = '';
 		if ( count( $viandes ) > 1 ) {

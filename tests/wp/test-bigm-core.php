@@ -59,7 +59,8 @@ $ok( (bool) preg_grep( '#^produit/#', array_keys( $rules ) ), 'fiches /produit/�
 
 WP_CLI::log( 'Catégories créées à l’activation' );
 $top = bigm_categories();
-$ok( array( 'nouveautes', 'menus', 'burgers', 'poulet', 'tex-mex', 'petite-faim', 'desserts', 'boissons' ) === array_slice( wp_list_pluck( $top, 'slug' ), 0, 8 ), 'les 8 catégories, dans l’ordre du prototype' );
+$prototype = array( 'nouveautes', 'menus', 'burgers', 'poulet', 'tex-mex', 'petite-faim', 'desserts', 'boissons' );
+$ok( array_values( array_intersect( wp_list_pluck( $top, 'slug' ), $prototype ) ) === $prototype, 'les 8 catégories, dans l’ordre du prototype (d’autres peuvent s’y ajouter, comme Wraps à l’import de la carte)' );
 $burgers = get_term_by( 'slug', 'burgers', 'bigm_categorie' );
 $ok( $burgers && array( 'boeuf', 'burgers-poulet' ) === wp_list_pluck( bigm_categories( (int) $burgers->term_id ), 'slug' ), 'Burgers a Bœuf et Poulet' );
 $cat = $burgers ? bigm_categorie( $burgers ) : null;
@@ -98,7 +99,7 @@ $envoyer(
 	array(
 		'bigm_produit_nonce'       => wp_create_nonce( 'bigm_produit_save' ),
 		'bigm_badge'               => ' Nouveau ',
-		'bigm_viande'              => 'boeuf',
+		'bigm_viandes'             => array( 'poulet', 'boeuf', 'inconnue' ),
 		'bigm_lien_commande'       => '',
 		'bigm_ingredients'         => "Naan grillé\r\n\r\nSteak de bœuf smashé ×2\n<b>Cheddar</b> fondu ×2",
 		'bigm_allergenes_contient' => array( 'gluten', 'lait', 'inconnu' ),
@@ -131,7 +132,7 @@ $produit = wp_insert_post(
 $nettoie['posts'][] = $produit;
 $p                  = bigm_produit( $produit );
 
-$ok( 'Nouveau' === $p['badge'] && 'boeuf' === $p['viande'], 'badge et viande' );
+$ok( 'Nouveau' === $p['badge'] && 'boeuf' === $p['viande'] && array( 'boeuf', 'poulet' ) === $p['viandes'], 'badge et viandes (plusieurs, dans l’ordre de la liste, sans valeur inconnue)' );
 $ok( array( 'Naan grillé', 'Steak de bœuf smashé ×2', 'Cheddar fondu ×2' ) === $p['ingredients'], 'ingrédients : lignes vides et balises retirées, ordre gardé' );
 $ok( array( 'gluten', 'lait' ) === $p['allergenes']['contient'], 'allergènes inconnus ignorés' );
 $ok( array( 'sesame' ) === $p['allergenes']['traces'], 'un allergène coché deux fois reste dans « Contient »' );

@@ -12,7 +12,7 @@ Menu **Produits**. Éditeur classique : titre, description, image principale, pu
 
 | Bloc | Contenu |
 |---|---|
-| Fiche produit | Badge (Nouveau, Édition limitée…), viande (pour le filtre Bœuf / Poulet), lien de commande propre au produit |
+| Fiche produit | Badge (Nouveau, Édition limitée…), viandes, une ou plusieurs cases (pour le filtre Bœuf / Poulet), lien de commande propre au produit |
 | Ingrédients | Un par ligne, dans l'ordre d'affichage |
 | Allergènes | Les 14 allergènes réglementaires, colonnes « Contient » et « Peut contenir des traces » |
 | Valeurs nutritionnelles | Poids d'une portion, puis énergie, matières grasses, dont saturées, glucides, dont sucres, protéines, sel, pour 1 portion et pour 100 g |
@@ -72,7 +72,7 @@ Les clés commencent par `_bigm_` : elles n'apparaissent pas dans le bloc « Cha
 | Où | Clé | Valeur |
 |---|---|---|
 | Produit | `_bigm_badge` | texte |
-| | `_bigm_viande` | `boeuf`, `poulet`, `poisson`, `vegetarien` ou vide (filtre `bigm_viandes`) |
+| | `_bigm_viande` | liste parmi `boeuf`, `poulet`, `poisson`, `vegetarien` (filtre `bigm_viandes`) ; un texte seul avant la 0.6.4, lu par `bigm_produit_viandes()` |
 | | `_bigm_lien_commande` | URL, vide = lien général |
 | | `_bigm_ingredients` | tableau de textes |
 | | `_bigm_allergenes_contient`, `_bigm_allergenes_traces` | tableaux d'identifiants : `gluten`, `lait`, `oeufs`, `moutarde`, `sesame`, `soja`, `celeri`, `poissons`, `crustaces`, `mollusques`, `arachides`, `fruitsacoque`, `sulfites`, `lupin` (ceux du prototype) |

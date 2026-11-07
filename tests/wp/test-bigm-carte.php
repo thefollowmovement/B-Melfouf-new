@@ -129,7 +129,7 @@ require_once ABSPATH . 'wp-admin/includes/image.php';
 wp_update_attachment_metadata( $img, wp_generate_attachment_metadata( $img, $bits['file'] ) );
 set_post_thumbnail( $p1, $img );
 $p2     = $produit( 'Poulet test', array( $sous_b ), array( '_bigm_viande' => 'poulet', '_bigm_allergenes_contient' => array( 'oeufs' ) ) );
-$p3     = $produit( 'Au parent', array( $parent ), array( '_bigm_viande' => 'boeuf' ) );
+$p3     = $produit( 'Au parent', array( $parent ), array( '_bigm_viande' => array( 'boeuf', 'poulet' ) ) );
 $p4     = $produit( 'Nouveau aussi', array( $sous_a, $vide ) );
 
 WP_CLI::log( 'Catégorie principale et lien de retour' );
@@ -158,6 +158,7 @@ $grille = bigm_rendu_grille_produits( array( 'terme' => $parent ) );
 $ok( strpos( $grille, 'Au parent' ) < strpos( $grille, '>Sous A</h2>' ) && strpos( $grille, '>Sous A</h2>' ) < strpos( $grille, '>Sous B</h2>' ), 'groupes : produits du parent d’abord, puis les sous-catégories dans l’ordre' );
 $ok( 4 === preg_match_all( '/class="product( has-video)?"/', $grille ) && str_contains( $grille, '<span class="badge">Nouveau</span>' ), 'vignettes : 4 produits, badge' );
 $ok( str_contains( $grille, 'data-allergens="gluten lait"' ) && str_contains( $grille, 'data-meat="poulet"' ), 'vignette : allergènes contenus (sans les traces) et viande, pour le filtre' );
+$ok( str_contains( $grille, 'data-meat="boeuf poulet"' ) && str_contains( $grille, 'data-meat="poulet"' ), 'viandes : plusieurs sur un produit (Beef Chicken), une seule écrite en texte avant la 0.6.4' );
 $ok( str_contains( $grille, 'data-meat-filter="tous"' ) && str_contains( $grille, 'data-meat-filter="boeuf"' ) && str_contains( $grille, 'data-meat-filter="poulet"' ) && ! str_contains( $grille, 'data-meat-filter="poisson"' ), 'filtre viande : Tous et les viandes présentes' );
 $ok( 14 === substr_count( $grille, 'data-allergen="' ) && str_contains( $grille, 'data-empty' ) && str_contains( $grille, 'data-reset' ), 'filtre : 14 allergènes, message et réinitialisation' );
 $seule = bigm_rendu_grille_produits( array( 'terme' => $sous_b ) );
@@ -240,6 +241,59 @@ $net = bigm_reglages_nettoyer(
 	)
 );
 $ok( 0 === $net['carte_slider'] && "Ligne 1\nLigne 2" === $net['carte_texte'], 'slider inexistant refusé, texte long nettoyé' );
+
+WP_CLI::log( 'Import de la carte (Produits → Importer la carte)' );
+$fichier = bigm_import_donnees();
+$ok( $fichier && count( $fichier['produits'] ) > 50 && isset( $fichier['produits'][0]['contient'], $fichier['produits'][0]['viandes'] ), 'fichier data/carte.json : produits avec allergènes et viandes' );
+$cats_import = array(
+	array(
+		'slug'   => 'import-test-sous',
+		'nom'    => 'Sous import',
+		'parent' => 'import-test',
+	),
+	array(
+		'slug'  => 'import-test',
+		'nom'   => 'Import test',
+		'titre' => 'Nos tests',
+		'ordre' => 6,
+		'trace' => 'M4 4h16v16H4z',
+	),
+);
+$ok( 2 === bigm_import_categories( $cats_import ) && 0 === bigm_import_categories( $cats_import ), 'catégories : créées une fois, parents d’abord' );
+$t_parent = get_term_by( 'slug', 'import-test', 'bigm_categorie' );
+$t_sous   = get_term_by( 'slug', 'import-test-sous', 'bigm_categorie' );
+array_push( $termes, (int) $t_sous->term_id, (int) $t_parent->term_id );
+$ok( $t_sous->parent === $t_parent->term_id && 'Nos tests' === get_term_meta( $t_parent->term_id, '_bigm_titre', true ) && str_contains( (string) get_term_meta( $t_parent->term_id, '_bigm_icone', true ), '<svg' ), 'catégorie créée : parent, titre de page, icône' );
+$fiche_import = array(
+	'titre'      => 'Produit import test',
+	'slug'       => 'produit-import-test',
+	'categories' => array( 'import-test-sous' ),
+	'viandes'    => array( 'poulet', 'boeuf', 'inconnue' ),
+	'contient'   => array( 'gluten' ),
+	'traces'     => array( 'gluten', 'lait' ),
+	'statut'     => 'draft',
+	'ordre'      => 4,
+	'description' => 'Description du fichier.',
+	'image'      => 'http://exemple.test/photo.jpg',
+	'a_verifier' => 'viande à confirmer',
+);
+$r1      = bigm_import_produit( $fiche_import );
+$posts[] = $r1['id'];
+$d1      = bigm_produit( $r1['id'] );
+$ok( 'cree' === $r1['etat'] && 'draft' === get_post_status( $r1['id'] ) && 4 === (int) get_post_field( 'menu_order', $r1['id'] ) && has_term( 'import-test-sous', 'bigm_categorie', $r1['id'] ), 'produit créé : brouillon, ordre, catégorie' );
+$ok( array( 'boeuf', 'poulet' ) === $d1['viandes'] && array( 'gluten' ) === $d1['allergenes']['contient'] && array( 'lait' ) === $d1['allergenes']['traces'] && ! $r1['image'], 'viandes et allergènes (traces sans ce qui est déjà « contient »), photo refusée hors https' );
+wp_update_post(
+	array(
+		'ID'           => $r1['id'],
+		'post_title'   => 'Nom retouché',
+		'post_content' => 'Texte retouché.',
+	)
+);
+wp_set_object_terms( $r1['id'], array( (int) $t_parent->term_id ), 'bigm_categorie' );
+$r2 = bigm_import_produit( array_merge( $fiche_import, array( 'contient' => array( 'soja' ), 'traces' => array(), 'description' => 'Autre description.' ) ) );
+$d2 = bigm_produit( $r1['id'] );
+$ok( 'maj' === $r2['etat'] && $r2['id'] === $r1['id'] && 'Nom retouché' === $d2['titre'] && str_contains( $d2['description'], 'Texte retouché.' ) && has_term( 'import-test', 'bigm_categorie', $r1['id'] ) && ! has_term( 'import-test-sous', 'bigm_categorie', $r1['id'] ), 'nouvel import : nom, texte et catégories retouchés gardés' );
+$ok( array( 'soja' ) === $d2['allergenes']['contient'] && array() === $d2['allergenes']['traces'], 'nouvel import : allergènes du fichier (ils font foi)' );
 
 wp_reset_postdata();
 wp_delete_attachment( $img, true );
