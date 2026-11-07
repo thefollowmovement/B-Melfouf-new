@@ -37,6 +37,20 @@ add_action(
 );
 
 /*
+ * Blocs [data-reveal] déjà à l'écran à l'arrivée : affichés dès la fin du HTML, sans attendre
+ * base.js (chargé en différé, après les scripts d'Elementor). Sinon le premier écran reste vide
+ * plus d'une seconde sur mobile, et la mesure LCP le compte. Le fondu est gardé ; les blocs
+ * plus bas apparaissent toujours au défilement.
+ */
+add_action(
+	'wp_footer',
+	static function () {
+		wp_print_inline_script_tag( "(()=>{const h=innerHeight;document.querySelectorAll('[data-reveal]:not(.is-in)').forEach((t)=>{const r=t.getBoundingClientRect();if(r.top<h&&r.bottom>0)t.classList.add('is-in')})})();" );
+	},
+	1
+);
+
+/*
  * Préchargement de Fredoka 600, la police des titres.
  */
 add_filter(

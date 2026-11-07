@@ -128,6 +128,11 @@ $ok( str_contains( $article, 'Toutes les actualités' ) && str_contains( $articl
 preg_match_all( '#<h3>(.*?)</h3>#', (string) strstr( $article, 'À lire aussi' ), $plus );
 $ok( 3 === count( $plus[1] ) && 'Article A' === $plus[1][0] && ! in_array( 'Article B', $plus[1], true ), 'à lire aussi : 3 articles, sans l’article lui-même, sa catégorie d’abord' );
 
+$page( array( 'post_type' => 'post' ) );
+$GLOBALS['wp_query']->is_home = true;
+$pastilles = do_shortcode( '[bigm_categories_articles]' );
+$ok( '' === $pastilles || ( str_contains( $pastilles, 'class="news-tabs"' ) && str_contains( $pastilles, 'aria-current="page">Tout</a>' ) ), '[bigm_categories_articles] : pastilles Tout / catégories, « Tout » actif sur la liste' );
+
 WP_CLI::log( 'Formulaires (pages avec le widget Formulaire d’Elementor Pro)' );
 $form_page = wp_insert_post(
 	array(

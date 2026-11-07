@@ -84,6 +84,8 @@ Les articles sont natifs (menu **Articles**), rangés dans les catégories **New
 
 bigm-core règle la base des catégories sur `actualites` à son installation (**Réglages → Permaliens**), si elle était vide. La catégorie par défaut (« Non classé ») n'apparaît ni dans les pastilles ni sur les cartes.
 
+Pastilles Tout / News / Presse dans un modèle du Theme Builder : widget **Code court** avec `[bigm_categories_articles]` (la page affichée est marquée).
+
 Les gabarits sont dans le thème : `home.php`, `category.php`, `single-post.php`. Ils appellent `bigm_page_actualites()` et `bigm_page_article()` de bigm-core. Un modèle du Theme Builder d'Elementor Pro, s'il vise ces pages, les remplace. Les cartes d'articles de l'accueil et de la page Actualités partagent le même balisage et `assets/css/articles.css`.
 
 Les articles de l'ancien site se reprennent avec leurs images par **Outils → Reprise des articles** (`docs/seo.md`).

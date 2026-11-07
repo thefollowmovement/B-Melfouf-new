@@ -57,6 +57,16 @@ Safari (iOS) et Chrome (Android) sur de vrais téléphones restent à faire : vo
 | Vidéos YouTube des articles repris | Mode « confidentialité renforcée » (pas de cookie avant la lecture) |
 | Icône Restaurants de l'en-tête mobile (CSS additionnel) | Reprise dans le thème, en 44 × 44 px (taille tactile du brief) |
 
+## Vérification après installation (7 novembre, bigm-core et bigm-child 0.6.1)
+
+- Filtres News / Presse, mentions légales, confidentialité, cookies et jeu concours : en ligne (200), 0 erreur d'accessibilité sur ordinateur et mobile.
+- `/concours/` → `/jeu-concours/`, `/privacy-policy/` → `/mentions-legales/`, `/recrutement/` → `/nous-rejoindre/`.
+- « Postuler » de l'accueil et icône Restaurants de l'en-tête mobile : à jour.
+- Accueil (Lighthouse mobile) : LCP encore à 4,3 s. Le visuel de Nos Box était bien chargé tout de suite, mais restait invisible jusqu'au script des apparitions, chargé en dernier.
+  - Corrigé dans bigm-child 0.6.2 : les blocs déjà à l'écran s'affichent dès la fin de la page.
+  - Le reste vient du temps de réponse du serveur (0,6 s, pas de cache de pages) : installer LiteSpeed Cache (`docs/seo.md`).
+- Pastilles Tout / News / Presse du modèle « Blog — Actualités » : « Tout » (un widget Bouton) n'est pas aligné avec les deux autres (le widget Catégories de WordPress) et n'est jamais marqué actif. bigm-core 0.6.2 ajoute le shortcode `[bigm_categories_articles]`, qui affiche les trois pastilles ensemble (voir ci-dessous).
+
 ## À corriger dans l'admin (préprod)
 
 Ces réglages sont dans des pages Elementor faites sur la préprod. Ils ne viennent pas du code.
@@ -72,10 +82,13 @@ Ces réglages sont dans des pages Elementor faites sur la préprod. Ils ne vienn
    - Les vignettes des articles sont des liens sans nom quand l'image n'a pas de texte alternatif : remplir le texte alternatif des images à la une.
    - Le lien « Précédent » désactivé de la pagination est trop pâle (2,96:1).
    - Le rôle ARIA posé sur les `<article>` n'est pas autorisé.
+   - Les liens « Lire la suite » portent un nom caché différent de leur texte : laisser le texte du lien vide dans le widget, ou le masquer.
+   - Pastilles : remplacer le bouton « Tout » et le widget Catégories par un widget **Code court** contenant `[bigm_categories_articles]`.
 4. **Lien Commander** (Réglages Big M) :
    - retirer le paramètre de suivi `?srsltid=…` ;
    - viser la page française d'Uber Eats (`/fr/` au lieu de `/fr-en/`).
-5. **CSS additionnel** (Apparence → Personnaliser) : le vider une fois le thème 0.6.1 installé, l'icône Restaurants est maintenant dans le thème.
+5. **Menu du pied de page « L'entreprise »** (Apparence → Menus) : le lien « Recrutement » pointe encore vers `/recrutement/` (menu créé à l'installation avec les liens du prototype). Le passer à `/nous-rejoindre/`. La redirection marche en attendant.
+6. **CSS additionnel** (Apparence → Personnaliser) : le vider une fois le thème 0.6.1 installé, l'icône Restaurants est maintenant dans le thème.
 
 ## À signaler dans le dépôt de StoreLocatore
 

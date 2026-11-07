@@ -270,7 +270,7 @@ if ( function_exists( 'bigm_demo_textes_legaux' ) ) {
 	$ok( array( 'mentions-legales', 'politique-de-confidentialite', 'cookies', 'jeu-concours' ) === array_keys( $textes ), 'quatre pages : mentions légales, confidentialité, cookies, jeu concours' );
 	$ok( ! $liens || ! array_diff( array( '/mentions-legales/', '/politique-de-confidentialite/', '/cookies/' ), $liens ), 'mêmes adresses que les liens du pied de page' );
 	$tout = wp_json_encode( $textes, JSON_UNESCAPED_UNICODE );
-	$ok( str_contains( $tout, '884 901 448' ) && str_contains( $tout, 'Yaniss Ourabia' ) && str_contains( $tout, 'Hostinger' ) && ! str_contains( $tout, 'Gravatar' ), 'mentions de l’ancien site reprises (RCS, publication), hébergeur renseigné, plus de texte WordPress par défaut' );
+	$ok( str_contains( $tout, '884&nbsp;901&nbsp;448' ) && str_contains( $tout, 'Yaniss Ourabia' ) && str_contains( $tout, 'Hostinger' ) && ! str_contains( $tout, 'Gravatar' ), 'mentions de l’ancien site reprises (RCS, publication), hébergeur renseigné, plus de texte WordPress par défaut' );
 	$ok( "Qui sommes-nous\u{202F}?" === bigm_demo_typo( 'Qui sommes-nous ?' ) && "«\u{202F}Nous rejoindre\u{202F}»" === bigm_demo_typo( '« Nous rejoindre »' ) && 'https://a.fr' === bigm_demo_typo( 'https://a.fr' ), 'typographie : espaces fines avant « ? » et dans les guillemets, adresses intactes' );
 }
 

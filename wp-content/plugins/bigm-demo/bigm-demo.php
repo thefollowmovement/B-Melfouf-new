@@ -3,7 +3,7 @@
  * Plugin Name:  Big M — contenu de démonstration
  * Description:  Importe les visuels et les contenus du prototype (sliders, produits, articles) et crée la page d'accueil Elementor. Temporaire : à supprimer avant la mise en ligne. Outils → Démo Big M.
  * Author:       The Follow Movement
- * Version:      0.5.0
+ * Version:      0.5.1
  * Requires PHP: 8.2
  * Requires Plugins: bigm-core, elementor
  *
@@ -12,7 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'BIGM_DEMO_VERSION', '0.5.0' );
+define( 'BIGM_DEMO_VERSION', '0.5.1' );
 define( 'BIGM_DEMO_MEDIAS', __DIR__ . '/medias/' );
 
 /**
@@ -775,9 +775,9 @@ function bigm_demo_textes_legaux(): array {
 			'sections'    => array(
 				array(
 					'',
-					'<p>Conformément aux dispositions de la loi n° 2004-575 du 21 juin 2004 pour la confiance en l’économie numérique, il est précisé aux utilisateurs du site bigm-burger.fr l’identité des différents intervenants dans le cadre de sa réalisation et de son suivi.</p>
+					'<p>Conformément aux dispositions de la loi n°&nbsp;2004-575 du 21 juin 2004 pour la confiance en l’économie numérique, il est précisé aux utilisateurs du site bigm-burger.fr l’identité des différents intervenants dans le cadre de sa réalisation et de son suivi.</p>
 <h2>Édition du site</h2>
-<p>Le site bigm-burger.fr est édité par la société <strong>Big M cie</strong>, société par actions simplifiée au capital de 1 000 euros, dont le siège social est situé 44 avenue du 8 mai 1945, 92390 Villeneuve-la-Garenne, immatriculée au Registre du commerce et des sociétés de Nanterre sous le numéro 884 901 448.</p>
+<p>Le site bigm-burger.fr est édité par la société <strong>Big M cie</strong>, société par actions simplifiée au capital de 1&nbsp;000&nbsp;euros, dont le siège social est situé 44 avenue du 8 mai 1945, 92390 Villeneuve-la-Garenne, immatriculée au Registre du commerce et des sociétés de Nanterre sous le numéro 884&nbsp;901&nbsp;448.</p>
 <h2>Responsable de la publication</h2>
 <p>Yaniss Ourabia.</p>
 <h2>Nous contacter</h2>

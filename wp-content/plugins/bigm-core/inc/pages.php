@@ -288,3 +288,16 @@ add_filter(
 	'embed_oembed_html',
 	static fn( $html ) => is_string( $html ) ? str_replace( array( 'https://www.youtube.com/embed/', 'https://youtube.com/embed/' ), 'https://www.youtube-nocookie.com/embed/', $html ) : $html
 );
+
+/*
+ * [bigm_categories_articles] : pastilles Tout / News / Presse de la page Actualités (page courante
+ * marquée), pour un modèle du Theme Builder. Remplace un bouton « Tout » à côté du widget
+ * Catégories de WordPress, qui ne s'alignent pas et ne marquent pas « Tout » comme actif.
+ */
+add_shortcode(
+	'bigm_categories_articles',
+	static function (): string {
+		wp_enqueue_style( 'bigm-articles' );
+		return bigm_rendu_categories_articles();
+	}
+);
