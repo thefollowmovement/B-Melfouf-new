@@ -1,12 +1,37 @@
 {
- "source": "Uber Eats, Big M Bondy (capture d'écran du 7 novembre 2026)",
- "notes": "Recopié de la capture. Descriptions coupées par « … » sur la capture : non reprises. Prix non repris (brief). Articles absents du tableau des allergènes et sans composition connue (Toast M, Formule 1 Egg Muffin, Kinder Surprise) : non repris.",
+ "source": "Uber Eats, Big M Bondy (capture d'écran et page enregistrée, 7 et 8 novembre 2026)",
+ "notes": "Noms des menus, menus, boissons et sauces recopiés de la carte Uber Eats ; descriptions complètes, photos : ops/carte/uber-eats-articles.json (extrait de la page enregistrée). Prix non repris (brief). Bacon : bœuf (confirmé par l'agence), même là où Uber Eats écrit « dinde ». Articles absents du tableau des allergènes (Toast M, Formule 1 Egg Muffin, Kinder Surprise) : non repris.",
  "categories": [
-  {"slug": "menus-doubles", "nom": "Burgers doublés", "parent": "menus", "ordre": 1},
-  {"slug": "menus-simples", "nom": "Menus simples", "parent": "menus", "ordre": 2},
-  {"slug": "menus-wraps", "nom": "Menus wraps", "parent": "menus", "ordre": 3},
-  {"slug": "menus-grill", "nom": "Menus burgers grill", "parent": "menus", "ordre": 4},
-  {"slug": "menus-enfant", "nom": "Menus enfant", "parent": "menus", "ordre": 5}
+  {
+   "slug": "menus-doubles",
+   "nom": "Burgers doublés",
+   "parent": "menus",
+   "ordre": 1
+  },
+  {
+   "slug": "menus-simples",
+   "nom": "Menus simples",
+   "parent": "menus",
+   "ordre": 2
+  },
+  {
+   "slug": "menus-wraps",
+   "nom": "Menus wraps",
+   "parent": "menus",
+   "ordre": 3
+  },
+  {
+   "slug": "menus-grill",
+   "nom": "Menus burgers grill",
+   "parent": "menus",
+   "ordre": 4
+  },
+  {
+   "slug": "menus-enfant",
+   "nom": "Menus enfant",
+   "parent": "menus",
+   "ordre": 5
+  }
  ],
  "descriptions": {
   "Cheeseburger M": "1 steak 45 g, 1 tranche de cheddar, cornichons, ketchup et moutarde.",
@@ -14,96 +39,700 @@
   "Double Cheeseburger M": "2 steaks 45 g, 3 tranches de cheddar, cornichons, ketchup et moutarde.",
   "Triple Cheeseburger M": "3 steaks 45 g, 3 tranches de cheddar, cornichons, ketchup et moutarde.",
   "Géant": "2 steaks 45 g, 1 tranche de cheddar, salade, oignons et sauce Géant.",
-  "Long Bacon M": "2 steaks 45 g, 1 tranche de cheddar, bacon de dinde, salade et sauce LBM.",
+  "Long Bacon M": "2 steaks 45 g, 1 tranche de cheddar, bacon de bœuf, salade et sauce LBM.",
   "Jumbo": "Steak 120 g, salade iceberg, cornichons, tomate et rondelles d'oignons rouges.",
   "M Burger": "1 steak 45 g, cornichons, ketchup et moutarde.",
   "Frites": "Portion de frites.",
   "Mozza sticks": "Par 4 ou par 8.",
   "Bouchées camembert": "Par 4 ou par 8.",
-  "Nuggets": "Boîte de 4 ou de 8 nuggets."
+  "Nuggets": "Boîte de 4 ou de 8 nuggets.",
+  "Croq Monsieur": "1 tranche de cheddar, 1 tranche d'emmental et 1 tranche de bacon de bœuf.",
+  "Mbao Beef": "Pain bao avec 2 steaks 45 g, oignons caramélisés, sauce barbecue et 2 tranches de cheddar.",
+  "M Luxe Chicken": "1 escalope de poulet panée, 1 tranche de cheddar, tomates, salade, sauce crémeuse et poivrée."
  },
  "viandes": {
-  "Long Bacon M": ["boeuf", "dinde"],
-  "Frites cheddar crispy bacon": ["dinde"]
+  "Long Bacon M": [
+   "boeuf"
+  ],
+  "Frites cheddar crispy bacon": [
+   "boeuf"
+  ]
  },
  "a_verifier": {
-  "Croq Monsieur": "viande : dinde supposée (bacon de la recette ; « bacon de dinde » sur Uber Eats pour le L Bacon M, « jambon de… » coupé sur la capture)",
-  "Frites cheddar crispy bacon": "viande : dinde supposée (même bacon que le Long Bacon M ?)"
+  "Croq Monsieur": "description : Uber Eats indique « jambon de dinde » ; recette et agence : bacon de bœuf"
  },
  "produits": [
-  {"remplace": "M1", "titre": "M1 – Cheeseburger M + Croque", "categories": ["menus-doubles"], "composants": ["Cheeseburger M", "Croq Monsieur", "Frite"], "description": "1 Cheeseburger M et 1 Croque, servis avec des frites et une boisson au choix."},
-  {"remplace": "M2", "titre": "M2 – Cheeseburger M + Double Cheese Bacon", "categories": ["menus-doubles"], "composants": ["Cheeseburger M", "Double Cheese Bacon", "Frite"], "description": "1 Cheeseburger M et 1 Double Cheese Bacon, servis avec des frites et une boisson au choix."},
-  {"remplace": "M3", "titre": "M3 – Big + Cheeseburger M", "categories": ["menus-doubles"], "composants": ["Big", "Cheeseburger M", "Frite"], "description": "1 Big et 1 Cheeseburger M, servis avec des frites et une boisson au choix."},
-  {"remplace": "M5", "titre": "M5 – Géant + Cheeseburger M", "categories": ["menus-doubles"], "composants": ["Géant", "Cheeseburger M", "Frite"], "description": "1 Cheeseburger M et 1 Géant, servis avec des frites et une boisson au choix."},
-  {"remplace": "M6", "titre": "M6 – Big + Chicken M", "categories": ["menus-doubles"], "composants": ["Big", "Chicken M", "Frite"], "description": "1 Big et 1 Chicken M, servis avec des frites et une boisson au choix."},
-  {"remplace": "M7", "titre": "M7 – 2 Géant", "categories": ["menus-doubles"], "composants": ["Géant", "Frite"], "description": "2 Géant, servis avec des frites et une boisson au choix."},
-  {"remplace": "M9", "titre": "M9 – Big + Géant", "categories": ["menus-doubles"], "composants": ["Big", "Géant", "Frite"], "description": "1 Big et 1 Géant, servis avec des frites et une boisson au choix."},
-  {"remplace": "M10", "titre": "M10 – Big Thunder + Cheeseburger M ou 5 nuggets", "categories": ["menus-doubles"], "composants": ["Big Thunder", "Cheeseburger M", "Nuggets (petite faim)", "Frite"], "description": "1 Big Thunder et 1 Cheeseburger M ou 5 nuggets, servis avec des frites et une boisson au choix."},
-  {"remplace": "M13", "titre": "M13 – Big + 5 nuggets", "categories": ["menus-doubles"], "composants": ["Big", "Nuggets (petite faim)", "Frite"], "description": "1 Big et 5 nuggets, servis avec des frites et une boisson 33 cl au choix."},
-  {"remplace": "M14", "titre": "M14 – Chicken M + Géant", "categories": ["menus-doubles"], "composants": ["Chicken M", "Géant", "Frite"], "description": "1 Chicken M et 1 Géant, servis avec des frites et une boisson 33 cl au choix."},
-  {"remplace": "M15", "titre": "M15 – 2 Big", "categories": ["menus-doubles"], "composants": ["Big", "Frite"], "description": "2 Big, servis avec des frites et une boisson 33 cl au choix."},
-  {"remplace": "M16", "titre": "M16 – Géant + 5 nuggets", "categories": ["menus-doubles"], "composants": ["Géant", "Nuggets (petite faim)", "Frite"], "description": "1 Géant et 5 nuggets, servis avec des frites et une boisson 33 cl au choix."},
-  {"titre": "MBAO – Mbao Beef + Mbao Chicken", "slug": "mbao", "categories": ["menus-doubles"], "composants": ["Mbao Beef", "Mbao Chicken", "Frite"], "description": "1 Bao Beef et 1 Bao Chicken, servis avec des frites et une boisson 33 cl."},
-  {"remplace": "W1", "titre": "W1 – Wrap au choix + 4 nuggets", "categories": ["menus-doubles", "nouveautes"], "badge": "Nouveau", "composants": ["Wrap Curry", "Wrap Tandoori", "Nuggets (petite faim)", "Frite"], "description": "Wrap curry ou tandoori et 4 nuggets, servis avec des frites et une boisson 33 cl."},
-  {"remplace": "W2", "titre": "W2 – Wrap au choix + Cheeseburger M", "categories": ["menus-doubles", "nouveautes"], "badge": "Nouveau", "composants": ["Wrap Curry", "Wrap Tandoori", "Cheeseburger M", "Frite"], "description": "Wrap curry ou tandoori et 1 Cheeseburger M, servis avec des frites et une boisson."},
-  {"remplace": "W3", "titre": "W3 – Wrap au choix + Big", "categories": ["menus-doubles", "nouveautes"], "badge": "Nouveau", "composants": ["Wrap Curry", "Wrap Tandoori", "Big", "Frite"], "description": "Wrap curry ou tandoori et 1 Big, servis avec des frites et une boisson 33 cl."},
-  {"titre": "W4 – Wrap au choix + Géant", "slug": "w4", "categories": ["menus-doubles", "nouveautes"], "badge": "Nouveau", "composants": ["Wrap Curry", "Wrap Tandoori", "Géant", "Frite"], "description": "Wrap curry ou tandoori et 1 Géant, servis avec des frites et une boisson."},
-  {"titre": "Little Doublé", "categories": ["menus-doubles"], "composants": ["Little Big", "Little Géant", "Frite"], "description": "1 Little Big et 1 Little Géant, servis avec des frites et une boisson."},
-
-  {"titre": "Menu Cheeseburger M", "categories": ["menus-simples"], "composants": ["Cheeseburger M", "Frite"]},
-  {"titre": "Menu Double Cheeseburger M", "categories": ["menus-simples"], "composants": ["Double Cheeseburger M", "Frite"]},
-  {"titre": "Menu Big", "categories": ["menus-simples"], "composants": ["Big", "Frite"]},
-  {"titre": "Menu Géant", "categories": ["menus-simples"], "composants": ["Géant", "Frite"]},
-  {"titre": "Menu Chicken M", "categories": ["menus-simples"], "composants": ["Chicken M", "Frite"]},
-  {"titre": "Menu Long Bacon M", "categories": ["menus-simples"], "composants": ["Long bacon M", "Frite"]},
-  {"titre": "Menu Le Frenchy", "categories": ["menus-simples"], "composants": ["Le Frenchy", "Frite"]},
-  {"titre": "Menu Beef Chicken", "categories": ["menus-simples"], "composants": ["Beef Chicken", "Frite"]},
-  {"titre": "Menu Big Thunder", "categories": ["menus-simples"], "composants": ["Big Thunder", "Frite"]},
-  {"titre": "Menu Triple Cheeseburger M", "categories": ["menus-simples"], "composants": ["Triple Cheeseburger M", "Frite"]},
-  {"titre": "Menu M Luxe Beef", "categories": ["menus-simples"], "composants": ["M Luxe Beef", "Frite"]},
-  {"titre": "Menu M Luxe Chicken", "categories": ["menus-simples"], "composants": ["M Luxe Chicken", "Frite"]},
-  {"titre": "Menu Mbao Chicken", "categories": ["menus-simples"], "composants": ["Mbao Chicken", "Frite"]},
-  {"titre": "Menu Mbao Beef", "categories": ["menus-simples"], "composants": ["Mbao Beef", "Frite"]},
-  {"titre": "Menu Naan Thunder", "categories": ["menus-simples"], "composants": ["Naan Thunder", "Frite"]},
-  {"titre": "Menu Naan Big", "categories": ["menus-simples"], "composants": ["Naan Big", "Frite"]},
-  {"titre": "Menu Naan Géant", "categories": ["menus-simples"], "composants": ["Naan Géant", "Frite"]},
-
-  {"titre": "Menu Wrap Steak", "categories": ["menus-wraps"], "composants": ["Wrap Steak", "Frite"]},
-  {"titre": "Menu Wrap Tenders", "categories": ["menus-wraps"], "composants": ["Wrap Tenders", "Frite"]},
-  {"titre": "Menu Wrap Tandoori", "categories": ["menus-wraps"], "composants": ["Wrap Tandoori", "Frite"]},
-  {"titre": "Menu Wrap Curry", "categories": ["menus-wraps"], "composants": ["Wrap Curry", "Frite"]},
-
-  {"titre": "Menu Jumbo", "categories": ["menus-grill"], "composants": ["Jumbo", "Frite"]},
-  {"titre": "Menu Monster", "categories": ["menus-grill"], "composants": ["Monster", "Frite"]},
-
-  {"remplace": "Menu kids", "titre": "Little Kids Burger", "categories": ["menus-enfant"], "a_verifier": "composition du menu enfant : allergènes de la ligne « Menu kids » du tableau"},
-  {"titre": "Little Kids Croq", "categories": ["menus-enfant"], "composants": ["Croq Monsieur", "Frite"], "a_verifier": "composition du menu enfant (croque + frites supposés)"},
-  {"titre": "Little Kids Nuggets", "categories": ["menus-enfant"], "composants": ["Nuggets (petite faim)", "Frite"], "a_verifier": "composition du menu enfant (4 nuggets + frites supposés)"},
-
-  {"titre": "Sauce algérienne", "categories": ["sauces"], "contient": ["oeufs", "moutarde"], "a_verifier": "stick Nawhal's (moutarde en traces) ou Delka (moutarde) : profil le plus strict retenu"},
-  {"titre": "Sauce pita", "categories": ["sauces"], "contient": ["oeufs"], "traces": ["lait"], "a_verifier": "fiche Farm'Sauce à confirmer"},
-  {"titre": "Sauce barbecue", "categories": ["sauces"]},
-  {"titre": "Sauce Biggy Burger", "categories": ["sauces"], "contient": ["oeufs", "moutarde", "poissons"]},
-  {"titre": "Sauce blanche", "categories": ["sauces"], "contient": ["oeufs"]},
-  {"titre": "Ketchup", "categories": ["sauces"]},
-  {"titre": "Sauce samouraï", "categories": ["sauces"], "contient": ["oeufs", "moutarde"]},
-
-  {"titre": "Sprite 33 cl", "categories": ["boissons"]},
-  {"titre": "Fanta Orange 33 cl", "categories": ["boissons"]},
-  {"titre": "Fanta Exotique 33 cl", "categories": ["boissons"]},
-  {"titre": "Fanta Fruits du Dragon 33 cl", "categories": ["boissons"]},
-  {"titre": "Fanta Citron 33 cl", "categories": ["boissons"]},
-  {"titre": "Coca-Cola 33 cl", "categories": ["boissons"]},
-  {"titre": "Coca-Cola Zéro 33 cl", "categories": ["boissons"]},
-  {"titre": "Coca-Cola Cherry 33 cl", "categories": ["boissons"]},
-  {"titre": "Coca-Cola Vanille 33 cl", "categories": ["boissons"]},
-  {"titre": "Oasis Tropical 33 cl", "categories": ["boissons"]},
-  {"titre": "Oasis Pomme Cassis 33 cl", "categories": ["boissons"]},
-  {"titre": "Orangina 33 cl", "categories": ["boissons"]},
-  {"titre": "Schweppes Agrum' 33 cl", "categories": ["boissons"]},
-  {"titre": "Hawaï 33 cl", "categories": ["boissons"]},
-  {"titre": "Tropico 33 cl", "categories": ["boissons"]},
-  {"titre": "Perrier 33 cl", "categories": ["boissons"]},
-  {"titre": "Cristaline 50 cl", "categories": ["boissons"]}
+  {
+   "remplace": "M1",
+   "titre": "M1 – Cheeseburger M + Croque",
+   "categories": [
+    "menus-doubles"
+   ],
+   "composants": [
+    "Cheeseburger M",
+    "Croq Monsieur",
+    "Frite"
+   ],
+   "description": "1 Cheeseburger M et 1 Croque, servis avec des frites et une boisson au choix."
+  },
+  {
+   "remplace": "M2",
+   "titre": "M2 – Cheeseburger M + Double Cheese Bacon",
+   "categories": [
+    "menus-doubles"
+   ],
+   "composants": [
+    "Cheeseburger M",
+    "Double Cheese Bacon",
+    "Frite"
+   ],
+   "description": "1 Cheeseburger M et 1 Double Cheese Bacon, servis avec des frites et une boisson au choix."
+  },
+  {
+   "remplace": "M3",
+   "titre": "M3 – Big + Cheeseburger M",
+   "categories": [
+    "menus-doubles"
+   ],
+   "composants": [
+    "Big",
+    "Cheeseburger M",
+    "Frite"
+   ],
+   "description": "1 Big et 1 Cheeseburger M, servis avec des frites et une boisson au choix."
+  },
+  {
+   "remplace": "M5",
+   "titre": "M5 – Géant + Cheeseburger M",
+   "categories": [
+    "menus-doubles"
+   ],
+   "composants": [
+    "Géant",
+    "Cheeseburger M",
+    "Frite"
+   ],
+   "description": "1 Cheeseburger M et 1 Géant, servis avec des frites et une boisson au choix."
+  },
+  {
+   "remplace": "M6",
+   "titre": "M6 – Big + Chicken M",
+   "categories": [
+    "menus-doubles"
+   ],
+   "composants": [
+    "Big",
+    "Chicken M",
+    "Frite"
+   ],
+   "description": "1 Big et 1 Chicken M, servis avec des frites et une boisson au choix."
+  },
+  {
+   "remplace": "M7",
+   "titre": "M7 – 2 Géant",
+   "categories": [
+    "menus-doubles"
+   ],
+   "composants": [
+    "Géant",
+    "Frite"
+   ],
+   "description": "2 Géant, servis avec des frites et une boisson au choix."
+  },
+  {
+   "remplace": "M9",
+   "titre": "M9 – Big + Géant",
+   "categories": [
+    "menus-doubles"
+   ],
+   "composants": [
+    "Big",
+    "Géant",
+    "Frite"
+   ],
+   "description": "1 Big et 1 Géant, servis avec des frites et une boisson au choix."
+  },
+  {
+   "remplace": "M10",
+   "titre": "M10 – Big Thunder + Cheeseburger M ou 5 nuggets",
+   "categories": [
+    "menus-doubles"
+   ],
+   "composants": [
+    "Big Thunder",
+    "Cheeseburger M",
+    "Nuggets (petite faim)",
+    "Frite"
+   ],
+   "description": "1 Big Thunder et 1 Cheeseburger M ou 5 nuggets, servis avec des frites et une boisson au choix."
+  },
+  {
+   "remplace": "M13",
+   "titre": "M13 – Big + 5 nuggets",
+   "categories": [
+    "menus-doubles"
+   ],
+   "composants": [
+    "Big",
+    "Nuggets (petite faim)",
+    "Frite"
+   ],
+   "description": "1 Big et 5 nuggets, servis avec des frites et une boisson 33 cl au choix."
+  },
+  {
+   "remplace": "M14",
+   "titre": "M14 – Chicken M + Géant",
+   "categories": [
+    "menus-doubles"
+   ],
+   "composants": [
+    "Chicken M",
+    "Géant",
+    "Frite"
+   ],
+   "description": "1 Chicken M et 1 Géant, servis avec des frites et une boisson 33 cl au choix."
+  },
+  {
+   "remplace": "M15",
+   "titre": "M15 – 2 Big",
+   "categories": [
+    "menus-doubles"
+   ],
+   "composants": [
+    "Big",
+    "Frite"
+   ],
+   "description": "2 Big, servis avec des frites et une boisson 33 cl au choix."
+  },
+  {
+   "remplace": "M16",
+   "titre": "M16 – Géant + 5 nuggets",
+   "categories": [
+    "menus-doubles"
+   ],
+   "composants": [
+    "Géant",
+    "Nuggets (petite faim)",
+    "Frite"
+   ],
+   "description": "1 Géant et 5 nuggets, servis avec des frites et une boisson 33 cl au choix."
+  },
+  {
+   "titre": "MBAO – Mbao Beef + Mbao Chicken",
+   "slug": "mbao",
+   "categories": [
+    "menus-doubles"
+   ],
+   "composants": [
+    "Mbao Beef",
+    "Mbao Chicken",
+    "Frite"
+   ],
+   "description": "1 Bao Beef et 1 Bao Chicken, servis avec des frites et une boisson 33 cl."
+  },
+  {
+   "remplace": "W1",
+   "titre": "W1 – Wrap au choix + 4 nuggets",
+   "categories": [
+    "menus-doubles",
+    "nouveautes"
+   ],
+   "badge": "Nouveau",
+   "composants": [
+    "Wrap Curry",
+    "Wrap Tandoori",
+    "Nuggets (petite faim)",
+    "Frite"
+   ],
+   "description": "Wrap curry ou tandoori et 4 nuggets, servis avec des frites et une boisson 33 cl."
+  },
+  {
+   "remplace": "W2",
+   "titre": "W2 – Wrap au choix + Cheeseburger M",
+   "categories": [
+    "menus-doubles",
+    "nouveautes"
+   ],
+   "badge": "Nouveau",
+   "composants": [
+    "Wrap Curry",
+    "Wrap Tandoori",
+    "Cheeseburger M",
+    "Frite"
+   ],
+   "description": "Wrap curry ou tandoori et 1 Cheeseburger M, servis avec des frites et une boisson."
+  },
+  {
+   "remplace": "W3",
+   "titre": "W3 – Wrap au choix + Big",
+   "categories": [
+    "menus-doubles",
+    "nouveautes"
+   ],
+   "badge": "Nouveau",
+   "composants": [
+    "Wrap Curry",
+    "Wrap Tandoori",
+    "Big",
+    "Frite"
+   ],
+   "description": "Wrap curry ou tandoori et 1 Big, servis avec des frites et une boisson 33 cl."
+  },
+  {
+   "titre": "W4 – Wrap au choix + Géant",
+   "slug": "w4",
+   "categories": [
+    "menus-doubles",
+    "nouveautes"
+   ],
+   "badge": "Nouveau",
+   "composants": [
+    "Wrap Curry",
+    "Wrap Tandoori",
+    "Géant",
+    "Frite"
+   ],
+   "description": "Wrap curry ou tandoori et 1 Géant, servis avec des frites et une boisson."
+  },
+  {
+   "titre": "Little Doublé",
+   "categories": [
+    "menus-doubles"
+   ],
+   "composants": [
+    "Little Big",
+    "Little Géant",
+    "Frite"
+   ],
+   "description": "1 Little Big et 1 Little Géant, servis avec des frites et une boisson."
+  },
+  {
+   "titre": "Menu Cheeseburger M",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Cheeseburger M",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Double Cheeseburger M",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Double Cheeseburger M",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Big",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Big",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Géant",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Géant",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Chicken M",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Chicken M",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Long Bacon M",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Long bacon M",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Le Frenchy",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Le Frenchy",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Beef Chicken",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Beef Chicken",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Big Thunder",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Big Thunder",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Triple Cheeseburger M",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Triple Cheeseburger M",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu M Luxe Beef",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "M Luxe Beef",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu M Luxe Chicken",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "M Luxe Chicken",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Mbao Chicken",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Mbao Chicken",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Mbao Beef",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Mbao Beef",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Naan Thunder",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Naan Thunder",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Naan Big",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Naan Big",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Naan Géant",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Naan Géant",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Wrap Steak",
+   "categories": [
+    "menus-wraps"
+   ],
+   "composants": [
+    "Wrap Steak",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Wrap Tenders",
+   "categories": [
+    "menus-wraps"
+   ],
+   "composants": [
+    "Wrap Tenders",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Wrap Tandoori",
+   "categories": [
+    "menus-wraps"
+   ],
+   "composants": [
+    "Wrap Tandoori",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Wrap Curry",
+   "categories": [
+    "menus-wraps"
+   ],
+   "composants": [
+    "Wrap Curry",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Jumbo",
+   "categories": [
+    "menus-grill"
+   ],
+   "composants": [
+    "Jumbo",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Monster",
+   "categories": [
+    "menus-grill"
+   ],
+   "composants": [
+    "Monster",
+    "Frite"
+   ]
+  },
+  {
+   "remplace": "Menu kids",
+   "titre": "Little Kids Burger",
+   "categories": [
+    "menus-enfant"
+   ],
+   "a_verifier": "composition du menu enfant : allergènes de la ligne « Menu kids » du tableau"
+  },
+  {
+   "titre": "Little Kids Croq",
+   "categories": [
+    "menus-enfant"
+   ],
+   "composants": [
+    "Croq Monsieur",
+    "Frite"
+   ],
+   "a_verifier": "composition du menu enfant (croque + frites supposés)"
+  },
+  {
+   "titre": "Little Kids Nuggets",
+   "categories": [
+    "menus-enfant"
+   ],
+   "composants": [
+    "Nuggets (petite faim)",
+    "Frite"
+   ],
+   "a_verifier": "composition du menu enfant (4 nuggets + frites supposés)"
+  },
+  {
+   "titre": "Sauce algérienne",
+   "categories": [
+    "sauces"
+   ],
+   "contient": [
+    "oeufs",
+    "moutarde"
+   ],
+   "a_verifier": "stick Nawhal's (moutarde en traces) ou Delka (moutarde) : profil le plus strict retenu"
+  },
+  {
+   "titre": "Sauce pita",
+   "categories": [
+    "sauces"
+   ],
+   "contient": [
+    "oeufs"
+   ],
+   "traces": [
+    "lait"
+   ],
+   "a_verifier": "fiche Farm'Sauce à confirmer"
+  },
+  {
+   "titre": "Sauce barbecue",
+   "categories": [
+    "sauces"
+   ]
+  },
+  {
+   "titre": "Sauce Biggy Burger",
+   "categories": [
+    "sauces"
+   ],
+   "contient": [
+    "oeufs",
+    "moutarde",
+    "poissons"
+   ]
+  },
+  {
+   "titre": "Sauce blanche",
+   "categories": [
+    "sauces"
+   ],
+   "contient": [
+    "oeufs"
+   ]
+  },
+  {
+   "titre": "Ketchup",
+   "categories": [
+    "sauces"
+   ]
+  },
+  {
+   "titre": "Sauce samouraï",
+   "categories": [
+    "sauces"
+   ],
+   "contient": [
+    "oeufs",
+    "moutarde"
+   ]
+  },
+  {
+   "titre": "Sprite 33 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Fanta Orange 33 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Fanta Exotique 33 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Fanta Fruits du Dragon 33 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Fanta Citron 33 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Coca-Cola 33 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Coca-Cola Zéro 33 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Coca-Cola Cherry 33 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Coca-Cola Vanille 33 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Oasis Tropical 33 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Oasis Pomme Cassis 33 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Orangina 33 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Schweppes Agrum' 33 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Hawaï 33 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Tropico 33 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Perrier 33 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Cristaline 50 cl",
+   "categories": [
+    "boissons"
+   ]
+  }
  ]
 }

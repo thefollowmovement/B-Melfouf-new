@@ -11,7 +11,9 @@ Sources :
   (dont les codes M1… W4 du tableau), menus, boissons, sauces à part, descriptions complètes.
   Les allergènes et les viandes d'un menu sont ceux de ses produits réunis (boisson non comprise),
   plus ceux de sa ligne dans le tableau s'il en a une. Les prix ne sont pas repris (brief) ;
-- facultatif : la page Uber Eats enregistrée depuis le navigateur (HTML), pour les photos.
+- facultatif : la page Uber Eats enregistrée depuis le navigateur (HTML). Ses articles (nom,
+  description, adresse de la photo ; pas les prix) sont gardés dans ops/carte/uber-eats-articles.json,
+  qui sert ensuite à chaque passage : photos et descriptions des produits qui n'en ont pas.
 
 Le fichier xlsx n'est pas mis dans Git. Le JSON produit ne contient que des données publiques
 (noms, catégories, viandes, allergènes, descriptions, adresses des photos).
@@ -86,7 +88,7 @@ NOMS = {
 # rien, à compléter dans l'admin (voir A_VERIFIER).
 VIANDE_RECETTE = [
     (re.compile(r"^steak", re.I), "boeuf"),
-    (re.compile(r"^bacon", re.I), "dinde"),  # « bacon de dinde » d'après Uber Eats (L Bacon M)
+    (re.compile(r"^bacon", re.I), "boeuf"),  # bacon de bœuf (confirmé par l'agence ; Uber Eats écrit « dinde »)
     (re.compile(r"chicken burger|escalope|tenders|nuggets|poulet", re.I), "poulet"),
 ]
 # Produits sans viande (fritures, fromages panés) : « Végétarien » dans le filtre.
@@ -102,7 +104,26 @@ A_VERIFIER = {
 }
 UBER = Path(__file__).with_name("uber-eats-bondy.json")
 ORDRE_ALLERGENES = list(ALLERGENES.values())
-ORDRE_VIANDES = ["boeuf", "poulet", "dinde", "poisson", "vegetarien"]
+ORDRE_VIANDES = ["boeuf", "poulet", "poisson", "vegetarien"]
+ARTICLES = Path(__file__).with_name("uber-eats-articles.json")
+# Articles Uber Eats → produits du site, quand les noms diffèrent (les codes M1… W4 sont reconnus seuls).
+ALIAS_UBER = {
+    "CheeseBurger M": "Cheeseburger M", "Double CheeseBurger M": "Double Cheeseburger M",
+    "Triple CheeseBurger M": "Triple Cheeseburger M", "L Bacon M": "Long Bacon M",
+    "Burger Jumbo": "Jumbo", "Burger Monster": "Monster", "Chicken Bao Burger": "Mbao Chicken",
+    "Croque classic": "Croq Monsieur", "Boite mix": "Boîte Mix",
+    "Mozza Sticks x4": "Mozza sticks", "Mozza Sticks x8": "Mozza sticks",
+    "Bouchees Camembert x4": "Bouchées camembert", "Bouchees Camembert x8": "Bouchées camembert",
+    "Nugget's x4": "Nuggets", "Nugget's x8": "Nuggets",
+    "Menu CheeseBurger M": "Menu Cheeseburger M", "Menu Double CheeseBurger": "Menu Double Cheeseburger M",
+    "Menu BIG": "Menu Big", "Menu L Bacon M": "Menu Long Bacon M",
+    "Menu Triple Cheeseburger": "Menu Triple Cheeseburger M", "Menu Bao Chicken": "Menu Mbao Chicken",
+    "Menu Bao Beef Burger + Frites": "Menu Mbao Beef", "Menu Burger Jumbo": "Menu Jumbo",
+    "Little Kids Nugget's x4": "Little Kids Nuggets",
+    "Sauce Algérienne": "Sauce algérienne", "Sauce Pita": "Sauce pita", "Sauce Barbecue": "Sauce barbecue",
+    "Sauce Blanche": "Sauce blanche", "Sauce Ketchup": "Ketchup", "Sauce Mayo": "Mayonnaise",
+    "Sauce Samourai": "Sauce samouraï", "Hawai 33cl": "Hawaï 33 cl",
+}
 
 
 def slug(texte):
@@ -183,22 +204,61 @@ def produits_du_tableau(chemin):
     return produits
 
 
-def uber_eats(chemin):
-    """Articles d'une page Uber Eats enregistrée : [{section, titre, description, image}]."""
+def extraire_uber(chemin):
+    """Articles d'une page Uber Eats enregistrée (HTML) : [{section, titre, description, image}].
+
+    Les données de la carte sont dans le script __REACT_QUERY_STATE__ (JSON dont les guillemets
+    sont écrits \\u0022 ; l'enregistrement par le navigateur remplace aussi les barres obliques
+    inverses par %5C). Les prix ne sont pas gardés.
+    """
     texte = Path(chemin).read_text(encoding="utf-8", errors="replace")
-    articles = []
-    # Les données de la page sont dans du JSON (échappé ou non) : on cherche les objets
-    # d'article, qui ont un titre, une description et une adresse d'image.
-    brut = html.unescape(texte).replace('\\u002F', '/').replace('\\"', '"')
-    for m in re.finditer(r'"title":"(?P<t>[^"]{2,80})"(?P<reste>.{0,1500}?)"imageUrl":"(?P<i>https://tb-static\.uber\.com/[^"]+)"', brut, re.S):
-        desc = re.search(r'"(?:itemDescription|description)":"(?P<d>[^"]*)"', m.group("reste"))
-        articles.append({"titre": m.group("t").strip(), "description": (desc.group("d") if desc else "").strip(), "image": m.group("i")})
-    vus, uniques = set(), []
+    m = re.search(r'<script type="application/json" id="__REACT_QUERY_STATE__">(.*?)</script>', texte, re.S)
+    if not m:
+        sys.exit("Page Uber Eats sans __REACT_QUERY_STATE__ : enregistrer la page complète (HTML).")
+    brut = m.group(1).strip()
+    etat = json.loads(json.loads('"' + brut.replace('"', '\\"') + '"').replace("%5C", "\\"))
+    articles, vus = [], set()
+    for requete in etat["queries"]:
+        donnees = requete.get("state", {}).get("data")
+        if not isinstance(donnees, dict) or "catalogSectionsMap" not in donnees:
+            continue
+        for sections in donnees["catalogSectionsMap"].values():
+            for section in sections:
+                charge = section.get("payload", {}).get("standardItemsPayload") or {}
+                titre_section = re.sub(r"[^\w' ]+", "", charge.get("title", {}).get("text", "")).strip()
+                for a in charge.get("catalogItems", []):
+                    if a["title"] in vus:
+                        continue
+                    vus.add(a["title"])
+                    articles.append({"section": titre_section, "titre": a["title"].strip(),
+                                     "description": (a.get("itemDescription") or "").strip(),
+                                     "image": a.get("imageUrl") or ""})
+    return articles
+
+
+def nettoyer(texte):
+    """Description Uber Eats mise au propre : unités, accents, point final."""
+    t = re.sub(r"(\d+)\s*[gG][rR]?\b", r"\1 g", texte.strip())
+    t = re.sub(r"\bboeuf\b", "bœuf", t).replace("Nann", "Naan").replace(" dune ", " d'une ")
+    if t and t[-1] not in ".!?":
+        t += "."
+    return t[:1].upper() + t[1:]
+
+
+def photos_uber(produits, articles):
+    """Photos et descriptions manquantes, d'après les articles Uber Eats."""
+    par_titre = {p["titre"]: p for p in produits}
+    codes = {re.match(r"^(\S+) –", p["titre"]).group(1): p for p in produits if re.match(r"^(M\d+|W\d+|MBAO) –", p["titre"])}
     for a in articles:
-        if a["titre"] not in vus:
-            vus.add(a["titre"])
-            uniques.append(a)
-    return uniques
+        code = re.match(r"^(M\d+|W\d+|MBAO)\s*-", a["titre"])
+        nom = ALIAS_UBER.get(a["titre"], re.sub(r"(\d+)cl$", r"\1 cl", a["titre"]))
+        p = codes.get(code.group(1)) if code else par_titre.get(nom)
+        if not p:
+            continue
+        if a["image"] and not p.get("image"):
+            p["image"] = a["image"]
+        if a["description"] and not p["description"] and "dinde" not in a["description"]:
+            p["description"] = nettoyer(a["description"])
 
 
 def fusion_uber(produits, chemin):
@@ -272,13 +332,19 @@ def main():
         categories += uber.get("categories", [])
         sources.append(uber["source"])
     if len(sys.argv) > 2:
-        index = {cle(p["titre"]): p for p in produits}
-        for a in uber_eats(sys.argv[2]):
-            p = index.get(cle(a["titre"]))
-            if p:
-                p["description"] = p["description"] or a["description"]
-                p["image"] = p["image"] or a["image"]
-        sources.append("page Uber Eats enregistrée (photos)")
+        ARTICLES.write_text(json.dumps(extraire_uber(sys.argv[2]), ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    if ARTICLES.exists():
+        photos_uber(produits, json.loads(ARTICLES.read_text(encoding="utf-8")))
+        sources.append("page Uber Eats Big M Bondy (photos et descriptions)")
+    # Descriptions déjà livrées par un fichier précédent : l'import peut les remplacer tant qu'elles
+    # n'ont pas été retouchées dans l'admin (ex. « bacon de dinde » corrigé en « bacon de bœuf »).
+    if SORTIE.exists():
+        avant = {p["slug"]: p for p in json.loads(SORTIE.read_text(encoding="utf-8"))["produits"]}
+        for p in produits:
+            a = avant.get(p["slug"], {})
+            anciennes = [d for d in a.get("anciennes_descriptions", []) + [a.get("description", "")] if d and d != p["description"]]
+            if anciennes:
+                p["anciennes_descriptions"] = list(dict.fromkeys(anciennes))
     donnees = {
         "version": datetime.date.today().isoformat(),
         "sources": sources,

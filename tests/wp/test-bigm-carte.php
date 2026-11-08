@@ -295,6 +295,27 @@ $r2 = bigm_import_produit( array_merge( $fiche_import, array( 'contient' => arra
 $d2 = bigm_produit( $r1['id'] );
 $ok( 'maj' === $r2['etat'] && $r2['id'] === $r1['id'] && 'Nom retouché' === $d2['titre'] && str_contains( $d2['description'], 'Texte retouché.' ) && has_term( 'import-test', 'bigm_categorie', $r1['id'] ) && ! has_term( 'import-test-sous', 'bigm_categorie', $r1['id'] ), 'nouvel import : nom, texte et catégories retouchés gardés' );
 $ok( array( 'soja' ) === $d2['allergenes']['contient'] && array() === $d2['allergenes']['traces'], 'nouvel import : allergènes du fichier (ils font foi)' );
+$fiche_d = array(
+	'titre'       => 'Produit description test',
+	'slug'        => 'produit-description-test',
+	'categories'  => array( 'import-test' ),
+	'description' => 'Bacon de dinde.',
+);
+$rd      = bigm_import_produit( $fiche_d );
+$posts[] = $rd['id'];
+bigm_import_produit( array_merge( $fiche_d, array( 'description' => 'Bacon de bœuf.' ) ) );
+$ok( 'Bacon de bœuf.' === get_post_field( 'post_content', $rd['id'] ), 'description d’un import précédent, pas retouchée : remplacée par celle du fichier' );
+wp_update_post(
+	array(
+		'ID'           => $rd['id'],
+		'post_content' => 'Texte écrit dans l’admin.',
+	)
+);
+bigm_import_produit( array_merge( $fiche_d, array( 'description' => 'Autre texte du fichier.' ) ) );
+$ok( 'Texte écrit dans l’admin.' === get_post_field( 'post_content', $rd['id'] ), 'description retouchée dans l’admin : gardée' );
+bigm_import_produit( array_merge( $fiche_d, array( 'description' => 'Texte corrigé.', 'anciennes_descriptions' => array( 'Texte écrit dans l’admin.' ) ) ) );
+$ok( 'Texte corrigé.' === get_post_field( 'post_content', $rd['id'] ), 'description listée dans « anciennes_descriptions » (import d’une version précédente) : remplacée' );
+$ok( ! array_key_exists( 'dinde', bigm_viandes() ) && array( 'boeuf', 'poulet', 'poisson', 'vegetarien' ) === array_keys( bigm_viandes() ), 'viandes : bœuf, poulet, poisson, végétarien (bacon de bœuf)' );
 $code    = bigm_import_produit(
 	array(
 		'titre'      => 'Z9 (nom à compléter)',

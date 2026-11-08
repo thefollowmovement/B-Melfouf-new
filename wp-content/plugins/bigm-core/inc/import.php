@@ -12,7 +12,8 @@
  *   Un produit existant reçoit les viandes et les allergènes du fichier, qui font foi. Si son nom
  *   n'a pas été retouché depuis le dernier import (ou s'il est provisoire, « nom à compléter »),
  *   il reprend aussi le nom, les catégories, le statut, l'ordre et le badge du fichier ; sinon
- *   ils ne changent pas. Description et photo ne sont remplies que si elles sont vides. On peut
+ *   ils ne changent pas. La description est remplacée si elle est vide ou encore celle d'un
+ *   import précédent (pas retouchée) ; la photo n'est ajoutée que s'il n'y en a pas. On peut
  *   donc relancer l'import sans perdre ce qui a été retouché dans l'admin ;
  * - photos : téléchargées une fois (l'adresse d'origine est gardée sur le média) ;
  * - en option, les produits de démonstration (extension bigm-demo) vont à la corbeille.
@@ -173,7 +174,11 @@ function bigm_import_produit( array $p ): array {
 			wp_set_object_terms( $id, $termes, 'bigm_categorie' );
 			update_post_meta( $id, '_bigm_badge', $badge );
 		}
-		if ( '' !== $desc && '' === trim( (string) $existe->post_content ) ) {
+		// Description vide, ou encore celle d'un import précédent (pas retouchée) : celle du fichier.
+		$texte     = static fn( string $html ): string => trim( (string) preg_replace( '/\s+/u', ' ', wp_strip_all_tags( $html ) ) );
+		$actuelle  = $texte( (string) $existe->post_content );
+		$anciennes = array_map( $texte, array_merge( (array) ( $p['anciennes_descriptions'] ?? array() ), array( (string) get_post_meta( $id, '_bigm_import_description', true ) ) ) );
+		if ( '' !== $desc && $actuelle !== $texte( $desc ) && ( '' === $actuelle || in_array( $actuelle, $anciennes, true ) ) ) {
 			$modifs['post_content'] = $desc;
 		}
 		if ( count( $modifs ) > 1 ) {
@@ -216,6 +221,7 @@ function bigm_import_produit( array $p ): array {
 	update_post_meta( $id, '_bigm_import', sanitize_text_field( (string) ( $p['source'] ?? $titre ) ) );
 	update_post_meta( $id, '_bigm_a_verifier', sanitize_text_field( (string) ( $p['a_verifier'] ?? '' ) ) );
 	update_post_meta( $id, '_bigm_import_titre', (string) get_the_title( $id ) );
+	update_post_meta( $id, '_bigm_import_description', $desc );
 
 	$image = false;
 	if ( ! empty( $p['image'] ) && ! has_post_thumbnail( $id ) ) {
@@ -369,7 +375,7 @@ function bigm_import_page(): void {
 		<?php echo (int) count( (array) ( $donnees['categories'] ?? array() ) ); ?> catégories.
 		Sources : <?php echo esc_html( implode( ' ; ', (array) ( $donnees['sources'] ?? array() ) ) ); ?>.
 	</p>
-	<p>Un produit qui existe déjà (même adresse) reçoit les viandes et les allergènes du fichier. S’il a été renommé dans l’admin, il garde son nom, ses catégories et son statut ; sinon il suit le fichier. Sa description et sa photo ne sont remplies que si elles sont vides. On peut relancer l’import sans risque.</p>
+	<p>Un produit qui existe déjà (même adresse) reçoit les viandes et les allergènes du fichier. S’il a été renommé dans l’admin, il garde son nom, ses catégories et son statut ; sinon il suit le fichier. Sa description suit le fichier tant qu’elle n’a pas été retouchée ; sa photo n’est ajoutée que s’il n’en a pas. On peut relancer l’import sans risque.</p>
 	<form method="get" action="<?php echo esc_url( admin_url( 'edit.php' ) ); ?>">
 		<input type="hidden" name="post_type" value="bigm_produit">
 		<input type="hidden" name="page" value="bigm-import-carte">
