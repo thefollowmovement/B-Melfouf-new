@@ -63,7 +63,7 @@ Les boutons Commander du site (en-tête, bouton central mobile, fiches produit s
 
 - Un bouton d'Elementor ouvre la fenêtre avec le lien `#commander` ; une adresse `…/#commander` l'ouvre à l'arrivée. Les boutons Commander de StoreLocatore (liste, fiche) l'ouvrent sur leur restaurant.
 - Les liens saisis sont nettoyés : paramètres de suivi retirés (`?srsltid=…` ajouté par Google, `utm_…`), page française d'Uber Eats (`/fr/` au lieu de `/fr-en/`).
-- Données : `GET /wp-json/bigm/v1/commander` (plateformes et restaurants publiés), lu à la première ouverture, en cache 5 minutes. Le script (5 Ko, différé) est sur toutes les pages ; son CSS n'est chargé qu'à l'ouverture.
+- Données : `GET /wp-json/bigm/v1/commander` (plateformes et restaurants publiés), lu à la première ouverture, en cache 5 minutes. Le script (19 Ko, 6 Ko compressé, différé) est sur toutes les pages ; son CSS n'est chargé qu'à l'ouverture.
 - Sans JavaScript, ou fenêtre désactivée, les boutons mènent au lien Commander par défaut.
 
 ## Points à savoir
