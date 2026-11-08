@@ -15,6 +15,10 @@ Compter une heure, à un moment calme (le site affiche l'ancienne version jusqu'
 - [ ] LiteSpeed Cache installé et réglé (`docs/seo.md`).
 - [ ] Lien Commander définitif, adresses e-mail de réception des formulaires confirmées, SMTP configuré.
 - [ ] Accès prêts : SSH, Google Search Console du domaine, comptes administrateurs nominatifs avec double authentification.
+- [ ] Accès MCP coupés :
+  - supprimer les mots de passe d'application créés pour Claude (Utilisateurs → Profil → Mots de passe d'application) ; désactiver le MCP dans Elementor ne suffit pas ;
+  - désactiver **Elementor → Elementor MCP** ;
+  - retirer `big-m-elementor` et `big-m-wordpress` de la configuration de Claude Code (`claude mcp remove`).
 
 ## Jour J
 
