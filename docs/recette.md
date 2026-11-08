@@ -80,6 +80,7 @@ Fait sur la préprod par l'accès MCP d'Elementor et l'API REST. Les données d'
 | `/restaurants/` | Widget **Big M — En-tête de page** au-dessus du store locator : titre `h1` « Nos restaurants », texte, bouton Commander. Titre du store locator : « Trouvez votre restaurant ». |
 | `/devenir-franchise/`, `/nous-rejoindre/` | Bandeau orange : petit titre et texte en brun `#2b1406`, boutons à contour brun. Les grands titres restent blancs, comme la bande appli du prototype. |
 | Modèle « Big M — Actualités (blog) » | Pastilles : un widget Code court `[bigm_categories_articles]` remplace le bouton « Tout » et le widget Catégories. « Précédent » et « Suivant » désactivés en brun clair `#6b4a3a`, sans transparence. |
+| `/devenir-franchise/`, formulaire | Fond gris de l'image d'exemple d'Elementor (`placeholder.png`) derrière les champs : le widget WPForms gardait cette image dans « Image de fond », que WPForms affiche même avec « Aucune ». Image vidée, et la ligne `selector { --wpforms-background-url: none; }` des modèles du dépôt ajoutée au CSS du widget. |
 | Médiathèque | Texte de remplacement des 38 images à la une qui n'en avaient pas : titre de l'article (une image partagée par deux articles : « Big M, réseau de restaurants en franchise »). |
 
 Contrôle axe, ordinateur et mobile :
