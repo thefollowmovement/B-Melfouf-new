@@ -3,7 +3,7 @@
  * Plugin Name:  Big M — contenu de démonstration
  * Description:  Importe les visuels et les contenus du prototype (sliders, produits, articles) et crée la page d'accueil Elementor. Temporaire : à supprimer avant la mise en ligne. Outils → Démo Big M.
  * Author:       The Follow Movement
- * Version:      0.5.1
+ * Version:      0.5.2
  * Requires PHP: 8.2
  * Requires Plugins: bigm-core, elementor
  *
@@ -12,7 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'BIGM_DEMO_VERSION', '0.5.1' );
+define( 'BIGM_DEMO_VERSION', '0.5.2' );
 define( 'BIGM_DEMO_MEDIAS', __DIR__ . '/medias/' );
 
 /**
@@ -857,7 +857,7 @@ function bigm_demo_textes_legaux(): array {
 <p>Si nous ajoutons un jour des outils de mesure d’audience ou de publicité, un bandeau vous demandera votre accord avant tout dépôt, et vous pourrez le retirer à tout moment.</p>
 <h2>Ce que le site peut enregistrer</h2>
 <ul>
-<li><strong>Restaurant choisi.</strong> Si vous choisissez un restaurant pour voir ses offres, ce choix est gardé dans votre navigateur (stockage local) pour vos prochaines visites. Il n’est pas envoyé à Big M.</li>
+<li><strong>Restaurant choisi.</strong> Si vous choisissez un restaurant (pour commander ou pour voir ses offres), ce choix est gardé dans votre navigateur (stockage local) pour vos prochaines visites. Il n’est pas envoyé à Big M.</li>
 <li><strong>Vidéos YouTube.</strong> Intégrées en mode « confidentialité renforcée », elles ne déposent pas de cookie avant que vous lanciez la lecture. Ensuite, ce sont les règles de YouTube qui s’appliquent.</li>
 <li><strong>Espace d’administration.</strong> Les cookies de connexion de WordPress (<code>wordpress_logged_in_…</code>, <code>wordpress_test_cookie</code>, <code>wp-settings-…</code>) ne concernent que l’équipe qui gère le site. Le cookie de connexion dure deux jours (deux semaines avec « Se souvenir de moi »), celui des préférences d’affichage un an.</li>
 </ul>

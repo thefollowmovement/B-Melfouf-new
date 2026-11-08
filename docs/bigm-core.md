@@ -49,7 +49,7 @@ Les sliders s'affichent avec le widget Elementor « Big M Slider » (étape 4), 
 
 ### Réglages Big M
 
-Menu **Réglages Big M** : lien Commander, page Restaurants, la carte (titre, texte et bannières de `/carte/`, bandeau et note des allergènes), App Store et Google Play, réseaux sociaux, e-mail, siège et mention du pied de page, chiffres de la franchise, image de partage (Référencement), règles de redirection et journal des adresses introuvables ([`seo.md`](seo.md)). Chaque champ indique son shortcode, à placer dans un widget Texte d'Elementor : `[bigm_reglage cle="franchise_droit_entree"]` affiche « 30 000 € HT ». Les nombres sont toujours mis en forme à la française.
+Menu **Réglages Big M** : fenêtre Commander (lien par défaut, plateformes, textes ; voir [`restaurants.md`](restaurants.md)), page Restaurants, la carte (titre, texte et bannières de `/carte/`, bandeau et note des allergènes), App Store et Google Play, réseaux sociaux, e-mail, siège et mention du pied de page, chiffres de la franchise, image de partage (Référencement), règles de redirection et journal des adresses introuvables ([`seo.md`](seo.md)). Chaque champ indique son shortcode, à placer dans un widget Texte d'Elementor : `[bigm_reglage cle="franchise_droit_entree"]` affiche « 30 000 € HT ». Les nombres sont toujours mis en forme à la française.
 
 ### Actualités
 
@@ -98,6 +98,7 @@ Les widgets et les gabarits lisent les données par ces fonctions, jamais par `g
 | `bigm_slides_actives( $slider_id )` | slides visibles maintenant, avec les URL des médias et le cadrage |
 | `bigm_reglage( $cle )`, `bigm_reglage_texte( $cle )` | valeur brute ou mise en forme |
 | `bigm_lien_commande( $post_id = null )` | lien du produit, sinon le lien général |
+| `bigm_restaurant_commande( $id )`, `bigm_commande_plateformes()` | façons de commander d'un restaurant (liens par plateforme, autre lien, numéro), plateformes des réglages |
 | `bigm_tuile_produit( $id, $sizes )` | vignette `.tile` du prototype (photo ou vidéo de vignette) |
 | `bigm_allergenes()`, `bigm_viandes()`, `bigm_nutrition_lignes()` | listes de référence |
 | `bigm_categorie_principale( $id )`, `bigm_categorie_racine( $term )` | catégorie du lien « Revenir à… » (filtre `bigm_categorie_principale`), catégorie de premier niveau |

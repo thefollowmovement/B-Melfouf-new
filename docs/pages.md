@@ -101,9 +101,9 @@ Les articles de l'ancien site se reprennent avec leurs images par **Outils → R
 wp eval-file tests/wp/test-bigm-contenus.php --user=IDENTIFIANT_ADMIN
 ```
 
-Il fait 33 vérifications :
+Il fait 45 vérifications :
 
 - sections de texte, chiffres, en-tête de page ;
 - cartes, pastilles et articles des actualités ;
 - chargement de l'habillage des formulaires et réglages des formulaires de la démo ;
-- restaurants, si le plugin est actif.
+- restaurants et fenêtre Commander, si le plugin est actif.

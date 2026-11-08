@@ -114,7 +114,21 @@
     refresh();
   }
 
-  // ---------- Filtre de liste (produits associés) ----------
+  // ---------- Plateformes de commande (Réglages Big M) : ordre par glisser-déposer ----------
+  $('.bigm-plateformes tbody').sortable({
+    handle: '.bigm-plateformes__poignee',
+    axis: 'y',
+    update() {
+      // Les noms des champs suivent l'ordre affiché : c'est l'ordre enregistré.
+      $(this).children('tr').each(function (i) {
+        $(this).find('[name^="bigm_reglages[commande_plateformes]"]').each(function () {
+          this.name = this.name.replace(/\[commande_plateformes\]\[\d+\]/, '[commande_plateformes][' + i + ']');
+        });
+      });
+    },
+  });
+
+  // ---------- Filtre de liste (produits associés) ---------- et liens de commande)
   $(document).on('input', '.bigm-filtre', function () {
     const q = this.value.trim().toLowerCase();
     $($(this).data('filtre')).each(function () {

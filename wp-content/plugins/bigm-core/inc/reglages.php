@@ -11,18 +11,52 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Champs de la page, par section. Types : url, email, text, annees, euros, pourcent.
  *
- * @return array<string, array{titre: string, aide?: string, champs: array<string, array{label: string, type: string, defaut: string|int}>}>
+ * Types : url, email, text, long, case, annees, euros, pourcent, media, slider, regles, plateformes.
+ *
+ * @return array<string, array{titre: string, aide?: string, champs: array<string, array{label: string, type: string, defaut: mixed, aide?: string, case?: string}>}>
  */
 function bigm_reglages_champs(): array {
 	return array(
 		'commande'   => array(
 			'titre'  => 'Commande',
-			'aide'   => 'Lien des boutons « Commander » du site. Une fiche produit peut avoir son propre lien.',
+			'aide'   => 'Les boutons « Commander » du site ouvrent une fenêtre : le visiteur choisit son restaurant (position ou recherche), gardé dans son navigateur, puis la plateforme ou l’appel. Liens de chaque restaurant : Restaurants → Liens de commande. Pour qu’un bouton d’Elementor ouvre la fenêtre, lui donner le lien #commander. Une fiche produit peut avoir son propre lien : il ouvre alors directement ce lien.',
 			'champs' => array(
-				'commander_url' => array(
-					'label'  => 'Lien Commander',
+				'commande_fenetre'     => array(
+					'label'  => 'Fenêtre Commander',
+					'type'   => 'case',
+					'case'   => 'Les boutons Commander ouvrent la fenêtre (sinon, ils mènent au lien ci-dessous)',
+					'defaut' => '1',
+				),
+				'commander_url'        => array(
+					'label'  => 'Lien Commander par défaut',
 					'type'   => 'url',
+					'aide'   => 'Sans JavaScript ou sans fenêtre ; dans la fenêtre, lien « Commander sans choisir de restaurant ». Les paramètres de suivi (?srsltid=…) sont retirés.',
 					'defaut' => '',
+				),
+				'commande_titre'       => array(
+					'label'  => 'Titre de la fenêtre',
+					'type'   => 'text',
+					'defaut' => 'Commander',
+				),
+				'commande_texte'       => array(
+					'label'  => 'Texte du choix du restaurant',
+					'type'   => 'long',
+					'defaut' => 'Choisissez votre restaurant : nous le gardons en mémoire pour vos prochaines commandes et pour ses promos.',
+				),
+				'commande_plateformes' => array(
+					'label'  => 'Plateformes',
+					'type'   => 'plateformes',
+					'defaut' => function_exists( 'bigm_commande_plateformes_defaut' ) ? bigm_commande_plateformes_defaut() : array(),
+				),
+				'commande_tel_titre'   => array(
+					'label'  => 'Bouton d’appel : titre',
+					'type'   => 'text',
+					'defaut' => 'Appeler pour commander',
+				),
+				'commande_tel_texte'   => array(
+					'label'  => 'Bouton d’appel : texte',
+					'type'   => 'text',
+					'defaut' => 'Le restaurant livre lui-même',
 				),
 			),
 		),
@@ -259,10 +293,17 @@ function bigm_reglages_nettoyer( $input ): array {
 	$input = is_array( $input ) ? $input : array();
 	$out   = array();
 	foreach ( bigm_reglages_definitions() as $cle => $def ) {
-		$v = trim( (string) ( $input[ $cle ] ?? '' ) );
+		if ( 'plateformes' === $def['type'] ) {
+			$out[ $cle ] = bigm_commande_nettoyer_plateformes( $input[ $cle ] ?? array() );
+			continue;
+		}
+		$v = is_scalar( $input[ $cle ] ?? '' ) ? trim( (string) ( $input[ $cle ] ?? '' ) ) : '';
 		switch ( $def['type'] ) {
 			case 'url':
-				$out[ $cle ] = esc_url_raw( $v );
+				$out[ $cle ] = 'commander_url' === $cle ? bigm_lien_commande_propre( $v ) : esc_url_raw( $v );
+				break;
+			case 'case':
+				$out[ $cle ] = '1' === $v ? '1' : '0';
 				break;
 			case 'email':
 				$out[ $cle ] = sanitize_email( $v );
@@ -330,8 +371,8 @@ function bigm_reglages_page(): void {
 		<?php settings_errors(); ?>
 		<form method="post" action="options.php">
 			<?php settings_fields( 'bigm_reglages' ); ?>
-			<?php foreach ( bigm_reglages_champs() as $section ) : ?>
-				<h2><?php echo esc_html( $section['titre'] ); ?></h2>
+			<?php foreach ( bigm_reglages_champs() as $ancre => $section ) : ?>
+				<h2 id="<?php echo esc_attr( $ancre ); ?>"><?php echo esc_html( $section['titre'] ); ?></h2>
 				<?php if ( ! empty( $section['aide'] ) ) : ?>
 					<p class="description"><?php echo esc_html( $section['aide'] ); ?></p>
 				<?php endif; ?>
@@ -345,7 +386,12 @@ function bigm_reglages_page(): void {
 						<tr>
 							<th scope="row"><label for="bigm_<?php echo esc_attr( $cle ); ?>"><?php echo esc_html( $def['label'] ); ?></label></th>
 							<td>
-								<?php if ( 'slider' === $def['type'] ) : ?>
+								<?php if ( 'case' === $def['type'] ) : ?>
+									<input type="hidden" name="bigm_reglages[<?php echo esc_attr( $cle ); ?>]" value="0">
+									<label><input type="checkbox" id="bigm_<?php echo esc_attr( $cle ); ?>" name="bigm_reglages[<?php echo esc_attr( $cle ); ?>]" value="1"<?php checked( '1', (string) $valeur ); ?>> <?php echo esc_html( $def['case'] ?? '' ); ?></label>
+								<?php elseif ( 'plateformes' === $def['type'] ) : ?>
+									<?php bigm_reglages_plateformes( is_array( $valeur ) ? $valeur : array() ); ?>
+								<?php elseif ( 'slider' === $def['type'] ) : ?>
 									<select id="bigm_<?php echo esc_attr( $cle ); ?>" name="bigm_reglages[<?php echo esc_attr( $cle ); ?>]">
 										<option value="0">— Aucun —</option>
 										<?php foreach ( bigm_sliders_liste() as $slider ) : ?>
@@ -365,7 +411,10 @@ function bigm_reglages_page(): void {
 								<?php if ( $numeric ) : ?>
 									<?php echo esc_html( $unites[ $def['type'] ] ); ?>
 								<?php endif; ?>
-								<?php if ( ! in_array( $def['type'], array( 'slider', 'regles', 'media' ), true ) ) : ?>
+								<?php if ( ! empty( $def['aide'] ) ) : ?>
+									<p class="description"><?php echo esc_html( $def['aide'] ); ?></p>
+								<?php endif; ?>
+								<?php if ( ! in_array( $def['type'], array( 'slider', 'regles', 'media', 'case', 'plateformes' ), true ) ) : ?>
 									<p class="description"><code>[bigm_reglage cle="<?php echo esc_html( $cle ); ?>"]</code><?php echo $numeric && '' !== $valeur ? ' → ' . esc_html( bigm_reglage_texte( $cle ) ) : ''; ?></p>
 								<?php endif; ?>
 							</td>
@@ -381,6 +430,52 @@ function bigm_reglages_page(): void {
 	<?php
 }
 
+/**
+ * Tableau des plateformes de commande : une ligne par plateforme, deux lignes vides pour en
+ * ajouter, ordre par glisser-déposer. Vider le nom retire la plateforme.
+ *
+ * @param array<int, array{id: string, nom: string, texte: string, couleur: string, logo: int}> $liste Plateformes.
+ */
+function bigm_reglages_plateformes( array $liste ): void {
+	$lignes = array_merge(
+		$liste,
+		array_fill(
+			0,
+			2,
+			array(
+				'id'      => '',
+				'nom'     => '',
+				'texte'   => 'Livraison',
+				'couleur' => '#2b1406',
+				'logo'    => 0,
+			)
+		)
+	);
+	?>
+	<table class="widefat bigm-plateformes">
+		<thead>
+			<tr><th scope="col"><span class="screen-reader-text">Ordre</span></th><th scope="col">Nom</th><th scope="col">Texte sous le nom</th><th scope="col">Couleur</th><th scope="col">Logo (carré, facultatif)</th></tr>
+		</thead>
+		<tbody>
+			<?php foreach ( $lignes as $i => $p ) : ?>
+				<?php $n = 'bigm_reglages[commande_plateformes][' . $i . ']'; ?>
+				<tr>
+					<td class="bigm-plateformes__poignee" title="Glisser pour changer l’ordre" aria-hidden="true">⋮⋮</td>
+					<td>
+						<input type="hidden" name="<?php echo esc_attr( $n ); ?>[id]" value="<?php echo esc_attr( $p['id'] ); ?>">
+						<input type="text" name="<?php echo esc_attr( $n ); ?>[nom]" value="<?php echo esc_attr( $p['nom'] ); ?>" placeholder="<?php echo '' === $p['id'] ? 'Nouvelle plateforme' : ''; ?>" aria-label="Nom de la plateforme">
+					</td>
+					<td><input type="text" name="<?php echo esc_attr( $n ); ?>[texte]" value="<?php echo esc_attr( $p['texte'] ); ?>" aria-label="Texte sous le nom"></td>
+					<td><input type="color" name="<?php echo esc_attr( $n ); ?>[couleur]" value="<?php echo esc_attr( $p['couleur'] ); ?>" aria-label="Couleur de la pastille"></td>
+					<td><?php bigm_champ_media( $n . '[logo]', (int) $p['logo'], 'image', '' ); ?></td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	<p class="description">Dans la fenêtre, chaque restaurant affiche les plateformes pour lesquelles il a un lien (Restaurants → Liens de commande), dans cet ordre. Sans logo, une pastille de la couleur choisie porte l’initiale. Vider le nom retire la plateforme (les liens des restaurants sont gardés).</p>
+	<?php
+}
+
 /*
  * [bigm_reglage cle="franchise_droit_entree"] → 30 000 € HT
  */
@@ -393,7 +488,7 @@ add_shortcode(
 			return '';
 		}
 		$type = bigm_reglages_definitions()[ $cle ]['type'];
-		if ( in_array( $type, array( 'slider', 'regles', 'media' ), true ) ) {
+		if ( in_array( $type, array( 'slider', 'regles', 'media', 'case', 'plateformes' ), true ) ) {
 			return '';
 		}
 		$text = bigm_reglage_texte( $cle );

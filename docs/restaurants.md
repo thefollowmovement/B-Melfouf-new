@@ -41,6 +41,31 @@ Les restaurants réels se saisissent dans le menu **Restaurants**, ou s'importen
 
 Le widget Store – Locator de la page Nos restaurants est en habillage « Aux couleurs du site ». Ses réglages (hauteur, textes, mode mobile « Carte d'abord ») se modifient dans Elementor.
 
+## Fenêtre Commander
+
+Les boutons Commander du site (en-tête, bouton central mobile, fiches produit sans lien propre, widgets) ouvrent une fenêtre, gérée par bigm-core (`inc/commander.php`, `assets/js/commander.js`) :
+
+1. **Choix du restaurant.** « Me localiser » (le plus proche est choisi) ou recherche par ville, code postal ou nom (accents et tirets ignorés).
+2. **Façons de commander de ce restaurant**, dans l'ordre des plateformes :
+   - un bouton par plateforme pour laquelle il a un lien (Uber Eats, Deliveroo…) ;
+   - « Commander en ligne » si son lien Commander StoreLocatore n'est d'aucune plateforme connue ;
+   - « Appeler pour commander » si la case Téléphone est cochée (restaurant qui livre lui-même).
+   - Sans rien de tout cela : le lien Commander par défaut (« Tous les restaurants Big M »).
+3. **Mémoire.** Le restaurant reste choisi dans le navigateur (stockage local, rien n'est envoyé) : à la visite suivante, la fenêtre s'ouvre sur lui (bouton « Changer »). Il devient le restaurant choisi quand on le choisit, par la position, ou quand on commande chez lui.
+
+**Promos.** La fenêtre et les promos de StoreLocatore partagent la même mémoire (clé `tfmsl_promo_store`) : la page Promos et le bouton flottant montrent directement les offres du restaurant choisi pour commander, et inversement.
+
+| Où | Quoi |
+|---|---|
+| Réglages Big M → Commande | Fenêtre active ou non, lien Commander par défaut, titre et texte, **plateformes** (nom, texte, couleur, logo carré, ordre par glisser-déposer ; vider le nom la retire), textes du bouton d'appel |
+| Restaurants → Liens de commande | Tous les restaurants sur une page : un lien par plateforme, case Téléphone. En gris : le lien Commander de la fiche StoreLocatore, utilisé tant que le champ est vide (rangé sous Uber Eats s'il vise ubereats.com…) |
+| Fiche d'un restaurant, bloc « Commander » | Les mêmes champs, plus le numéro à appeler s'il diffère du téléphone de la fiche |
+
+- Un bouton d'Elementor ouvre la fenêtre avec le lien `#commander` ; une adresse `…/#commander` l'ouvre à l'arrivée. Les boutons Commander de StoreLocatore (liste, fiche) l'ouvrent sur leur restaurant.
+- Les liens saisis sont nettoyés : paramètres de suivi retirés (`?srsltid=…` ajouté par Google, `utm_…`), page française d'Uber Eats (`/fr/` au lieu de `/fr-en/`).
+- Données : `GET /wp-json/bigm/v1/commander` (plateformes et restaurants publiés), lu à la première ouverture, en cache 5 minutes. Le script (5 Ko, différé) est sur toutes les pages ; son CSS n'est chargé qu'à l'ouverture.
+- Sans JavaScript, ou fenêtre désactivée, les boutons mènent au lien Commander par défaut.
+
 ## Points à savoir
 
 - **Carte.** Leaflet vient de unpkg.com et les fonds de carte d'OpenStreetMap : deux services externes, à citer dans la politique de confidentialité.
@@ -55,4 +80,4 @@ Le widget Store – Locator de la page Nos restaurants est en habillage « Aux c
 wp eval-file tests/wp/test-bigm-contenus.php --user=IDENTIFIANT_ADMIN
 ```
 
-Les vérifications « Restaurants » ne tournent que si le plugin est actif.
+Les vérifications « Restaurants » et « Fenêtre Commander » ne tournent que si le plugin est actif.

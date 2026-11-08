@@ -62,3 +62,13 @@ td .bigm-icone-apercu, .column-bigm_icone .bigm-icone-apercu { width: 28px; heig
 .bigm-reglages h2:first-of-type { border-top: 0; }
 .bigm-reglages .form-table .description code { font-size: 12px; }
 .bigm-reglages input[type=number] { width: 9em; }
+
+/* Plateformes de commande (Réglages Big M) et liens de commande des restaurants */
+.bigm-plateformes { max-width: 980px; }
+.bigm-plateformes td { vertical-align: middle; }
+.bigm-plateformes :is(th, td):first-child { width: 24px; padding-right: 0; }
+.bigm-plateformes__poignee { cursor: grab; color: #8c8f94; letter-spacing: -2px; user-select: none; }
+.bigm-plateformes input[type=color] { width: 48px; height: 32px; padding: 0 2px; }
+.bigm-plateformes .bigm-media__preview img { width: 40px; height: 40px; }
+.bigm-commande .widefat input[type=url] { min-width: 220px; }
+.bigm-commande tbody th { min-width: 160px; }

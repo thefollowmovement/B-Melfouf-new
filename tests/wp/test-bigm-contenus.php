@@ -203,6 +203,52 @@ if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() )
 	$page( array( 'p' => $resto, 'post_type' => 'tfmsl_store' ) );
 	$ok( in_array( 'tfmsl-public', $assets(), true ), 'fiche d’un restaurant : fichiers du plugin chargés' );
 	$ok( null === bigm_seo_page( true ), 'fiche d’un restaurant : référencement laissé au plugin (titre, description, LocalBusiness)' );
+
+	WP_CLI::log( 'Fenêtre Commander' );
+	$ok( 'https://www.ubereats.com/fr/brand/big-m?diningMode=PICKUP' === bigm_lien_commande_propre( 'https://www.ubereats.com/fr-en/brand/big-m?srsltid=AYCX9v&utm_source=google&diningMode=PICKUP' ), 'lien nettoyé : sans srsltid ni utm_, page française d’Uber Eats, autres paramètres gardés' );
+	$ok( 'https://deliveroo.fr/fr-en/menu/x' === bigm_lien_commande_propre( 'https://deliveroo.fr/fr-en/menu/x?gclid=1' ), 'lien nettoyé : /fr-en/ seulement chez Uber Eats' );
+	update_post_meta( $resto, 'tfmsl_order_url', 'https://www.ubereats.com/fr-en/store/big-m-test/abc' );
+	update_post_meta( $resto, 'tfmsl_phone', '01 23 45 67 89' );
+	$c = bigm_restaurant_commande( $resto );
+	$ok( 'https://www.ubereats.com/fr/store/big-m-test/abc' === ( $c['liens']['ubereats'] ?? '' ) && '' === $c['autre'] && '' === $c['tel'], 'lien Commander du plugin rangé sous Uber Eats ; pas d’appel sans la case' );
+	update_post_meta( $resto, 'tfmsl_order_url', 'https://commande.example.test/bigm' );
+	$c = bigm_restaurant_commande( $resto );
+	$ok( empty( $c['liens'] ) && 'https://commande.example.test/bigm' === $c['autre'], 'lien Commander d’une autre plateforme : « Commander en ligne »' );
+	bigm_restaurant_commande_enregistrer(
+		$resto,
+		array(
+			'liens' => array(
+				'deliveroo' => 'https://deliveroo.fr/fr/menu/paris/test?utm_medium=x',
+				'inconnue'  => 'https://ailleurs.example/',
+			),
+			'tel'   => '1',
+		)
+	);
+	$c = bigm_restaurant_commande( $resto );
+	$ok( array( 'deliveroo' => 'https://deliveroo.fr/fr/menu/paris/test' ) === $c['liens'] && '01 23 45 67 89' === $c['tel'], 'liens saisis (nettoyés, plateformes connues seulement) ; appel au numéro de la fiche' );
+	bigm_restaurant_commande_enregistrer( $resto, array( 'liens' => array( 'deliveroo' => 'https://deliveroo.fr/fr/menu/paris/test' ), 'tel' => '1', 'numero' => '06 00 00 00 00' ) );
+	$donnees = bigm_commande_donnees();
+	$ligne   = current( wp_list_filter( $donnees['restaurants'], array( 'id' => $resto ) ) );
+	$ok( $ligne && '06 00 00 00 00' === $ligne['tel'] && 'Restaurant test' === $ligne['nom'] && str_starts_with( $ligne['url'], home_url( '/restaurants/' ) ), 'données de la fenêtre : restaurant, numéro saisi, fiche' );
+	$ok( wp_list_pluck( bigm_commande_plateformes(), 'id' ) === wp_list_pluck( $donnees['plateformes'], 'id' ), 'données de la fenêtre : plateformes des réglages, dans leur ordre' );
+	$reponse = rest_do_request( new WP_REST_Request( 'GET', '/bigm/v1/commander' ) );
+	$ok( 200 === $reponse->get_status() && str_contains( (string) ( $reponse->get_headers()['Cache-Control'] ?? '' ), 'public' ), 'GET /wp-json/bigm/v1/commander : public, mis en cache 5 minutes' );
+	$plateformes = bigm_commande_nettoyer_plateformes(
+		array(
+			array( 'id' => 'ubereats', 'nom' => 'Uber Eats (nouveau nom)', 'couleur' => '#06c167' ),
+			array( 'id' => '', 'nom' => 'Just Eat', 'couleur' => 'rouge' ),
+			array( 'id' => '', 'nom' => 'Just Eat' ),
+			array( 'id' => '', 'nom' => '' ),
+		)
+	);
+	$ok( array( 'ubereats', 'justeat', 'justeat2' ) === wp_list_pluck( $plateformes, 'id' ) && '#2b1406' === $plateformes[1]['couleur'], 'plateformes : identifiant gardé au renommage, créé pour une nouvelle, sans doublon ; ligne vide retirée' );
+	$ok( bigm_commande_lien_vers( 'https://www.just-eat.fr/menu/big-m', bigm_commande_domaines( $plateformes[1] ) ), 'plateforme ajoutée reconnue par son nom (just-eat.fr)' );
+	$page( array( 'p' => $posts[0] ) );
+	$ok( in_array( 'bigm-commander', $assets(), true ) && str_contains( (string) wp_scripts()->get_inline_script_data( 'bigm-commander', 'before' ), 'bigm/v1/commander' ), 'script de la fenêtre sur toutes les pages, avec l’adresse des données' );
+	$avant = get_option( 'bigm_reglages', array() );
+	update_option( 'bigm_reglages', array_merge( (array) $avant, array( 'commande_fenetre' => '0' ) ) );
+	$ok( ! in_array( 'bigm-commander', $assets(), true ), 'fenêtre désactivée : pas de script, les boutons gardent le lien' );
+	update_option( 'bigm_reglages', $avant );
 } else {
 	WP_CLI::log( '  --    StoreLocatore inactif : restaurants non vérifiés' );
 }

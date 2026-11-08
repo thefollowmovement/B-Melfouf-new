@@ -88,13 +88,17 @@ Contrôle axe, ordinateur et mobile :
   - le nom caché anglais des liens « Lire l'article », corrigé par **bigm-core 0.6.8** (à installer) ;
   - `role="listitem"` sur les `<article>`, posé par Elementor Pro (mineur, bonne pratique, pas de réglage pour le retirer).
 
-## Reste à corriger dans l'admin (préprod)
+## Réglages de l'admin (8 novembre)
 
-1. **Lien Commander** (Réglages Big M) :
-   - retirer le paramètre de suivi `?srsltid=…` ;
-   - viser la page française d'Uber Eats (`/fr/` au lieu de `/fr-en/`).
-2. **Menu du pied de page « L'entreprise »** (Apparence → Menus) : le lien « Recrutement » pointe encore vers `/recrutement/` (menu créé à l'installation avec les liens du prototype). Le passer à `/nous-rejoindre/`. La redirection marche en attendant.
-3. **CSS additionnel** (Apparence → Personnaliser) : le vider une fois le thème 0.6.1 installé, l'icône Restaurants est maintenant dans le thème.
+- Menu du pied de page « L'entreprise » : « Recrutement » pointe déjà vers `/nous-rejoindre/`.
+- CSS additionnel (Apparence → Personnaliser) : déjà vide.
+- Lien Commander : bigm-core 0.7 le nettoie à sa mise à jour (`?srsltid=…` retiré, `/fr-en/` → `/fr/`) et à chaque enregistrement. Il devient le lien par défaut de la **fenêtre Commander** (`docs/restaurants.md`).
+- Page Gestion des cookies : le restaurant choisi sert aussi à commander (même stockage local que les promos).
+
+## Reste à faire dans l'admin (préprod)
+
+1. **Liens de commande des 75 restaurants** (**Restaurants → Liens de commande**) : lien Uber Eats et Deliveroo de chaque restaurant, case Téléphone pour ceux qui livrent eux-mêmes. 3 restaurants ont déjà un lien Uber Eats dans leur fiche StoreLocatore, repris tant que le champ est vide. En attendant, la fenêtre propose le lien Commander par défaut.
+2. **Logos des plateformes** (Réglages Big M → Commande) : logos carrés officiels d'Uber Eats et de Deliveroo, à demander aux plateformes ou au client. Sans logo, une pastille de couleur porte l'initiale.
 
 ## À signaler dans le dépôt de StoreLocatore
 

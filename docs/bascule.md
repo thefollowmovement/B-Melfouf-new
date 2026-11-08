@@ -13,7 +13,7 @@ Compter une heure, à un moment calme (le site affiche l'ancienne version jusqu'
 - [ ] Plus aucun texte entre crochets `[…]` (rechercher « [ » dans les pages et produits).
 - [ ] **Reprise des articles** relancée sur la préprod, pour les articles publiés depuis la première reprise (les articles déjà repris ne sont pas recréés).
 - [ ] LiteSpeed Cache installé et réglé (`docs/seo.md`).
-- [ ] Lien Commander définitif, adresses e-mail de réception des formulaires confirmées, SMTP configuré.
+- [ ] Liens de commande de chaque restaurant saisis (**Restaurants → Liens de commande**), lien Commander par défaut définitif, adresses e-mail de réception des formulaires confirmées, SMTP configuré.
 - [ ] Accès prêts : SSH, Google Search Console du domaine, comptes administrateurs nominatifs avec double authentification.
 - [ ] Accès MCP coupés :
   - supprimer les mots de passe d'application créés pour Claude (Utilisateurs → Profil → Mots de passe d'application) ; désactiver le MCP dans Elementor ne suffit pas ;
