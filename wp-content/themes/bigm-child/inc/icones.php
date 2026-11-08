@@ -21,6 +21,9 @@ function bigm_child_icone( string $nom ): string {
 			return $trait( '<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>' );
 		case 'bag':
 			return $trait( '<path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>' );
+		case 'panier':
+			// Panier à anse arrondie et trois barres (icône Commander de l'en-tête mobile).
+			return $trait( '<path d="M6.2 9V8a5.8 5.8 0 0 1 11.6 0v1"/><path d="M3.5 9h17a1.5 1.5 0 0 1 1.46 1.85l-2.2 8.9a2.5 2.5 0 0 1-2.43 1.85H6.67a2.5 2.5 0 0 1-2.43-1.9l-2.2-8.85A1.5 1.5 0 0 1 3.5 9z"/><path d="M7.7 13v4.6M12 13v4.6M16.3 13v4.6"/>' );
 		case 'menu':
 			return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
 		case 'close':

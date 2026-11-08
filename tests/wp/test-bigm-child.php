@@ -59,6 +59,7 @@ if ( function_exists( 'bigm_reglages_nettoyer' ) ) {
 	$ok( str_contains( bigm_child_entete_html(), 'href="https://commande.example.test/"' ) && str_contains( bigm_child_onglets_html(), 'href="https://commande.example.test/"' ), 'lien Commander des Réglages Big M : en-tête et bouton central' );
 }
 $ok( str_contains( $entete, 'aria-controls="drawer"' ) && str_contains( $entete, 'aria-label="Big M, accueil"' ), 'bouton du tiroir et logo accessibles' );
+$ok( 2 === substr_count( $entete, 'href="' . esc_url( home_url( '/#appli' ) ) . '"' ) && (bool) preg_match( '#<a class="header__panier" href="[^"]+" aria-label="Commander"><svg#', $entete ), 'icône panier (Commander, mobile) avec son nom, même lien que le bouton Commander' );
 $tiroir = bigm_child_tiroir_html();
 $ok( str_contains( $tiroir, 'role="dialog"' ) && 7 === substr_count( $tiroir, '<a ' ), 'tiroir : dialogue et 7 liens' );
 $onglets = bigm_child_onglets_html();

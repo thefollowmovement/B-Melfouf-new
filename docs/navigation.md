@@ -10,8 +10,8 @@ Ces quatre éléments viennent du thème enfant `bigm-child` (`inc/chrome.php`),
 | Liens du menu latéral | Apparence → Menus, « Menu latéral » |
 | Les 3 liens de la barre d'onglets mobile | Apparence → Menus, « Barre d'onglets mobile » |
 | Colonnes Produits, L'entreprise, liens légaux du pied de page | Apparence → Menus, « Pied de page : … » |
-| Boutons Commander (en-tête, bouton central mobile) | Ouvrent la fenêtre Commander (`docs/restaurants.md`). Sans elle : Réglages Big M → Lien Commander par défaut ; vide, la bande appli de l'accueil |
-| Lien « Restaurants » de l'en-tête | Réglages Big M → Page Restaurants. Vide : `/restaurants/` |
+| Boutons Commander (en-tête ; sur mobile, icône panier de l'en-tête et bouton central) | Ouvrent la fenêtre Commander (`docs/restaurants.md`). Sans elle : Réglages Big M → Lien Commander par défaut ; vide, la bande appli de l'accueil |
+| Lien « Restaurants » de l'en-tête | Réglages Big M → Page Restaurants. Vide : `/restaurants/`. Icône seule sur tablette, absent sur mobile (onglet « Restos ») |
 | Réseaux sociaux, badges des stores, e-mail, siège | Réglages Big M. Un champ vide masque l'élément |
 | « © 2026 Big M, c'est ça qu'on aime ! » | Réglages Big M → Mention du pied de page (l'année se met à jour seule) |
 | Logo | Apparence → Personnaliser → Identité du site. Sinon, le logo du prototype |

@@ -14,6 +14,8 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * En-tête en capsule : menu à gauche, logo au centre, Restaurants et Commander à droite.
+ * Sur mobile (≤ 760 px), une icône panier (Commander) remplace les deux : Restaurants est dans
+ * la barre d'onglets.
  */
 function bigm_child_entete_html(): string {
 	$logo = bigm_child_logo();
@@ -33,6 +35,7 @@ function bigm_child_entete_html(): string {
     <div class="header__right">
       <a class="hide-sm" href="<?php echo esc_url( bigm_child_lien_restaurants() ); ?>"<?php echo bigm_child_est_courant( bigm_child_lien_restaurants() ) ? ' aria-current="page"' : ''; ?>><?php echo bigm_child_icone( 'pin' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>Restaurants</a>
       <a class="btn" href="<?php echo esc_url( bigm_child_lien_commander() ); ?>"><?php echo bigm_child_icone( 'bag' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>Commander</a>
+      <a class="header__panier" href="<?php echo esc_url( bigm_child_lien_commander() ); ?>" aria-label="Commander"><?php echo bigm_child_icone( 'panier' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
     </div>
   </div>
 </header>

@@ -19,6 +19,8 @@
 .header__right > a:not(.btn) { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
 .header__right > a:not(.btn):hover { color: var(--btn); }
 .header__right svg { width: 18px; height: 18px; }
+/* Icône panier (Commander) : seulement sur mobile, voir plus bas. */
+.header__right > a.header__panier { display: none; }
 .burger { display: inline-flex; width: 40px; height: 40px; align-items: center; justify-content: center; border-radius: 10px; }
 .burger:hover { background: var(--tile); }
 .burger svg { width: 24px; height: 24px; }
@@ -42,6 +44,15 @@
   .header__inner, .header.is-scrolled .header__inner { height: 60px; border-radius: 20px; padding-inline: 8px; }
   .header__logo img, .header.is-scrolled .header__logo img { height: 46px; }
   .header__right .btn { min-height: 42px; padding: 0 16px; font-size: 15px; }
+}
+
+@media (max-width: 760px) {
+  /* Le bouton Commander est caché (tabbar.css) ; l'icône panier prend la place de l'icône
+     Restaurants, qui est dans la barre d'onglets (« Restos »). */
+  .header__right > a.hide-sm { display: none; }
+  .header__right > a.header__panier { display: inline-flex; width: 44px; height: 44px; justify-content: center; border-radius: 10px; }
+  .header__right > a.header__panier svg { width: 26px; height: 26px; }
+  .header__right > a.header__panier:hover { background: var(--tile); color: inherit; }
 }
 
 /* repris du bloc « animations des boutons » */
