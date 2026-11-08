@@ -89,8 +89,8 @@ Dans l'éditeur, les widgets de la fiche montrent le dernier produit publié, et
 
 Le fichier est fabriqué par `ops/carte/carte.py` à partir de :
 - le tableau des allergènes du client (onglet « Liste consolidée ») ;
-- `ops/carte/uber-eats-bondy.json`, recopié de la carte Uber Eats de Big M Bondy (Uber Eats bloque la lecture automatique : capture et page enregistrées par l'agence) : noms des menus, menus, boissons, sauces vendues à part, descriptions corrigées ;
-- `ops/carte/uber-eats-articles.json`, extrait de la page Uber Eats enregistrée en HTML (nom, description, adresse de la photo, sans les prix) : photos 512 × 512 et descriptions des produits qui n'en ont pas. Pour le refaire, donner la page enregistrée en second argument du script.
+- `ops/carte/uber-eats-carte.json`, recopié des cartes Uber Eats de Big M Bondy et Argenteuil (Uber Eats bloque la lecture automatique : pages enregistrées par l'agence) : noms des menus, menus, boissons, sauces vendues à part, descriptions corrigées, catégories en plus (Tex-Mex) ;
+- `ops/carte/uber-eats/{restaurant}.json`, extraits des pages Uber Eats enregistrées en HTML (nom, description, adresse de la photo, sans les prix). Photos : Argenteuil d'abord (produit seul, 350 px), sinon Bondy (512 px) ; la photo barbecue d'Argenteuil est écartée (c'est celle de la sauce burger). Descriptions : Bondy seulement (composition) ; celles d'Argenteuil sont des textes commerciaux, parfois faux. Pour ajouter un restaurant, donner sa page enregistrée en argument du script.
 
 Le fichier xlsx n'est pas dans Git. L'onglet « Recettes » (confidentiel) sert seulement à savoir quelle viande contient chaque produit ; l'onglet « Articles » donne les allergènes des sauces vendues à part.
 
@@ -98,17 +98,20 @@ Le fichier xlsx n'est pas dans Git. L'onglet « Recettes » (confidentiel) sert 
 python3 -I ops/carte/carte.py chemin/Allergenes_BigM.xlsx [chemin/page-uber-eats.html]
 ```
 
-Les photos sont téléchargées par l'import, sur le serveur, depuis `tb-static.uber.com` : ce sont celles d'Uber Eats, en attendant les photos du client.
+Les photos sont téléchargées par l'import, sur le serveur, depuis `tb-static.uber.com` : ce sont celles d'Uber Eats (125 produits), en attendant les photos du client.
+
+Non repris, faute d'allergènes dans le tableau : Toast M, Fish M, Big Kroosty (et Spicy), Kids Burger, petit déjeuner (Egg Muffin, Big Egg, Croque Nutella), Mini Donuts, Mini Dooti, Beignet Dubai, Pom'potes, Kinder Surprise, sauces Yoop's et Creamy, Frites cheddar bacon (sans crispy), Grandes frites.
 
 | Sujet | Règle |
 |---|---|
 | Catégories | Créées si leur adresse n'existe pas (Wraps, Sauces) ; les autres ne changent pas. Burgers → Bœuf / Poulet selon la viande (brief, § 5.1). Nuggets, Tenders et Boîte Mix sont aussi dans Poulet. |
 | Allergènes | X du tableau → « Contient », O → « Peut contenir (traces) » |
 | Viandes | Plusieurs par produit (Beef Chicken et Monster : bœuf et poulet). D'après les recettes : steak → bœuf ; chicken, escalope, tenders, nuggets, poulet tandoori ou curry → poulet. Fritures et fromages panés : végétarien. Desserts et sauces : aucune. |
+| Tex-Mex | Mozza sticks, bouchées camembert, onion rings et chili cheese, comme sur Uber Eats Argenteuil (aussi dans Petite faim) |
 | Menus | Sous-catégories de Menus : Burgers doublés (codes M1… W4 du tableau, avec leur nom Uber Eats), Menus simples, Menus wraps, Menus burgers grill, Menus enfant. W1 à W4 aussi dans Nouveautés, badge « Nouveau ». Allergènes et viandes : ceux des produits du menu réunis (boisson au choix non comprise), plus ceux de la ligne du tableau s'il y en a une. |
 | Codes absents d'Uber Eats (M8, M12, M17) | En brouillon « (nom à compléter) » |
 | Bacon | Bacon de bœuf (confirmé par l'agence), même là où Uber Eats écrit « dinde » : produits au bacon en Bœuf, descriptions corrigées |
-| Produit déjà présent (même adresse) | Il reçoit les viandes et les allergènes du fichier, qui font foi. Si son nom n'a pas été retouché depuis l'import (ou s'il est provisoire, « nom à compléter »), il suit aussi le fichier pour le nom, les catégories, le statut, l'ordre et le badge ; s'il a été renommé dans l'admin, ils ne changent pas. La description suit le fichier si elle est vide ou encore celle d'un import précédent (pas retouchée) ; la photo n'est ajoutée que s'il n'y en a pas. |
+| Produit déjà présent (même adresse) | Il reçoit les viandes et les allergènes du fichier, qui font foi. Si son nom n'a pas été retouché depuis l'import (ou s'il est provisoire, « nom à compléter »), il suit aussi le fichier pour le nom, les catégories, le statut, l'ordre et le badge ; s'il a été renommé dans l'admin, ils ne changent pas. La description suit le fichier si elle est vide ou encore celle d'un import précédent (pas retouchée). La photo est ajoutée s'il n'y en a pas, ou remplacée si elle vient d'un import précédent (adresse d'origine différente ; l'ancienne est supprimée si plus rien ne s'en sert). Une photo choisie dans l'admin n'est jamais remplacée. |
 | Démonstration | Option, décochée par défaut : les produits de la démo vont à la corbeille (récupérables). Avant, remplacer ceux choisis un par un (carrousel « Nos classiques » de l'accueil, « Ça va bien avec »), sinon ces blocs restent vides. |
 
 La page de l'import liste les produits **à vérifier** (viande inconnue, nom manquant), avec un lien vers chacun.
@@ -121,7 +124,7 @@ Le tableau des allergènes est une **version de travail** (onglet « Points clé
 wp eval-file tests/wp/test-bigm-carte.php --user=IDENTIFIANT_ADMIN
 ```
 
-Il fait 52 vérifications :
+Il fait 55 vérifications :
 
 - widgets enregistrés ;
 - lien de retour et catégorie principale ;

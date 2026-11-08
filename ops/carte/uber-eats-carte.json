@@ -1,6 +1,6 @@
 {
- "source": "Uber Eats, Big M Bondy (capture d'écran et page enregistrée, 7 et 8 novembre 2026)",
- "notes": "Noms des menus, menus, boissons et sauces recopiés de la carte Uber Eats ; descriptions complètes, photos : ops/carte/uber-eats-articles.json (extrait de la page enregistrée). Prix non repris (brief). Bacon : bœuf (confirmé par l'agence), même là où Uber Eats écrit « dinde ». Articles absents du tableau des allergènes (Toast M, Formule 1 Egg Muffin, Kinder Surprise) : non repris.",
+ "source": "Uber Eats, Big M Bondy et Big M Argenteuil (captures et pages enregistrées, 7 et 8 novembre 2026)",
+ "notes": "Noms des menus, menus, boissons et sauces recopiés des cartes Uber Eats ; photos et descriptions : ops/carte/uber-eats/{restaurant}.json (extraits des pages enregistrées). Prix non repris (brief). Bacon : bœuf (confirmé par l'agence), même là où Uber Eats écrit « dinde ». Non repris faute d'allergènes dans le tableau : Toast M, Fish M, Big Kroosty (et Spicy), Kids Burger, petit déjeuner (Egg Muffin, Big Egg, Croque Nutella), Mini Donuts, Mini Dooti, Beignet Dubai, Pom'potes, Kinder Surprise, sauces Yoop's et Creamy, Frites cheddar bacon (sans crispy), Grandes frites.",
  "categories": [
   {
    "slug": "menus-doubles",
@@ -60,6 +60,24 @@
  },
  "a_verifier": {
   "Croq Monsieur": "description : Uber Eats indique « jambon de dinde » ; recette et agence : bacon de bœuf"
+ },
+ "categories_produits": {
+  "Mozza sticks": [
+   "petite-faim",
+   "tex-mex"
+  ],
+  "Bouchées camembert": [
+   "petite-faim",
+   "tex-mex"
+  ],
+  "Onion rings panko": [
+   "petite-faim",
+   "tex-mex"
+  ],
+  "Chili cheese nuggets": [
+   "petite-faim",
+   "tex-mex"
+  ]
  },
  "produits": [
   {
@@ -477,6 +495,46 @@
    ]
   },
   {
+   "titre": "Menu Double Cheese Bacon",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Double Cheese Bacon",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Long Beef M",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Long Beef M",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Long Chicken",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Long Chicken",
+    "Frite"
+   ]
+  },
+  {
+   "titre": "Menu Long Smoky Bacon",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Long Smoky Bacon",
+    "Frite"
+   ]
+  },
+  {
    "titre": "Menu Wrap Steak",
    "categories": [
     "menus-wraps"
@@ -730,6 +788,72 @@
   },
   {
    "titre": "Cristaline 50 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Fuze Tea pêche 33 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Chill Cosmopolitain 20 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Chill Mojito 20 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Chill Blue Hawaii 20 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Chill Kiwi Citron 20 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Chill Litchi Maracuja 20 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Chill Mangue Poire 20 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Chill Melon Pêche 20 cl",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Street Cherry",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Street Orange",
+   "categories": [
+    "boissons"
+   ]
+  },
+  {
+   "titre": "Café",
    "categories": [
     "boissons"
    ]

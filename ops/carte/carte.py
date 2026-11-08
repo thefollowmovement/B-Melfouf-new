@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 """Fabrique la carte Big M à importer (wp-content/plugins/bigm-core/data/carte.json).
 
-    python3 -I ops/carte/carte.py chemin/Allergenes_BigM.xlsx [chemin/uber-eats.html]
+    python3 -I ops/carte/carte.py chemin/Allergenes_BigM.xlsx [page-uber-eats.html …]
 
 Sources :
 - le tableau des allergènes (onglet « Liste consolidée ») : produits, catégories, allergènes
   (X = contient, O = peut contenir / traces). L'onglet « Recettes » sert seulement à savoir
   quelle viande contient chaque produit ; rien d'autre n'en est repris (document confidentiel) ;
-- ops/carte/uber-eats-bondy.json, recopié de la carte Uber Eats de Big M Bondy : noms des menus
-  (dont les codes M1… W4 du tableau), menus, boissons, sauces à part, descriptions complètes.
+- ops/carte/uber-eats-carte.json, recopié des cartes Uber Eats de Big M (Bondy, Argenteuil) : noms
+  des menus (dont les codes M1… W4 du tableau), menus, boissons, sauces à part, descriptions.
   Les allergènes et les viandes d'un menu sont ceux de ses produits réunis (boisson non comprise),
   plus ceux de sa ligne dans le tableau s'il en a une. Les prix ne sont pas repris (brief) ;
-- facultatif : la page Uber Eats enregistrée depuis le navigateur (HTML). Ses articles (nom,
-  description, adresse de la photo ; pas les prix) sont gardés dans ops/carte/uber-eats-articles.json,
-  qui sert ensuite à chaque passage : photos et descriptions des produits qui n'en ont pas.
+- facultatif : des pages Uber Eats de restaurants Big M, enregistrées depuis le navigateur (HTML).
+  Leurs articles (nom, description, adresse de la photo ; pas les prix) sont gardés dans
+  ops/carte/uber-eats/{restaurant}.json, qui servent ensuite à chaque passage : photos (dans l'ordre
+  de PRIORITE_PHOTOS) et descriptions (restaurants de DESCRIPTIONS_DE) des produits qui n'en ont pas.
 
 Le fichier xlsx n'est pas mis dans Git. Le JSON produit ne contient que des données publiques
 (noms, catégories, viandes, allergènes, descriptions, adresses des photos).
@@ -102,10 +103,17 @@ A_VERIFIER = {
     "Mini smoky cheese": "pas de recette : viande ou végétarien ?",
     "Chili cheese nuggets": "pas de recette : végétarien ?",
 }
-UBER = Path(__file__).with_name("uber-eats-bondy.json")
+UBER = Path(__file__).with_name("uber-eats-carte.json")
 ORDRE_ALLERGENES = list(ALLERGENES.values())
 ORDRE_VIANDES = ["boeuf", "poulet", "poisson", "vegetarien"]
-ARTICLES = Path(__file__).with_name("uber-eats-articles.json")
+ARTICLES = Path(__file__).with_name("uber-eats")
+# Photos : celles d'Argenteuil (produit seul, 350 px) d'abord, sinon celles de Bondy (512 px).
+PRIORITE_PHOTOS = ["big-m-argenteuil", "big-m-bondy"]
+# Descriptions : celles de Bondy (composition). Celles d'Argenteuil sont des textes commerciaux,
+# parfois faux (Wrap Steak décrit comme le Wrap Curry, fromage dans le M Burger).
+DESCRIPTIONS_DE = ["big-m-bondy"]
+# Photos d'Uber Eats qui ne montrent pas l'article (même photo que la sauce burger).
+PHOTOS_EXCLUES = {"Sauce Barbecue"}
 # Articles Uber Eats → produits du site, quand les noms diffèrent (les codes M1… W4 sont reconnus seuls).
 ALIAS_UBER = {
     "CheeseBurger M": "Cheeseburger M", "Double CheeseBurger M": "Double Cheeseburger M",
@@ -123,6 +131,24 @@ ALIAS_UBER = {
     "Sauce Algérienne": "Sauce algérienne", "Sauce Pita": "Sauce pita", "Sauce Barbecue": "Sauce barbecue",
     "Sauce Blanche": "Sauce blanche", "Sauce Ketchup": "Ketchup", "Sauce Mayo": "Mayonnaise",
     "Sauce Samourai": "Sauce samouraï", "Hawai 33cl": "Hawaï 33 cl",
+    # Argenteuil
+    "Long Beef": "Long Beef M", "Croque Monsieur": "Croq Monsieur", "Tenders à l'unité": "Tenders",
+    "MOZZA  STICK 4 pièces": "Mozza sticks", "MOZZA  STICK 8 pièces": "Mozza sticks",
+    "BOUCHEES DE CAMEMBERT 4 pièces": "Bouchées camembert", "BOUCHEES DE CAMEMBERT 8 pièces": "Bouchées camembert",
+    "Panko Onion 4Pc": "Onion rings panko", "Panko Onion 8Pc": "Onion rings panko",
+    "Chili Cheese 4PC": "Chili cheese nuggets", "Chili Cheese  8PC": "Chili cheese nuggets",
+    "Frites Cheddar Bacon Crispy": "Frites cheddar crispy bacon",
+    "Pistachoise": "My Can Pistachoise", "Tropical Island": "My Can Tropical Island",
+    "Magic Red": "My Can Magic Red", "Paris Brest": "My Can Paris Best",
+    "My Chou Dubai": "My Chou Dubaï pistache", "Chic'N Box Curry": "Chick'n Box Curry",
+    "Fanta Fruit du Dragon 33cl": "Fanta Fruits du Dragon 33 cl", "Hawaii 33cl": "Hawaï 33 cl",
+    "Schwepps Agrumes 33cl": "Schweppes Agrum' 33 cl",
+    "Oasis Pomme Cassis Framboise 33cl": "Oasis Pomme Cassis 33 cl",
+    "Sauce Mayonnaise": "Mayonnaise", "Sauce Giant": "Sauce Géant",
+    "Menu Little Kids": "Little Kids Burger", "Menu Little Double": "Little Doublé",
+    "Menu Double Cheeseburger": "Menu Double Cheeseburger M", "Menu Bao Beef Burger": "Menu Mbao Beef",
+    "Menu Bao Chicken Burger": "Menu Mbao Chicken", "Menu Long Beef": "Menu Long Beef M",
+    "Menu Long Smoky Bacon M": "Menu Long Smoky Bacon", "Fuze Tea Pêche 33cl": "Fuze Tea pêche 33 cl",
 }
 
 
@@ -205,7 +231,7 @@ def produits_du_tableau(chemin):
 
 
 def extraire_uber(chemin):
-    """Articles d'une page Uber Eats enregistrée (HTML) : [{section, titre, description, image}].
+    """Restaurant et articles d'une page Uber Eats enregistrée (HTML) : (slug, [{section, titre, description, image}]).
 
     Les données de la carte sont dans le script __REACT_QUERY_STATE__ (JSON dont les guillemets
     sont écrits \\u0022 ; l'enregistrement par le navigateur remplace aussi les barres obliques
@@ -217,11 +243,12 @@ def extraire_uber(chemin):
         sys.exit("Page Uber Eats sans __REACT_QUERY_STATE__ : enregistrer la page complète (HTML).")
     brut = m.group(1).strip()
     etat = json.loads(json.loads('"' + brut.replace('"', '\\"') + '"').replace("%5C", "\\"))
-    articles, vus = [], set()
+    articles, vus, restaurant = [], set(), ""
     for requete in etat["queries"]:
         donnees = requete.get("state", {}).get("data")
         if not isinstance(donnees, dict) or "catalogSectionsMap" not in donnees:
             continue
+        restaurant = slug(donnees.get("title", "")) or restaurant
         for sections in donnees["catalogSectionsMap"].values():
             for section in sections:
                 charge = section.get("payload", {}).get("standardItemsPayload") or {}
@@ -233,7 +260,7 @@ def extraire_uber(chemin):
                     articles.append({"section": titre_section, "titre": a["title"].strip(),
                                      "description": (a.get("itemDescription") or "").strip(),
                                      "image": a.get("imageUrl") or ""})
-    return articles
+    return restaurant, articles
 
 
 def nettoyer(texte):
@@ -245,20 +272,38 @@ def nettoyer(texte):
     return t[:1].upper() + t[1:]
 
 
-def photos_uber(produits, articles):
-    """Photos et descriptions manquantes, d'après les articles Uber Eats."""
-    par_titre = {p["titre"]: p for p in produits}
+def cle_uber(titre):
+    """Clé de rapprochement des noms Uber Eats : sans accents, casse, quantités ni espaces."""
+    t = slug(titre).replace("cheese-burger", "cheeseburger")
+    t = re.sub(r"-(\d+)-?(pieces|pcs?)$|-x\d+$", "", t)
+    t = re.sub(r"-(\d+)-?cl$", r"-\1cl", t)
+    return t.replace("-", "")
+
+
+def photos_uber(produits, pages):
+    """Photos et descriptions manquantes, d'après les articles Uber Eats de chaque restaurant."""
+    par_cle = {cle_uber(p["titre"]): p for p in produits}
     codes = {re.match(r"^(\S+) –", p["titre"]).group(1): p for p in produits if re.match(r"^(M\d+|W\d+|MBAO) –", p["titre"])}
-    for a in articles:
-        code = re.match(r"^(M\d+|W\d+|MBAO)\s*-", a["titre"])
-        nom = ALIAS_UBER.get(a["titre"], re.sub(r"(\d+)cl$", r"\1 cl", a["titre"]))
-        p = codes.get(code.group(1)) if code else par_titre.get(nom)
-        if not p:
-            continue
-        if a["image"] and not p.get("image"):
-            p["image"] = a["image"]
-        if a["description"] and not p["description"] and "dinde" not in a["description"]:
-            p["description"] = nettoyer(a["description"])
+    codes.update({re.match(r"^(\S+) \(", p["titre"]).group(1): p for p in produits if re.match(r"^(M\d+|W\d+) \(nom", p["titre"])})
+    codes["MBAO"] = next((p for p in produits if p["slug"] == "mbao"), None)
+    trouves = set()
+    for restaurant in sorted(pages, key=lambda r: PRIORITE_PHOTOS.index(r) if r in PRIORITE_PHOTOS else 99):
+        for a in pages[restaurant]:
+            # Codes de menus : « M1 - … » (Bondy), « Menu M1 » ou « Menu Mbao » (Argenteuil).
+            code = re.match(r"^(M\d+|W\d+|MBAO) - |^Menu (M\d+|W\d+|Mbao)$", a["titre"])
+            if code:
+                p = codes.get((code.group(1) or code.group(2)).upper())
+            else:
+                p = par_cle.get(cle_uber(ALIAS_UBER.get(a["titre"], a["titre"])))
+            if not p:
+                continue
+            trouves.add(p["slug"])
+            if a["image"] and not p.get("image") and a["titre"] not in PHOTOS_EXCLUES:
+                p["image"] = a["image"]
+            if (restaurant in DESCRIPTIONS_DE and a["description"] and not p["description"]
+                    and "dinde" not in a["description"]):
+                p["description"] = nettoyer(a["description"])
+    return trouves
 
 
 def fusion_uber(produits, chemin):
@@ -278,6 +323,9 @@ def fusion_uber(produits, chemin):
     for nom, note in uber.get("a_verifier", {}).items():
         if trouve(nom):
             trouve(nom)["a_verifier"] = note
+    for nom, categories in uber.get("categories_produits", {}).items():
+        if trouve(nom):
+            trouve(nom)["categories"] = categories
 
     def profil(noms):
         contient, traces, viandes = set(), set(), []
@@ -331,11 +379,14 @@ def main():
         uber = fusion_uber(produits, UBER)
         categories += uber.get("categories", [])
         sources.append(uber["source"])
-    if len(sys.argv) > 2:
-        ARTICLES.write_text(json.dumps(extraire_uber(sys.argv[2]), ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    if ARTICLES.exists():
-        photos_uber(produits, json.loads(ARTICLES.read_text(encoding="utf-8")))
-        sources.append("page Uber Eats Big M Bondy (photos et descriptions)")
+    ARTICLES.mkdir(exist_ok=True)
+    for page in sys.argv[2:]:
+        restaurant, articles = extraire_uber(page)
+        (ARTICLES / f"{restaurant}.json").write_text(json.dumps(articles, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    pages = {f.stem: json.loads(f.read_text(encoding="utf-8")) for f in sorted(ARTICLES.glob("*.json"))}
+    if pages:
+        photos_uber(produits, pages)
+        sources.append("pages Uber Eats " + ", ".join(pages) + " (photos et descriptions)")
     # Descriptions déjà livrées par un fichier précédent : l'import peut les remplacer tant qu'elles
     # n'ont pas été retouchées dans l'admin (ex. « bacon de dinde » corrigé en « bacon de bœuf »).
     if SORTIE.exists():

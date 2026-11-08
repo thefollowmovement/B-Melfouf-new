@@ -13,9 +13,11 @@
  *   n'a pas été retouché depuis le dernier import (ou s'il est provisoire, « nom à compléter »),
  *   il reprend aussi le nom, les catégories, le statut, l'ordre et le badge du fichier ; sinon
  *   ils ne changent pas. La description est remplacée si elle est vide ou encore celle d'un
- *   import précédent (pas retouchée) ; la photo n'est ajoutée que s'il n'y en a pas. On peut
- *   donc relancer l'import sans perdre ce qui a été retouché dans l'admin ;
- * - photos : téléchargées une fois (l'adresse d'origine est gardée sur le média) ;
+ *   import précédent (pas retouchée) ; la photo est ajoutée s'il n'y en a pas, ou remplacée si
+ *   elle vient d'un import précédent (l'ancienne est supprimée si plus rien ne s'en sert). On
+ *   peut donc relancer l'import sans perdre ce qui a été retouché dans l'admin ;
+ * - photos : téléchargées une fois (l'adresse d'origine est gardée sur le média : c'est elle qui
+ *   distingue une photo importée d'une photo choisie dans l'admin) ;
  * - en option, les produits de démonstration (extension bigm-demo) vont à la corbeille.
  *
  * @package BigM\Core
@@ -135,6 +137,27 @@ function bigm_import_image( string $url, int $post_id, string $nom ): int {
 }
 
 /**
+ * Supprime une photo d'un import précédent, remplacée, si plus aucun contenu ne l'a en image à la une.
+ *
+ * @param int $media Média.
+ */
+function bigm_import_retirer_ancienne_photo( int $media ): void {
+	$utilisee = get_posts(
+		array(
+			'post_type'      => 'any',
+			'post_status'    => 'any',
+			'posts_per_page' => 1,
+			'fields'         => 'ids',
+			'meta_key'       => '_thumbnail_id', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+			'meta_value'     => $media, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+		)
+	);
+	if ( ! $utilisee ) {
+		wp_delete_attachment( $media, true );
+	}
+}
+
+/**
  * Crée ou met à jour un produit.
  *
  * @param array<string, mixed> $p Produit du fichier.
@@ -223,12 +246,20 @@ function bigm_import_produit( array $p ): array {
 	update_post_meta( $id, '_bigm_import_titre', (string) get_the_title( $id ) );
 	update_post_meta( $id, '_bigm_import_description', $desc );
 
-	$image = false;
-	if ( ! empty( $p['image'] ) && ! has_post_thumbnail( $id ) ) {
-		$media = bigm_import_image( (string) $p['image'], $id, $titre );
-		if ( $media ) {
+	// Photo : ajoutée s'il n'y en a pas ; remplacée si la photo actuelle vient d'un import précédent
+	// (autre adresse d'origine). Une photo choisie dans l'admin n'est jamais remplacée.
+	$image   = false;
+	$url     = esc_url_raw( (string) ( $p['image'] ?? '' ) );
+	$actuel  = (int) get_post_thumbnail_id( $id );
+	$origine = $actuel ? (string) get_post_meta( $actuel, '_bigm_source_image', true ) : '';
+	if ( '' !== $url && ( ! $actuel || ( '' !== $origine && $origine !== $url ) ) ) {
+		$media = bigm_import_image( $url, $id, $titre );
+		if ( $media && $media !== $actuel ) {
 			set_post_thumbnail( $id, $media );
 			$image = true;
+			if ( $actuel && '' !== $origine ) {
+				bigm_import_retirer_ancienne_photo( $actuel );
+			}
 		}
 	}
 	return array(
@@ -375,7 +406,7 @@ function bigm_import_page(): void {
 		<?php echo (int) count( (array) ( $donnees['categories'] ?? array() ) ); ?> catégories.
 		Sources : <?php echo esc_html( implode( ' ; ', (array) ( $donnees['sources'] ?? array() ) ) ); ?>.
 	</p>
-	<p>Un produit qui existe déjà (même adresse) reçoit les viandes et les allergènes du fichier. S’il a été renommé dans l’admin, il garde son nom, ses catégories et son statut ; sinon il suit le fichier. Sa description suit le fichier tant qu’elle n’a pas été retouchée ; sa photo n’est ajoutée que s’il n’en a pas. On peut relancer l’import sans risque.</p>
+	<p>Un produit qui existe déjà (même adresse) reçoit les viandes et les allergènes du fichier. S’il a été renommé dans l’admin, il garde son nom, ses catégories et son statut ; sinon il suit le fichier. Sa description et sa photo suivent le fichier tant qu’elles n’ont pas été changées dans l’admin. On peut relancer l’import sans risque.</p>
 	<form method="get" action="<?php echo esc_url( admin_url( 'edit.php' ) ); ?>">
 		<input type="hidden" name="post_type" value="bigm_produit">
 		<input type="hidden" name="page" value="bigm-import-carte">

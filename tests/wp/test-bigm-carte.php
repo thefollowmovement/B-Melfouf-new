@@ -316,6 +316,45 @@ $ok( 'Texte écrit dans l’admin.' === get_post_field( 'post_content', $rd['id'
 bigm_import_produit( array_merge( $fiche_d, array( 'description' => 'Texte corrigé.', 'anciennes_descriptions' => array( 'Texte écrit dans l’admin.' ) ) ) );
 $ok( 'Texte corrigé.' === get_post_field( 'post_content', $rd['id'] ), 'description listée dans « anciennes_descriptions » (import d’une version précédente) : remplacée' );
 $ok( ! array_key_exists( 'dinde', bigm_viandes() ) && array( 'boeuf', 'poulet', 'poisson', 'vegetarien' ) === array_keys( bigm_viandes() ), 'viandes : bœuf, poulet, poisson, végétarien (bacon de bœuf)' );
+// Photos (sans réseau) : des images déjà dans la médiathèque, retrouvées par leur adresse d'origine.
+$image_test = static function ( string $nom, string $origine ) use ( &$posts ): int {
+	$gd = imagecreatetruecolor( 40, 40 );
+	ob_start();
+	imagejpeg( $gd );
+	$b  = wp_upload_bits( $nom . '.jpg', null, (string) ob_get_clean() );
+	$id = wp_insert_attachment(
+		array(
+			'post_mime_type' => 'image/jpeg',
+			'post_title'     => $nom,
+		),
+		$b['file']
+	);
+	wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $b['file'] ) );
+	if ( '' !== $origine ) {
+		update_post_meta( $id, '_bigm_source_image', $origine );
+	}
+	return (int) $id;
+};
+$photo_a = $image_test( 'import-photo-a', 'https://images.example/a.jpg' );
+$photo_b = $image_test( 'import-photo-b', 'https://images.example/b.jpg' );
+$photo_c = $image_test( 'photo-du-client', '' );
+$fiche_p = array(
+	'titre'      => 'Produit photo test',
+	'slug'       => 'produit-photo-test',
+	'categories' => array( 'import-test' ),
+	'image'      => 'https://images.example/a.jpg',
+);
+$rp      = bigm_import_produit( $fiche_p );
+$posts[] = $rp['id'];
+$ok( $rp['image'] && $photo_a === (int) get_post_thumbnail_id( $rp['id'] ), 'photo : image déjà importée retrouvée par son adresse d’origine, pas retéléchargée' );
+bigm_import_produit( array_merge( $fiche_p, array( 'image' => 'https://images.example/b.jpg' ) ) );
+$ok( $photo_b === (int) get_post_thumbnail_id( $rp['id'] ) && ! get_post( $photo_a ), 'nouvelle photo (Argenteuil au lieu de Bondy) : remplacée, l’ancienne supprimée car plus utilisée' );
+set_post_thumbnail( $rp['id'], $photo_c );
+bigm_import_produit( array_merge( $fiche_p, array( 'image' => 'https://images.example/b.jpg' ) ) );
+$ok( $photo_c === (int) get_post_thumbnail_id( $rp['id'] ), 'photo choisie dans l’admin : gardée' );
+wp_delete_attachment( $photo_b, true );
+wp_delete_attachment( $photo_c, true );
+
 $code    = bigm_import_produit(
 	array(
 		'titre'      => 'Z9 (nom à compléter)',

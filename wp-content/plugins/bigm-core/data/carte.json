@@ -2,8 +2,8 @@
  "version": "2026-11-08",
  "sources": [
   "tableau des allergènes (Liste consolidée, version de travail)",
-  "Uber Eats, Big M Bondy (capture d'écran et page enregistrée, 7 et 8 novembre 2026)",
-  "page Uber Eats Big M Bondy (photos et descriptions)"
+  "Uber Eats, Big M Bondy et Big M Argenteuil (captures et pages enregistrées, 7 et 8 novembre 2026)",
+  "pages Uber Eats big-m-argenteuil, big-m-bondy (photos et descriptions)"
  ],
  "categories": [
   {
@@ -126,7 +126,7 @@
     "sesame"
    ],
    "description": "1 steak 45 g, 1 tranche de cheddar, cornichons, ketchup et moutarde.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/a77f1bc930690bb1441d1cea69a62e9f/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/50e277cb2b71879d3370fd37a27b3cc4/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 1,
    "statut": "publish",
    "a_verifier": ""
@@ -150,7 +150,7 @@
     "sesame"
    ],
    "description": "1 steak 45 g, cornichons, ketchup et moutarde.",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/5192932377290ae88935a9357dc7b3f4/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 2,
    "statut": "publish",
    "a_verifier": ""
@@ -175,7 +175,7 @@
     "sesame"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/47c1b7e5e71ef7aab08b99f0ca8cf607/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 3,
    "statut": "publish",
    "a_verifier": ""
@@ -200,7 +200,7 @@
     "sesame"
    ],
    "description": "2 steaks 45 g, 3 tranches de cheddar, cornichons, ketchup et moutarde.",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/667fe7545629b739258f5b2a5e47e9c1/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 4,
    "statut": "publish",
    "a_verifier": ""
@@ -225,7 +225,7 @@
     "sesame"
    ],
    "description": "3 steaks 45 g, 3 tranches de cheddar, cornichons, ketchup et moutarde.",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/47e418f0e448c2cc066a378522c7beb4/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 5,
    "statut": "publish",
    "a_verifier": ""
@@ -251,7 +251,7 @@
     "poissons"
    ],
    "description": "2 steaks 45 g, 1 tranche de cheddar, salade, oignons et sauce Géant.",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/b8a362c6026422e2d82d0a55fc37d991/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 6,
    "statut": "publish",
    "a_verifier": ""
@@ -276,7 +276,7 @@
    ],
    "traces": [],
    "description": "2 steaks 45 g, 1 tranche de cheddar, salade, cornichons, oignons, sauce Big.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/c207b400a0c55eb3fb0e8b49d822b67f/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/d82ec85645803f9ca54746e450a230a2/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 7,
    "statut": "publish",
    "a_verifier": ""
@@ -305,7 +305,7 @@
     "celeri"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/5e72678cab9e5fc9418c5d0c72fdf022/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 8,
    "statut": "publish",
    "a_verifier": ""
@@ -330,7 +330,7 @@
    ],
    "traces": [],
    "description": "1 Galette de pommes de terre, 2 tenders, salade, 1 tranche de cheddar, sauce ketchup et mayonnaise.",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/891522e3e383231a71236e290a6434bd/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 1,
    "statut": "publish",
    "a_verifier": ""
@@ -358,7 +358,7 @@
     "soja"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/eb7291ce71745e9639650ff0fc21038c/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 9,
    "statut": "publish",
    "a_verifier": ""
@@ -387,7 +387,7 @@
     "celeri"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/0aaa379c303b8c885a280c127ac9ef25/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 2,
    "statut": "publish",
    "a_verifier": ""
@@ -414,7 +414,7 @@
     "moutarde"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/6919b5168fda237dfee4ccc93265906b/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 10,
    "statut": "publish",
    "a_verifier": ""
@@ -440,7 +440,7 @@
     "soja"
    ],
    "description": "",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/4dfb707e11b988954464df7639822d44/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/6ebcea13df3fc10b99572d91fb3b475e/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 3,
    "statut": "publish",
    "a_verifier": ""
@@ -464,7 +464,7 @@
    ],
    "traces": [],
    "description": "1 Steak 45 g, 1 Tranche de cheddar, tomates, salade, sauce crémeuse et poivrée.",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/1d5c187a5c2997ce997b2c5a65bcb99f/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 11,
    "statut": "publish",
    "a_verifier": ""
@@ -491,7 +491,7 @@
     "celeri"
    ],
    "description": "1 escalope de poulet panée, 1 tranche de cheddar, tomates, salade, sauce crémeuse et poivrée.",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/6295af1b3440577cfaea3ca9791d3f97/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 4,
    "statut": "publish",
    "a_verifier": ""
@@ -599,7 +599,7 @@
     "poissons"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/706122bd13605cef7c20b835d4ac6611/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 15,
    "statut": "publish",
    "a_verifier": ""
@@ -626,7 +626,7 @@
     "sulfites"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/81df589db396ca31c53a82252a332a72/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 16,
    "statut": "publish",
    "a_verifier": ""
@@ -655,7 +655,7 @@
     "celeri"
    ],
    "description": "2 Steaks 120 g, escalope de poulet, cornichons, salade iceberg, tomate et rondelles d’oignons.",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/7f7d47cc910838391e5984abfc976c65/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 17,
    "statut": "publish",
    "a_verifier": ""
@@ -680,7 +680,7 @@
    ],
    "traces": [],
    "description": "Steak 120 g, salade iceberg, cornichons, tomate et rondelles d'oignons rouges.",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/32bc04f9d10949d2a81dfb4f898bbf6a/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 18,
    "statut": "publish",
    "a_verifier": ""
@@ -707,7 +707,7 @@
     "poissons"
    ],
    "description": "Pain naan avec sa sauce géant, 2 viandes de bœuf et ses 2 tranches de cheddar, oignons.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/a899ebbaaf2c6710b2d5ae04314205e3/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/741bc621d5ec40e0fea50038f2d31c01/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 19,
    "statut": "publish",
    "a_verifier": ""
@@ -734,7 +734,7 @@
     "sulfites"
    ],
    "description": "Pain naan avec salade, une viande de bœuf grillé, son fromage fondu et sa sauce BIG.",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/2b398c1387075abc31f279eb6b747d83/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 20,
    "statut": "publish",
    "a_verifier": ""
@@ -761,7 +761,7 @@
     "sulfites"
    ],
    "description": "Pain Naan, salade, morceaux de tenders panés, cheddar et sauce mayonnaise/ketchup.",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/bd91c74bec8f06b62b127a955fea790d/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 5,
    "statut": "publish",
    "a_verifier": ""
@@ -786,7 +786,7 @@
    ],
    "traces": [],
    "description": "Pain bao avec 2 steaks 45 g, oignons caramélisés, sauce barbecue et 2 tranches de cheddar.",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/58f63f37fed9271675c28c6e29511019/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 21,
    "statut": "publish",
    "a_verifier": ""
@@ -812,7 +812,7 @@
    ],
    "traces": [],
    "description": "Pain bao avec 2 Tenders, oignons caramélisés, sauce barbecue et 2 tranches de cheddar.",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/1d383f49a61a155fda52840fe70dac66/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 6,
    "statut": "publish",
    "a_verifier": ""
@@ -839,7 +839,7 @@
     "celeri"
    ],
    "description": "1 Cheeseburger M et 1 Croque, servis avec des frites et une boisson au choix.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/8a67c32f59bf435c3f81c49d5a6a7604/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/ea91bb82637b1771feaa741d12a56fee/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 1,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Cheeseburger M, Croq Monsieur, Frites",
@@ -867,7 +867,7 @@
     "celeri"
    ],
    "description": "1 Cheeseburger M et 1 Double Cheese Bacon, servis avec des frites et une boisson au choix.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/b60ee4f8293037366aa1f996caeaeb3e/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/34b87405d63c3858cafc80d581c3338a/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 2,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Cheeseburger M, Double Cheese Bacon, Frites",
@@ -896,7 +896,7 @@
     "celeri"
    ],
    "description": "1 Big et 1 Cheeseburger M, servis avec des frites et une boisson au choix.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/5b0ee1cec46efe8644d75c315f5f1e29/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/4e275264b0071989cb69c2c4ecccc4a2/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 3,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Big, Cheeseburger M, Frites",
@@ -925,7 +925,7 @@
     "poissons"
    ],
    "description": "1 Cheeseburger M et 1 Géant, servis avec des frites et une boisson au choix.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/201316a276d95646ab27a0a71dd62dbc/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/8b4247f34aa4c81f16e8e6c10419457c/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 4,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Géant, Cheeseburger M, Frites",
@@ -955,7 +955,7 @@
     "celeri"
    ],
    "description": "1 Big et 1 Chicken M, servis avec des frites et une boisson au choix.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/9d8fea83287104d9094f097065f426bc/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/35396a56506557f084498677b2025d9e/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 5,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Big, Chicken M, Frites",
@@ -984,7 +984,7 @@
     "poissons"
    ],
    "description": "2 Géant, servis avec des frites et une boisson au choix.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/9fb8f3b39dd212c83258bcabcf627625/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/00bcd216d07787d75a576387ed70a027/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 6,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Géant, Frites",
@@ -1029,7 +1029,7 @@
     "celeri"
    ],
    "description": "1 Big et 1 Géant, servis avec des frites et une boisson au choix.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/48cd284469f118a6708c83b4569787c3/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/b1e147e05ff7698e8fd5bab5f5c670f9/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 7,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Big, Géant, Frites",
@@ -1058,7 +1058,7 @@
     "soja"
    ],
    "description": "1 Big Thunder et 1 Cheeseburger M ou 5 nuggets, servis avec des frites et une boisson au choix.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/3c2f7b793b9fe5c1faa3afcb7c2ef879/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/58dae03ea0835f64d8ee2bd7e2623039/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 8,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Big Thunder, Cheeseburger M, Nuggets, Frites",
@@ -1083,7 +1083,7 @@
     "soja"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/1af08317572709a7c5040544736aa5af/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 10,
    "statut": "draft",
    "a_verifier": "code interne : nom, photo et contenu à compléter"
@@ -1112,7 +1112,7 @@
     "soja"
    ],
    "description": "1 Big et 5 nuggets, servis avec des frites et une boisson 33 cl au choix.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/2574439aed320335878592e870b5bb76/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/43c0da78bdc6fe240de8bb448210899c/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 9,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Big, Nuggets, Frites",
@@ -1142,7 +1142,7 @@
     "poissons"
    ],
    "description": "1 Chicken M et 1 Géant, servis avec des frites et une boisson 33 cl au choix.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/d43c87b3266208cd1c298f92a25a179a/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/d61277e57f4431c6aa058c0d071f3de4/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 10,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Chicken M, Géant, Frites",
@@ -1171,7 +1171,7 @@
     "celeri"
    ],
    "description": "2 Big, servis avec des frites et une boisson 33 cl au choix.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/639f2f189cb9d9abcc5204d9e13da481/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/be0f6c746ad91da47422343dade3441b/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 11,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Big, Frites",
@@ -1201,7 +1201,7 @@
     "poissons"
    ],
    "description": "1 Géant et 5 nuggets, servis avec des frites et une boisson 33 cl au choix.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/7020af765ece162d8a2d685e2f657f8a/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/c5dd44f1e39d90578629412cc1ac945c/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 12,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Géant, Nuggets, Frites",
@@ -1245,7 +1245,7 @@
     "soja"
    ],
    "description": "Wrap curry ou tandoori et 4 nuggets, servis avec des frites et une boisson 33 cl.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/b900788b012b02ecc3ce3e4b8053d51b/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/4bd74855e3c9e640c51bdb09a518580a/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 14,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Wrap Curry, Wrap Tandoori, Nuggets, Frites",
@@ -1275,7 +1275,7 @@
     "celeri"
    ],
    "description": "Wrap curry ou tandoori et 1 Cheeseburger M, servis avec des frites et une boisson.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/6f8dce1fd9e8be3c1c481592d57a7688/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/61dac0d34df7b023aa84d8fb121ca126/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 15,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Wrap Curry, Wrap Tandoori, Cheeseburger M, Frites",
@@ -1306,7 +1306,7 @@
     "celeri"
    ],
    "description": "Wrap curry ou tandoori et 1 Big, servis avec des frites et une boisson 33 cl.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/2403f466f4ea6d61b3eebc4e8a6cdda2/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/b2232b73986c3668fa9cfb5c3878ab64/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 16,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Wrap Curry, Wrap Tandoori, Big, Frites",
@@ -1329,7 +1329,7 @@
    ],
    "traces": [],
    "description": "",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/87305ef12109bd16d0c2117b6d09ce39/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/322caf3fe47c99ba98ceac201108d1d3/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 1,
    "statut": "publish",
    "a_verifier": "composition du menu enfant : allergènes de la ligne « Menu kids » du tableau",
@@ -1357,7 +1357,7 @@
     "celeri"
    ],
    "description": "1 tranche de cheddar, 1 tranche d'emmental et 1 tranche de bacon de bœuf.",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/dd30943a2fcae98fe577aa320d8e3b31/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 1,
    "statut": "publish",
    "a_verifier": "description : Uber Eats indique « jambon de dinde » ; recette et agence : bacon de bœuf"
@@ -1385,7 +1385,7 @@
     "moutarde"
    ],
    "description": "Un assortiment savoureux de deux pièces de chaque produit : des oignons rings, des bouchées de camembert fondant, des nuggets dorés et des mozza sticks. Parfait pour partager ou pour ceux qui veulent goûter un peu de tout !",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/ed27c127e72edc2c871ca3934ed63264/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 2,
    "statut": "publish",
    "a_verifier": ""
@@ -1437,7 +1437,7 @@
     "celeri"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/30cb3a0c221806b8e916c0c18ebda360/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 2,
    "statut": "publish",
    "a_verifier": ""
@@ -1463,7 +1463,7 @@
     "celeri"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/944b0fa276133dbcb22e8e8905666b39/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 3,
    "statut": "publish",
    "a_verifier": ""
@@ -1513,7 +1513,7 @@
     "soja"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/01c99f0c60f13c7140cc138b92961241/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 5,
    "statut": "publish",
    "a_verifier": ""
@@ -1596,7 +1596,7 @@
     "moutarde"
    ],
    "description": "Boîte de 4 ou de 8 nuggets.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/62690b9d70241741a9fbd869f1d0e170/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/a16cd365445acda8f20e415dafb109fd/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 3,
    "statut": "publish",
    "a_verifier": ""
@@ -1623,7 +1623,7 @@
     "moutarde"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/d74654f7d40f7a491864bf613dfaf6db/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 4,
    "statut": "publish",
    "a_verifier": ""
@@ -1633,7 +1633,8 @@
    "slug": "mozza-sticks",
    "source": "Mozza-stick",
    "categories": [
-    "petite-faim"
+    "petite-faim",
+    "tex-mex"
    ],
    "viandes": [
     "vegetarien"
@@ -1644,7 +1645,7 @@
    ],
    "traces": [],
    "description": "Par 4 ou par 8.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/5218db451ad475bc665b06a9e69f7fef/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/6471a349591fc6eea18ae768b070573d/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 5,
    "statut": "publish",
    "a_verifier": ""
@@ -1654,7 +1655,8 @@
    "slug": "bouchees-camembert",
    "source": "Bouchée camembert",
    "categories": [
-    "petite-faim"
+    "petite-faim",
+    "tex-mex"
    ],
    "viandes": [
     "vegetarien"
@@ -1665,7 +1667,7 @@
    ],
    "traces": [],
    "description": "Par 4 ou par 8.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/080a6e342fc011fa4ed66be8ffa423f9/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/be30385f2548edf2742329d9a653cd8e/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 6,
    "statut": "publish",
    "a_verifier": ""
@@ -1675,7 +1677,8 @@
    "slug": "chili-cheese-nuggets",
    "source": "Chilli cheese nuggets",
    "categories": [
-    "petite-faim"
+    "petite-faim",
+    "tex-mex"
    ],
    "viandes": [],
    "contient": [
@@ -1689,7 +1692,7 @@
     "celeri"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/36717ed85e7f72cc8e94a08a0a889850/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 7,
    "statut": "publish",
    "a_verifier": "pas de recette : végétarien ?"
@@ -1723,7 +1726,8 @@
    "slug": "onion-rings-panko",
    "source": "Panko Onion rings",
    "categories": [
-    "petite-faim"
+    "petite-faim",
+    "tex-mex"
    ],
    "viandes": [
     "vegetarien"
@@ -1740,7 +1744,7 @@
     "celeri"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/9d8045ddb21c48bfc51a1a519e964f09/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 9,
    "statut": "publish",
    "a_verifier": ""
@@ -1764,7 +1768,7 @@
     "celeri"
    ],
    "description": "Portion de frites.",
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/6bd5dbdb345f4eeff280e32d8f9847fd/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/fc08e50bd85d6a4fd345839d2e7c7d1c/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 10,
    "statut": "publish",
    "a_verifier": ""
@@ -1788,7 +1792,7 @@
    ],
    "traces": [],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/c0c90d591f8c2705fada5192096275c2/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 11,
    "statut": "publish",
    "a_verifier": ""
@@ -1812,7 +1816,7 @@
    ],
    "traces": [],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/6bbbc54eade0cfeb1e11c6f4fcb89501/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 12,
    "statut": "publish",
    "a_verifier": ""
@@ -1836,7 +1840,7 @@
    ],
    "traces": [],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/9f4ec26a28b34c80303e5a929de03834/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 13,
    "statut": "publish",
    "a_verifier": ""
@@ -1861,7 +1865,7 @@
     "moutarde"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/b43a1258c5eee15f456ba8793ba77e10/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 1,
    "statut": "publish",
    "a_verifier": ""
@@ -1887,7 +1891,7 @@
     "moutarde"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/a1301ae637f135d9f3ac2312bf5325f8/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 2,
    "statut": "publish",
    "a_verifier": ""
@@ -1936,7 +1940,7 @@
    ],
    "traces": [],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/39ee2c72decfec66a9d9945ae654e45e/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 4,
    "statut": "publish",
    "a_verifier": ""
@@ -1959,7 +1963,7 @@
     "soja"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/1d3d2ff44aea54a1280a1a4839448256/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 5,
    "statut": "publish",
    "a_verifier": ""
@@ -1982,7 +1986,7 @@
     "arachides"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/b8548d18965257e955cf620e911b6972/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 6,
    "statut": "publish",
    "a_verifier": ""
@@ -2078,7 +2082,7 @@
    ],
    "traces": [],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/093c25182812f613484d48d0aedb3b76/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 10,
    "statut": "publish",
    "a_verifier": ""
@@ -2100,7 +2104,7 @@
    ],
    "traces": [],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/afce207c9d076f66191a62e883c185e6/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 11,
    "statut": "publish",
    "a_verifier": ""
@@ -2123,7 +2127,7 @@
    ],
    "traces": [],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/c7c460140c460753c558768f1adb4509/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 12,
    "statut": "publish",
    "a_verifier": ""
@@ -2146,7 +2150,7 @@
    ],
    "traces": [],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/62ed92aca71aee269a21067f75f71c0b/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 13,
    "statut": "publish",
    "a_verifier": ""
@@ -2265,7 +2269,7 @@
    ],
    "traces": [],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/94a1d9a8123b6e930abd5a4182585f57/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 1,
    "statut": "publish",
    "a_verifier": ""
@@ -2306,7 +2310,7 @@
     "poissons"
    ],
    "description": "",
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/3c4f99957f2b888fb1cdd7430aa30ec6/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "ordre": 3,
    "statut": "publish",
    "a_verifier": ""
@@ -2387,7 +2391,7 @@
     "boeuf",
     "poulet"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/5f0a9ea29b32b6bdfd968e31f953e6b1/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/b810fe85de761a787841ae00af3503cf/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "MBAO – Mbao Beef + Mbao Chicken",
    "categories": [
     "menus-doubles"
@@ -2448,7 +2452,7 @@
    "viandes": [
     "boeuf"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/2528f76c7c5265d65c295a332282bb5d/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/2daa5dd824758e7b6ec7552b26dfc573/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Little Doublé",
    "categories": [
     "menus-doubles"
@@ -2476,7 +2480,7 @@
    "viandes": [
     "boeuf"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/13978f1797eb949b559399fd393fa162/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/06e91c1e48ac88f0a69faba2f5ce5dab/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Cheeseburger M",
    "categories": [
     "menus-simples"
@@ -2504,7 +2508,7 @@
    "viandes": [
     "boeuf"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/f88da5a904731f5e56fc54773a48f64d/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/39084123aec1eadce908092bef1071f6/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Double Cheeseburger M",
    "categories": [
     "menus-simples"
@@ -2533,7 +2537,7 @@
    "viandes": [
     "boeuf"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/31fec1070e5e0d65085b05dcaba87c7c/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/9cb37987b40756c366fe41efbbea890d/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Big",
    "categories": [
     "menus-simples"
@@ -2562,7 +2566,7 @@
    "viandes": [
     "boeuf"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/24dc1d426f7db6dfbef297c378e207f2/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/f873f8fddeece49bd49371b601b2bbc8/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Géant",
    "categories": [
     "menus-simples"
@@ -2590,7 +2594,7 @@
    "viandes": [
     "poulet"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/6d8dcc14223ac6d39d317f467a2bc0b1/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/dc216d4cf9529802d20e0b1a35555367/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Chicken M",
    "categories": [
     "menus-simples"
@@ -2618,7 +2622,7 @@
    "viandes": [
     "boeuf"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/d044bf8acd7616b0707ab33a5b1f9053/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/315c62055d8d5bfe84a3ad71e5d64d8c/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Long Bacon M",
    "categories": [
     "menus-simples"
@@ -2676,7 +2680,7 @@
     "boeuf",
     "poulet"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/5c28e5fb07319155bc0d151d4170d7fc/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/11e6d2172aa4bfcddf93a2bfdfe63319/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Beef Chicken",
    "categories": [
     "menus-simples"
@@ -2704,7 +2708,7 @@
    "viandes": [
     "poulet"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/3addf1ce866a8c0dd894af4b7f62888a/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/bab003a2514d1acf99e5762f5ee7386a/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Big Thunder",
    "categories": [
     "menus-simples"
@@ -2732,7 +2736,7 @@
    "viandes": [
     "boeuf"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/1014c4b861898a0ee744bed4e7038ead/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/011528afe358045bf35b60c692fdb38a/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Triple Cheeseburger M",
    "categories": [
     "menus-simples"
@@ -2760,7 +2764,7 @@
    "viandes": [
     "boeuf"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/1af133d11a42f4dfd96ed69d2204a5e3/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/abcce54ca950bca6c0c130025390d944/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu M Luxe Beef",
    "categories": [
     "menus-simples"
@@ -2788,7 +2792,7 @@
    "viandes": [
     "poulet"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/148416cf836129606e0e9d22d5b503a1/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/9b641b2a8e6638a887d9e96c1ccf7250/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu M Luxe Chicken",
    "categories": [
     "menus-simples"
@@ -2815,7 +2819,7 @@
    "viandes": [
     "poulet"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/8517140850aef8f6d76f3a8d57f74586/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/ce756d7c4973b7254ae2939d8d115f61/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Mbao Chicken",
    "categories": [
     "menus-simples"
@@ -2843,7 +2847,7 @@
    "viandes": [
     "boeuf"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/f652e8dd387e09ab897f2209c3817b68/a1681d67ebe55c76c3af5f401619c278.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/a64432ca4fe5f2ebcb8ed61290f8c07b/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Mbao Beef",
    "categories": [
     "menus-simples"
@@ -2872,7 +2876,7 @@
    "viandes": [
     "poulet"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/c929bbfd0ab3e5096121ef4e8864b13e/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/106d6a9a089df1084b5d815dea678a37/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Naan Thunder",
    "categories": [
     "menus-simples"
@@ -2902,7 +2906,7 @@
    "viandes": [
     "boeuf"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/43bbe664bac4cff24504152b08a354dc/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/d1437026c8cf753888c2a48ddfe27790/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Naan Big",
    "categories": [
     "menus-simples"
@@ -2932,7 +2936,7 @@
    "viandes": [
     "boeuf"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/0c69e0d57bcc0a877a4f58c3a5d36dd4/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/4cadea1cefd7e2b48bcd0cc4f23072f5/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Naan Géant",
    "categories": [
     "menus-simples"
@@ -2941,6 +2945,123 @@
    "statut": "publish",
    "ordre": 17,
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Naan Géant, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-double-cheese-bacon",
+   "source": "Uber Eats : Menu Double Cheese Bacon",
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "oeufs",
+    "soja",
+    "sesame",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/9578e1e12794f01b66e60442b8d7a40d/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Double Cheese Bacon",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Double Cheese Bacon, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 18,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Double Cheese Bacon, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-long-beef-m",
+   "source": "Uber Eats : Menu Long Beef M",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "fruitsacoque",
+    "soja",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/59f2fc10f1acbc2963db9b2b7efbdeb8/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Long Beef M",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Long Beef M, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 19,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Long Beef M, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-long-chicken",
+   "source": "Uber Eats : Menu Long Chicken",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "fruitsacoque",
+    "celeri"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/ac76a686a567096cb46982e9a2403334/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Long Chicken",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Long Chicken, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 20,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Long Chicken, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-long-smoky-bacon",
+   "source": "Uber Eats : Menu Long Smoky Bacon",
+   "contient": [
+    "gluten",
+    "lait",
+    "sesame"
+   ],
+   "traces": [
+    "oeufs",
+    "fruitsacoque",
+    "soja",
+    "moutarde",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/aee53c5e7c672a99f0b02265b4d5941d/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Long Smoky Bacon",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Long Smoky Bacon, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 21,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Long Smoky Bacon, Frites",
    "badge": ""
   },
   {
@@ -2959,7 +3080,7 @@
    "viandes": [
     "boeuf"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/2ad10cd7625601ba5865eab9b79c78d9/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/eae6d2acb3954406ec8f6c0df48bec2e/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Wrap Steak",
    "categories": [
     "menus-wraps"
@@ -2986,7 +3107,7 @@
    "viandes": [
     "poulet"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/0ef19e8d5fb107242d58326fb4eab2cb/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/d02183a7b1f700668cab2f2223041cd1/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Wrap Tenders",
    "categories": [
     "menus-wraps"
@@ -3040,7 +3161,7 @@
    "viandes": [
     "poulet"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/9e2b44b8e5f1a85af5b2a3161dc495fe/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/863a58beca9fa4e36476e56f2091a115/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Wrap Curry",
    "categories": [
     "menus-wraps"
@@ -3069,7 +3190,7 @@
    "viandes": [
     "boeuf"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/00d7c757071efbc24739ecf6f52b5145/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/bd32951c2f1dc52f20d04d16926f3ba8/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Jumbo",
    "categories": [
     "menus-grill"
@@ -3099,7 +3220,7 @@
     "boeuf",
     "poulet"
    ],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/37f14fa1ad500dc07e97c83889acd974/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/c448d04b160e6140eb10ddffd92555c8/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Menu Monster",
    "categories": [
     "menus-grill"
@@ -3174,7 +3295,7 @@
    ],
    "traces": [],
    "viandes": [],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/395d0d75ed42f181d9a90eba0df126c2/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/c3ee2b5aeaaf58d656a3b3f019b574f8/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Sauce algérienne",
    "categories": [
     "sauces"
@@ -3233,7 +3354,7 @@
    ],
    "traces": [],
    "viandes": [],
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/8954c6fc5073623d8f7ded5d05b50013/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Sauce Biggy Burger",
    "categories": [
     "sauces"
@@ -3269,7 +3390,7 @@
    "contient": [],
    "traces": [],
    "viandes": [],
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/93f0aa8e3e026f9bd2ffc4becdb89a98/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Ketchup",
    "categories": [
     "sauces"
@@ -3340,7 +3461,7 @@
    "contient": [],
    "traces": [],
    "viandes": [],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/2bad7e7f5568161e3a72825dcc19eb48/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/3b45e32b3f0f5abfe158e9d9db6f11a1/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Fanta Exotique 33 cl",
    "categories": [
     "boissons"
@@ -3357,7 +3478,7 @@
    "contient": [],
    "traces": [],
    "viandes": [],
-   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/dcce03379d498c09f946cc30419204b9/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/85ed79db0a9784a4551aa45568493222/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Fanta Fruits du Dragon 33 cl",
    "categories": [
     "boissons"
@@ -3374,7 +3495,7 @@
    "contient": [],
    "traces": [],
    "viandes": [],
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/4fd3d2517c8ca5655c1308e589675c2a/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Fanta Citron 33 cl",
    "categories": [
     "boissons"
@@ -3391,7 +3512,7 @@
    "contient": [],
    "traces": [],
    "viandes": [],
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/5437267a13684cf1c8c9ef9ea2373fd2/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Coca-Cola 33 cl",
    "categories": [
     "boissons"
@@ -3408,7 +3529,7 @@
    "contient": [],
    "traces": [],
    "viandes": [],
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/dba4634c6df665ed3e9b18c3edc65279/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Coca-Cola Zéro 33 cl",
    "categories": [
     "boissons"
@@ -3425,7 +3546,7 @@
    "contient": [],
    "traces": [],
    "viandes": [],
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/28f0954e304145b472e5648345ba6351/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Coca-Cola Cherry 33 cl",
    "categories": [
     "boissons"
@@ -3459,7 +3580,7 @@
    "contient": [],
    "traces": [],
    "viandes": [],
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/d2433c06525d77101c318364275d6c20/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Oasis Tropical 33 cl",
    "categories": [
     "boissons"
@@ -3476,7 +3597,7 @@
    "contient": [],
    "traces": [],
    "viandes": [],
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/a0feec6b945b544a064075e22ea9ef84/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Oasis Pomme Cassis 33 cl",
    "categories": [
     "boissons"
@@ -3493,7 +3614,7 @@
    "contient": [],
    "traces": [],
    "viandes": [],
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/6dd8feca03360abd27168e1cacbde61c/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Orangina 33 cl",
    "categories": [
     "boissons"
@@ -3510,7 +3631,7 @@
    "contient": [],
    "traces": [],
    "viandes": [],
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/995120e7e098c4b25d0fabdabcb0833c/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Schweppes Agrum' 33 cl",
    "categories": [
     "boissons"
@@ -3527,7 +3648,7 @@
    "contient": [],
    "traces": [],
    "viandes": [],
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/311adb28d3c74ebcfac85f70052d9fad/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Hawaï 33 cl",
    "categories": [
     "boissons"
@@ -3578,7 +3699,7 @@
    "contient": [],
    "traces": [],
    "viandes": [],
-   "image": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/f817400844e719634ab4266568f64387/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "Cristaline 50 cl",
    "categories": [
     "boissons"
@@ -3586,6 +3707,193 @@
    "description": "",
    "statut": "publish",
    "ordre": 17,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "fuze-tea-peche-33-cl",
+   "source": "Uber Eats : Fuze Tea pêche 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/39ae652c7f71010638bf235a93287ab4/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Fuze Tea pêche 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 18,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "chill-cosmopolitain-20-cl",
+   "source": "Uber Eats : Chill Cosmopolitain 20 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/ee0868e414b527b09aa87ac910cf4b0d/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Chill Cosmopolitain 20 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 19,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "chill-mojito-20-cl",
+   "source": "Uber Eats : Chill Mojito 20 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/7ab9f0b6cf68f8a0868a32f128d3abe6/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Chill Mojito 20 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 20,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "chill-blue-hawaii-20-cl",
+   "source": "Uber Eats : Chill Blue Hawaii 20 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/e8b275fedd3cfa0c4f3c906f16ac9c0a/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Chill Blue Hawaii 20 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 21,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "chill-kiwi-citron-20-cl",
+   "source": "Uber Eats : Chill Kiwi Citron 20 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/02ad299be75f501766b5b46964578bb6/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Chill Kiwi Citron 20 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 22,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "chill-litchi-maracuja-20-cl",
+   "source": "Uber Eats : Chill Litchi Maracuja 20 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/634ca8b92be9a043b37e1aa976fd88ba/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Chill Litchi Maracuja 20 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 23,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "chill-mangue-poire-20-cl",
+   "source": "Uber Eats : Chill Mangue Poire 20 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/32bb0c193eafe4094184804d3bdcaede/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Chill Mangue Poire 20 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 24,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "chill-melon-peche-20-cl",
+   "source": "Uber Eats : Chill Melon Pêche 20 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/59926da56df64d81a5bb5533b178a882/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Chill Melon Pêche 20 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 25,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "street-cherry",
+   "source": "Uber Eats : Street Cherry",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "",
+   "titre": "Street Cherry",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 26,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "street-orange",
+   "source": "Uber Eats : Street Orange",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "",
+   "titre": "Street Orange",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 27,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "cafe",
+   "source": "Uber Eats : Café",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/1dbd763afe663c4b77fa86c7d7363ed1/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Café",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 28,
    "a_verifier": "",
    "badge": ""
   }
