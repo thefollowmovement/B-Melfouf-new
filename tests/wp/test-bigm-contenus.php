@@ -132,6 +132,7 @@ $page( array( 'post_type' => 'post' ) );
 $GLOBALS['wp_query']->is_home = true;
 $pastilles = do_shortcode( '[bigm_categories_articles]' );
 $ok( '' === $pastilles || ( str_contains( $pastilles, 'class="news-tabs"' ) && str_contains( $pastilles, 'aria-current="page">Tout</a>' ) ), '[bigm_categories_articles] : pastilles Tout / catégories, « Tout » actif sur la liste' );
+$ok( 'Lire l’article : Titre' === sprintf( __( 'Read more about %s', 'elementor-pro' ), 'Titre' ), 'widget Articles d’Elementor Pro : nom caché du lien « Lire l’article » en français' ); // phpcs:ignore WordPress.WP.I18n
 
 WP_CLI::log( 'Formulaires (pages avec le widget Formulaire d’Elementor Pro)' );
 $form_page = wp_insert_post(

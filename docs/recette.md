@@ -71,28 +71,30 @@ Safari (iOS) et Chrome (Android) sur de vrais téléphones restent à faire : vo
   - correction : une règle de pagination placée en tête. bigm-core la remet de lui-même si elle manque.
 - Pastilles Tout / News / Presse du modèle « Blog — Actualités » : « Tout » (un widget Bouton) n'est pas aligné avec les deux autres (le widget Catégories de WordPress) et n'est jamais marqué actif. bigm-core 0.6.2 ajoute le shortcode `[bigm_categories_articles]`, qui affiche les trois pastilles ensemble (voir ci-dessous).
 
-## À corriger dans l'admin (préprod)
+## Corrigé dans Elementor (8 novembre, préprod)
 
-Ces réglages sont dans des pages Elementor faites sur la préprod. Ils ne viennent pas du code.
+Fait sur la préprod par l'accès MCP d'Elementor et l'API REST. Les données d'avant sont gardées hors du dépôt.
 
-1. **`/restaurants/`.**
-   - Il n'y a pas de titre `h1`. Ajouter le widget **Big M — En-tête de page** au-dessus du store locator (titre « Nos restaurants », texte, bouton Commander).
-   - Dans le widget Store – Locator, changer le titre « Trouvez votre boutique » en « Trouvez votre restaurant », ou le vider.
-2. **`/devenir-franchise/` et `/nous-rejoindre/`, bandeau orange.**
-   - Le texte blanc de 14 à 17 px sur l'orange `#fa5c19` n'a qu'un contraste de 3,17:1, sous le minimum AA de 4,5:1.
-   - Passer ces textes en brun (`#2b1406`), ou au moins en 24 px.
-   - Pour les boutons, prendre l'orange des boutons `#c8400a` avec texte blanc (brief, § 3), ou un bouton blanc à texte brun.
-3. **`/actualites/` (modèle Theme Builder « Blog — Actualités »).**
-   - Les vignettes des articles sont des liens sans nom quand l'image n'a pas de texte alternatif : remplir le texte alternatif des images à la une.
-   - Le lien « Précédent » désactivé de la pagination est trop pâle (2,96:1).
-   - Le rôle ARIA posé sur les `<article>` n'est pas autorisé.
-   - Les liens « Lire la suite » portent un nom caché différent de leur texte : laisser le texte du lien vide dans le widget, ou le masquer.
-   - Pastilles : remplacer le bouton « Tout » et le widget Catégories par un widget **Code court** contenant `[bigm_categories_articles]`.
-4. **Lien Commander** (Réglages Big M) :
+| Page | Correction |
+|---|---|
+| `/restaurants/` | Widget **Big M — En-tête de page** au-dessus du store locator : titre `h1` « Nos restaurants », texte, bouton Commander. Titre du store locator : « Trouvez votre restaurant ». |
+| `/devenir-franchise/`, `/nous-rejoindre/` | Bandeau orange : petit titre et texte en brun `#2b1406`, boutons à contour brun. Les grands titres restent blancs, comme la bande appli du prototype. |
+| Modèle « Big M — Actualités (blog) » | Pastilles : un widget Code court `[bigm_categories_articles]` remplace le bouton « Tout » et le widget Catégories. « Précédent » et « Suivant » désactivés en brun clair `#6b4a3a`, sans transparence. |
+| Médiathèque | Texte de remplacement des 38 images à la une qui n'en avaient pas : titre de l'article (une image partagée par deux articles : « Big M, réseau de restaurants en franchise »). |
+
+Contrôle axe, ordinateur et mobile :
+- `/restaurants/`, `/devenir-franchise/` et `/nous-rejoindre/` : aucune erreur ;
+- `/actualites/` : plus de lien sans nom ni de contraste insuffisant. Il reste :
+  - le nom caché anglais des liens « Lire l'article », corrigé par **bigm-core 0.6.8** (à installer) ;
+  - `role="listitem"` sur les `<article>`, posé par Elementor Pro (mineur, bonne pratique, pas de réglage pour le retirer).
+
+## Reste à corriger dans l'admin (préprod)
+
+1. **Lien Commander** (Réglages Big M) :
    - retirer le paramètre de suivi `?srsltid=…` ;
    - viser la page française d'Uber Eats (`/fr/` au lieu de `/fr-en/`).
-5. **Menu du pied de page « L'entreprise »** (Apparence → Menus) : le lien « Recrutement » pointe encore vers `/recrutement/` (menu créé à l'installation avec les liens du prototype). Le passer à `/nous-rejoindre/`. La redirection marche en attendant.
-6. **CSS additionnel** (Apparence → Personnaliser) : le vider une fois le thème 0.6.1 installé, l'icône Restaurants est maintenant dans le thème.
+2. **Menu du pied de page « L'entreprise »** (Apparence → Menus) : le lien « Recrutement » pointe encore vers `/recrutement/` (menu créé à l'installation avec les liens du prototype). Le passer à `/nous-rejoindre/`. La redirection marche en attendant.
+3. **CSS additionnel** (Apparence → Personnaliser) : le vider une fois le thème 0.6.1 installé, l'icône Restaurants est maintenant dans le thème.
 
 ## À signaler dans le dépôt de StoreLocatore
 

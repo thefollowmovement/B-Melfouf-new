@@ -301,3 +301,15 @@ add_shortcode(
 		return bigm_rendu_categories_articles();
 	}
 );
+
+/*
+ * Widget Articles d'Elementor Pro : le lien « Lire l’article » porte un nom caché anglais
+ * (« Read more about … »), sans traduction française d'Elementor Pro. Le nom caché doit
+ * commencer par le texte affiché (accessibilité : nom visible dans le nom accessible).
+ */
+add_filter(
+	'gettext_elementor-pro',
+	static fn( string $traduction, string $texte ): string => 'Read more about %s' === $texte ? 'Lire l’article : %s' : $traduction,
+	10,
+	2
+);

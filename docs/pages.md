@@ -84,7 +84,12 @@ Les articles sont natifs (menu **Articles**), rangés dans les catégories **New
 
 bigm-core règle la base des catégories sur `actualites` à son installation (**Réglages → Permaliens**), si elle était vide. La catégorie par défaut (« Non classé ») n'apparaît ni dans les pastilles ni sur les cartes.
 
-Pastilles Tout / News / Presse dans un modèle du Theme Builder : widget **Code court** avec `[bigm_categories_articles]` (la page affichée est marquée).
+Pastilles Tout / News / Presse dans un modèle du Theme Builder : widget **Code court** avec `[bigm_categories_articles]` (la page affichée est marquée). C'est le cas du modèle « Big M — Actualités (blog) » de la préprod.
+
+Widget Articles d'Elementor Pro dans ce modèle :
+- le lien « Lire l'article » porte un nom caché anglais (« Read more about … »), qu'Elementor Pro ne traduit pas. bigm-core le traduit en « Lire l'article : titre » (filtre `gettext_elementor-pro`). Si le texte du lien change dans le widget, ce nom caché doit commencer par le même texte : adapter le filtre de `inc/pages.php` ;
+- les vignettes sont des liens : chaque image à la une doit avoir un texte de remplacement (le titre de l'article fait l'affaire) ;
+- Elementor Pro pose `role="listitem"` sur les `<article>` : axe le signale (mineur, bonne pratique), sans réglage pour le retirer.
 
 Les gabarits sont dans le thème : `home.php`, `category.php`, `single-post.php`. Ils appellent `bigm_page_actualites()` et `bigm_page_article()` de bigm-core. Un modèle du Theme Builder d'Elementor Pro, s'il vise ces pages, les remplace. Les cartes d'articles de l'accueil et de la page Actualités partagent le même balisage et `assets/css/articles.css`.
 
@@ -96,7 +101,7 @@ Les articles de l'ancien site se reprennent avec leurs images par **Outils → R
 wp eval-file tests/wp/test-bigm-contenus.php --user=IDENTIFIANT_ADMIN
 ```
 
-Il fait 31 vérifications :
+Il fait 33 vérifications :
 
 - sections de texte, chiffres, en-tête de page ;
 - cartes, pastilles et articles des actualités ;

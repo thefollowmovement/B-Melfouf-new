@@ -61,7 +61,7 @@ Les fiches restaurants gardent le référencement du plugin (onglet SEO de la fi
 **Outils → Reprise des articles.** Elle lit l'API publique de l'ancien site (`/wp-json/wp/v2/posts`), 5 articles par lot ; la page se recharge seule jusqu'au dernier lot.
 
 - Titre, adresse (même slug), date, extrait et texte sont repris. Les vidéos YouTube et Vimeo deviennent leur adresse seule sur une ligne, que WordPress intègre lui-même. Scripts et styles sont retirés.
-- Les images de l'ancien site (`/wp-content/uploads/`) sont copiées dans la médiathèque, l'image à la une comprise ; leur texte de remplacement est gardé.
+- Les images de l'ancien site (`/wp-content/uploads/`) sont copiées dans la médiathèque, l'image à la une comprise ; leur texte de remplacement est gardé. Une image à la une sans texte de remplacement prend le titre de l'article (la vignette est un lien, qui a besoin d'un nom).
 - Catégories : **Presse** pour les anciennes rubriques Presse, Print, Web, Radio et TV, **News** pour les autres. Print, Web, Radio et TV et les anciennes étiquettes deviennent des étiquettes.
 - On peut relancer : un article déjà repris (même identifiant d'origine ou même adresse) n'est pas recréé, une image déjà copiée n'est pas recopiée.
 

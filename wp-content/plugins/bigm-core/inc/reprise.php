@@ -260,7 +260,9 @@ function bigm_reprise_article( array $a, string $source ): array {
 	);
 	$une = $a['_embedded']['wp:featuredmedia'][0] ?? array();
 	if ( ! empty( $une['source_url'] ) ) {
-		$media = bigm_reprise_image( (string) $une['source_url'], $source, $id, (string) ( $une['alt_text'] ?? '' ) );
+		// Sans texte alternatif, la vignette (un lien) prend le titre de l'article.
+		$alt   = trim( (string) ( $une['alt_text'] ?? '' ) );
+		$media = bigm_reprise_image( (string) $une['source_url'], $source, $id, '' !== $alt ? $alt : (string) get_post_field( 'post_title', $id, 'raw' ) );
 		if ( $media ) {
 			set_post_thumbnail( $id, $media );
 			++$images;
