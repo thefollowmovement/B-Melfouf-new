@@ -450,21 +450,5 @@
    "google": "Big M - Salengro/Croix-Luizet — 161 Av. Roger Salengro, 69100 Villeurbanne"
   }
  ],
- "non_remplis": [
-  {
-   "id": 187,
-   "nom": "Le Creusot",
-   "raison": "Seule fiche Google « Big M le creusot » : fermée définitivement"
-  },
-  {
-   "id": 174,
-   "nom": "Sarreguemines",
-   "raison": "Seule fiche Google « Big M Sarreguemines » : fermée définitivement"
-  },
-  {
-   "id": 132,
-   "nom": "Villeurbanne - Croix Luizet",
-   "raison": "Seule fiche Google « Big M - La Rize » : fermée définitivement ; la fiche de Salengro s’appelle « Big M - Salengro/Croix-Luizet »"
-  }
- ]
+ "non_remplis": []
 }

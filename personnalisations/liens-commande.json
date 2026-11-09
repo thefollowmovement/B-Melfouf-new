@@ -239,13 +239,6 @@
    }
   },
   {
-   "id": 187,
-   "nom": "Le Creusot",
-   "liens": {
-    "ubereats": "https://www.ubereats.com/fr/store/big-m-le-creusot/rPj1cxklXy6E9k6Qvi7YyQ"
-   }
-  },
-  {
    "id": 175,
    "nom": "Lyon – Rillieux-la-Pape",
    "liens": {
@@ -460,13 +453,6 @@
    }
   },
   {
-   "id": 174,
-   "nom": "Sarreguemines",
-   "liens": {
-    "ubereats": "https://www.ubereats.com/fr/store/big-m-sarreguemines/hou1sx_cTEioyeB-TFRUEw"
-   }
-  },
-  {
    "id": 173,
    "nom": "Saumur",
    "liens": {
@@ -558,12 +544,6 @@
     "ubereats": "https://www.ubereats.com/fr/store/big-m-villeurbanne-charpennes/kJFdjrKjVyKedk2fuxEdiw",
     "deliveroo": "https://deliveroo.fr/fr/menu/lyon/lyon-part-dieu/big-m-charpenne"
    }
-  },
-  {
-   "id": 132,
-   "nom": "Villeurbanne – Croix Luizet",
-   "liens": {},
-   "a_verifier": "Villeurbanne Croix-Luizet : Deliveroo « Big M - Villeurbanne » (big-m-69) livre depuis Vaulx-en-Velin, voisin de Croix-Luizet, sans adresse confirmée ; pas de fiche Uber Eats"
   },
   {
    "id": 165,

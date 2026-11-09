@@ -100,16 +100,15 @@ Contrôle axe, ordinateur et mobile :
 
 1. **Liens de commande** (**Restaurants → Liens de commande**), remplis le 9 novembre (`personnalisations/liens-commande.json`) : 69 liens Uber Eats et 58 Deliveroo, sur 70 restaurants. Les trois restaurants de Dakar n'ont rien : Uber Eats et Deliveroo n'y sont pas. Restent à faire :
    - **Nevers** : ses deux fiches Uber Eats sont marquées fermées en 2025, aucune fiche Deliveroo. Laissé vide.
-   - **Villeurbanne – Croix Luizet** : pas de fiche Uber Eats. Fiche Deliveroo probable mais non confirmée (`https://deliveroo.fr/fr/menu/lyon/lyon-vaulx-en-velin/big-m-69`, « Big M - Villeurbanne »). Laissé vide.
    - **Boulogne** : la fiche Uber Eats existe, mais son adresse est introuvable dans les résultats de recherche. Deliveroo seulement.
    - À vérifier d'un clic : Deliveroo de **Marseille** (« Big M Marseille Massilia », zone Allauch) et de **Béziers** (fiche aux prix anciens) ; Uber Eats de **Paris 20 – Pyrénées** (deux fiches au même endroit, celle aux 2 000 avis retenue).
    - Case **Téléphone** pour les restaurants qui livrent eux-mêmes (cochée seulement pour Agen).
    - **Montpellier nord** garde son lien StoreLocatore générique (`order.store/fr/brand/big-m`), affiché en « Commander en ligne » en plus d'Uber Eats et Deliveroo : à retirer de sa fiche StoreLocatore s'il ne sert plus.
 2. **Google Place ID**, remplis le 9 novembre pour 70 restaurants sur 75 (`personnalisations/place-id.json`). À voir avec le client :
-   - Google indique **fermés définitivement** Le Creusot, Sarreguemines et Villeurbanne – Croix Luizet ; la fiche Google de Salengro s'appelle « Salengro/Croix-Luizet ». Si ces restaurants ont fermé, les retirer de la liste ; sinon, leur créer ou rouvrir une fiche Google.
+   - Le Creusot, Sarreguemines et Villeurbanne – Croix Luizet, marqués fermés définitivement par Google, ont été mis à la corbeille le 9 novembre, comme Mérignac. Il reste **70 restaurants**, tous avec un Place ID.
    - **Colmar** et **Mérignac** sont dans un Big Canteen, le food court du groupe (Restaurants → Food courts). Colmar a le Place ID de son Big Canteen. Le Big Canteen de **Mérignac** a fermé : sa fiche est à la corbeille depuis le 9 novembre (74 restaurants).
    - Big Canteen : marques sur place (Colmar : Big M, ADS ; par défaut : Big M, Fatburger, Buffalo's Café, Original Riz Crousty, ADS) à confirmer ; logo et site web à ajouter.
-   - Coordonnées GPS décalées de 300 m à 1 km sur 7 fiches (Sète, Nevers, O'Parinor, Rosny 2, Metz, Saumur, Claye-Souilly) : corrigées le 9 novembre avec celles de Google (même Place ID), épingles contrôlées. Puis les 14 fiches décalées de 50 à 300 m (Dakar, Ferney-Voltaire, Aéroville, Bron, Rillieux, Montluel, Nice, Lyon Vaise, Boissy, Thionville, Argenteuil, Saint-Denis). Toutes les fiches qui ont un Place ID sont à moins de 50 m de leur établissement Google ; les 3 sans Place ID (Le Creusot, Sarreguemines, Croix Luizet) n'ont pas été touchées.
+   - Coordonnées GPS décalées de 300 m à 1 km sur 7 fiches (Sète, Nevers, O'Parinor, Rosny 2, Metz, Saumur, Claye-Souilly) : corrigées le 9 novembre avec celles de Google (même Place ID), épingles contrôlées. Puis les 14 fiches décalées de 50 à 300 m (Dakar, Ferney-Voltaire, Aéroville, Bron, Rillieux, Montluel, Nice, Lyon Vaise, Boissy, Thionville, Argenteuil, Saint-Denis). Toutes les fiches sont à moins de 50 m de leur établissement Google.
    - Lyon Vaise : Google et Uber Eats donnent le 32 rue Marietton, la fiche le 53.
 3. **Logos des plateformes** (Réglages Big M → Commande) : logos carrés officiels d'Uber Eats et de Deliveroo, à demander aux plateformes ou au client. Sans logo, une pastille de couleur porte l'initiale.
 
