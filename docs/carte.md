@@ -23,6 +23,17 @@ Les gabarits du thème (`archive-bigm_produit.php`, `taxonomy-bigm_categorie.php
 
 **Groupes.** Les produits sont regroupés par sous-catégorie (Bœuf, Poulet), dans l'ordre d'affichage des catégories. Les produits rangés directement dans la catégorie forment un premier groupe, sans titre.
 
+**Nouveautés en tête** (Réglages Big M → La carte, case cochée par défaut). Une nouveauté est un produit au badge « Nouveau », « Nouveauté » ou « New », ou rangé dans la catégorie Nouveautés (`bigm_produit_est_nouveau()`, filtre du même nom). Sur la page d'une catégorie :
+
+- avec des sous-catégories (Menus) : un groupe « Nouveautés » (nom de la catégorie Nouveautés, filtre `bigm_groupe_nouveautes_titre`, ancre `#nouveau`) passe en premier ; ses produits quittent leur sous-catégorie ;
+- sans sous-catégorie (Box, Petite faim) : les nouveautés passent en tête de la grille ;
+- les plus récentes d'abord (date de publication), puis l'ordre de la carte ;
+- rien ne bouge si toute la page est nouvelle (Nouveautés, Box) ou si rien ne l'est.
+
+Pour qu'un produit ne soit plus mis en avant : retirer son badge (et le sortir de Nouveautés).
+
+**Secousse des nouveautés** (Réglages Big M → La carte, cochée par défaut). La vignette d'une nouveauté (classe `is-new`) se secoue trois fois quand elle apparaît au défilement : 3 × 1,5 s, donc moins de 5 s (WCAG 2.2.2, pas de mouvement automatique plus long sans bouton pause). Rien sur une page où tout est nouveau, ni si le visiteur a demandé de réduire les animations. L'animation passe par les propriétés `rotate` et `translate`, qui s'ajoutent aux `transform` de l'apparition, du survol et de l'appui (`assets/css/produits.css`).
+
 **Catégories vides.** Une catégorie sans produit publié n'apparaît ni dans la barre ni dans la grille. Sa page reste accessible et affiche « Aucun produit dans cette catégorie pour le moment ».
 
 **Fiche produit.**

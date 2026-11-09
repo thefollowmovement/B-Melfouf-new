@@ -210,6 +210,22 @@ function bigm_produits_de( int $term_id ): array {
 }
 
 /**
+ * Le produit est-il une nouveauté ? Badge « Nouveau », « Nouveauté » ou « New », ou rangé dans la
+ * catégorie Nouveautés. Sert à le mettre en tête de sa catégorie et à faire bouger sa vignette.
+ *
+ * @param array<string, mixed> $p Produit de bigm_produit().
+ */
+function bigm_produit_est_nouveau( array $p ): bool {
+	$badge   = strtolower( remove_accents( trim( (string) ( $p['badge'] ?? '' ) ) ) );
+	$nouveau = str_starts_with( $badge, 'nouveau' ) || 'new' === $badge;
+	if ( ! $nouveau ) {
+		$cat     = get_term_by( 'slug', 'nouveautes', 'bigm_categorie' );
+		$nouveau = $cat && in_array( (int) $cat->term_id, array_map( 'intval', (array) ( $p['categories_ids'] ?? array() ) ), true );
+	}
+	return (bool) apply_filters( 'bigm_produit_est_nouveau', $nouveau, $p );
+}
+
+/**
  * Slides visibles d'un slider à un instant donné (dates de début et de fin respectées),
  * avec les URL des médias. Une slide incomplète (vidéo sans fichier, photo sans image) est ignorée.
  *

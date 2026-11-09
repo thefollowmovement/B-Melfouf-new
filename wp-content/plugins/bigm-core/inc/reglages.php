@@ -90,6 +90,19 @@ function bigm_reglages_champs(): array {
 					'type'   => 'slider',
 					'defaut' => 0,
 				),
+				'carte_nouveautes' => array(
+					'label'  => 'Nouveautés en premier',
+					'type'   => 'case',
+					'case'   => 'Dans chaque catégorie, les nouveautés passent en tête, les plus récentes d’abord (groupe « Nouveautés » si la catégorie a des sous-catégories)',
+					'aide'   => 'Nouveauté : produit au badge « Nouveau » (ou « Nouveauté ») ou rangé dans la catégorie Nouveautés. Pour en retirer un, enlever son badge.',
+					'defaut' => '1',
+				),
+				'carte_secousse'   => array(
+					'label'  => 'Faire bouger les nouveautés',
+					'type'   => 'case',
+					'case'   => 'Les vignettes des nouveautés se secouent trois fois quand elles apparaissent (pas sur une page où tout est nouveau, jamais si le visiteur a réduit les animations)',
+					'defaut' => '1',
+				),
 				'allergenes_titre' => array(
 					'label'  => 'Bandeau des allergènes : titre',
 					'type'   => 'text',

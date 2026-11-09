@@ -37,6 +37,21 @@
 .empty h2 { font-size: 26px; }
 .empty p { margin: 8px 0 16px; color: var(--muted); }
 [hidden] { display: none !important; }
+
+/* nouveautés : la vignette se secoue trois fois quand elle apparaît (classe is-new, Réglages Big M →
+   La carte), en 4,5 s au plus (WCAG 2.2.2 : pas de mouvement automatique de plus de 5 s).
+   rotate et translate s'ajoutent aux transform de l'apparition, du survol et de l'appui. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .product.is-new.is-in { animation: bigm-secousse 1.5s ease-in-out calc(.75s + var(--i, 0) * 70ms) 3; }
+}
+@keyframes bigm-secousse {
+  0%, 40%, 100% { rotate: 0deg; translate: 0 0; }
+  6% { rotate: -3deg; translate: -3px 0; }
+  14% { rotate: 3deg; translate: 3px 0; }
+  22% { rotate: -2.5deg; translate: -2px 0; }
+  30% { rotate: 1.5deg; translate: 1px 0; }
+  36% { rotate: -.5deg; translate: 0 0; }
+}
 @media (max-width: 960px) {
   .products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .product { padding: 12px; }

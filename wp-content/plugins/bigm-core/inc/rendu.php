@@ -389,10 +389,11 @@ function bigm_rendu_bandeau_allergenes( array $a = array() ): string {
  * Vignette d'un produit dans la grille d'une catégorie (prod() dans pages.py).
  * data-meat et data-allergens servent au filtre (assets/js/filtres.js).
  *
- * @param array<string, mixed> $p Produit de bigm_produit().
- * @param int                  $i Rang, pour le décalage de l'apparition.
+ * @param array<string, mixed> $p       Produit de bigm_produit().
+ * @param int                  $i       Rang, pour le décalage de l'apparition.
+ * @param bool                 $secouer Nouveauté qui se secoue en apparaissant (produits.css).
  */
-function bigm_carte_produit( array $p, int $i ): string {
+function bigm_carte_produit( array $p, int $i, bool $secouer = false ): string {
 	$img   = $p['image_id'] ? wp_get_attachment_image(
 		$p['image_id'],
 		'medium_large',
@@ -405,7 +406,7 @@ function bigm_carte_produit( array $p, int $i ): string {
 	) : '';
 	$video = bigm_video_vignette( $p['video'] );
 	$badge = '' !== $p['badge'] ? '<span class="badge">' . esc_html( $p['badge'] ) . '</span>' : '';
-	return '<a class="product' . ( $video ? ' has-video' : '' ) . '" href="' . esc_url( $p['url'] ) . '" data-meat="' . esc_attr( implode( ' ', $p['viandes'] ?? array( $p['viande'] ) ) ) . '" data-allergens="' . esc_attr( implode( ' ', $p['allergenes']['contient'] ) ) . '" data-reveal style="--i:' . ( $i % 4 ) . '">'
+	return '<a class="product' . ( $video ? ' has-video' : '' ) . ( $secouer ? ' is-new' : '' ) . '" href="' . esc_url( $p['url'] ) . '" data-meat="' . esc_attr( implode( ' ', $p['viandes'] ?? array( $p['viande'] ) ) ) . '" data-allergens="' . esc_attr( implode( ' ', $p['allergenes']['contient'] ) ) . '" data-reveal style="--i:' . ( $i % 4 ) . '">'
 		. '<span class="product__name">' . esc_html( $p['titre'] ) . '</span><div class="product__img">' . $badge . $img . $video . '</div></a>';
 }
 
@@ -446,7 +447,58 @@ function bigm_groupes_produits( WP_Term $term, bool $grouper = true ): array {
 			)
 		);
 	}
-	return $groupes;
+	return '1' === (string) bigm_reglage( 'carte_nouveautes' ) ? bigm_nouveautes_en_tete( $groupes ) : $groupes;
+}
+
+/**
+ * Nouveautés en tête d'une catégorie (Réglages Big M → La carte), les plus récentes d'abord.
+ * Plusieurs groupes : un groupe « Nouveautés » (nom de la catégorie Nouveautés) en premier, les
+ * produits quittant leur sous-catégorie. Un seul groupe : en tête de ce groupe. Rien ne bouge si
+ * tous les produits sont nouveaux, ou aucun.
+ *
+ * @param array<int, array{term: ?WP_Term, produits: array<int, array<string, mixed>>}> $groupes Groupes de bigm_groupes_produits().
+ * @return array<int, array<string, mixed>>
+ */
+function bigm_nouveautes_en_tete( array $groupes ): array {
+	$nouveaux = array();
+	$total    = 0;
+	foreach ( $groupes as $g ) {
+		foreach ( $g['produits'] as $p ) {
+			++$total;
+			if ( bigm_produit_est_nouveau( $p ) ) {
+				$nouveaux[ $p['id'] ] = $p;
+			}
+		}
+	}
+	if ( ! $nouveaux || count( $nouveaux ) === $total ) {
+		return $groupes;
+	}
+	$rang = array_flip( array_keys( $nouveaux ) );
+	uasort( $nouveaux, static fn( array $a, array $b ): int => array( get_post_field( 'post_date', $b['id'] ), $rang[ $a['id'] ] ) <=> array( get_post_field( 'post_date', $a['id'] ), $rang[ $b['id'] ] ) );
+	$sans = static fn( array $produits ): array => array_values( array_filter( $produits, static fn( array $p ): bool => ! isset( $nouveaux[ $p['id'] ] ) ) );
+
+	if ( 1 === count( $groupes ) ) {
+		$groupes[0]['produits'] = array_merge( array_values( $nouveaux ), $sans( $groupes[0]['produits'] ) );
+		return $groupes;
+	}
+	$restants = array();
+	foreach ( $groupes as $g ) {
+		$g['produits'] = $sans( $g['produits'] );
+		if ( $g['produits'] ) {
+			$restants[] = $g;
+		}
+	}
+	$cat = get_term_by( 'slug', 'nouveautes', 'bigm_categorie' );
+	array_unshift(
+		$restants,
+		array(
+			'term'     => null,
+			'titre'    => (string) apply_filters( 'bigm_groupe_nouveautes_titre', $cat ? $cat->name : 'Nouveautés' ),
+			'ancre'    => 'nouveau',
+			'produits' => array_values( $nouveaux ),
+		)
+	);
+	return $restants;
 }
 
 /**
@@ -483,15 +535,21 @@ function bigm_rendu_grille_produits( array $a ): string {
 	++$rang;
 	$uid = 'allergy-' . $term->term_id . ( $rang > 1 ? '-' . $rang : '' );
 
+	// Vignettes des nouveautés qui se secouent : pas sur une page où tout est nouveau.
+	$tous     = array_merge( ...array_column( $groupes, 'produits' ) );
+	$nouveaux = count( array_filter( array_map( 'bigm_produit_est_nouveau', $tous ) ) );
+	$secouer  = '1' === (string) bigm_reglage( 'carte_secousse' ) && $nouveaux < count( $tous );
+
 	$html = '';
 	foreach ( $groupes as $g ) {
 		$cartes = '';
 		foreach ( $g['produits'] as $i => $p ) {
-			$cartes .= bigm_carte_produit( $p, $i );
+			$cartes .= bigm_carte_produit( $p, $i, $secouer && bigm_produit_est_nouveau( $p ) );
 		}
-		if ( $g['term'] ) {
-			$slug  = $g['term']->slug;
-			$html .= '<section class="group" id="' . esc_attr( $slug ) . '" data-group="' . esc_attr( $slug ) . '" aria-labelledby="t-' . esc_attr( $slug ) . '"><h2 id="t-' . esc_attr( $slug ) . '">' . esc_html( $g['term']->name ) . '</h2><div class="products">' . $cartes . '</div></section>';
+		$titre = $g['term'] ? $g['term']->name : (string) ( $g['titre'] ?? '' );
+		if ( '' !== $titre ) {
+			$slug  = $g['term'] ? $g['term']->slug : (string) $g['ancre'];
+			$html .= '<section class="group" id="' . esc_attr( $slug ) . '" data-group="' . esc_attr( $slug ) . '" aria-labelledby="t-' . esc_attr( $slug ) . '"><h2 id="t-' . esc_attr( $slug ) . '">' . esc_html( $titre ) . '</h2><div class="products">' . $cartes . '</div></section>';
 		} else {
 			$html .= '<div class="group" data-group><div class="products">' . $cartes . '</div></div>';
 		}

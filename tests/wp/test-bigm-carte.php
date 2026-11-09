@@ -156,7 +156,7 @@ $ok( '' === bigm_rendu_produits_associes( array( 'produit' => $p2 ) ), '« Ça v
 WP_CLI::log( 'Grille de produits et filtres' );
 $grille = bigm_rendu_grille_produits( array( 'terme' => $parent ) );
 $ok( strpos( $grille, 'Au parent' ) < strpos( $grille, '>Sous A</h2>' ) && strpos( $grille, '>Sous A</h2>' ) < strpos( $grille, '>Sous B</h2>' ), 'groupes : produits du parent d’abord, puis les sous-catégories dans l’ordre' );
-$ok( 4 === preg_match_all( '/class="product( has-video)?"/', $grille ) && str_contains( $grille, '<span class="badge">Nouveau</span>' ), 'vignettes : 4 produits, badge' );
+$ok( 4 === preg_match_all( '/class="product( has-video)?( is-new)?"/', $grille ) && str_contains( $grille, '<span class="badge">Nouveau</span>' ), 'vignettes : 4 produits, badge' );
 $ok( str_contains( $grille, 'data-allergens="gluten lait"' ) && str_contains( $grille, 'data-meat="poulet"' ), 'vignette : allergènes contenus (sans les traces) et viande, pour le filtre' );
 $ok( str_contains( $grille, 'data-meat="boeuf poulet"' ) && str_contains( $grille, 'data-meat="poulet"' ), 'viandes : plusieurs sur un produit (Beef Chicken), une seule écrite en texte avant la 0.6.4' );
 $ok( str_contains( $grille, 'data-meat-filter="tous"' ) && str_contains( $grille, 'data-meat-filter="boeuf"' ) && str_contains( $grille, 'data-meat-filter="poulet"' ) && ! str_contains( $grille, 'data-meat-filter="poisson"' ), 'filtre viande : Tous et les viandes présentes' );
@@ -172,7 +172,7 @@ $sans = bigm_rendu_grille_produits(
 		'filtres' => false,
 	)
 );
-$ok( ! str_contains( $sans, 'class="filters"' ) && ! str_contains( $sans, '<h2' ) && 4 === preg_match_all( '/class="product( has-video)?"/', $sans ), 'sans filtres ni groupes : une grille simple' );
+$ok( ! str_contains( $sans, 'class="filters"' ) && ! str_contains( $sans, '<h2' ) && 4 === preg_match_all( '/class="product( has-video)?( is-new)?"/', $sans ), 'sans filtres ni groupes : une grille simple' );
 
 WP_CLI::log( 'Carte' );
 $barre = bigm_rendu_barre_categories(
@@ -404,6 +404,57 @@ $posts[]  = $r_h['id'];
 $ok( 'cree' === $r_h['etat'] && $r_h['id'] !== $homonyme && 'bigm_produit' === get_post_type( $r_h['id'] ) && '' === get_post_field( 'post_content', $homonyme ) && ! get_post_meta( $homonyme, '_bigm_import', true ) && ! has_term( 'import-test', 'bigm_categorie', $homonyme ), 'photo à la même adresse qu’un nouveau produit : produit créé, photo pas touchée' );
 $ok( null === bigm_post_par_adresse( 'produit-homonyme-test', 'post' ) && $r_h['id'] === bigm_post_par_adresse( 'produit-homonyme-test', 'bigm_produit' )->ID, 'bigm_post_par_adresse() : jamais un média' );
 wp_delete_attachment( $homonyme, true );
+
+WP_CLI::log( 'Nouveautés en tête et secousse (Réglages Big M → La carte)' );
+$ok( bigm_produit_est_nouveau( array( 'badge' => 'Nouveau' ) ) && bigm_produit_est_nouveau( array( 'badge' => ' NOUVEAUTÉ ' ) ) && bigm_produit_est_nouveau( array( 'badge' => 'New' ) ) && ! bigm_produit_est_nouveau( array( 'badge' => 'Best Seller' ) ) && ! bigm_produit_est_nouveau( array( 'badge' => '' ) ), 'nouveauté : badge « Nouveau », « Nouveauté » ou « New » (casse et accents ignorés)' );
+$nv_parent = wp_insert_term( 'Menus nv test', 'bigm_categorie', array( 'slug' => 'menus-nv-test' ) );
+$nv_a      = wp_insert_term( 'Doublés nv', 'bigm_categorie', array( 'slug' => 'doubles-nv-test', 'parent' => $nv_parent['term_id'] ) );
+$nv_b      = wp_insert_term( 'Simples nv', 'bigm_categorie', array( 'slug' => 'simples-nv-test', 'parent' => $nv_parent['term_id'] ) );
+array_push( $termes, (int) $nv_a['term_id'], (int) $nv_b['term_id'], (int) $nv_parent['term_id'] );
+update_term_meta( $nv_a['term_id'], '_bigm_ordre', 1 );
+update_term_meta( $nv_b['term_id'], '_bigm_ordre', 2 );
+$nv = array();
+foreach ( array(
+	'w1'   => array( $nv_a, 'Nouveau', '2026-11-08 10:00:00', 1 ),
+	'm5'   => array( $nv_a, '', '2026-11-01 10:00:00', 2 ),
+	'geant' => array( $nv_b, '', '2026-11-01 10:00:00', 1 ),
+	'mamamia' => array( $nv_b, 'Nouveau', '2026-11-09 15:00:00', 2 ),
+) as $cle => $d ) {
+	$nv[ $cle ] = wp_insert_post(
+		array(
+			'post_type'   => 'bigm_produit',
+			'post_status' => 'publish',
+			'post_title'  => 'Nv ' . $cle,
+			'post_date'   => $d[2],
+			'menu_order'  => $d[3],
+		)
+	);
+	$posts[] = $nv[ $cle ];
+	wp_set_object_terms( $nv[ $cle ], array( (int) $d[0]['term_id'] ), 'bigm_categorie' );
+	update_post_meta( $nv[ $cle ], '_bigm_badge', $d[1] );
+}
+$ids_groupes = static fn( array $groupes ): array => array_map( static fn( array $g ): array => array( $g['term'] ? $g['term']->slug : ( $g['titre'] ?? '' ), wp_list_pluck( $g['produits'], 'id' ) ), $groupes );
+$reglages_avant = get_option( 'bigm_reglages', array() );
+update_option( 'bigm_reglages', array_merge( (array) $reglages_avant, array( 'carte_nouveautes' => '1', 'carte_secousse' => '1' ) ) );
+$t_nv  = get_term( $nv_parent['term_id'], 'bigm_categorie' );
+$g_nv  = $ids_groupes( bigm_groupes_produits( $t_nv ) );
+$titre = get_term_by( 'slug', 'nouveautes', 'bigm_categorie' );
+$ok( array( array( $titre ? $titre->name : 'Nouveautés', array( $nv['mamamia'], $nv['w1'] ) ), array( 'doubles-nv-test', array( $nv['m5'] ) ), array( 'simples-nv-test', array( $nv['geant'] ) ) ) === $g_nv, 'nouveautés en tête : groupe « Nouveautés » en premier, la plus récente d’abord, retirées de leur sous-catégorie' );
+$ok( array( array( '', array( $nv['mamamia'], $nv['geant'] ) ) ) === $ids_groupes( bigm_groupes_produits( get_term( $nv_b['term_id'], 'bigm_categorie' ) ) ), 'catégorie sans sous-catégorie : nouveauté en tête du seul groupe' );
+$html_nv = bigm_rendu_grille_produits( array( 'terme' => $t_nv ) );
+$ok( 2 === substr_count( $html_nv, 'class="product is-new"' ) && str_contains( $html_nv, 'id="nouveau" data-group="nouveau"' ), 'grille : section « nouveau » filtrable, les 2 nouveautés marquées is-new' );
+update_post_meta( $nv['m5'], '_bigm_badge', 'Nouveau' );
+update_post_meta( $nv['geant'], '_bigm_badge', 'Nouveau' );
+$html_tous = bigm_rendu_grille_produits( array( 'terme' => $t_nv ) );
+$ok( ! str_contains( $html_tous, 'is-new' ) && ! str_contains( $html_tous, 'id="nouveau"' ), 'tout est nouveau : rien ne bouge, groupes inchangés' );
+update_post_meta( $nv['m5'], '_bigm_badge', '' );
+update_post_meta( $nv['geant'], '_bigm_badge', '' );
+update_option( 'bigm_reglages', array_merge( (array) $reglages_avant, array( 'carte_nouveautes' => '0', 'carte_secousse' => '0' ) ) );
+$html_off = bigm_rendu_grille_produits( array( 'terme' => $t_nv ) );
+$ok( array( 'doubles-nv-test', 'simples-nv-test' ) === array_column( $ids_groupes( bigm_groupes_produits( $t_nv ) ), 0 ) && ! str_contains( $html_off, 'is-new' ), 'réglages décochés : ordre de la carte, pas de secousse' );
+update_option( 'bigm_reglages', $reglages_avant );
+$css_produits = (string) file_get_contents( BIGM_CORE_DIR . '/assets/css/produits.css' );
+$ok( (bool) preg_match( '/prefers-reduced-motion: no-preference\)\s*\{\s*\.js \.product\.is-new\.is-in \{ animation: bigm-secousse 1\.5s [^;]* 3; \}/', $css_produits ), 'secousse : 3 × 1,5 s (moins de 5 s), seulement sans « réduire les animations »' );
 
 WP_CLI::log( 'Import ciblé (POST bigm/v1/carte/importer)' );
 $box_fichier = array_values( array_filter( $fichier['produits'], static fn( $p ): bool => in_array( 'box', (array) ( $p['categories'] ?? array() ), true ) ) );
