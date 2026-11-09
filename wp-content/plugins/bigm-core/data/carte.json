@@ -1235,8 +1235,7 @@
    "slug": "w1",
    "source": "W1",
    "categories": [
-    "menus-doubles",
-    "nouveautes"
+    "menus-doubles"
    ],
    "viandes": [
     "poulet"
@@ -1263,8 +1262,7 @@
    "slug": "w2",
    "source": "W2",
    "categories": [
-    "menus-doubles",
-    "nouveautes"
+    "menus-doubles"
    ],
    "viandes": [
     "boeuf",
@@ -1293,8 +1291,7 @@
    "slug": "w3",
    "source": "W3",
    "categories": [
-    "menus-doubles",
-    "nouveautes"
+    "menus-doubles"
    ],
    "viandes": [
     "boeuf",
@@ -2431,8 +2428,7 @@
    "image": "https://tb-static.uber.com/prod/image-proc/processed_images/78f054e035234f583f6057001c31516d/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
    "titre": "W4 – Wrap au choix + Géant",
    "categories": [
-    "menus-doubles",
-    "nouveautes"
+    "menus-doubles"
    ],
    "description": "Wrap curry ou tandoori et 1 Géant, servis avec des frites et une boisson.",
    "statut": "publish",

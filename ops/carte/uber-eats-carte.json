@@ -1,6 +1,6 @@
 {
  "source": "Uber Eats, Big M Bondy et Big M Argenteuil (captures et pages enregistrées, 7 et 8 novembre 2026)",
- "notes": "Noms des menus, menus, boissons et sauces recopiés des cartes Uber Eats ; photos et descriptions : ops/carte/uber-eats/{restaurant}.json (extraits des pages enregistrées). Prix non repris (brief). Bacon : bœuf (confirmé par l'agence), même là où Uber Eats écrit « dinde ». Non repris faute d'allergènes dans le tableau : Toast M, Fish M, Big Kroosty (et Spicy), Kids Burger, petit déjeuner (Egg Muffin, Big Egg, Croque Nutella), Mini Donuts, Mini Dooti, Beignet Dubai, Pom'potes, Kinder Surprise, sauces Yoop's et Creamy, Frites cheddar bacon (sans crispy), Grandes frites. Box (Big Box, M Box, Box Noxx) : composition d'après les affiches des Box, ordre 3 pour la catégorie (entre Menus et Burgers), boisson NOXX non comprise dans les allergènes comme pour les menus.",
+ "notes": "Noms des menus, menus, boissons et sauces recopiés des cartes Uber Eats ; photos et descriptions : ops/carte/uber-eats/{restaurant}.json (extraits des pages enregistrées). Prix non repris (brief). Bacon : bœuf (confirmé par l'agence), même là où Uber Eats écrit « dinde ». Non repris faute d'allergènes dans le tableau : Toast M, Fish M, Big Kroosty (et Spicy), Kids Burger, petit déjeuner (Egg Muffin, Big Egg, Croque Nutella), Mini Donuts, Mini Dooti, Beignet Dubai, Pom'potes, Kinder Surprise, sauces Yoop's et Creamy, Frites cheddar bacon (sans crispy), Grandes frites. Box (Big Box, M Box, Box Noxx) : composition d'après les affiches des Box, ordre 3 pour la catégorie (entre Menus et Burgers), boisson NOXX non comprise dans les allergènes comme pour les menus. W1 à W4 retirés des Nouveautés (9 novembre 2026, place aux Box), badge « Nouveau » gardé.",
  "categories": [
   {
    "slug": "menus-doubles",
@@ -259,8 +259,7 @@
    "remplace": "W1",
    "titre": "W1 – Wrap au choix + 4 nuggets",
    "categories": [
-    "menus-doubles",
-    "nouveautes"
+    "menus-doubles"
    ],
    "badge": "Nouveau",
    "composants": [
@@ -275,8 +274,7 @@
    "remplace": "W2",
    "titre": "W2 – Wrap au choix + Cheeseburger M",
    "categories": [
-    "menus-doubles",
-    "nouveautes"
+    "menus-doubles"
    ],
    "badge": "Nouveau",
    "composants": [
@@ -291,8 +289,7 @@
    "remplace": "W3",
    "titre": "W3 – Wrap au choix + Big",
    "categories": [
-    "menus-doubles",
-    "nouveautes"
+    "menus-doubles"
    ],
    "badge": "Nouveau",
    "composants": [
@@ -307,8 +304,7 @@
    "titre": "W4 – Wrap au choix + Géant",
    "slug": "w4",
    "categories": [
-    "menus-doubles",
-    "nouveautes"
+    "menus-doubles"
    ],
    "badge": "Nouveau",
    "composants": [
