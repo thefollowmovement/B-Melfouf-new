@@ -15,6 +15,7 @@ Compter une heure, à un moment calme (le site affiche l'ancienne version jusqu'
 - [ ] LiteSpeed Cache installé et réglé (`docs/seo.md`).
 - [ ] Liens de commande de chaque restaurant saisis (**Restaurants → Liens de commande**), lien Commander par défaut définitif, adresses e-mail de réception des formulaires confirmées, SMTP configuré.
 - [ ] Accès prêts : SSH, Google Search Console du domaine, comptes administrateurs nominatifs avec double authentification.
+- [ ] Préprod gardée après la bascule : **Réglages Big M → Google → plafond à 0** (sinon elle interroge Google chaque nuit avec la même clé que la production et consomme le même quota gratuit). Sur la production, vérifier la section Google (plafond 900, prochain passage) et ajouter une tâche cron Hostinger sur `wp-cron.php` (toutes les heures).
 - [ ] Accès MCP coupés :
   - supprimer les mots de passe d'application créés pour Claude (Utilisateurs → Profil → Mots de passe d'application) ; désactiver le MCP dans Elementor ne suffit pas ;
   - désactiver **Elementor → Elementor MCP** ;

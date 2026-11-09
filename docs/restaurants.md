@@ -46,6 +46,19 @@ Le widget Store – Locator de la page Nos restaurants est en habillage « Aux c
 
 StoreLocatore 2.5 importe les horaires de Google (bouton « Synchroniser » de la fiche, import quotidien des fiches en synchronisation automatique), mais garde une seule plage par jour : un restaurant ouvert 11:15–14:00 puis 18:30–23:00 n'avait plus que 18:30–23:00. bigm-core (`inc/horaires.php`) corrige juste après chaque import, sans modifier le plugin : il relit les plages reçues de Google et réécrit les horaires de la fiche (première ouverture, dernière fermeture, et la plus longue coupure comme pause, que la fiche affiche et compte pour « Ouvert / Fermé »). StoreLocatore 2.5.1 et suivants gardent eux-mêmes la pause (et lisent un lieu ouvert 24 h sur 24) : la correction de bigm-core s'efface alors. `POST /wp-json/bigm/v1/restaurants/{id}/horaires-google` relance l'import d'un restaurant (tous d'un coup : la boucler sur les restaurants). Import quotidien automatique : case « Synchronisation automatique » de la fiche (onglet Intégrations), aussi modifiable par l'API REST (meta `tfmsl_gmb_sync` = `1`).
 
+## Appels à Google : planifiés et plafonnés
+
+Google facture les appels de StoreLocatore au-delà de 1 000 par mois et par catégorie : horaires et note (« Place Details Enterprise », 20 $ les 1 000), avis (« Enterprise + Atmosphere », environ 25 $ les 1 000). Laissé seul, le plugin recharge les avis d'une fiche à chaque visite après 6 h, et son import quotidien fait deux appels par restaurant et par nuit. bigm-core (`inc/google.php`) :
+
+| Quoi | Comment |
+|---|---|
+| Planification | Chaque nuit vers 4 h : les horaires d'un tiers des restaurants (tous les 3 jours), la note et les avis d'un septième (toutes les semaines). Un appel par restaurant pour les avis remplit la fiche et le tableau de bord, gardés jusqu'au passage suivant (+ 8 jours). Pour 70 restaurants : ≈ 720 appels « horaires » et ≈ 300 « avis » par mois, gratuits |
+| Import de StoreLocatore | Son import quotidien est débranché : la case « Synchronisation automatique » des fiches n'a plus d'effet |
+| Disjoncteur | Une page vue par un visiteur n'appelle jamais Google. Seuls la planification, l'admin (bouton « Synchroniser » d'une fiche, « Actualiser » du tableau de bord : un appel par restaurant) et l'API des comptes qui modifient les restaurants le peuvent. Au-delà du plafond (900 par mois et par catégorie), plus aucun appel jusqu'au mois suivant |
+| Réglages | Réglages Big M → Google : fréquence des horaires (jours), des avis (jours), plafond ; compteur du mois, dernier et prochain passage |
+
+`POST /wp-json/bigm/v1/google/planification` (administrateurs) lance un passage tout de suite, par exemple `{"horaires": 0, "avis": 70}` pour remplir les avis de toutes les fiches d'un coup (dans la limite du plafond). WP-Cron ne tourne qu'avec des visites : sur la production, une tâche cron d'Hostinger qui appelle `wp-cron.php` toutes les heures garantit le passage de la nuit.
+
 ## Food courts (Big Canteen)
 
 Certains Big M sont dans un **Big Canteen**, le food court du groupe : plusieurs enseignes (Big M, Fatburger, Buffalo's Café, Original Riz Crousty, ADS…) partagent la même salle. bigm-core (`inc/food-court.php`) :

@@ -278,6 +278,71 @@ if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() )
 	$ok( 401 === rest_do_request( new WP_REST_Request( 'POST', '/bigm/v1/restaurants/' . $resto . '/horaires-google' ) )->get_status(), 'relance de l’import des horaires : fermée aux visiteurs' );
 	wp_set_current_user( $moi );
 
+	WP_CLI::log( 'Appels à Google (planification, plafond)' );
+	$ok( 'details' === bigm_google_categorie( 'https://places.googleapis.com/v1/places/ChIJx', array( 'headers' => array( 'X-Goog-FieldMask' => 'regularOpeningHours' ) ) ) && 'avis' === bigm_google_categorie( 'https://places.googleapis.com/v1/places/ChIJx', array( 'headers' => array( 'X-Goog-FieldMask' => 'rating,userRatingCount,reviews' ) ) ) && 'recherche' === bigm_google_categorie( 'https://places.googleapis.com/v1/places:searchText', array() ) && '' === bigm_google_categorie( 'https://example.test/', array() ), 'catégories de facturation : horaires, avis, recherche' );
+	$ok( false === has_action( 'tfmsl_sync_google_hours', array( TFMSL_Cron_Handler::instance(), 'sync_all_stores' ) ) && (bool) wp_next_scheduled( 'bigm_google_planning' ), 'import quotidien de StoreLocatore débranché, planification de bigm-core programmée' );
+	$reglages_avant = get_option( 'bigm_reglages', array() );
+	$compteur_avant = get_option( 'bigm_google_appels' );
+	delete_option( 'bigm_google_appels' );
+	$faux_google = static function ( $pre, $args, $url ) {
+		// Comme le vrai réseau : un refus du disjoncteur (priorité 5) n'est pas remplacé.
+		if ( false !== $pre || ! str_contains( (string) $url, 'places.googleapis.com' ) ) {
+			return $pre;
+		}
+		$champs = (string) ( $args['headers']['X-Goog-FieldMask'] ?? '' );
+		$corps  = str_contains( $champs, 'reviews' )
+			? array( 'rating' => 4.6, 'userRatingCount' => 120, 'googleMapsUri' => 'https://maps.google.com/?cid=1', 'reviews' => array( array( 'rating' => 5, 'text' => array( 'text' => 'Très bon' ), 'authorAttribution' => array( 'displayName' => 'Sami' ), 'relativePublishTimeDescription' => 'il y a 2 jours' ), array( 'rating' => 2, 'text' => array( 'text' => 'Moyen' ), 'authorAttribution' => array( 'displayName' => 'Léa' ) ) ) )
+			: array( 'regularOpeningHours' => array( 'periods' => array( array( 'open' => array( 'day' => 2, 'hour' => 11, 'minute' => 15 ), 'close' => array( 'day' => 2, 'hour' => 14, 'minute' => 0 ) ), array( 'open' => array( 'day' => 2, 'hour' => 18, 'minute' => 30 ), 'close' => array( 'day' => 2, 'hour' => 23, 'minute' => 0 ) ) ) ) );
+		return array( 'response' => array( 'code' => 200, 'message' => 'OK' ), 'headers' => array(), 'body' => wp_json_encode( $corps ), 'cookies' => array() );
+	};
+	add_filter( 'pre_http_request', $faux_google, 10, 3 );
+	add_filter( 'bigm_google_contexte_autorise', '__return_false' );
+	$refus = wp_remote_get( 'https://places.googleapis.com/v1/places/ChIJx', array( 'headers' => array( 'X-Goog-FieldMask' => 'reviews' ) ) );
+	remove_filter( 'bigm_google_contexte_autorise', '__return_false' );
+	$ok( is_wp_error( $refus ) && 'bigm_google_visiteur' === $refus->get_error_code() && 0 === bigm_google_compteur()['avis'], 'page vue par un visiteur : aucun appel à Google (les avis restent en mémoire)' );
+	update_option( 'bigm_reglages', array_merge( (array) $reglages_avant, array( 'google_plafond' => 2 ) ) );
+	$appels = array();
+	for ( $i = 0; $i < 3; $i++ ) {
+		$appels[] = wp_remote_get( 'https://places.googleapis.com/v1/places/ChIJx', array( 'headers' => array( 'X-Goog-FieldMask' => 'regularOpeningHours' ) ) );
+	}
+	$c = bigm_google_compteur();
+	$ok( ! is_wp_error( $appels[1] ) && is_wp_error( $appels[2] ) && 'bigm_google_plafond' === $appels[2]->get_error_code() && 2 === $c['details'] && 1 === $c['bloques'], 'plafond mensuel : au-delà, plus d’appel (compté par catégorie)' );
+	update_option( 'bigm_reglages', array_merge( (array) $reglages_avant, array( 'google_plafond' => 900 ) ) );
+	delete_option( 'bigm_google_appels' );
+	// Planification sur 3 restaurants avec un Place ID (clé Google posée sur l'instance du plugin).
+	$cle_prop = new ReflectionProperty( 'TFMSL_Google_API', 'api_key' );
+	$cle_prop->setAccessible( true );
+	$cle_avant = $cle_prop->getValue( TFMSL_Google_API::instance() );
+	$cle_prop->setValue( TFMSL_Google_API::instance(), 'CLE-TEST' );
+	$planifies = array( $resto );
+	foreach ( array( 'Restaurant planif A', 'Restaurant planif B' ) as $nom ) {
+		$planifies[] = wp_insert_post( array( 'post_type' => 'tfmsl_store', 'post_title' => $nom, 'post_status' => 'publish' ) );
+	}
+	$posts = array_merge( $posts, array_slice( $planifies, 1 ) );
+	foreach ( $planifies as $i => $pid ) {
+		update_post_meta( $pid, 'tfmsl_gmb_place_id', 'ChIJplanif' . $i );
+		delete_post_meta( $pid, '_bigm_horaires_maj' );
+		delete_post_meta( $pid, '_bigm_avis_maj' );
+	}
+	$fait = bigm_google_planification( 2, 1 );
+	$c    = bigm_google_compteur();
+	$vu   = $fait['avis'][0] ?? 0;
+	$avis = get_transient( 'tfmsl_reviews_' . $vu );
+	$ok( 2 === count( $fait['horaires'] ) && 1 === count( $fait['avis'] ) && 2 === $c['details'] && 1 === $c['avis'], 'planification : un groupe de restaurants par passage, un appel par restaurant et par sujet' );
+	$ok( is_array( $avis ) && 2 === count( $avis ) && 'Sami' === $avis[0]['author_name'] && (int) get_option( '_transient_timeout_tfmsl_reviews_' . $vu ) > time() + 7 * DAY_IN_SECONDS && is_array( get_transient( 'tfmsl_place_summary_' . $vu ) ), 'avis : un appel remplit la fiche et le tableau de bord, gardés plus d’une semaine' );
+	$h = get_post_meta( $fait['horaires'][0], 'tfmsl_hours', true );
+	$ok( '14:00' === ( $h['tuesday']['break_start'] ?? '' ), 'horaires importés avec la pause' );
+	$encore = bigm_google_planification( 3, 3 );
+	$ok( 1 === count( $encore['horaires'] ) && 2 === count( $encore['avis'] ) && ! in_array( $vu, $encore['avis'], true ), 'passage suivant : seulement les restaurants pas encore à jour' );
+	remove_filter( 'pre_http_request', $faux_google, 10 );
+	$cle_prop->setValue( TFMSL_Google_API::instance(), $cle_avant );
+	update_option( 'bigm_reglages', $reglages_avant );
+	false === $compteur_avant ? delete_option( 'bigm_google_appels' ) : update_option( 'bigm_google_appels', $compteur_avant, false );
+	foreach ( $planifies as $pid ) {
+		delete_transient( 'tfmsl_reviews_' . $pid );
+		delete_transient( 'tfmsl_place_summary_' . $pid );
+	}
+
 	WP_CLI::log( 'Food court (Big Canteen)' );
 	$ok( taxonomy_exists( 'bigm_food_court' ) && '' === bigm_rendu_food_court( $resto ), 'food courts déclarés ; restaurant hors food court : pas de bloc' );
 	$fc = wp_insert_term( 'Big Canteen test', 'bigm_food_court', array( 'description' => 'Plusieurs enseignes du groupe sous un même toit.' ) );

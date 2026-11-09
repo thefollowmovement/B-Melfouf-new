@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Champs de la page, par section. Types : url, email, text, annees, euros, pourcent.
  *
- * Types : url, email, text, long, case, annees, euros, pourcent, media, slider, regles, plateformes.
+ * Types : url, email, text, long, case, annees, euros, pourcent, jours, appels, media, slider, regles, plateformes.
  *
  * @return array<string, array{titre: string, aide?: string, champs: array<string, array{label: string, type: string, defaut: mixed, aide?: string, case?: string}>}>
  */
@@ -115,6 +115,27 @@ function bigm_reglages_champs(): array {
 					'label'  => 'Image de partage par défaut',
 					'type'   => 'media',
 					'defaut' => 0,
+				),
+			),
+		),
+		'google'       => array(
+			'titre'  => 'Google (horaires et avis)',
+			'aide'   => 'Pour les restaurants qui ont un Place ID, bigm-core demande à Google, chaque nuit et par petits groupes, les horaires puis la note et les avis. Une visite de fiche n’appelle jamais Google : les avis restent en mémoire jusqu’au passage suivant. Google offre 1 000 appels gratuits par mois et par catégorie ; au-delà du plafond, plus aucun appel jusqu’au mois suivant. Cette planification remplace la « Synchronisation automatique » des fiches. Le bouton « Synchroniser » d’une fiche et « Actualiser » du tableau de bord de StoreLocatore comptent aussi.',
+			'champs' => array(
+				'google_horaires_jours' => array(
+					'label'  => 'Horaires : tous les',
+					'type'   => 'jours',
+					'defaut' => 3,
+				),
+				'google_avis_jours'     => array(
+					'label'  => 'Note et avis : tous les',
+					'type'   => 'jours',
+					'defaut' => 7,
+				),
+				'google_plafond'        => array(
+					'label'  => 'Plafond par catégorie',
+					'type'   => 'appels',
+					'defaut' => 900,
 				),
 			),
 		),
@@ -321,6 +342,8 @@ function bigm_reglages_nettoyer( $input ): array {
 			case 'euros':
 			case 'pourcent':
 			case 'annees':
+			case 'jours':
+			case 'appels':
 				$v           = str_replace( array( ' ', "\u{00A0}", "\u{202F}", ',' ), array( '', '', '', '.' ), $v );
 				$out[ $cle ] = '' === $v ? '' : max( 0, round( (float) $v, 2 ) );
 				break;
@@ -364,6 +387,8 @@ function bigm_reglages_page(): void {
 		'euros'    => '€ HT',
 		'pourcent' => '%',
 		'annees'   => 'ans',
+		'jours'    => 'jours',
+		'appels'   => 'appels par mois',
 	);
 	?>
 	<div class="wrap bigm-reglages">
@@ -421,6 +446,7 @@ function bigm_reglages_page(): void {
 						</tr>
 					<?php endforeach; ?>
 				</table>
+				<?php do_action( 'bigm_reglages_section', $ancre ); ?>
 			<?php endforeach; ?>
 			<?php submit_button(); ?>
 		</form>
