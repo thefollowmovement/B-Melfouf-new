@@ -126,7 +126,7 @@ Ils restent modifiables dans **LiteSpeed Cache → Réglages** : `bigm-core` ne 
 
 **Vérifier** : en-tête `x-litespeed-cache` (`miss` puis `hit` au second appel) ; page à formulaire : pas d'en-tête `hit`, `x-litespeed-cache-control: no-cache` ; fiche restaurant : `x-litespeed-cache-control: public,max-age=…` (secondes jusqu'au prochain changement). Test : `tests/wp/test-bigm-cache.php`.
 
-**WP-Cron** : les pages servies par le cache ne lancent plus les tâches planifiées de WordPress (vidage aux dates des slides, appels à Google, `llms.txt`). Elles partent à la prochaine page non mise en cache. Pour l'heure exacte, ajouter une tâche cron dans hPanel (Avancé → Tâches cron), toutes les 5 minutes : `wget -q -O /dev/null "https://bigm-burger.fr/wp-cron.php?doing_wp_cron"`.
+**WP-Cron** : les pages servies par le cache ne lancent plus les tâches planifiées de WordPress (vidage aux dates des slides, appels à Google, `llms.txt`). Une tâche cron du compte Hostinger (hPanel → Avancé → Tâches cron, créée le 9 novembre 2026) les lance toutes les 5 minutes : `*/5 * * * *` `wget -q -O /dev/null "https://bigm-burger.fr/wp-cron.php?doing_wp_cron"`. WordPress garde aussi son propre déclenchement (pas de `DISABLE_WP_CRON`).
 
 ### Mesures
 
