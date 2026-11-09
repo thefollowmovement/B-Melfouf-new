@@ -266,6 +266,28 @@ foreach ( $nettoie['terms'] as $id ) {
 	wp_delete_term( $id, 'bigm_categorie' );
 }
 
+WP_CLI::log( 'Réparation des données sérialisées (changement d’adresse)' );
+global $wpdb;
+$hote_rep  = (string) preg_replace( '/^(www|preprod|staging)\./', '', (string) wp_parse_url( home_url(), PHP_URL_HOST ) );
+$slides_ok = array(
+	array( 'type' => 'image', 'image' => 12, 'alt' => 'Boissons « fraîches » ; été', 'lien' => 'https://preprod.' . $hote_rep . '/carte/boissons/' ),
+	array( 'type' => 'video', 'mp4' => 40, 'lien' => 'https://preprod.' . $hote_rep . '/produit/smash-naan/' ),
+);
+$casse_rep = str_replace( 'https://preprod.' . $hote_rep, 'https://' . $hote_rep, serialize( $slides_ok ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+$slider_rep = wp_insert_post( array( 'post_type' => 'bigm_slider', 'post_status' => 'publish', 'post_title' => 'Slider réparation test' ) );
+$wpdb->insert( $wpdb->postmeta, array( 'post_id' => $slider_rep, 'meta_key' => '_bigm_slides', 'meta_value' => $casse_rep ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.SlowDBQuery
+$wpdb->insert( $wpdb->postmeta, array( 'post_id' => $slider_rep, 'meta_key' => '_bigm_test_lisible', 'meta_value' => serialize( array( 'lien' => 'https://' . $hote_rep . '/' ) ) ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.SlowDBQuery, WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+wp_cache_flush();
+$ok( ! is_array( get_post_meta( $slider_rep, '_bigm_slides', true ) ), 'slides abîmées par un remplacement d’adresse brut : illisibles' );
+$essai = bigm_reparer_serialisations( false );
+$ok( in_array( 'postmeta _bigm_slides (' . $slider_rep . ')', $essai['reparees'], true ) && ! is_array( get_post_meta( $slider_rep, '_bigm_slides', true ) ), 'essai : signalée, rien d’écrit' );
+$cr_rep  = bigm_reparer_serialisations();
+$lues    = get_post_meta( $slider_rep, '_bigm_slides', true );
+$ok( is_array( $lues ) && 'https://' . $hote_rep . '/carte/boissons/' === $lues[0]['lien'] && 'Boissons « fraîches » ; été' === $lues[0]['alt'] && 40 === $lues[1]['mp4'], 'réparation : slides relues, liens et textes intacts' );
+$ok( ! in_array( 'postmeta _bigm_test_lisible (' . $slider_rep . ')', $cr_rep['reparees'], true ) && array() === bigm_reparer_serialisations( false )['reparees'], 'valeur lisible jamais touchée ; une seconde passe ne trouve plus rien' );
+$ok( null === bigm_serialise_repare( 'a:1:{s:3:"abc' ) && null === bigm_serialise_repare( 'texte simple' ) && null === bigm_serialise_repare( 'b:0;' ), 'valeur irréparable, non sérialisée ou « faux » : laissée telle quelle' );
+wp_delete_post( $slider_rep, true );
+
 if ( $echecs ) {
 	WP_CLI::error( "$echecs vérification(s) en échec." );
 }
