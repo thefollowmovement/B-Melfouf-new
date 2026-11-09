@@ -28,3 +28,7 @@ Restaurants → Food courts → **Big Canteen** (créé le 9 novembre 2026 sur l
 ## Catégories Poulet et Sauces retirées de la carte
 
 Supprimées dans l'admin par l'agence le 9 novembre 2026, volontairement et pour le moment : pas de commande de ces produits actuellement. Les 2 Chick'n Box (Curry, Tandoori) et les 13 sauces restent publiés, sans catégorie, donc absents de la carte. Ne pas les recréer ni ranger ces produits ailleurs sans demande. `data/carte.json` contient toujours ces deux catégories : un import complet (Produits → Importer la carte) les recréerait et y remettrait ces produits. Pour ajouter ou corriger un produit, passer par l'import ciblé (`POST bigm/v1/carte/importer`), qui ne crée que les catégories du produit demandé.
+
+## Services, paiements et bouton Commander des restaurants
+
+Remplis le 9 novembre 2026 en production, par l'API REST (bigm-core 0.8.9), sur les 70 restaurants : **Services proposés** « Vente à emporter, Livraison, Sur place », **Moyens de paiement acceptés** « Carte bancaire, Espèces, Ticket restaurant ». **URL du bouton Commander** (`tfmsl_order_url`) : le lien Uber Eats du restaurant (celui de Restaurants → Liens de commande) pour 64 restaurants. Inchangés : Boulogne-Billancourt, Dakar, Dakar 2 – Mariste, Dakar 2 – Plateau et Nevers (pas de lien Uber Eats) ; Vienne garde `https://borneoapp.com/BigMVienne`, son appli de commande, proposée en « Commander en ligne » dans la fenêtre Commander. Anciennes valeurs sauvegardées hors du dépôt.
