@@ -1,6 +1,6 @@
 {
  "source": "Uber Eats, Big M Bondy et Big M Argenteuil (captures et pages enregistrées, 7 et 8 novembre 2026)",
- "notes": "Noms des menus, menus, boissons et sauces recopiés des cartes Uber Eats ; photos et descriptions : ops/carte/uber-eats/{restaurant}.json (extraits des pages enregistrées). Prix non repris (brief). Bacon : bœuf (confirmé par l'agence), même là où Uber Eats écrit « dinde ». Non repris faute d'allergènes dans le tableau : Toast M, Fish M, Big Kroosty (et Spicy), Kids Burger, petit déjeuner (Egg Muffin, Big Egg, Croque Nutella), Mini Donuts, Mini Dooti, Beignet Dubai, Pom'potes, Kinder Surprise, sauces Yoop's et Creamy, Frites cheddar bacon (sans crispy), Grandes frites.",
+ "notes": "Noms des menus, menus, boissons et sauces recopiés des cartes Uber Eats ; photos et descriptions : ops/carte/uber-eats/{restaurant}.json (extraits des pages enregistrées). Prix non repris (brief). Bacon : bœuf (confirmé par l'agence), même là où Uber Eats écrit « dinde ». Non repris faute d'allergènes dans le tableau : Toast M, Fish M, Big Kroosty (et Spicy), Kids Burger, petit déjeuner (Egg Muffin, Big Egg, Croque Nutella), Mini Donuts, Mini Dooti, Beignet Dubai, Pom'potes, Kinder Surprise, sauces Yoop's et Creamy, Frites cheddar bacon (sans crispy), Grandes frites. Box (Big Box, M Box, Box Noxx) : composition d'après les affiches des Box, ordre 3 pour la catégorie (entre Menus et Burgers), boisson NOXX non comprise dans les allergènes comme pour les menus.",
  "categories": [
   {
    "slug": "menus-doubles",
@@ -31,6 +31,13 @@
    "nom": "Menus enfant",
    "parent": "menus",
    "ordre": 5
+  },
+  {
+   "slug": "box",
+   "nom": "Box",
+   "titre": "Nos Box",
+   "ordre": 3,
+   "trace": "M4 11h16v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z M4 11 6.5 4h11l2.5 7 M9 15.5h6"
   }
  ],
  "descriptions": {
@@ -857,6 +864,56 @@
    "categories": [
     "boissons"
    ]
+  },
+  {
+   "titre": "Big Box",
+   "slug": "big-box",
+   "source": "Affiches des Box (agence, 9 novembre 2026)",
+   "categories": [
+    "box",
+    "nouveautes"
+   ],
+   "composants": [
+    "Chicken M",
+    "Géant",
+    "Little Big",
+    "Frite"
+   ],
+   "description": "2 Chicken M, 1 Géant, 1 Little Big et des frites.",
+   "badge": "Nouveau"
+  },
+  {
+   "titre": "M Box",
+   "slug": "m-box",
+   "source": "Affiches des Box (agence, 9 novembre 2026)",
+   "categories": [
+    "box",
+    "nouveautes"
+   ],
+   "composants": [
+    "Chicken M",
+    "Géant",
+    "Nuggets",
+    "Frite"
+   ],
+   "description": "1 Chicken M, 1 Géant, 4 nuggets et des frites.",
+   "badge": "Nouveau"
+  },
+  {
+   "titre": "Box Noxx",
+   "slug": "box-noxx",
+   "source": "Affiches des Box (agence, 9 novembre 2026)",
+   "categories": [
+    "box",
+    "nouveautes"
+   ],
+   "composants": [
+    "Little Géant",
+    "Onion rings panko",
+    "Frite"
+   ],
+   "description": "2 Little Géant, 4 onion rings, des frites et 1 boisson énergisante NOXX 50 cl.",
+   "badge": "Nouveau"
   }
  ]
 }

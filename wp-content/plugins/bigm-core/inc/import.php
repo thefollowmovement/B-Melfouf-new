@@ -20,6 +20,9 @@
  *   distingue une photo importée d'une photo choisie dans l'admin) ;
  * - en option, les produits de démonstration (extension bigm-demo) vont à la corbeille.
  *
+ * POST /wp-json/bigm/v1/carte/importer {"produits": [adresses]} n'importe que ces produits (et les
+ * catégories qui manquent) : pour ajouter un produit au fichier sans repasser toute la carte.
+ *
  * @package BigM\Core
  */
 
@@ -443,3 +446,75 @@ function bigm_import_page(): void {
 	}
 	echo '</div>';
 }
+
+/**
+ * Importe seulement quelques produits du fichier (et les catégories qui manquent), sans relancer
+ * toute la carte : les autres produits ne sont pas touchés.
+ *
+ * @param string[] $slugs Adresses des produits dans le fichier.
+ * @return array{version: string, categories: int, produits: array<string, array{etat: string, id: int, lien: string}>, absents: string[]}|WP_Error
+ */
+function bigm_import_produits( array $slugs ) {
+	$donnees = bigm_import_donnees();
+	if ( ! $donnees ) {
+		return new WP_Error( 'bigm_import_fichier', 'Fichier data/carte.json absent ou illisible.' );
+	}
+	$fichier = array();
+	foreach ( (array) $donnees['produits'] as $p ) {
+		$fichier[ sanitize_title( (string) ( $p['slug'] ?? $p['titre'] ?? '' ) ) ] = (array) $p;
+	}
+	$resultat = array(
+		'version'    => (string) ( $donnees['version'] ?? '' ),
+		'categories' => bigm_import_categories( (array) ( $donnees['categories'] ?? array() ) ),
+		'produits'   => array(),
+		'absents'    => array(),
+	);
+	foreach ( array_unique( array_map( 'sanitize_title', $slugs ) ) as $slug ) {
+		if ( '' === $slug || ! isset( $fichier[ $slug ] ) ) {
+			$resultat['absents'][] = $slug;
+			continue;
+		}
+		$r                             = bigm_import_produit( $fichier[ $slug ] );
+		$resultat['produits'][ $slug ] = array(
+			'etat' => $r['etat'],
+			'id'   => (int) $r['id'],
+			'lien' => $r['id'] ? (string) get_permalink( (int) $r['id'] ) : '',
+		);
+	}
+	if ( function_exists( 'bigm_vider_cache' ) ) {
+		bigm_vider_cache();
+	}
+	return $resultat;
+}
+
+/*
+ * POST /wp-json/bigm/v1/carte/importer {"produits": ["big-box", "m-box"]} : importe ces produits
+ * du fichier (et les catégories qui manquent), comme l'import complet mais sans les autres.
+ */
+add_action(
+	'rest_api_init',
+	static function () {
+		register_rest_route(
+			'bigm/v1',
+			'/carte/importer',
+			array(
+				'methods'             => 'POST',
+				'permission_callback' => static fn(): bool => current_user_can( 'manage_options' ),
+				'args'                => array(
+					'produits' => array(
+						'type'     => 'array',
+						'items'    => array( 'type' => 'string' ),
+						'required' => true,
+					),
+				),
+				'callback'            => static function ( WP_REST_Request $r ) {
+					$resultat = bigm_import_produits( (array) $r['produits'] );
+					if ( is_wp_error( $resultat ) ) {
+						$resultat->add_data( array( 'status' => 500 ) );
+					}
+					return rest_ensure_response( $resultat );
+				},
+			)
+		);
+	}
+);

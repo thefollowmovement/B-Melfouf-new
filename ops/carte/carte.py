@@ -361,7 +361,7 @@ def fusion_uber(produits, chemin):
             p["traces"] = [a for a in ORDRE_ALLERGENES if a in (set(p["traces"]) | set(traces)) - set(p["contient"])]
             p["viandes"] = viandes or p["viandes"]
         else:
-            p = {"slug": u.get("slug", slug(u["titre"])), "source": "Uber Eats : " + u["titre"],
+            p = {"slug": u.get("slug", slug(u["titre"])), "source": u.get("source", "Uber Eats : " + u["titre"]),
                  "contient": contient, "traces": traces, "viandes": viandes, "image": ""}
             produits.append(p)
         p.update({"titre": u["titre"], "categories": u["categories"], "description": description,

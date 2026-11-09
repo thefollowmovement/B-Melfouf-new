@@ -1,5 +1,5 @@
 {
- "version": "2026-11-08",
+ "version": "2026-11-09",
  "sources": [
   "tableau des allergènes (Liste consolidée, version de travail)",
   "Uber Eats, Big M Bondy et Big M Argenteuil (captures et pages enregistrées, 7 et 8 novembre 2026)",
@@ -103,6 +103,13 @@
    "nom": "Menus enfant",
    "parent": "menus",
    "ordre": 5
+  },
+  {
+   "slug": "box",
+   "nom": "Box",
+   "titre": "Nos Box",
+   "ordre": 3,
+   "trace": "M4 11h16v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z M4 11 6.5 4h11l2.5 7 M9 15.5h6"
   }
  ],
  "produits": [
@@ -3896,6 +3903,100 @@
    "ordre": 28,
    "a_verifier": "",
    "badge": ""
+  },
+  {
+   "slug": "big-box",
+   "source": "Affiches des Box (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "soja",
+    "sulfites",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "image": "",
+   "titre": "Big Box",
+   "categories": [
+    "box",
+    "nouveautes"
+   ],
+   "description": "2 Chicken M, 1 Géant, 1 Little Big et des frites.",
+   "statut": "publish",
+   "ordre": 1,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Chicken M, Géant, Little Big, Frites",
+   "badge": "Nouveau"
+  },
+  {
+   "slug": "m-box",
+   "source": "Affiches des Box (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [
+    "soja",
+    "poissons"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "image": "",
+   "titre": "M Box",
+   "categories": [
+    "box",
+    "nouveautes"
+   ],
+   "description": "1 Chicken M, 1 Géant, 4 nuggets et des frites.",
+   "statut": "publish",
+   "ordre": 2,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Chicken M, Géant, Nuggets, Frites",
+   "badge": "Nouveau"
+  },
+  {
+   "slug": "box-noxx",
+   "source": "Affiches des Box (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "sesame",
+    "celeri",
+    "poissons"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "",
+   "titre": "Box Noxx",
+   "categories": [
+    "box",
+    "nouveautes"
+   ],
+   "description": "2 Little Géant, 4 onion rings, des frites et 1 boisson énergisante NOXX 50 cl.",
+   "statut": "publish",
+   "ordre": 3,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Little Géant, Onion rings panko, Frites",
+   "badge": "Nouveau"
   }
  ]
 }

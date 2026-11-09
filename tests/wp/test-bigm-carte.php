@@ -375,6 +375,49 @@ bigm_import_produit(
 );
 $ok( 'Z9 – Menu test' === get_the_title( $code['id'] ) && 'publish' === get_post_status( $code['id'] ) && has_term( 'import-test-sous', 'bigm_categorie', $code['id'] ) && 'Nouveau' === get_post_meta( $code['id'], '_bigm_badge', true ), 'nom provisoire (codes M1…) : nom, catégorie, statut et badge du nouveau fichier' );
 
+WP_CLI::log( 'Import ciblé (POST bigm/v1/carte/importer)' );
+$box_fichier = array_values( array_filter( $fichier['produits'], static fn( $p ): bool => in_array( 'box', (array) ( $p['categories'] ?? array() ), true ) ) );
+$ok( array( 'big-box', 'm-box', 'box-noxx' ) === array_column( $box_fichier, 'slug' ) && in_array( 'box', array_column( $fichier['categories'], 'slug' ), true ), 'fichier : catégorie Box et ses 3 produits' );
+$termes_avant = get_terms(
+	array(
+		'taxonomy'   => 'bigm_categorie',
+		'hide_empty' => false,
+		'fields'     => 'ids',
+	)
+);
+$noxx_avant   = get_page_by_path( 'box-noxx', OBJECT, 'bigm_produit' );
+$nb_avant     = array_sum( (array) wp_count_posts( 'bigm_produit' ) );
+$admin_id     = get_current_user_id();
+$requete      = new WP_REST_Request( 'POST', '/bigm/v1/carte/importer' );
+$requete->set_body_params( array( 'produits' => array( 'box-noxx', 'produit-absent' ) ) );
+wp_set_current_user( 0 );
+$ok( 401 === rest_do_request( $requete )->get_status(), 'import ciblé : refusé sans compte administrateur' );
+wp_set_current_user( $admin_id );
+$reponse = rest_do_request( $requete );
+$res     = (array) $reponse->get_data();
+$noxx    = (int) ( $res['produits']['box-noxx']['id'] ?? 0 );
+$d_noxx  = $noxx ? bigm_produit( $noxx ) : array();
+$t_box   = get_term_by( 'slug', 'box', 'bigm_categorie' );
+$ok( 200 === $reponse->get_status() && array( 'produit-absent' ) === $res['absents'] && 1 === count( $res['produits'] ) && $nb_avant + ( $noxx_avant ? 0 : 1 ) === array_sum( (array) wp_count_posts( 'bigm_produit' ) ), 'import ciblé : seulement le produit demandé, adresse inconnue signalée' );
+$ok( $d_noxx && has_term( 'box', 'bigm_categorie', $noxx ) && has_term( 'nouveautes', 'bigm_categorie', $noxx ) && array( 'boeuf' ) === $d_noxx['viandes'] && array() === array_diff( $box_fichier[2]['contient'], $d_noxx['allergenes']['contient'] ) && count( $box_fichier[2]['contient'] ) === count( $d_noxx['allergenes']['contient'] ) && 'Nouveau' === get_post_meta( $noxx, '_bigm_badge', true ), 'Box Noxx : catégories Box et Nouveautés, viande, allergènes du fichier, badge' );
+$ok( $t_box && 3 === (int) get_term_meta( $t_box->term_id, '_bigm_ordre', true ) && str_contains( (string) get_term_meta( $t_box->term_id, '_bigm_icone', true ), '<svg' ), 'catégorie Box créée : ordre 3, icône' );
+if ( $noxx && ! $noxx_avant ) {
+	$posts[] = $noxx;
+}
+$termes = array_merge(
+	$termes,
+	array_diff(
+		get_terms(
+			array(
+				'taxonomy'   => 'bigm_categorie',
+				'hide_empty' => false,
+				'fields'     => 'ids',
+			)
+		),
+		$termes_avant
+	)
+);
+
 wp_reset_postdata();
 wp_delete_attachment( $img, true );
 foreach ( $posts as $id ) {
