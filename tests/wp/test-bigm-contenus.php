@@ -207,6 +207,8 @@ if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() )
 	$maj = new WP_REST_Request( 'POST', '/wp/v2/tfmsl_store/' . $resto );
 	$maj->set_body_params( array( 'meta' => array( 'tfmsl_gmb_place_id' => ' ChIJ_test-123 ' ) ) );
 	$ok( 200 === rest_do_request( $maj )->get_status() && 'ChIJ_test-123' === get_post_meta( $resto, 'tfmsl_gmb_place_id', true ) && 'Restaurant test' === get_the_title( $resto ), 'Place ID modifiable par l’API REST (nettoyé), fiche inchangée' );
+	$maj->set_body_params( array( 'meta' => array( 'tfmsl_lat' => '48.90310123456', 'tfmsl_lng' => '2,4828' ) ) );
+	$ok( 200 === rest_do_request( $maj )->get_status() && '48.9031012' === get_post_meta( $resto, 'tfmsl_lat', true ) && '2.4828' === get_post_meta( $resto, 'tfmsl_lng', true ), 'coordonnées GPS modifiables par l’API REST (7 décimales, virgule acceptée)' );
 	$moi = get_current_user_id();
 	wp_set_current_user( 0 );
 	$maj->set_body_params( array( 'meta' => array( 'tfmsl_gmb_place_id' => 'ChIJpirate' ) ) );
@@ -237,7 +239,7 @@ if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() )
 	$reponse = rest_do_request( new WP_REST_Request( 'GET', '/bigm/v1/restaurants/' . $resto . '/place-id' ) );
 	remove_filter( 'pre_http_request', $google, 10 );
 	$c = $reponse->get_data()['candidats'][0] ?? array();
-	$ok( 200 === $reponse->get_status() && 'ChIJabc' === ( $c['place_id'] ?? '' ) && 100 === ( $c['distance_m'] ?? 0 ) && 'CLE-TEST' === ( $appel['cle'] ?? '' ) && str_starts_with( (string) ( $appel['corps']['textQuery'] ?? '' ), 'Big M ' ) && isset( $appel['corps']['locationBias'] ), 'Place ID possibles : recherche Google avec la clé du plugin, près de la fiche, distance calculée' );
+	$ok( 200 === $reponse->get_status() && 'ChIJabc' === ( $c['place_id'] ?? '' ) && 100 === ( $c['distance_m'] ?? 0 ) && 48.9031 === ( $c['lat'] ?? null ) && 'CLE-TEST' === ( $appel['cle'] ?? '' ) && str_starts_with( (string) ( $appel['corps']['textQuery'] ?? '' ), 'Big M ' ) && isset( $appel['corps']['locationBias'] ), 'Place ID possibles : recherche Google avec la clé du plugin, près de la fiche, distance calculée' );
 	add_filter( 'pre_http_request', $google, 10, 3 );
 	$req = new WP_REST_Request( 'GET', '/bigm/v1/restaurants/' . $resto . '/place-id' );
 	$req->set_query_params( array( 'q' => 'Big Canteen Mérignac' ) );

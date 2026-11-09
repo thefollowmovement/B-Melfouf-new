@@ -12,7 +12,8 @@
  * - deux réglages par défaut, tant qu'ils n'ont pas été enregistrés : fiche en style clair,
  *   barre d'actions mobile coupée (la barre d'onglets Big M occupe le bas de l'écran) ;
  * - le type de cuisine « Burgers halal » par défaut, pour les données structurées Restaurant ;
- * - le Google Place ID lisible et modifiable par l'API REST, pour une saisie en lot, et une
+ * - le Google Place ID et les coordonnées GPS lisibles et modifiables par l'API REST, pour une
+ *   saisie en lot, et une
  *   recherche des Place ID possibles d'un restaurant avec la clé Google du plugin.
  *
  * Rien ne se passe si le plugin n'est pas actif.
@@ -155,6 +156,24 @@ add_action(
 		if ( ! bigm_storelocator_actif() ) {
 			return;
 		}
+		// Coordonnées GPS (épingle de la carte, distance) : nombres décimaux, ou vide.
+		foreach ( array( 'tfmsl_lat', 'tfmsl_lng' ) as $cle ) {
+			register_post_meta(
+				'tfmsl_store',
+				$cle,
+				array(
+					'type'              => 'string',
+					'single'            => true,
+					'show_in_rest'      => true,
+					// Virgule acceptée ; une saisie qui n'est pas un nombre est gardée telle quelle (pas de perte).
+					'sanitize_callback' => static function ( $valeur ): string {
+						$v = str_replace( ',', '.', trim( (string) $valeur ) );
+						return is_numeric( $v ) ? (string) round( (float) $v, 7 ) : sanitize_text_field( (string) $valeur );
+					},
+					'auth_callback'     => static fn( $permis, $k, $post_id ): bool => current_user_can( 'edit_post', (int) $post_id ),
+				)
+			);
+		}
 		register_post_meta(
 			'tfmsl_store',
 			'tfmsl_gmb_place_id',
@@ -177,7 +196,7 @@ add_action(
  *
  * @param int    $id      Restaurant (tfmsl_store).
  * @param string $requete Recherche libre (« Big Canteen Mérignac »), sinon « Big M » + adresse.
- * @return array<int, array{place_id: string, nom: string, adresse: string, statut: string, distance_m: ?int, maps: string}>|WP_Error
+ * @return array<int, array{place_id: string, nom: string, adresse: string, statut: string, distance_m: ?int, lat: ?float, lng: ?float, maps: string}>|WP_Error
  */
 function bigm_restaurant_place_candidats( int $id, string $requete = '' ) {
 	$cle = trim( (string) get_option( 'tfmsl_google_api_key', '' ) );
@@ -241,6 +260,8 @@ function bigm_restaurant_place_candidats( int $id, string $requete = '' ) {
 			'adresse'    => (string) ( $p['formattedAddress'] ?? '' ),
 			'statut'     => (string) ( $p['businessStatus'] ?? '' ),
 			'distance_m' => $dist,
+			'lat'        => isset( $loc['latitude'] ) ? (float) $loc['latitude'] : null,
+			'lng'        => isset( $loc['longitude'] ) ? (float) $loc['longitude'] : null,
 			'maps'       => (string) ( $p['googleMapsUri'] ?? '' ),
 		);
 	}
