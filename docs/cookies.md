@@ -23,7 +23,7 @@ Sans cookie, donc sans accord : carte OpenStreetMap et Leaflet (unpkg) de la pag
 
 ## Page « Gestion des cookies » (`/cookies/`)
 
-Réécrite le 9 novembre 2026 (ancienne version sauvegardée hors du dépôt) : votre choix et comment le changer (bouton `[bigm_cookies_gestion]`), ce que le site utilise, la liste des cookies (`[bigm_cookies_liste]`, à jour toute seule), les réglages du navigateur. **La politique de confidentialité** (`/politique-de-confidentialite/`) dit encore « ni de mesure d'audience » et ne cite pas Google parmi les prestataires : à corriger (texte proposé à l'agence le 9 novembre 2026).
+Réécrite le 9 novembre 2026 (ancienne version sauvegardée hors du dépôt) : votre choix et comment le changer (bouton `[bigm_cookies_gestion]`), ce que le site utilise, la liste des cookies (`[bigm_cookies_liste]`, à jour toute seule), les réglages du navigateur. **La politique de confidentialité** (`/politique-de-confidentialite/`) a été corrigée le même jour : Google (Google Ireland Ltd, transfert possible aux États-Unis) ajouté aux prestataires, seulement avec l'accord du visiteur ; paragraphe « Cookies » : mesure d'audience avec accord, cookies de 13 mois au plus, lien « Paramétrer les cookies ». À tenir à jour avec la page cookies quand un service est ajouté.
 
 Elle doit décrire la même chose que le bandeau : Google Analytics, les contenus d'autres sites, le lien pour changer d'avis. Codes courts : `[bigm_cookies_liste]` (tableau des cookies), `[bigm_cookies_gestion]` (bouton « Gérer mes cookies »).
 

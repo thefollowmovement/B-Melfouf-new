@@ -44,3 +44,7 @@ Son titre était son adresse (« devenir-franchise », repris dans l'onglet et l
 ## Page « Gestion des cookies »
 
 Réécrite le 9 novembre 2026 avec l'extension bigm-cookies (texte dans le widget « Big M — Texte » de la page Elementor `/cookies/`) : bandeau et choix, Google Analytics (Google Ireland, transfert possible aux États-Unis, cookies 13 mois au plus), contenus d'autres sites, tableau des cookies par le code court `[bigm_cookies_liste]`, bouton `[bigm_cookies_gestion]`. Ancienne version sauvegardée hors du dépôt.
+
+## Politique de confidentialité
+
+Corrigée le 9 novembre 2026 (widget « Big M — Texte » de `/politique-de-confidentialite/`) : Google (Google Ireland Ltd, Google Analytics, seulement avec accord, transfert possible aux États-Unis) ajouté aux prestataires ; paragraphe « Cookies » remplacé (plus de « ni de mesure d'audience »). Ancienne version sauvegardée hors du dépôt.
