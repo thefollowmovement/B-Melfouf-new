@@ -166,6 +166,20 @@ Corrections qui ont suivi (bigm-core 0.9.2, bigm-box 1.0.2, bigm-cookies 1.0.3) 
 - À corriger dans StoreLocatore (dépôt de l'agence) : la photo du bandeau des fiches est servie en taille d'origine, sans `srcset` ni `fetchpriority` (355 Ko pour Bondy), et Leaflet (CSS bloquant) vient de unpkg.com, un autre domaine.
 - Non significatif : « Bonnes pratiques 96 » sur les pages restaurants (erreurs de console) et une partie du « CSS bloquant » viennent de unpkg.com et des tuiles de carte, bloqués par le proxy de l'environnement de test, pas chez les visiteurs.
 
+Après ces corrections, même test, pages déjà en cache :
+
+| Page | Performance | LCP | Accessibilité | Bonnes pratiques | SEO |
+|---|---|---|---|---|---|
+| Accueil | 93 (80) | 2,5 s (4,4) | 100 | 100 | 100 |
+| Carte | 99 (97) | 1,1 s (2,6) | 100 | 100 | 100 |
+| Catégorie Burgers | 98 (95) | 2,4 s | 100 | 100 | 100 |
+| Fiche produit | 100 | 1,4 s | 100 | 100 | 100 (92) |
+| Restaurants | 99 (90) | 1,8 s (3,4) | 97 | 96 | 100 |
+| Fiche restaurant (Bondy) | 96 (87) | 2,7 s (3,9) | 97 | 96 | 100 |
+| Actualités, franchise, recrutement | 99 | 1,9 à 2,0 s | 100 | 100 | 100 |
+
+Cette fois Leaflet s'est chargé (tuiles et photos des avis Google toujours bloquées par le proxy, d'où « Bonnes pratiques 96 »). Accessibilité 97 sur les pages restaurants : liens des crédits de la carte pas assez distincts (soulignés par bigm-core 0.9.3) et épingle de la carte de la fiche sans nom accessible (StoreLocatore). Sur l'accueil, l'optimisation des images d'Elementor donnait aussi la priorité haute au logo de l'en-tête (768 × 941 px déclarés) : bigm-child 0.6.6 le sert en taille « medium » (245 × 300, 18 Ko au lieu de 34) avec `fetchpriority="auto"`.
+
 ## Accessibilité
 
 Audit axe-core (ordinateur et mobile) : aucune erreur sur l'accueil, la carte, une catégorie, une fiche produit, les actualités et un article. Corrections de cette étape :

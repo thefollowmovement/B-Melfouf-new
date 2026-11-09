@@ -110,13 +110,14 @@ add_filter( 'default_option_tfmsl_mobile_bar', static fn() => '0', 20 );
  * Si la barre d'actions mobile du plugin est activée malgré tout, elle se place
  * au-dessus de la barre d'onglets Big M (tabbar.css du thème : 68 px + 10 px de marge).
  * Horaires de la fiche : le jour en cours, couleur des boutons sur fond gris (4,4:1), passe à la
- * teinte de survol des boutons (contraste AA, 4,5:1 au moins).
+ * teinte de survol des boutons (contraste AA, 4,5:1 au moins). Liens des crédits de la carte
+ * (Leaflet, OpenStreetMap) soulignés : leur bleu ne se distingue pas assez du texte voisin.
  */
 add_action(
 	'wp_enqueue_scripts',
 	static function () {
 		if ( wp_style_is( 'tfmsl-public', 'enqueued' ) ) {
-			wp_add_inline_style( 'tfmsl-public', '@media (max-width: 760px) { .tfmsl-mobile-bar { bottom: calc(90px + env(safe-area-inset-bottom, 0px)); } body.single-tfmsl_store { padding-bottom: calc(170px + env(safe-area-inset-bottom, 0px)); } } .tfmsl-skin-light .tfmsl-hours-list li.tfmsl-today .tfmsl-hours-day { color: var(--tfmsl-l-btn-hover); }' );
+			wp_add_inline_style( 'tfmsl-public', '@media (max-width: 760px) { .tfmsl-mobile-bar { bottom: calc(90px + env(safe-area-inset-bottom, 0px)); } body.single-tfmsl_store { padding-bottom: calc(170px + env(safe-area-inset-bottom, 0px)); } } .tfmsl-skin-light .tfmsl-hours-list li.tfmsl-today .tfmsl-hours-day { color: var(--tfmsl-l-btn-hover); } .leaflet-control-attribution a { text-decoration: underline; }' );
 		}
 	},
 	30

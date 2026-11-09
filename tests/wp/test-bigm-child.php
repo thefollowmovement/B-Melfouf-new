@@ -59,6 +59,16 @@ if ( function_exists( 'bigm_reglages_nettoyer' ) ) {
 	$ok( str_contains( bigm_child_entete_html(), 'href="https://commande.example.test/"' ) && str_contains( bigm_child_onglets_html(), 'href="https://commande.example.test/"' ), 'lien Commander des Réglages Big M : en-tête et bouton central' );
 }
 $ok( str_contains( $entete, 'aria-controls="drawer"' ) && str_contains( $entete, 'aria-label="Big M, accueil"' ), 'bouton du tiroir et logo accessibles' );
+$ok( (bool) preg_match( '#class="header__logo"[^>]*><img [^>]*fetchpriority="auto"#', $entete ), 'logo de l’en-tête en fetchpriority="auto" (Elementor ne lui donne pas la priorité de l’image principale)' );
+$logo_test = get_posts( array( 'post_type' => 'attachment', 'post_mime_type' => 'image', 'posts_per_page' => 1, 'fields' => 'ids' ) );
+if ( $logo_test ) {
+	$filtre_logo = static fn() => $logo_test[0];
+	add_filter( 'theme_mod_custom_logo', $filtre_logo );
+	$l = bigm_child_logo();
+	remove_filter( 'theme_mod_custom_logo', $filtre_logo );
+	$moyen = wp_get_attachment_image_src( $logo_test[0], 'medium' );
+	$ok( $moyen && $moyen[0] === $l['url'], 'logo choisi dans le personnalisateur : taille « medium », pas le fichier d’origine' );
+}
 $ok( 2 === substr_count( $entete, 'href="' . esc_url( home_url( '/#appli' ) ) . '"' ) && (bool) preg_match( '#<a class="header__panier" href="[^"]+" aria-label="Commander"><svg#', $entete ), 'icône panier (Commander, mobile) avec son nom, même lien que le bouton Commander' );
 $tiroir = bigm_child_tiroir_html();
 $ok( str_contains( $tiroir, 'role="dialog"' ) && 7 === substr_count( $tiroir, '<a ' ), 'tiroir : dialogue et 7 liens' );

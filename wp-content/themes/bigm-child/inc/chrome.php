@@ -14,6 +14,8 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * En-tête en capsule : menu à gauche, logo au centre, Restaurants et Commander à droite.
+ * Logo en fetchpriority="auto" : sinon l'optimisation des images d'Elementor lui donne la
+ * priorité haute (première grande image de la page), au détriment de l'image principale (LCP).
  * Sur mobile (≤ 760 px), une icône panier (Commander) remplace les deux : Restaurants est dans
  * la barre d'onglets.
  */
@@ -31,7 +33,7 @@ function bigm_child_entete_html(): string {
 		<?php endforeach; ?>
       </nav>
     </div>
-    <a class="header__logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="Big M, accueil"><img src="<?php echo esc_url( $logo['url'] ); ?>" alt="Big M" width="<?php echo (int) $logo['width']; ?>" height="<?php echo (int) $logo['height']; ?>"></a>
+    <a class="header__logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="Big M, accueil"><img src="<?php echo esc_url( $logo['url'] ); ?>" alt="Big M" width="<?php echo (int) $logo['width']; ?>" height="<?php echo (int) $logo['height']; ?>" fetchpriority="auto" decoding="async"></a>
     <div class="header__right">
       <a class="hide-sm" href="<?php echo esc_url( bigm_child_lien_restaurants() ); ?>"<?php echo bigm_child_est_courant( bigm_child_lien_restaurants() ) ? ' aria-current="page"' : ''; ?>><?php echo bigm_child_icone( 'pin' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>Restaurants</a>
       <a class="btn" href="<?php echo esc_url( bigm_child_lien_commander() ); ?>"><?php echo bigm_child_icone( 'bag' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>Commander</a>
@@ -87,7 +89,7 @@ function bigm_child_onglets_html(): string {
 <nav class="tabbar" aria-label="Navigation rapide">
   <div class="tabbar__bar">
     <?php echo $avant; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- construit et échappé ci-dessus. ?>
-    <a class="tabbar__fab" href="<?php echo esc_url( bigm_child_lien_commander() ); ?>" aria-label="Commander"><img src="<?php echo esc_url( $logo['url'] ); ?>" alt="" width="<?php echo (int) $logo['width']; ?>" height="<?php echo (int) $logo['height']; ?>"></a>
+    <a class="tabbar__fab" href="<?php echo esc_url( bigm_child_lien_commander() ); ?>" aria-label="Commander"><img src="<?php echo esc_url( $logo['url'] ); ?>" alt="" width="<?php echo (int) $logo['width']; ?>" height="<?php echo (int) $logo['height']; ?>" fetchpriority="auto" decoding="async"></a>
     <?php echo $apres; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
     <button class="tabbar__item" type="button" data-open-drawer aria-controls="drawer" aria-expanded="false"><?php echo bigm_child_icone( 'plus' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>Plus</button>
     <span class="tabbar__label" aria-hidden="true">Commander</span>

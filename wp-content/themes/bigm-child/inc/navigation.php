@@ -239,7 +239,9 @@ add_action(
 function bigm_child_logo(): array {
 	$id = (int) get_theme_mod( 'custom_logo' );
 	if ( $id ) {
-		$img = wp_get_attachment_image_src( $id, 'full' );
+		// Affiché à 92 px de haut au plus (pied de page) : la taille « medium » (300 px) suffit,
+		// écran Retina compris, au lieu du fichier d'origine.
+		$img = wp_get_attachment_image_src( $id, (string) apply_filters( 'bigm_child_logo_taille', 'medium' ) );
 		if ( $img ) {
 			return array(
 				'url'    => $img[0],
