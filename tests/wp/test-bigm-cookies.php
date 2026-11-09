@@ -56,6 +56,7 @@ ob_start();
 do_action( 'wp_head' );
 $tete = (string) ob_get_clean();
 $ok( (bool) preg_match( '/gtag\("consent","default",\{[^}]*"analytics_storage":"denied"/', $tete ) && strpos( $tete, 'bigm-cookies-consentement' ) < ( strpos( $tete, 'googletagmanager' ) ?: PHP_INT_MAX ), 'mode de consentement de Google : refusé par défaut, avant tout script Google' );
+$ok( str_contains( $tete, '"cookie_expires":34128000' ) && str_contains( $tete, '"cookie_update":false' ), 'cookies _ga : 13 mois au plus, sans prolongation à chaque visite (CNIL)' );
 
 WP_CLI::log( 'Contenus d’autres sites' );
 $video  = '<iframe src="https://www.youtube.com/embed/abc" title="Vidéo"></iframe>';

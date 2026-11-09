@@ -4,6 +4,7 @@
  *
  * - Mode de consentement de Google (v2) : tout « refusé » par défaut, en tête de page, avant
  *   tout script Google ; « accordé » seulement après le choix du visiteur (assets/cookies.js).
+ *   Cookies _ga limités à 13 mois, sans prolongation à chaque visite (cookie_expires, cookie_update).
  * - Scripts : Google Analytics posé par Site Kit (google_gtagjs, ses scripts en ligne et les
  *   suivis d'événements googlesitekit-events-provider-*) deviennent type="text/plain" avec
  *   data-bigm-cookies="mesure" ; le navigateur ne les télécharge ni ne les exécute. Le JS les
@@ -113,12 +114,33 @@ add_action(
 			'security_storage'        => 'granted',
 			'wait_for_update'         => 500,
 		);
+		// Cookies de mesure d'audience : 13 mois au plus, sans prolongation à chaque visite (CNIL).
+		$duree = array(
+			'cookie_expires' => 395 * DAY_IN_SECONDS,
+			'cookie_update'  => false,
+		);
 		wp_print_inline_script_tag(
-			'window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("consent","default",' . wp_json_encode( $defaut ) . ');gtag("set","ads_data_redaction",true);',
+			'window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("consent","default",' . wp_json_encode( $defaut ) . ');gtag("set","ads_data_redaction",true);gtag("set",' . wp_json_encode( $duree ) . ');',
 			array( 'id' => 'bigm-cookies-consentement' )
 		);
 	},
 	2
+);
+
+/*
+ * Les mêmes durées dans la configuration de Google Analytics posée par Site Kit.
+ */
+add_filter(
+	'googlesitekit_gtag_opt',
+	static function ( $opt ) {
+		return array_merge(
+			(array) $opt,
+			array(
+				'cookie_expires' => 395 * DAY_IN_SECONDS,
+				'cookie_update'  => false,
+			)
+		);
+	}
 );
 
 /**

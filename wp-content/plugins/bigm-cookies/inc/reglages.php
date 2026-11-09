@@ -68,7 +68,7 @@ function bigm_cookies_categories(): array {
 			'nom'      => 'Mesure d’audience',
 			'texte'    => 'Google Analytics nous indique les pages vues, la durée des visites et le type d’appareil, pour améliorer le site. Fournisseur : Google Ireland Ltd ; des données peuvent être transférées aux États-Unis (Google LLC, adhérent au Data Privacy Framework).',
 			'cookies'  => array(
-				array( '_ga, _ga_*', 'Google Analytics', 'Distinguer les visiteurs et les visites, 13 mois' ),
+				array( '_ga, _ga_*', 'Google Analytics', 'Distinguer les visiteurs et les visites, 13 mois au plus (non prolongés à chaque visite)' ),
 			),
 			'toujours' => false,
 		),

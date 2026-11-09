@@ -40,3 +40,7 @@ Pour les fiches Google Business Profile des 70 restaurants (9 novembre 2026) : n
 ## Page « Devenir franchisé »
 
 Son titre était son adresse (« devenir-franchise », repris dans l'onglet et le partage) : renommée « Devenir franchisé » le 9 novembre 2026, adresse inchangée.
+
+## Page « Gestion des cookies »
+
+Réécrite le 9 novembre 2026 avec l'extension bigm-cookies (texte dans le widget « Big M — Texte » de la page Elementor `/cookies/`) : bandeau et choix, Google Analytics (Google Ireland, transfert possible aux États-Unis, cookies 13 mois au plus), contenus d'autres sites, tableau des cookies par le code court `[bigm_cookies_liste]`, bouton `[bigm_cookies_gestion]`. Ancienne version sauvegardée hors du dépôt.

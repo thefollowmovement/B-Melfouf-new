@@ -7,7 +7,7 @@ Bandeau de consentement conforme au RGPD et aux lignes directrices de la CNIL. C
 | Finalité | Quoi | Avant l'accord |
 |---|---|---|
 | Nécessaires (sans accord) | Choix sur les cookies (`bigm_cookies`, 6 mois) ; restaurant choisi pour commander (`tfmsl_promo_store`, stockage du navigateur) ; connexion des administrateurs | — |
-| Mesure d'audience | Google Analytics 4 (`G-4689YBK4SD`, posé par Site Kit) : cookies `_ga`, `_ga_*`, 13 mois | script en attente, rien n'est chargé ; mode de consentement Google « refusé » |
+| Mesure d'audience | Google Analytics 4 (`G-4689YBK4SD`, posé par Site Kit) : cookies `_ga`, `_ga_*`, 13 mois au plus sans prolongation (`cookie_expires`, `cookie_update: false`, en tête de page et par le filtre `googlesitekit_gtag_opt` de Site Kit ; par défaut Google garde 2 ans et prolonge à chaque visite) | script en attente, rien n'est chargé ; mode de consentement Google « refusé » |
 | Contenus d'autres sites | Vidéos et publications intégrées (aucune le 9 novembre ; bigm-core passe déjà YouTube en `youtube-nocookie.com`) | encart « Afficher le contenu » |
 
 Sans cookie, donc sans accord : carte OpenStreetMap et Leaflet (unpkg) de la page Restaurants, photos des avis Google (googleusercontent), polices auto-hébergées, liens vers Uber Eats, Deliveroo et les réseaux sociaux. À revoir à chaque nouveau service : pixel publicitaire (Meta, TikTok, Snapchat), chat, carte Google Maps, reCAPTCHA…
@@ -22,6 +22,8 @@ Sans cookie, donc sans accord : carte OpenStreetMap et Leaflet (unpkg) de la pag
 - Preuve : le cookie `bigm_cookies` garde la version du texte et la date du choix ; le code de l'extension (Git) montre le mécanisme. Pas de journal des choix côté serveur (pas de donnée personnelle de plus).
 
 ## Page « Gestion des cookies » (`/cookies/`)
+
+Réécrite le 9 novembre 2026 (ancienne version sauvegardée hors du dépôt) : votre choix et comment le changer (bouton `[bigm_cookies_gestion]`), ce que le site utilise, la liste des cookies (`[bigm_cookies_liste]`, à jour toute seule), les réglages du navigateur. **La politique de confidentialité** (`/politique-de-confidentialite/`) dit encore « ni de mesure d'audience » et ne cite pas Google parmi les prestataires : à corriger (texte proposé à l'agence le 9 novembre 2026).
 
 Elle doit décrire la même chose que le bandeau : Google Analytics, les contenus d'autres sites, le lien pour changer d'avis. Codes courts : `[bigm_cookies_liste]` (tableau des cookies), `[bigm_cookies_gestion]` (bouton « Gérer mes cookies »).
 
