@@ -165,7 +165,14 @@ function bigm_reglages_champs(): array {
 		),
 		'appli'      => array(
 			'titre'  => 'Appli Big M',
+			'aide'   => 'Liens des badges du bloc « Bande appli » d’Elementor et, si la case est cochée, du pied de page. Un lien vide masque son badge.',
 			'champs' => array(
+				'pied_stores'    => array(
+					'label'  => 'Pied de page',
+					'type'   => 'case',
+					'case'   => 'Afficher les badges App Store et Google Play dans le pied de page',
+					'defaut' => '0',
+				),
 				'appstore_url'   => array(
 					'label'  => 'App Store',
 					'type'   => 'url',

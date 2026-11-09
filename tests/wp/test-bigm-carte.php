@@ -483,6 +483,19 @@ $d_noxx  = $noxx ? bigm_produit( $noxx ) : array();
 $t_box   = get_term_by( 'slug', 'box', 'bigm_categorie' );
 $ok( 200 === $reponse->get_status() && array( 'produit-absent' ) === $res['absents'] && 1 === count( $res['produits'] ) && $nb_avant + ( $noxx_avant ? 0 : 1 ) === array_sum( (array) wp_count_posts( 'bigm_produit' ) ), 'import ciblé : seulement le produit demandé, adresse inconnue signalée' );
 $ok( $d_noxx && has_term( 'box', 'bigm_categorie', $noxx ) && has_term( 'nouveautes', 'bigm_categorie', $noxx ) && array( 'boeuf' ) === $d_noxx['viandes'] && array() === array_diff( $box_fichier[2]['contient'], $d_noxx['allergenes']['contient'] ) && count( $box_fichier[2]['contient'] ) === count( $d_noxx['allergenes']['contient'] ) && 'Nouveau' === get_post_meta( $noxx, '_bigm_badge', true ), 'Box Noxx : catégories Box et Nouveautés, viande, allergènes du fichier, badge' );
+$creees = array_diff(
+	get_terms(
+		array(
+			'taxonomy'   => 'bigm_categorie',
+			'hide_empty' => false,
+			'fields'     => 'ids',
+		)
+	),
+	$termes_avant
+);
+$ok( array() === array_diff( array_map( static fn( int $t ): string => get_term( $t )->slug, $creees ), array( 'box', 'nouveautes' ) ), 'import ciblé : seulement les catégories du produit demandé (pas Sauces ni Poulet)' );
+$cats_de = static fn( array $slugs ): array => wp_list_pluck( bigm_import_categories_de( $fichier, array_values( array_filter( $fichier['produits'], static fn( $p ): bool => in_array( $p['slug'], $slugs, true ) ) ) ), 'slug' );
+$ok( array( 'box', 'nouveautes' ) === $cats_de( array( 'box-noxx' ) ) && array( 'menus-simples', 'menus' ) === $cats_de( array( 'menu-mamamia-chicken' ) ) && ! in_array( 'sauces', $cats_de( array( 'w1', 'mamamia-spicy' ) ), true ), 'catégories à créer : celles des produits demandés et leurs parentes, rien d’autre' );
 $ok( $t_box && 3 === (int) get_term_meta( $t_box->term_id, '_bigm_ordre', true ) && str_contains( (string) get_term_meta( $t_box->term_id, '_bigm_icone', true ), '<svg' ), 'catégorie Box créée : ordre 3, icône' );
 if ( $noxx && ! $noxx_avant ) {
 	$posts[] = $noxx;

@@ -115,8 +115,11 @@ function bigm_child_pied_html(): string {
 	// Valeurs du prototype seulement si bigm-core est inactif : un champ vidé dans
 	// Réglages Big M masque l'élément.
 	$secours    = static fn( string $v ): string => function_exists( 'bigm_reglage' ) ? '' : $v;
-	$appstore   = bigm_child_reglage( 'appstore_url', $secours( 'https://apps.apple.com/fr/app/big-m/id6444707190' ) );
-	$googleplay = bigm_child_reglage( 'googleplay_url', $secours( 'https://play.google.com/store/apps/details?id=com.dishop.big&gl=FR' ) );
+	// Badges des stores : seulement si la case « Pied de page » de Réglages Big M → Appli Big M
+	// est cochée (sans bigm-core : ceux du prototype).
+	$stores     = ! function_exists( 'bigm_reglage' ) || '1' === (string) bigm_reglage( 'pied_stores' );
+	$appstore   = $stores ? bigm_child_reglage( 'appstore_url', $secours( 'https://apps.apple.com/fr/app/big-m/id6444707190' ) ) : '';
+	$googleplay = $stores ? bigm_child_reglage( 'googleplay_url', $secours( 'https://play.google.com/store/apps/details?id=com.dishop.big&gl=FR' ) ) : '';
 	$email      = bigm_child_reglage( 'contact_email', $secours( 'contact@bigm-burger.fr' ) );
 	$siege      = bigm_child_reglage( 'siege', $secours( 'Villeneuve-la-Garenne' ) );
 	$mention    = bigm_child_reglage( 'pied_mention', $secours( "Big M, c'est ça qu'on aime{$nnbsp}!" ) );
@@ -145,6 +148,7 @@ function bigm_child_pied_html(): string {
         <a href="<?php echo esc_url( $url ); ?>" aria-label="<?php echo esc_attr( $reseau[0] ); ?>"><?php echo bigm_child_icone( $reseau[1] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
 		<?php endforeach; ?>
       </div>
+		<?php if ( $appstore || $googleplay ) : ?>
       <p class="footer__app">Big M dans votre poche</p>
       <div class="stores">
 		<?php if ( $appstore ) : ?>
@@ -154,6 +158,7 @@ function bigm_child_pied_html(): string {
         <a class="store" href="<?php echo esc_url( $googleplay ); ?>"><?php echo bigm_child_icone( 'play' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><small>Disponible sur</small><b>Google Play</b></span></a>
 		<?php endif; ?>
       </div>
+		<?php endif; ?>
     </div>
     <div>
       <h2>Produits</h2>

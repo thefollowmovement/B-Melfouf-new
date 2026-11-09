@@ -22,8 +22,9 @@
  *   distingue une photo importée d'une photo choisie dans l'admin) ;
  * - en option, les produits de démonstration (extension bigm-demo) vont à la corbeille.
  *
- * POST /wp-json/bigm/v1/carte/importer {"produits": [adresses]} n'importe que ces produits (et les
- * catégories qui manquent) : pour ajouter un produit au fichier sans repasser toute la carte.
+ * POST /wp-json/bigm/v1/carte/importer {"produits": [adresses]} n'importe que ces produits (et
+ * celles de leurs catégories qui manquent) : pour ajouter un produit au fichier sans repasser toute
+ * la carte.
  *
  * @package BigM\Core
  */
@@ -463,6 +464,28 @@ function bigm_import_page(): void {
 }
 
 /**
+ * Catégories du fichier dont ont besoin ces produits, avec leurs parentes. Une catégorie du
+ * fichier supprimée dans l'admin n'est donc pas recréée par l'import d'un produit sans rapport.
+ *
+ * @param array<string, mixed>             $donnees  Contenu du fichier.
+ * @param array<int, array<string, mixed>> $produits Produits du fichier.
+ * @return array<int, array<string, mixed>>
+ */
+function bigm_import_categories_de( array $donnees, array $produits ): array {
+	$cats    = array_column( (array) ( $donnees['categories'] ?? array() ), null, 'slug' );
+	$voulues = array();
+	foreach ( $produits as $p ) {
+		foreach ( (array) ( $p['categories'] ?? array() ) as $c ) {
+			while ( is_string( $c ) && isset( $cats[ $c ] ) && ! isset( $voulues[ $c ] ) ) {
+				$voulues[ $c ] = $cats[ $c ];
+				$c             = $cats[ $c ]['parent'] ?? null;
+			}
+		}
+	}
+	return array_values( $voulues );
+}
+
+/**
  * Importe seulement quelques produits du fichier (et les catégories qui manquent), sans relancer
  * toute la carte : les autres produits ne sont pas touchés.
  *
@@ -478,13 +501,14 @@ function bigm_import_produits( array $slugs ) {
 	foreach ( (array) $donnees['produits'] as $p ) {
 		$fichier[ sanitize_title( (string) ( $p['slug'] ?? $p['titre'] ?? '' ) ) ] = (array) $p;
 	}
+	$slugs    = array_unique( array_map( 'sanitize_title', $slugs ) );
 	$resultat = array(
 		'version'    => (string) ( $donnees['version'] ?? '' ),
-		'categories' => bigm_import_categories( (array) ( $donnees['categories'] ?? array() ) ),
+		'categories' => bigm_import_categories( bigm_import_categories_de( $donnees, array_values( array_intersect_key( $fichier, array_flip( $slugs ) ) ) ) ),
 		'produits'   => array(),
 		'absents'    => array(),
 	);
-	foreach ( array_unique( array_map( 'sanitize_title', $slugs ) ) as $slug ) {
+	foreach ( $slugs as $slug ) {
 		if ( '' === $slug || ! isset( $fichier[ $slug ] ) ) {
 			$resultat['absents'][] = $slug;
 			continue;

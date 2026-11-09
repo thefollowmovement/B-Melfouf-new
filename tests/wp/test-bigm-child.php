@@ -70,11 +70,12 @@ WP_CLI::log( 'Pied de page' );
 $pied = bigm_child_pied_html();
 $ok( str_contains( $pied, 'Pour votre santé, mangez au moins cinq fruits et légumes par jour. www.mangerbouger.fr' ), 'mention mangerbouger.fr' );
 $ok( str_contains( $pied, '© ' . wp_date( 'Y' ) ), 'année du copyright' );
+$ok( ! str_contains( $pied, 'class="store"' ) && ! str_contains( $pied, 'footer__app' ), 'badges des stores : pas dans le pied de page par défaut (case décochée)' );
 if ( function_exists( 'bigm_reglages_nettoyer' ) ) {
-	update_option( 'bigm_reglages', bigm_reglages_nettoyer( array_merge( (array) get_option( 'bigm_reglages' ), array( 'tiktok_url' => '', 'youtube_url' => 'https://youtube.com/@bigm', 'googleplay_url' => '' ) ) ) );
+	update_option( 'bigm_reglages', bigm_reglages_nettoyer( array_merge( (array) get_option( 'bigm_reglages' ), array( 'pied_stores' => '1', 'tiktok_url' => '', 'youtube_url' => 'https://youtube.com/@bigm', 'googleplay_url' => '' ) ) ) );
 	$pied = bigm_child_pied_html();
 	$ok( ! str_contains( $pied, 'aria-label="TikTok"' ) && str_contains( $pied, 'aria-label="YouTube"' ), 'réseaux : seuls ceux renseignés' );
-	$ok( ! str_contains( $pied, 'Google Play' ) && str_contains( $pied, 'App Store' ), 'store sans lien : badge masqué' );
+	$ok( ! str_contains( $pied, 'Google Play' ) && str_contains( $pied, 'App Store' ) && str_contains( $pied, 'footer__app' ), 'case cochée : badges, sauf celui sans lien' );
 }
 null === $reglages ? delete_option( 'bigm_reglages' ) : update_option( 'bigm_reglages', $reglages );
 
