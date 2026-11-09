@@ -11,7 +11,8 @@
  * - les mots : « Restaurants » au lieu de « Boutiques » ;
  * - deux réglages par défaut, tant qu'ils n'ont pas été enregistrés : fiche en style clair,
  *   barre d'actions mobile coupée (la barre d'onglets Big M occupe le bas de l'écran) ;
- * - le type de cuisine « Burgers halal » par défaut, pour les données structurées Restaurant.
+ * - le type de cuisine « Burgers halal » par défaut, pour les données structurées Restaurant ;
+ * - le Google Place ID lisible et modifiable par l'API REST, pour une saisie en lot.
  *
  * Rien ne se passe si le plugin n'est pas actif.
  *
@@ -141,3 +142,29 @@ add_filter(
 	4
 );
 
+/*
+ * Google Place ID des restaurants (avis Google, horaires, lien « Laisser un avis » du plugin) dans
+ * l'API REST : champ meta de /wp/v2/tfmsl_store/{id}, modifiable par les comptes qui peuvent
+ * modifier le restaurant. Une saisie en lot (75 restaurants) n'a plus à passer par l'écran de
+ * chaque fiche. Le plugin garde sa propre saisie ; un Place ID n'a que des lettres, chiffres, - et _.
+ */
+add_action(
+	'init',
+	static function () {
+		if ( ! bigm_storelocator_actif() ) {
+			return;
+		}
+		register_post_meta(
+			'tfmsl_store',
+			'tfmsl_gmb_place_id',
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => true,
+				'sanitize_callback' => static fn( $valeur ): string => (string) preg_replace( '/[^A-Za-z0-9_-]/', '', (string) $valeur ),
+				'auth_callback'     => static fn( $permis, $cle, $post_id ): bool => current_user_can( 'edit_post', (int) $post_id ),
+			)
+		);
+	},
+	20
+);

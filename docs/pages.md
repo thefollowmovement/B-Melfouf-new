@@ -101,7 +101,7 @@ Les articles de l'ancien site se reprennent avec leurs images par **Outils → R
 wp eval-file tests/wp/test-bigm-contenus.php --user=IDENTIFIANT_ADMIN
 ```
 
-Il fait 51 vérifications :
+Il fait 53 vérifications :
 
 - sections de texte, chiffres, en-tête de page ;
 - cartes, pastilles et articles des actualités ;

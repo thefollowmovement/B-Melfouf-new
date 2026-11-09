@@ -204,6 +204,16 @@ if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() )
 	$ok( in_array( 'tfmsl-public', $assets(), true ), 'fiche d’un restaurant : fichiers du plugin chargés' );
 	$ok( null === bigm_seo_page( true ), 'fiche d’un restaurant : référencement laissé au plugin (titre, description, LocalBusiness)' );
 
+	$maj = new WP_REST_Request( 'POST', '/wp/v2/tfmsl_store/' . $resto );
+	$maj->set_body_params( array( 'meta' => array( 'tfmsl_gmb_place_id' => ' ChIJ_test-123 ' ) ) );
+	$ok( 200 === rest_do_request( $maj )->get_status() && 'ChIJ_test-123' === get_post_meta( $resto, 'tfmsl_gmb_place_id', true ) && 'Restaurant test' === get_the_title( $resto ), 'Place ID modifiable par l’API REST (nettoyé), fiche inchangée' );
+	$moi = get_current_user_id();
+	wp_set_current_user( 0 );
+	$maj->set_body_params( array( 'meta' => array( 'tfmsl_gmb_place_id' => 'ChIJpirate' ) ) );
+	rest_do_request( $maj );
+	$ok( 'ChIJ_test-123' === get_post_meta( $resto, 'tfmsl_gmb_place_id', true ), 'Place ID : fermé aux visiteurs' );
+	wp_set_current_user( $moi );
+
 	WP_CLI::log( 'Fenêtre Commander' );
 	$ok( 'https://www.ubereats.com/fr/brand/big-m?diningMode=PICKUP' === bigm_lien_commande_propre( 'https://www.ubereats.com/fr-en/brand/big-m?srsltid=AYCX9v&utm_source=google&diningMode=PICKUP' ), 'lien nettoyé : sans srsltid ni utm_, page française d’Uber Eats, autres paramètres gardés' );
 	$ok( 'https://deliveroo.fr/fr-en/menu/x' === bigm_lien_commande_propre( 'https://deliveroo.fr/fr-en/menu/x?gclid=1' ), 'lien nettoyé : /fr-en/ seulement chez Uber Eats' );
