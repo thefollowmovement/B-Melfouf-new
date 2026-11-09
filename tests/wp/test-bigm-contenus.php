@@ -233,6 +233,21 @@ if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() )
 	$ok( wp_list_pluck( bigm_commande_plateformes(), 'id' ) === wp_list_pluck( $donnees['plateformes'], 'id' ), 'données de la fenêtre : plateformes des réglages, dans leur ordre' );
 	$reponse = rest_do_request( new WP_REST_Request( 'GET', '/bigm/v1/commander' ) );
 	$ok( 200 === $reponse->get_status() && str_contains( (string) ( $reponse->get_headers()['Cache-Control'] ?? '' ), 'public' ), 'GET /wp-json/bigm/v1/commander : public, mis en cache 5 minutes' );
+	$envoi = new WP_REST_Request( 'POST', '/bigm/v1/commander/restaurants' );
+	$envoi->set_body_params( array( 'restaurants' => array( $resto => array( 'liens' => array( 'ubereats' => 'https://www.ubereats.com/fr-en/store/big-m-test/xyz?srsltid=1' ) ) ) ) );
+	$r = rest_do_request( $envoi );
+	$c = bigm_restaurant_commande( $resto );
+	$ok( 200 === $r->get_status() && 'https://www.ubereats.com/fr/store/big-m-test/xyz' === ( $c['liens']['ubereats'] ?? '' ) && 'https://deliveroo.fr/fr/menu/paris/test' === ( $c['liens']['deliveroo'] ?? '' ) && '06 00 00 00 00' === $c['tel'], 'POST /bigm/v1/commander/restaurants : lien ajouté et nettoyé, autres réglages gardés' );
+	$envoi->set_body_params( array( 'restaurants' => array( $resto => array( 'liens' => array( 'deliveroo' => '' ), 'tel' => '' ) ) ) );
+	rest_do_request( $envoi );
+	$c = bigm_restaurant_commande( $resto );
+	$ok( array( 'ubereats' ) === array_keys( $c['liens'] ) && '' === $c['tel'], 'lien vide et case décochée : bouton retiré' );
+	$lecture = rest_do_request( new WP_REST_Request( 'GET', '/bigm/v1/commander/restaurants' ) );
+	$ok( 200 === $lecture->get_status() && (bool) wp_list_filter( $lecture->get_data(), array( 'id' => $resto ) ), 'GET /bigm/v1/commander/restaurants : liens saisis' );
+	$anonyme = get_current_user_id();
+	wp_set_current_user( 0 );
+	$ok( 401 === rest_do_request( $envoi )->get_status() && 401 === rest_do_request( new WP_REST_Request( 'GET', '/bigm/v1/commander/restaurants' ) )->get_status(), 'liens saisis : fermés aux visiteurs' );
+	wp_set_current_user( $anonyme );
 	$plateformes = bigm_commande_nettoyer_plateformes(
 		array(
 			array( 'id' => 'ubereats', 'nom' => 'Uber Eats (nouveau nom)', 'couleur' => '#06c167' ),

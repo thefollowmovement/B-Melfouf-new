@@ -344,6 +344,70 @@ add_action(
 				},
 			)
 		);
+
+		/*
+		 * Liens saisis, en lecture et en écriture, pour les comptes qui modifient les restaurants
+		 * (saisie en lot, sauvegarde). POST : { "restaurants": { "123": { "liens": { "ubereats": "…",
+		 * "deliveroo": "" }, "tel": "1", "numero": "…" } } }. Seules les clés envoyées changent ;
+		 * un lien vide retire le bouton.
+		 */
+		register_rest_route(
+			'bigm/v1',
+			'/commander/restaurants',
+			array(
+				array(
+					'methods'             => 'GET',
+					'permission_callback' => static fn() => current_user_can( 'edit_posts' ),
+					'callback'            => static function () {
+						$out = array();
+						foreach ( get_posts( array( 'post_type' => 'tfmsl_store', 'post_status' => 'any', 'posts_per_page' => -1, 'fields' => 'ids', 'orderby' => 'title', 'order' => 'ASC' ) ) as $id ) {
+							if ( ! current_user_can( 'edit_post', $id ) ) {
+								continue;
+							}
+							$liens = get_post_meta( $id, '_bigm_commande_liens', true );
+							$out[] = array(
+								'id'     => $id,
+								'nom'    => html_entity_decode( get_the_title( $id ), ENT_QUOTES, 'UTF-8' ),
+								'liens'  => (object) ( is_array( $liens ) ? $liens : array() ),
+								'tel'    => '1' === (string) get_post_meta( $id, '_bigm_commande_tel', true ) ? '1' : '',
+								'numero' => (string) get_post_meta( $id, '_bigm_commande_numero', true ),
+							);
+						}
+						return rest_ensure_response( $out );
+					},
+				),
+				array(
+					'methods'             => 'POST',
+					'permission_callback' => static fn() => current_user_can( 'edit_posts' ),
+					'callback'            => static function ( WP_REST_Request $requete ) {
+						$lignes = $requete->get_param( 'restaurants' );
+						if ( ! is_array( $lignes ) ) {
+							return new WP_Error( 'bigm_commande_format', 'Paramètre « restaurants » attendu : { id: { liens, tel, numero } }.', array( 'status' => 400 ) );
+						}
+						$resultat = array();
+						foreach ( $lignes as $id => $d ) {
+							$id = absint( $id );
+							if ( ! $id || 'tfmsl_store' !== get_post_type( $id ) || ! current_user_can( 'edit_post', $id ) || ! is_array( $d ) ) {
+								$resultat[ $id ] = 'ignoré';
+								continue;
+							}
+							// Fusion avec les valeurs enregistrées : seules les clés envoyées changent.
+							$avant  = get_post_meta( $id, '_bigm_commande_liens', true );
+							$donnee = array(
+								'liens' => array_merge( is_array( $avant ) ? $avant : array(), is_array( $d['liens'] ?? null ) ? $d['liens'] : array() ),
+								'tel'   => array_key_exists( 'tel', $d ) ? $d['tel'] : get_post_meta( $id, '_bigm_commande_tel', true ),
+							);
+							if ( array_key_exists( 'numero', $d ) ) {
+								$donnee['numero'] = $d['numero'];
+							}
+							bigm_restaurant_commande_enregistrer( $id, $donnee );
+							$resultat[ $id ] = bigm_restaurant_commande( $id );
+						}
+						return rest_ensure_response( $resultat );
+					},
+				),
+			)
+		);
 	}
 );
 
