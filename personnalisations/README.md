@@ -54,3 +54,12 @@ Corrigée le 9 novembre 2026 (widget « Big M — Texte » de `/politique-de-con
 LiteSpeed Cache 7.9 actif en production (installé avant ses réglages). Le 9 novembre 2026, après bigm-core 0.9.1, `POST /wp-json/bigm/v1/litespeed` a appliqué la liste de `inc/cache.php` (relue : cache des pages oui ; connectés, API REST, navigateur, optimisations CSS/JS, QUIC.cloud non ; tout vidé à chaque contenu et mise à jour) et vidé le cache. Vérifié : accueil, carte et fiches restaurants `miss` puis `hit` (premier octet 0,23 s contre 0,6 s), `/devenir-franchise/` et `/nous-rejoindre/` en `no-cache`, API REST `no-cache`, en-têtes de sécurité et bandeau cookies présents sur les pages en cache.
 
 Tâche cron du compte Hostinger (hPanel → Avancé → Tâches cron), créée le même jour : `*/5 * * * *` `wget -q -O /dev/null "https://bigm-burger.fr/wp-cron.php?doing_wp_cron"`, pour que les tâches planifiées de WordPress partent à l'heure malgré le cache (`docs/seo.md`).
+
+## Accueil : titre et description pour Google
+
+Saisis le 9 novembre 2026 dans le bloc Référencement de la page Accueil (avant : titre « Big M · C'est ça qu'on aime! », description tirée du début de la page, « L'actualité Big M Découvrez Nos Box… ») :
+
+- titre : « Big M · Burgers 100 % halal nés à Bondy » ;
+- description (151 caractères) : « Big M, le fast-food 100 % halal né à Bondy en 2019 : burgers, wraps, poulet, tex-mex et Box à partager. Trouvez votre restaurant et commandez en ligne. » Sans nombre de restaurants, pour rester juste après les ouvertures.
+
+Repris tels quels dans `og:title`, `og:description` et Twitter. Image de partage de l'accueil : « Trio de burgers italiens Mamamia » (1024 × 507).
