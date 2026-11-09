@@ -32,3 +32,11 @@ Supprimées dans l'admin par l'agence le 9 novembre 2026, volontairement et pour
 ## Services, paiements et bouton Commander des restaurants
 
 Remplis le 9 novembre 2026 en production, par l'API REST (bigm-core 0.8.9), sur les 70 restaurants : **Services proposés** « Vente à emporter, Livraison, Sur place », **Moyens de paiement acceptés** « Carte bancaire, Espèces, Ticket restaurant ». **URL du bouton Commander** (`tfmsl_order_url`) : le lien Uber Eats du restaurant (celui de Restaurants → Liens de commande) pour 64 restaurants. Inchangés : Boulogne-Billancourt, Dakar, Dakar 2 – Mariste, Dakar 2 – Plateau et Nevers (pas de lien Uber Eats) ; Vienne garde `https://borneoapp.com/BigMVienne`, son appli de commande, proposée en « Commander en ligne » dans la fenêtre Commander. Anciennes valeurs sauvegardées hors du dépôt.
+
+## `google-business-profile.csv`
+
+Pour les fiches Google Business Profile des 70 restaurants (9 novembre 2026) : nom, adresse, téléphone, Place ID, lien vers la fiche Google, **adresse de la page du restaurant à mettre dans le champ « Site Web »**, lien du menu (`/carte/`), liens Uber Eats et Deliveroo. Le classeur envoyé à l'agence (`Big-M-Google-Business-Profile.xlsx`) a les mêmes colonnes et un mode d'emploi (modification des fiches par tableur dans Business Profile).
+
+## Page « Devenir franchisé »
+
+Son titre était son adresse (« devenir-franchise », repris dans l'onglet et le partage) : renommée « Devenir franchisé » le 9 novembre 2026, adresse inchangée.

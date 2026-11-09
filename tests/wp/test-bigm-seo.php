@@ -318,6 +318,32 @@ foreach ( array( 'Radio', 'Bondy' ) as $nom ) {
 	}
 }
 
+WP_CLI::log( 'llms.txt (résumé du site pour les assistants d’IA)' );
+$llms_fichier = trailingslashit( get_temp_dir() ) . 'bigm-llms-test.txt';
+$llms_filtre  = static fn(): string => $llms_fichier;
+add_filter( 'bigm_llms_chemin', $llms_filtre );
+$llms_produit = wp_insert_post( array( 'post_type' => 'bigm_produit', 'post_status' => 'publish', 'post_title' => 'Burger « test » & frites', 'post_content' => '<p>Pain, <strong>steak</strong> &amp; sauce.</p>' ) );
+$llms_cat     = wp_insert_term( 'Catégorie llms test', 'bigm_categorie', array( 'slug' => 'categorie-llms-test' ) );
+wp_set_object_terms( $llms_produit, array( (int) $llms_cat['term_id'] ), 'bigm_categorie' );
+$llms = bigm_llms_txt();
+$ok( str_starts_with( $llms, '# ' ) && str_contains( $llms, "\n> " ) && str_contains( $llms, '## La carte' ) && str_ends_with( trim( $llms ), BIGM_LLMS_MARQUE ), 'llms.txt : titre, résumé, carte, marque de fin' );
+$ok( str_contains( $llms, '- [Burger « test » & frites](' . get_permalink( $llms_produit ) . '): Pain, steak & sauce.' ) && ! preg_match( '/&#\d+;|&amp;|<p>|<strong>/', $llms ), 'llms.txt : produit avec sa description, sans HTML ni entités' );
+$ok( str_contains( $llms, '100 % halal' ) && str_contains( $llms, '14 allergènes' ), 'llms.txt : halal, pas de prix, allergènes' );
+$etat_llms = bigm_llms_ecrire();
+$ok( $etat_llms['ok'] && bigm_llms_est_le_notre() && $etat_llms['taille'] === strlen( (string) file_get_contents( $llms_fichier ) ), 'llms.txt : fichier écrit, reconnu comme le nôtre' );
+file_put_contents( $llms_fichier, "# Big M\n\n## Posts\n" );
+$ok( ! bigm_llms_est_le_notre(), 'llms.txt d’une autre extension (Hostinger) : repéré' );
+// Case décochée, sans toucher aux réglages enregistrés.
+$llms_off = static fn( $v ): array => array_merge( (array) $v, array( 'llms_actif' => '0' ) );
+add_filter( 'option_bigm_reglages', $llms_off );
+$ok( ! bigm_llms_ecrire()['ok'] && "# Big M\n\n## Posts\n" === file_get_contents( $llms_fichier ), 'llms.txt décoché : fichier laissé tel quel' );
+remove_filter( 'option_bigm_reglages', $llms_off );
+wp_delete_post( $llms_produit, true );
+wp_delete_term( (int) $llms_cat['term_id'], 'bigm_categorie' );
+wp_delete_file( $llms_fichier );
+remove_filter( 'bigm_llms_chemin', $llms_filtre );
+delete_option( 'bigm_llms_etat' );
+
 if ( $echecs ) {
 	WP_CLI::error( "$echecs vérification(s) en échec." );
 }

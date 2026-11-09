@@ -56,6 +56,14 @@ Les fiches restaurants gardent le référencement du plugin (onglet SEO de la fi
 
 À la bascule, déclarer `https://bigm-burger.fr/wp-sitemap.xml` dans Google Search Console. En préprod, tout est en `noindex` (socle).
 
+## llms.txt (assistants d'IA)
+
+`https://bigm-burger.fr/llms.txt` ([llmstxt.org](https://llmstxt.org)) résume le site en Markdown pour ChatGPT, Claude, Perplexity… : présentation (Réglages Big M → Référencement, « llms.txt : présentation »), informations clés (100 % halal, pas de prix, 14 allergènes, commande), la carte par catégorie avec chaque produit (description, badge) dans l'ordre des pages, les restaurants (adresse, téléphone), la franchise (chiffres des réglages), le recrutement, les 10 derniers articles, puis les pages légales (section « Optional »). Les produits sans catégorie (absents de la carte) n'y sont pas.
+
+- `bigm-core/inc/llms.php` écrit un vrai fichier à la racine (`ABSPATH/llms.txt`, filtre `bigm_llms_chemin`), servi sans WordPress. Réécrit à la fin d'une requête qui modifie un produit, un restaurant, une page, un article, une catégorie de la carte ou les réglages ; vérifié chaque jour (`bigm_llms_quotidien`) et au passage d'un administrateur (au plus une fois par heure).
+- L'extension Hostinger écrit aussi un `llms.txt` (articles seulement, accroche mal encodée) : désactiver son option LLMs.txt. Si elle réécrit le fichier, le nôtre (repéré par le commentaire de la dernière ligne) revient à la vérification suivante, et Réglages Big M → Référencement le signale.
+- Case « Fichier llms.txt » (cochée) ; décochée, le fichier en place n'est plus touché. `POST /wp-json/bigm/v1/llms` réécrit le fichier tout de suite. Filtre `bigm_llms_txt` sur le contenu.
+
 ## Reprise des articles
 
 **Outils → Reprise des articles.** Elle lit l'API publique de l'ancien site (`/wp-json/wp/v2/posts`), 5 articles par lot ; la page se recharge seule jusqu'au dernier lot.

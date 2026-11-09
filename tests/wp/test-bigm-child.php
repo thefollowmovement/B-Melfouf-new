@@ -72,7 +72,7 @@ $ok( str_contains( $pied, 'Pour votre santé, mangez au moins cinq fruits et lé
 $ok( str_contains( $pied, '© ' . wp_date( 'Y' ) ), 'année du copyright' );
 $ok( ! str_contains( $pied, 'class="store"' ) && ! str_contains( $pied, 'footer__app' ), 'badges des stores : pas dans le pied de page par défaut (case décochée)' );
 if ( function_exists( 'bigm_reglages_nettoyer' ) ) {
-	update_option( 'bigm_reglages', bigm_reglages_nettoyer( array_merge( (array) get_option( 'bigm_reglages' ), array( 'pied_stores' => '1', 'tiktok_url' => '', 'youtube_url' => 'https://youtube.com/@bigm', 'googleplay_url' => '' ) ) ) );
+	update_option( 'bigm_reglages', bigm_reglages_nettoyer( array_merge( (array) get_option( 'bigm_reglages' ), array( 'pied_stores' => '1', 'appstore_url' => 'https://apps.apple.com/fr/app/big-m/id6444707190', 'tiktok_url' => '', 'youtube_url' => 'https://youtube.com/@bigm', 'googleplay_url' => '' ) ) ) );
 	$pied = bigm_child_pied_html();
 	$ok( ! str_contains( $pied, 'aria-label="TikTok"' ) && str_contains( $pied, 'aria-label="YouTube"' ), 'réseaux : seuls ceux renseignés' );
 	$ok( ! str_contains( $pied, 'Google Play' ) && str_contains( $pied, 'App Store' ) && str_contains( $pied, 'footer__app' ), 'case cochée : badges, sauf celui sans lien' );

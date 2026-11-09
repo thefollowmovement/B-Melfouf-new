@@ -129,6 +129,19 @@ function bigm_reglages_champs(): array {
 					'type'   => 'media',
 					'defaut' => 0,
 				),
+				'llms_actif'    => array(
+					'label'  => 'Fichier llms.txt',
+					'type'   => 'case',
+					'case'   => 'Publier https://bigm-burger.fr/llms.txt, le résumé du site pour les assistants d’IA (ChatGPT, Claude, Perplexity…), tenu à jour seul : carte, restaurants, franchise, actualités',
+					'aide'   => 'Désactiver l’option LLMs.txt de l’extension Hostinger, qui écrit le même fichier.',
+					'defaut' => '1',
+				),
+				'llms_resume'   => array(
+					'label'  => 'llms.txt : présentation',
+					'type'   => 'long',
+					'aide'   => 'Deux ou trois phrases en tête du fichier. Les informations pratiques (halal, prix, allergènes, commande) et les listes sont ajoutées seules.',
+					'defaut' => 'Big M est une chaîne française de restauration rapide 100 % halal, née à Bondy en 2019 : burgers, poulet, wraps, menus et box à partager. On y mange sur place, à emporter ou en livraison.',
+				),
 			),
 		),
 		'google'       => array(
