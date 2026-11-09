@@ -117,6 +117,47 @@ Puis :
 - **Clés liées au domaine** (reCAPTCHA si utilisé, cartes, applis) : ajouter `bigm-burger.fr`.
 - **HSTS** : l'activer dans hPanel une fois le certificat vérifié.
 
+## Variante sans SSH : Duplicator Pro
+
+Même résultat que les étapes 1 à 5, avec l'extension Duplicator Pro (licence de l'agence), le gestionnaire de fichiers et les bases de données de hPanel. Duplicator remplace les adresses en tenant compte des données sérialisées ; Elementor repasse derrière avec son propre outil.
+
+**La veille, sur la préprod :**
+
+1. Faire la liste « Avant le jour J » ci-dessus.
+2. Installer et activer Duplicator Pro.
+3. **Duplicator Pro → Sauvegardes → Ajouter** :
+   - nom : `bigm-AAAAMMJJ` ;
+   - filtres de fichiers : exclure `wp-content/cache`, `wp-content/litespeed` et `wp-content/updraft` ;
+   - installeur : un **mot de passe** (le fichier d'installation sera public quelques minutes) ;
+   - construire. L'archive et l'installeur sont rangés dans `public_html/preprod/wp-content/backups-dup-pro/`.
+
+**Le jour J :**
+
+1. hPanel → **Sauvegardes** : sauvegarde complète (fichiers et bases).
+2. hPanel → **Bases de données → MySQL** : nouvelle base et nouvel utilisateur, mot de passe dans le gestionnaire de l'agence. La préprod garde sa base.
+3. **Gestionnaire de fichiers** : copier l'archive et l'installeur de `public_html/preprod/wp-content/backups-dup-pro/` vers `public_html/`. Pas de téléchargement : tout reste sur le serveur.
+4. **Sortir l'ancien site** (le site est coupé à partir d'ici) :
+   - créer `ancien-site-AAAAMMJJ` **à côté** de `public_html` (dans `domains/bigm-burger.fr/`), jamais dedans ;
+   - afficher les fichiers cachés ;
+   - déplacer d'abord `.user.ini` seul, puis attendre 5 minutes : LiteSpeed garde la configuration PHP en mémoire, et le pare-feu Wordfence qu'elle charge serait introuvable ;
+   - déplacer ensuite tout le reste de `public_html` **sauf** `preprod`, l'archive et l'installeur (`.htaccess` compris).
+5. Ouvrir `https://bigm-burger.fr/` suivi du nom de l'installeur (`…installer.php`) :
+   - mot de passe de l'installeur ;
+   - base : hôte `localhost`, la **nouvelle base**, son utilisateur et son mot de passe ;
+   - mode d'extraction : **extraire par-dessus les fichiers actuels**. Jamais « supprimer tous les fichiers » : le dossier `preprod` est dans `public_html` et partirait avec ;
+   - adresse : nouvelle `https://bigm-burger.fr`, ancienne `https://preprod.bigm-burger.fr` (détectées) ;
+   - cocher la création de nouvelles clés d'authentification (`wp-config.php`) si l'installeur le propose ;
+   - à la fin, se connecter (mêmes comptes que la préprod) et accepter la suppression des fichiers d'installation.
+6. Dans l'admin de `bigm-burger.fr` :
+   - **Elementor → Outils → Remplacer l'URL** : `https://preprod.bigm-burger.fr` → `https://bigm-burger.fr`, puis **Régénérer les fichiers et les données** ;
+   - **Réglages → Lecture** : « Demander aux moteurs de recherche de ne pas indexer ce site » **décoché** (le réglage vient de la base de la préprod) ;
+   - **Réglages → Permaliens** : Enregistrer ;
+   - le compte rendu du socle s'affiche en haut de l'admin (`.htaccess` réécrit pour la production) ;
+   - vider le CDN Hostinger (hPanel).
+7. Vérifications de l'étape 6 ci-dessus, puis **Réglages Big M → Google → plafond à 0** sur la préprod.
+
+**Retour arrière** : dans le gestionnaire de fichiers, sortir le nouveau site de `public_html` (sauf `preprod`) vers un dossier `nouveau-site-AAAAMMJJ`, et remettre le contenu de `ancien-site-AAAAMMJJ`. L'ancien site retrouve sa base, qui n'a pas été touchée.
+
 ## Si quelque chose ne va pas
 
 Revenir à l'ancien site prend une minute, puisque rien n'a été supprimé :
