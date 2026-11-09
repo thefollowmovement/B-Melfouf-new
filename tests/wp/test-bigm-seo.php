@@ -181,7 +181,10 @@ if ( ! is_wp_error( $vide ) ) {
 	$ok( $s && str_starts_with( $s['description'], 'Catégorie test SEO Big M' ), 'catégorie sans description : phrase générique' );
 	wp_delete_term( $vide['term_id'], 'bigm_categorie' );
 }
-$ok( str_contains( (string) apply_filters( 'embed_oembed_html', '<iframe src="https://www.youtube.com/embed/abc"></iframe>', 'https://youtu.be/abc', array(), 0 ), 'youtube-nocookie.com/embed/abc' ), 'vidéos YouTube en mode confidentialité renforcée (pas de cookie avant la lecture)' );
+$yt = (string) apply_filters( 'embed_oembed_html', '<iframe src="https://www.youtube.com/embed/abc"></iframe>', 'https://youtu.be/abc', array(), 0 );
+// Avec l'extension bigm-cookies, le lecteur attend l'accord dans un encart (code en base64).
+$yt = preg_match( '/data-contenu="([^"]+)"/', $yt, $m_yt ) ? base64_decode( $m_yt[1] ) : $yt; // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
+$ok( str_contains( $yt, 'youtube-nocookie.com/embed/abc' ), 'vidéos YouTube en mode confidentialité renforcée (pas de cookie avant la lecture)' );
 
 WP_CLI::log( 'Performance' );
 if ( wp_image_editor_supports( array( 'mime_type' => 'image/webp' ) ) ) {

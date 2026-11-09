@@ -164,7 +164,15 @@ function bigm_child_liens( string $emplacement ): array {
 		$lien['courant'] = bigm_child_est_courant( $lien['url'] );
 		$lien['url']     = bigm_child_url( $lien['url'] );
 	}
-	return $liens;
+	unset( $lien );
+	/**
+	 * Liens d'un emplacement, après ceux du menu ou du prototype (ex. « Gestion des cookies »
+	 * ajouté par l'extension bigm-cookies au pied de page).
+	 *
+	 * @param array  $liens       Liens (titre, url, cible, icone, courant).
+	 * @param string $emplacement Emplacement de menu.
+	 */
+	return (array) apply_filters( 'bigm_child_liens', $liens, $emplacement );
 }
 
 /**
