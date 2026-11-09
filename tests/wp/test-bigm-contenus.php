@@ -214,6 +214,32 @@ if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() )
 	$ok( 'ChIJ_test-123' === get_post_meta( $resto, 'tfmsl_gmb_place_id', true ), 'Place ID : fermé aux visiteurs' );
 	wp_set_current_user( $moi );
 
+	$cle_avant = get_option( 'tfmsl_google_api_key', false );
+	delete_option( 'tfmsl_google_api_key' );
+	$ok( is_wp_error( bigm_restaurant_place_candidats( $resto ) ), 'Place ID possibles : erreur claire sans clé Google' );
+	update_option( 'tfmsl_google_api_key', 'CLE-TEST' );
+	update_post_meta( $resto, 'tfmsl_lat', '48.9022' );
+	update_post_meta( $resto, 'tfmsl_lng', '2.4828' );
+	$appel  = array();
+	$google = static function ( $pre, $args, $url ) use ( &$appel ) {
+		if ( ! str_contains( (string) $url, 'places.googleapis.com' ) ) {
+			return $pre;
+		}
+		$appel = array( 'cle' => $args['headers']['X-Goog-Api-Key'] ?? '', 'corps' => json_decode( (string) $args['body'], true ) );
+		return array(
+			'response' => array( 'code' => 200, 'message' => 'OK' ),
+			'headers'  => array(),
+			'body'     => wp_json_encode( array( 'places' => array( array( 'id' => 'ChIJabc', 'displayName' => array( 'text' => 'Big M - Bondy' ), 'formattedAddress' => '24 Rue Jules Guesde, 93140 Bondy, France', 'location' => array( 'latitude' => 48.9031, 'longitude' => 2.4828 ), 'businessStatus' => 'OPERATIONAL' ) ) ) ),
+			'cookies'  => array(),
+		);
+	};
+	add_filter( 'pre_http_request', $google, 10, 3 );
+	$reponse = rest_do_request( new WP_REST_Request( 'GET', '/bigm/v1/restaurants/' . $resto . '/place-id' ) );
+	remove_filter( 'pre_http_request', $google, 10 );
+	$c = $reponse->get_data()['candidats'][0] ?? array();
+	$ok( 200 === $reponse->get_status() && 'ChIJabc' === ( $c['place_id'] ?? '' ) && 100 === ( $c['distance_m'] ?? 0 ) && 'CLE-TEST' === ( $appel['cle'] ?? '' ) && str_starts_with( (string) ( $appel['corps']['textQuery'] ?? '' ), 'Big M ' ) && isset( $appel['corps']['locationBias'] ), 'Place ID possibles : recherche Google avec la clé du plugin, près de la fiche, distance calculée' );
+	false === $cle_avant ? delete_option( 'tfmsl_google_api_key' ) : update_option( 'tfmsl_google_api_key', $cle_avant );
+
 	WP_CLI::log( 'Fenêtre Commander' );
 	$ok( 'https://www.ubereats.com/fr/brand/big-m?diningMode=PICKUP' === bigm_lien_commande_propre( 'https://www.ubereats.com/fr-en/brand/big-m?srsltid=AYCX9v&utm_source=google&diningMode=PICKUP' ), 'lien nettoyé : sans srsltid ni utm_, page française d’Uber Eats, autres paramètres gardés' );
 	$ok( 'https://deliveroo.fr/fr-en/menu/x' === bigm_lien_commande_propre( 'https://deliveroo.fr/fr-en/menu/x?gclid=1' ), 'lien nettoyé : /fr-en/ seulement chez Uber Eats' );

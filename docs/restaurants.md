@@ -37,7 +37,7 @@ Les restaurants réels se saisissent dans le menu **Restaurants**, ou s'importen
 | Barre d'actions mobile du plugin | Coupée par défaut : la barre d'onglets Big M occupe le bas de l'écran. Si on l'active, elle se place au-dessus. |
 | Recherche de l'accueil | Le bloc « Tous nos restaurants » envoie vers `/restaurants/?q=bondy`. Le plugin remplit la recherche et filtre à l'arrivée. |
 | Données structurées | Celles du plugin : `Restaurant` quand le « Type de cuisine » est rempli, `LocalBusiness` sinon. Sans saisie, bigm-core lui donne « Burgers halal », donc toujours `Restaurant`. |
-| Google Place ID | Champ du plugin (avis Google, horaires, lien « Laisser un avis »), aussi modifiable par l'API REST : `POST /wp-json/wp/v2/tfmsl_store/{id}` avec `{"meta": {"tfmsl_gmb_place_id": "ChIJ…"}}` (comptes qui modifient le restaurant), pour une saisie en lot |
+| Google Place ID | Champ du plugin (avis Google, horaires, lien « Laisser un avis »), aussi modifiable par l'API REST : `POST /wp-json/wp/v2/tfmsl_store/{id}` avec `{"meta": {"tfmsl_gmb_place_id": "ChIJ…"}}` (comptes qui modifient le restaurant), pour une saisie en lot. `GET /wp-json/bigm/v1/restaurants/{id}/place-id` propose les Place ID possibles (recherche Google « Big M » + adresse, près de la fiche) avec la clé Google des réglages de StoreLocatore, qui reste sur le serveur ; rien n'est enregistré |
 | Référencement | Titre, description et Open Graph des fiches viennent du plugin ; ceux de bigm-core s'effacent sur ces pages (`docs/seo.md`). |
 
 Le widget Store – Locator de la page Nos restaurants est en habillage « Aux couleurs du site ». Ses réglages (hauteur, textes, mode mobile « Carte d'abord ») se modifient dans Elementor.
