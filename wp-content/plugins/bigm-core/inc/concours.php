@@ -666,6 +666,36 @@ add_shortcode(
 	}
 );
 
+/*
+ * Référencement de la page qui affiche le jeu (widget ou code court) : tant qu'un jeu est en
+ * cours ou à venir, sa description (titre, date de fin, accroche) et son affiche, à la place de
+ * la description saisie pour la page sans jeu.
+ */
+add_filter(
+	'bigm_seo_donnees_page',
+	static function ( array $page, int $objet_id ): array {
+		if ( ! $objet_id || 'page' !== get_post_type( $objet_id ) ) {
+			return $page;
+		}
+		$textes = (string) get_post_field( 'post_content', $objet_id ) . (string) get_post_meta( $objet_id, '_elementor_data', true );
+		if ( ! str_contains( $textes, '"widgetType":"bigm-jeu-concours"' ) && ! str_contains( $textes, '[bigm_jeu_concours' ) ) {
+			return $page;
+		}
+		$jeux = array_values( array_filter( bigm_concours_a_montrer(), static fn( $c ) => 'termine' !== $c['etat'] ) );
+		if ( ! $jeux ) {
+			return $page;
+		}
+		$c                   = $jeux[0];
+		$page['description'] = bigm_seo_extrait( trim( $c['titre'] . ( $c['fin_ts'] ? ' jusqu’au ' . bigm_concours_date( $c['fin_ts'] ) : '' ) . ' : ' . $c['accroche'], ' :' ) );
+		if ( ! $page['image'] && $c['story'] ) {
+			$page['image'] = (int) $c['story'];
+		}
+		return $page;
+	},
+	10,
+	2
+);
+
 /* ---------------------------------------------------------------------------------------------
  * Cache : vidé à l'enregistrement d'un jeu et à ses dates de début et de fin.
  * ------------------------------------------------------------------------------------------ */

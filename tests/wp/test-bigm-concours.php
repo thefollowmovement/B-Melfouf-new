@@ -121,6 +121,24 @@ foreach ( (array) _get_cron_array() as $quand => $taches ) {
 	}
 }
 $ok( 2 === count( $prevus ), 'cache vidé au début et à la fin du jeu (tâches planifiées)' );
+
+WP_CLI::log( 'Référencement' );
+$page_jeu      = wp_insert_post(
+	array(
+		'post_type'   => 'page',
+		'post_status' => 'publish',
+		'post_title'  => 'Page jeu test',
+	)
+);
+$a_supprimer[] = $page_jeu;
+update_post_meta( $page_jeu, '_elementor_data', wp_slash( '[{"elType":"widget","widgetType":"bigm-jeu-concours","settings":{"jeu":"0"}}]' ) );
+update_post_meta( $page_jeu, '_bigm_seo_description', 'Aucun jeu en cours pour le moment.' );
+$GLOBALS['wp_query']     = new WP_Query( array( 'page_id' => $page_jeu ) );
+$GLOBALS['wp_the_query'] = $GLOBALS['wp_query'];
+$seo                     = function_exists( 'bigm_seo_page' ) ? bigm_seo_page( true ) : null;
+$montre = array_values( array_filter( bigm_concours_a_montrer(), static fn( $j ) => 'termine' !== $j['etat'] ) )[0] ?? null;
+$ok( $seo && $montre && str_starts_with( $seo['description'], html_entity_decode( $montre['titre'], ENT_QUOTES ) . ' jusqu’au ' ) && 'Aucun jeu en cours pour le moment.' !== $seo['description'], 'page du jeu : description du jeu affiché, à la place de celle saisie pour la page sans jeu' );
+wp_reset_query();
 wp_update_post(
 	array(
 		'ID'          => $jeu,

@@ -177,6 +177,8 @@ function bigm_seo_calcul(): ?array {
 	if ( is_paged() && $page['url'] ) {
 		$page['url'] = (string) get_pagenum_link( max( 1, (int) get_query_var( 'paged' ) ) );
 	}
+	// Modules qui précisent la page (ex. jeu concours affiché sur la page Jeu concours).
+	$page          = (array) apply_filters( 'bigm_seo_donnees_page', $page, $objet_id );
 	$page['image'] = $page['image'] ? $page['image'] : (int) bigm_reglage( 'partage_image' );
 	$page['image'] = $page['image'] ? $page['image'] : (int) get_theme_mod( 'custom_logo' );
 	return $page;

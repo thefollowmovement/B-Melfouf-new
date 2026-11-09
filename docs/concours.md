@@ -64,6 +64,10 @@ Les pages sont en cache (LiteSpeed). Les dates de début et de fin sont donc éc
 
 Côté serveur, le cache est vidé à l'enregistrement d'un jeu, puis une minute après son début et sa fin (tâches `bigm_concours_changement`, lancées par la tâche cron Hostinger toutes les 5 minutes). Après la fin, la bande disparaît du HTML des fiches dans la journée.
 
+## Référencement
+
+Tant qu'un jeu est en cours ou à venir, la page qui l'affiche (widget ou code court) prend sa description dans le jeu : titre, « jusqu'au » date de fin, puis l'accroche (155 caractères au plus). Elle remplace celle saisie dans le bloc Référencement de la page, qui sert pour la page sans jeu. Sans image de partage choisie pour la page, l'affiche story sert d'image de partage. Filtre `bigm_seo_donnees_page` de `inc/seo.php`.
+
 ## Accessibilité et mouvement
 
 - Un seul `h1` (le titre du jeu) et des sections en `h2`.
@@ -102,9 +106,9 @@ Créé le 9 novembre 2026 à partir du règlement de l'organisateur, Orangina Sc
 
 **Restaurants.** L'annexe 1 du règlement compte 73 restaurants. 68 ont une fiche sur le site : « Aulnay-sous-Bois, Le Haut de Galy » correspond à la fiche « Centre Commercial O'Parinor ».
 - **Sans fiche sur le site :** Grenoble 2 (6 rue Félix Poulat), Le Creusot, Sarreguemines, Sète et Villeurbanne – Croix-Luizet.
-- **Fiches absentes de l'annexe :** Aéroville et Colmar – Big Canteen, non cochés.
+- **Fiches absentes de l'annexe :** Aéroville et Colmar – Big Canteen, cochés quand même à la demande de Big M (9 novembre 2026).
 - **Dakar (3 restaurants), non cochés :** ils figurent dans l'annexe, mais le règlement (article 2) réserve le jeu aux résidents de France métropolitaine. Ils peuvent être ajoutés d'un clic dans la liste.
 
-**Liste en ligne :** 65 restaurants.
+**Liste en ligne :** 67 restaurants.
 
 **Écart à vérifier avec l'organisateur.** Le règlement annonce 15 jeux PS5 et 10 jeux Xbox (« jeux GTA »). L'affiche annonce « + 10 nouveaux jeux GTA VI à gagner ». La page reprend les chiffres du règlement.

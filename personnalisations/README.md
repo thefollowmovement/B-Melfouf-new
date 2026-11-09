@@ -63,3 +63,7 @@ Saisis le 9 novembre 2026 dans le bloc Référencement de la page Accueil (avant
 - description (151 caractères) : « Big M, le fast-food 100 % halal né à Bondy en 2019 : burgers, wraps, poulet, tex-mex et Box à partager. Trouvez votre restaurant et commandez en ligne. » Sans nombre de restaurants, pour rester juste après les ouvertures.
 
 Repris tels quels dans `og:title`, `og:description` et Twitter. Image de partage de l'accueil : « Trio de burgers italiens Mamamia » (1024 × 507).
+
+## Jeu Big M × Oasis
+
+Créé le 9 novembre 2026 dans Jeux concours (identifiant 4827), par l'API REST, à partir du règlement d'Orangina Schweppes France : dates, lien NoPo, étapes, lots, questions, mentions, affiche story, vidéo (MP4 1,5 Mo, WebM 2,1 Mo, aperçu), règlement PDF. 67 restaurants cochés : les 68 de l'annexe qui ont une fiche, moins les 3 de Dakar (jeu réservé à la France métropolitaine), plus Aéroville et Colmar à la demande de Big M. Page `/jeu-concours/` : le widget « Big M — Jeu concours » remplace l'en-tête et le texte d'attente (repris comme texte sans jeu), ancienne version sauvegardée hors du dépôt. Détails : `docs/concours.md`.
