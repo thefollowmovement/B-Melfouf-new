@@ -107,7 +107,8 @@ Contrôle axe, ordinateur et mobile :
    - **Montpellier nord** garde son lien StoreLocatore générique (`order.store/fr/brand/big-m`), affiché en « Commander en ligne » en plus d'Uber Eats et Deliveroo : à retirer de sa fiche StoreLocatore s'il ne sert plus.
 2. **Google Place ID**, remplis le 9 novembre pour 70 restaurants sur 75 (`personnalisations/place-id.json`). À voir avec le client :
    - Google indique **fermés définitivement** Le Creusot, Sarreguemines et Villeurbanne – Croix Luizet ; la fiche Google de Salengro s'appelle « Salengro/Croix-Luizet ». Si ces restaurants ont fermé, les retirer de la liste ; sinon, leur créer ou rouvrir une fiche Google.
-   - **Colmar** et **Mérignac** sont dans un « Big Canteen » : pas de fiche Google au nom de Big M.
+   - **Colmar** et **Mérignac** sont dans un Big Canteen, le food court du groupe (Restaurants → Food courts). Colmar a le Place ID de son Big Canteen. À **Mérignac**, la seule fiche Google « Big Canteen » (6 rue Germaine Tillion) est marquée **fermée définitivement**, et il n'y a pas d'autre fiche Big M : à vérifier avec le client (restaurant fermé, ou fiche Google à rouvrir dans Google Business Profile, puis Place ID `ChIJvQruWgDZVA0Rsg2QYp_59Io`).
+   - Big Canteen : marques sur place (Colmar : Big M, ADS ; Mérignac : Big M, Fatburger, Buffalo's Café, Original Riz Crousty, ADS) à confirmer ; logo et site web à ajouter.
    - Coordonnées GPS décalées de plus de 300 m sur 7 fiches (Sète, Nevers, O'Parinor, Rosny 2, Metz, Saumur, Claye-Souilly) : l'épingle de la carte est à côté. Les corriger avec le bouton de géocodage de la fiche.
    - Lyon Vaise : Google et Uber Eats donnent le 32 rue Marietton, la fiche le 53.
 3. **Logos des plateformes** (Réglages Big M → Commande) : logos carrés officiels d'Uber Eats et de Deliveroo, à demander aux plateformes ou au client. Sans logo, une pastille de couleur porte l'initiale.

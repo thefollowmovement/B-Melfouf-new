@@ -119,6 +119,13 @@
    "gps_fiche_decale_m": 315
   },
   {
+   "id": 190,
+   "nom": "Colmar - Big Canteen",
+   "place_id": "ChIJFw3mubxlkUcRizhsYocrNZs",
+   "google": "BIG CANTEEN COLMAR — 21 Av. de l'Europe, 68000 Colmar",
+   "note": "Place ID du Big Canteen (food court du groupe), à la demande de l’agence"
+  },
+  {
    "id": 167,
    "nom": "Compiègne",
    "place_id": "ChIJL3mky2fX50cRR6f5s-19A0A",
@@ -432,13 +439,8 @@
  "non_remplis": [
   {
    "id": 191,
-   "nom": "Mérignac",
-   "raison": "Google ne trouve que Big Fernand (Big M est dans le Big Canteen de Mérignac, sans fiche Google à son nom)"
-  },
-  {
-   "id": 190,
-   "nom": "Colmar",
-   "raison": "Google ne connaît que « BIG CANTEEN COLMAR » (21 av. de l’Europe), l’espace de restauration qui abrite le Big M"
+   "nom": "Mérignac - Big Canteen",
+   "raison": "Seule fiche Google « Big Canteen » (6 rue Germaine Tillion, ChIJvQruWgDZVA0Rsg2QYp_59Io) : fermée définitivement ; aucune fiche Big M ou Big Canteen active à Mérignac"
   },
   {
    "id": 187,
