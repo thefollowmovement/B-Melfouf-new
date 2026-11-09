@@ -74,7 +74,7 @@ L'ancien site doit être en ligne. La reprise ne fait que le lire.
 | Images | Les tailles générées par WordPress (vignettes, `srcset`) sont en **WebP** quand le serveur sait en produire ; l'original reste tel quel. Les images déjà téléversées gardent leurs tailles JPEG : les régénérer par SSH avec `wp media regenerate --yes`. |
 | Chargement différé | WordPress et Elementor posent `loading="lazy"`, sauf sur la première slide du slider (`fetchpriority="high"`) |
 | Vidéos | `preload="none"`, chargées quand elles deviennent visibles ; image d'aperçu limitée à 1536 px |
-| Fichiers inutiles | Emojis de WordPress retirés ; CSS de l'éditeur de blocs chargé seulement sur les articles et les contenus écrits en blocs |
+| Fichiers inutiles | Emojis de WordPress retirés, sur le site et dans l'admin (le navigateur les affiche seul ; dans l'admin, le script les remplaçait par des images cassées : icônes des menus de StoreLocatore) ; CSS de l'éditeur de blocs chargé seulement sur les articles et les contenus écrits en blocs |
 | Cache | Vidé automatiquement (LiteSpeed Cache) quand on enregistre un slider ou les Réglages Big M, et **aux dates de début et de fin des slides programmées** |
 
 ### LiteSpeed Cache (Hostinger)

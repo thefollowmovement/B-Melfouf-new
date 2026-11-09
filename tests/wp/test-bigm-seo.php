@@ -191,6 +191,10 @@ if ( wp_image_editor_supports( array( 'mime_type' => 'image/webp' ) ) ) {
 	WP_CLI::log( '  --    le serveur ne sait pas produire de WebP : tailles d’images laissées en JPEG / PNG' );
 }
 $ok( false === has_action( 'wp_head', 'print_emoji_detection_script' ), 'script des emojis retiré' );
+require_once ABSPATH . 'wp-admin/includes/admin.php';
+add_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+do_action( 'admin_init' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- crochet de WordPress.
+$ok( false === has_action( 'admin_print_scripts', 'print_emoji_detection_script' ) && ! in_array( 'wpemoji', (array) apply_filters( 'tiny_mce_plugins', array( 'wpemoji', 'lists' ) ), true ), 'script des emojis retiré de l’admin aussi (icônes en emoji des extensions non cassées)' );
 $page( array( 'page_id' => $test_page ) );
 $a = $assets();
 $ok( ! array_intersect( array( 'wp-block-library', 'classic-theme-styles', 'global-styles' ), $a ), 'page sans blocs : CSS des blocs non chargé' );

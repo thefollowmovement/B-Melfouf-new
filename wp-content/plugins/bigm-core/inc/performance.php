@@ -4,7 +4,8 @@
  *
  * - Les tailles d'images générées par WordPress (vignettes, srcset) sont en WebP quand le
  *   serveur sait en produire ; l'original téléversé reste tel quel.
- * - Les emojis de WordPress et le CSS des blocs ne sont pas chargés là où ils ne servent pas
+ * - Les emojis de WordPress (site et admin : le navigateur les affiche seul) et le CSS des blocs
+ *   ne sont pas chargés là où ils ne servent pas
  *   (pages Elementor, carte, produits, restaurants).
  * - Le cache de pages (LiteSpeed Cache sur Hostinger) est vidé :
  *   aux dates de début et de fin des slides programmées, et quand on enregistre un slider ou
@@ -48,8 +49,25 @@ add_action(
 		remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
 		remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
 		add_filter( 'emoji_svg_url', '__return_false' );
+		remove_action( 'embed_head', 'print_emoji_detection_script' );
+		remove_action( 'enqueue_embed_scripts', 'wp_enqueue_emoji_styles' );
 	}
 );
+
+/*
+ * Dans l'admin aussi : sinon son script remplace chaque emoji (icônes du menu et du tableau de
+ * bord de StoreLocatore…) par une image dont l'adresse est vide (emoji_svg_url), donc cassée.
+ * Les crochets de l'admin sont posés après init : on les retire à admin_init.
+ */
+add_action(
+	'admin_init',
+	static function () {
+		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+		remove_action( 'admin_enqueue_scripts', 'wp_enqueue_emoji_styles' );
+		remove_action( 'admin_print_styles', 'print_emoji_styles' );
+	}
+);
+add_filter( 'tiny_mce_plugins', static fn( $plugins ) => is_array( $plugins ) ? array_values( array_diff( $plugins, array( 'wpemoji' ) ) ) : $plugins );
 
 /*
  * CSS des blocs de l'éditeur : seulement sur les contenus écrits avec des blocs.
