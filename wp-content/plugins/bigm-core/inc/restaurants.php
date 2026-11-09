@@ -174,6 +174,18 @@ add_action(
 				)
 			);
 		}
+		// Synchronisation automatique des horaires Google (import quotidien du plugin) : '1' ou vide.
+		register_post_meta(
+			'tfmsl_store',
+			'tfmsl_gmb_sync',
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => true,
+				'sanitize_callback' => static fn( $valeur ): string => '1' === (string) $valeur ? '1' : '',
+				'auth_callback'     => static fn( $permis, $k, $post_id ): bool => current_user_can( 'edit_post', (int) $post_id ),
+			)
+		);
 		register_post_meta(
 			'tfmsl_store',
 			'tfmsl_gmb_place_id',

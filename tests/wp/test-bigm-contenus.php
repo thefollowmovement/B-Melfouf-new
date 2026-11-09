@@ -259,12 +259,19 @@ if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() )
 	$h = bigm_horaires_depuis_google( $periodes );
 	$ok( '1' === $h['monday']['closed'] && array( '0', '11:15', '23:00', '14:00', '18:30' ) === array_values( $h['tuesday'] ) && array( '0', '17:00', '23:00', '', '' ) === array_values( $h['sunday'] ), 'horaires Google à deux plages : ouverture, fermeture et pause de midi ; jour fermé ; dimanche sans pause' );
 	$ok( '01:00' === $h['friday']['close'] && '14:00' === $h['friday']['break_start'], 'fermeture après minuit gardée, pause juste' );
-	// Import de StoreLocatore simulé : il écrit la dernière plage seulement, puis la date de l'import.
+	// Import de StoreLocatore 2.5.0 simulé : il écrit la dernière plage seulement, puis la date de l'import.
+	add_filter( 'bigm_horaires_correction', '__return_true' );
 	update_option( 'tfmsl_gmb_debug_' . $resto, array( 'periods' => $periodes, 'date' => current_time( 'mysql' ) ), false );
 	update_post_meta( $resto, 'tfmsl_hours', array( 'tuesday' => array( 'closed' => '0', 'open' => '18:30', 'close' => '23:00', 'break_start' => '', 'break_end' => '' ) ) );
 	update_post_meta( $resto, 'tfmsl_gmb_last_sync', current_time( 'mysql' ) );
 	$apres = get_post_meta( $resto, 'tfmsl_hours', true );
+	remove_filter( 'bigm_horaires_correction', '__return_true' );
 	$ok( '11:15' === ( $apres['tuesday']['open'] ?? '' ) && '14:00' === ( $apres['tuesday']['break_start'] ?? '' ) && '18:30' === ( $apres['tuesday']['break_end'] ?? '' ), 'après un import de StoreLocatore : horaires réécrits avec la pause' );
+	add_filter( 'bigm_horaires_correction', '__return_false' );
+	update_post_meta( $resto, 'tfmsl_hours', array( 'tuesday' => array( 'closed' => '0', 'open' => '18:30', 'close' => '23:00', 'break_start' => '', 'break_end' => '' ) ) );
+	update_post_meta( $resto, 'tfmsl_gmb_last_sync', current_time( 'mysql' ) . ' ' );
+	remove_filter( 'bigm_horaires_correction', '__return_false' );
+	$ok( '18:30' === ( get_post_meta( $resto, 'tfmsl_hours', true )['tuesday']['open'] ?? '' ), 'StoreLocatore 2.5.1 ou plus (pause gérée par le plugin) : horaires du plugin laissés tels quels' );
 	delete_option( 'tfmsl_gmb_debug_' . $resto );
 	$moi = get_current_user_id();
 	wp_set_current_user( 0 );

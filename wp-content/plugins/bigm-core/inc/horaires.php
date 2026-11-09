@@ -11,7 +11,12 @@
  * quotidien), il enregistre la date de l'import (tfmsl_gmb_last_sync) après avoir gardé les
  * plages reçues (option tfmsl_gmb_debug_{id}). bigm-core relit ces plages et réécrit les
  * horaires : de la première ouverture à la dernière fermeture, avec la plus longue coupure
- * entre deux plages comme pause. À retirer quand StoreLocatore le fera lui-même.
+ * entre deux plages comme pause.
+ *
+ * StoreLocatore 2.5.1 et suivants gardent eux-mêmes la pause (TFMSL_Google_API::periods_to_hours,
+ * qui traite aussi un lieu ouvert 24 h sur 24) : la correction s'efface alors (filtre
+ * bigm_horaires_correction). Ce fichier pourra être retiré quand toutes les installations seront
+ * en 2.5.1 ou plus ; l'adresse de relance ci-dessous reste utile pour tout réimporter d'un coup.
  *
  * POST /wp-json/bigm/v1/restaurants/{id}/horaires-google relance l'import d'un restaurant.
  *
@@ -87,6 +92,9 @@ function bigm_horaires_depuis_google( array $periodes ): array {
  * @return bool Horaires réécrits.
  */
 function bigm_horaires_corriger( int $id ): bool {
+	if ( ! apply_filters( 'bigm_horaires_correction', ! method_exists( 'TFMSL_Google_API', 'periods_to_hours' ) ) ) {
+		return false;
+	}
 	$brut = get_option( 'tfmsl_gmb_debug_' . $id );
 	if ( ! is_array( $brut ) || empty( $brut['periods'] ) || ! is_array( $brut['periods'] ) ) {
 		return false;
