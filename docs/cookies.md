@@ -27,6 +27,10 @@ Réécrite le 9 novembre 2026 (ancienne version sauvegardée hors du dépôt) : 
 
 Elle doit décrire la même chose que le bandeau : Google Analytics, les contenus d'autres sites, le lien pour changer d'avis. Codes courts : `[bigm_cookies_liste]` (tableau des cookies), `[bigm_cookies_gestion]` (bouton « Gérer mes cookies »).
 
+## Cache des pages
+
+Le bandeau est imprimé dans le HTML, identique pour tous les visiteurs : les pages restent en cache (LiteSpeed Cache), le choix est lu dans le navigateur. Depuis 1.0.2, enregistrer **Réglages → Cookies** vide tout le cache (`litespeed_purge_all`), pour qu'un nouveau texte ou « Redemander le choix » s'affiche tout de suite.
+
 ## Tester
 
 - `wp eval-file tests/wp/test-bigm-cookies.php --user=<admin>` (bandeau, boutons de même aspect, scripts de Site Kit en attente, mode de consentement, contenus intégrés, lien du pied de page, réglages, codes courts).

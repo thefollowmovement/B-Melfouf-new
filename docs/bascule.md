@@ -18,7 +18,7 @@ Compter une heure, à un moment calme (le site affiche l'ancienne version jusqu'
 - [ ] Contenus définitifs en place ; produits et restaurants de démonstration supprimés (**Outils → Démo Big M → Supprimer**, les pages et les médias encore utilisés sont gardés), puis extension `bigm-demo` désactivée et supprimée.
 - [ ] Plus aucun texte entre crochets `[…]` (rechercher « [ » dans les pages et produits).
 - [ ] **Reprise des articles** relancée sur la préprod, pour les articles publiés depuis la première reprise (les articles déjà repris ne sont pas recréés).
-- [ ] LiteSpeed Cache installé et réglé (`docs/seo.md`).
+- [x] LiteSpeed Cache installé et réglé (`docs/seo.md`, réglages appliqués par `bigm-core`).
 - [ ] Liens de commande de chaque restaurant saisis (**Restaurants → Liens de commande**), lien Commander par défaut définitif, adresses e-mail de réception des formulaires confirmées, SMTP configuré.
 - [ ] Accès prêts : SSH, Google Search Console du domaine, comptes administrateurs nominatifs avec double authentification.
 - [ ] Préprod gardée après la bascule : **Réglages Big M → Google → plafond à 0** (sinon elle interroge Google chaque nuit avec la même clé que la production et consomme le même quota gratuit). Sur la production, vérifier la section Google (plafond 900, prochain passage) et ajouter une tâche cron Hostinger sur `wp-cron.php` (toutes les heures).

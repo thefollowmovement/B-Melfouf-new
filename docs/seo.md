@@ -83,22 +83,50 @@ L'ancien site doit être en ligne. La reprise ne fait que le lire.
 | Chargement différé | WordPress et Elementor posent `loading="lazy"`, sauf sur la première slide du slider (`fetchpriority="high"`) |
 | Vidéos | `preload="none"`, chargées quand elles deviennent visibles ; image d'aperçu limitée à 1536 px |
 | Fichiers inutiles | Emojis de WordPress retirés, sur le site et dans l'admin (le navigateur les affiche seul ; dans l'admin, le script les remplaçait par des images cassées : icônes des menus de StoreLocatore) ; CSS de l'éditeur de blocs chargé seulement sur les articles et les contenus écrits en blocs |
-| Cache | Vidé automatiquement (LiteSpeed Cache) quand on enregistre un slider ou les Réglages Big M, et **aux dates de début et de fin des slides programmées** |
+| Cache | LiteSpeed Cache, réglé par `bigm-core` (ci-dessous). Vidé automatiquement quand on enregistre un slider ou les Réglages Big M, et **aux dates de début et de fin des slides programmées** |
 
 ### LiteSpeed Cache (Hostinger)
 
-Réglages conseillés, à vérifier page par page sur la préprod :
+Installé en production le 9 novembre 2026 (version 7.9). `bigm-core` le règle seul (`inc/cache.php`) : rien à cocher dans l'admin.
 
-1. **Cache** : activé ; pas de cache pour les personnes connectées ; navigateur activé.
-2. **Exclusions** : ajouter `/avis/` (collecte d'avis du plugin StoreLocatore, qui contient un jeton de sécurité).
-3. **Optimisation de page** :
-   - réduire (minify) le CSS et le JS : oui ;
-   - combiner le CSS et le JS : **non** (Elementor et Big M ne chargent les fichiers que sur les pages qui en ont besoin) ;
-   - « Retarder le JS » et « CSS critique / UCSS » : non, ou après des tests poussés ;
-   - **chargement différé des images : non** (WordPress le fait déjà, et la première slide ne doit pas l'être).
-4. **Images (QUIC.cloud)** : facultatif, les tailles sont déjà en WebP.
-5. Après un déploiement : **LiteSpeed Cache → Purger tout**, et vider le CDN Hostinger s'il est activé.
-6. Vérifier ensuite que les formulaires (franchise, recrutement) s'envoient bien depuis une page en cache.
+**Réglages appliqués une fois**, au premier passage d'un administrateur après l'activation de LiteSpeed Cache (ou par `POST /wp-json/bigm/v1/litespeed`, qui renvoie les valeurs relues) :
+
+| Réglage LiteSpeed | Valeur | Pourquoi |
+|---|---|---|
+| Cache (`cache`) | oui | pages servies sans PHP aux visiteurs |
+| Cache des connectés (`cache-priv`), des commentateurs | non | l'équipe voit toujours la page à jour |
+| Cache de l'API REST (`cache-rest`) | non | fenêtre Commander, recherche des restaurants : toujours à jour |
+| Cache du navigateur (`cache-browser`) | non | Hostinger envoie déjà `Cache-Control: max-age=604800` sur les fichiers |
+| Cache mobile séparé | non | mêmes pages, mise en page en CSS |
+| Tout vider à la mise à jour d'une extension ou du thème (`purge-upgrade`) | oui | les pages appellent les nouvelles versions des CSS et JS |
+| Tout vider quand un contenu est publié ou modifié (`purge-post_all`) | oui | un produit, un restaurant ou un article s'affiche sur plusieurs pages (accueil, carte, catégories, « Ça va bien avec ») |
+| Réduire, combiner, CSS critique (UCSS), HTML | non | Elementor et Big M ne chargent déjà que le nécessaire ; réécrire les CSS et JS casse facilement les widgets |
+| Chargement différé des images | non | WordPress et Elementor le font, sauf sur la première slide |
+| ESI, mode invité, robot (crawler), QUIC.cloud | non | inutiles ici ; QUIC.cloud enverrait des données à un service tiers |
+
+Ils restent modifiables dans **LiteSpeed Cache → Réglages** : `bigm-core` ne les réécrit que si la liste change (constante `BIGM_LITESPEED_REGLAGES`, filtre `bigm_litespeed_reglages`).
+
+**Règles posées page par page** (`bigm_cache_regle_page()`, sur `template_redirect`, visiteurs seulement) :
+
+- **Pages à formulaire** (WPForms ou formulaire Elementor Pro : franchise, recrutement…) : jamais en cache (`DONOTCACHEPAGE` et `litespeed_control_set_nocache`), pour que le jeton anti-spam du formulaire reste valable. Reconnues seules (`bigm_page_a_formulaire()`), quelle que soit leur adresse.
+- **Fiches restaurants** : en cache jusqu'au prochain changement d'horaire (ouverture, pause, fermeture) ou au prochain minuit, plus une minute (`bigm_restaurant_duree_cache()`), pour que « Ouvert / Fermé » et la ligne du jour restent justes. StoreLocatore lit le jour en UTC (`date( 'N' )`) : la fiche est aussi régénérée à minuit UTC (1 h ou 2 h à Paris).
+- **Collecte d'avis** (`/avis/…`) : StoreLocatore pose déjà `DONOTCACHEPAGE`.
+
+**Vidages automatiques** :
+
+| Quand | Ce qui est vidé |
+|---|---|
+| Contenu publié, modifié ou supprimé ; menus ; catégories et étiquettes ; page Elementor ou modèle enregistré ; mise à jour d'une extension ou du thème | tout (LiteSpeed Cache) |
+| Réglages Big M, slider enregistré, dates de début et de fin des slides | tout (`inc/performance.php`) |
+| Horaires d'un restaurant changés sans enregistrer la fiche (import de Google la nuit) | la fiche |
+| Réglages de StoreLocatore enregistrés dans l'admin (promos, traductions, style) ; personnalisateur | tout |
+| Réglages → Cookies | tout (`bigm-cookies`, le bandeau est dans le HTML) |
+
+À la main : **LiteSpeed Cache → Purger tout** (barre d'admin), et vider le CDN Hostinger (hPanel) s'il garde un ancien fichier.
+
+**Vérifier** : en-tête `x-litespeed-cache` (`miss` puis `hit` au second appel) ; page à formulaire : pas d'en-tête `hit`, `x-litespeed-cache-control: no-cache` ; fiche restaurant : `x-litespeed-cache-control: public,max-age=…` (secondes jusqu'au prochain changement). Test : `tests/wp/test-bigm-cache.php`.
+
+**WP-Cron** : les pages servies par le cache ne lancent plus les tâches planifiées de WordPress (vidage aux dates des slides, appels à Google, `llms.txt`). Elles partent à la prochaine page non mise en cache. Pour l'heure exacte, ajouter une tâche cron dans hPanel (Avancé → Tâches cron), toutes les 5 minutes : `wget -q -O /dev/null "https://bigm-burger.fr/wp-cron.php?doing_wp_cron"`.
 
 ### Mesures
 
@@ -138,7 +166,7 @@ Reste, dans le plugin StoreLocatore (à corriger dans son dépôt) : les cartes 
 
 ## Avant la mise en ligne
 
-1. LiteSpeed Cache installé et réglé comme ci-dessus.
+1. LiteSpeed Cache installé et actif (réglé par `bigm-core`, ci-dessus).
 2. Reprise des articles lancée sur le site définitif, puis relue.
 3. Régénérer les tailles d'images en WebP (`wp media regenerate --yes`).
 4. Image de partage (Réglages Big M → Référencement) et descriptions des pages principales.

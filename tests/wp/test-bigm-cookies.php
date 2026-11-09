@@ -81,6 +81,14 @@ $n = bigm_cookies_nettoyer(
 	)
 );
 $ok( 'Cookies' === $n['titre'] && 395 === $n['duree'] && '1' === $n['mesure'] && '0' === $n['contenus'] && $n['version'] !== bigm_cookies_reglages()['version'], 'réglages nettoyés : durée 13 mois au plus, case absente = décochée, « redemander » change la version' );
+$vidages = 0;
+$espion  = static function () use ( &$vidages ) {
+	++$vidages;
+};
+add_action( 'litespeed_purge_all', $espion );
+do_action( 'update_option_bigm_cookies', array(), bigm_cookies_reglages(), 'bigm_cookies' );
+remove_action( 'litespeed_purge_all', $espion );
+$ok( 1 === $vidages, 'réglages enregistrés : cache des pages vidé (le bandeau est dans le HTML)' );
 $ok( 182 === bigm_cookies_defauts()['duree'], 'choix gardé 6 mois par défaut (recommandation de la CNIL)' );
 $ok( str_contains( do_shortcode( '[bigm_cookies_gestion]' ), 'data-bigm-cookies-ouvrir' ) && str_contains( do_shortcode( '[bigm_cookies_liste]' ), '<table class="bigm-cookies__table">' ), 'codes courts : bouton pour rouvrir le bandeau, tableau des cookies' );
 

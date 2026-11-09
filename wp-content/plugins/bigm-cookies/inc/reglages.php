@@ -127,6 +127,17 @@ add_action(
 	}
 );
 
+/*
+ * Le bandeau est dans le HTML des pages : le cache des pages (LiteSpeed Cache) est vidé à chaque
+ * enregistrement, sinon un nouveau texte ou « Redemander le choix » attendrait la fin du cache.
+ */
+$bigm_cookies_vider = static function () {
+	do_action( 'litespeed_purge_all', 'Big M Cookies' );
+	do_action( 'bigm_vider_cache' );
+};
+add_action( 'add_option_bigm_cookies', $bigm_cookies_vider );
+add_action( 'update_option_bigm_cookies', $bigm_cookies_vider );
+
 add_action(
 	'admin_menu',
 	static function () {
