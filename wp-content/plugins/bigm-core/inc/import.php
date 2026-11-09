@@ -171,7 +171,7 @@ function bigm_import_retirer_ancienne_photo( int $media ): void {
 function bigm_import_produit( array $p ): array {
 	$titre   = sanitize_text_field( (string) ( $p['titre'] ?? '' ) );
 	$slug    = sanitize_title( (string) ( $p['slug'] ?? $titre ) );
-	$existe  = '' !== $slug ? get_page_by_path( $slug, OBJECT, 'bigm_produit' ) : null;
+	$existe  = bigm_post_par_adresse( $slug, 'bigm_produit' );
 	$slugs_a = array_keys( bigm_allergenes() );
 	$contient = bigm_nettoyer_slugs( (array) ( $p['contient'] ?? array() ), $slugs_a );
 	$traces   = array_values( array_diff( bigm_nettoyer_slugs( (array) ( $p['traces'] ?? array() ), $slugs_a ), $contient ) );

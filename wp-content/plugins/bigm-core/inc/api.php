@@ -274,3 +274,29 @@ function bigm_tuile_produit( int $post_id, string $sizes = '(max-width: 960px) 4
 	$video = bigm_video_vignette( $p['video'] );
 	return '<a class="tile' . ( $video ? ' has-video' : '' ) . '" href="' . esc_url( $p['url'] ) . '"><div class="tile__img">' . $img . $video . '</div><span class="tile__label">' . esc_html( $p['titre'] ) . '</span></a>';
 }
+
+/**
+ * Contenu d'un type donné retrouvé par son adresse (slug), quel que soit son statut.
+ * Contrairement à get_page_by_path(), qui cherche aussi dans les médias, ne renvoie jamais une
+ * photo qui porterait la même adresse (ex. menu-mamamia-spicy.png téléversée avant le produit).
+ *
+ * @param string $slug Adresse.
+ * @param string $type Type de contenu.
+ * @return WP_Post|null
+ */
+function bigm_post_par_adresse( string $slug, string $type ): ?WP_Post {
+	if ( '' === $slug ) {
+		return null;
+	}
+	$posts = get_posts(
+		array(
+			'post_type'        => $type,
+			'name'             => $slug,
+			'post_status'      => 'any',
+			'posts_per_page'   => 1,
+			'no_found_rows'    => true,
+			'suppress_filters' => true,
+		)
+	);
+	return $posts[0] ?? null;
+}

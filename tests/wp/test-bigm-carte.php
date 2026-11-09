@@ -382,6 +382,29 @@ bigm_import_produit(
 );
 $ok( 'Z9 – Menu test' === get_the_title( $code['id'] ) && 'publish' === get_post_status( $code['id'] ) && has_term( 'import-test-sous', 'bigm_categorie', $code['id'] ) && 'Nouveau' === get_post_meta( $code['id'], '_bigm_badge', true ), 'nom provisoire (codes M1…) : nom, catégorie, statut et badge du nouveau fichier' );
 
+// Une photo téléversée avant le produit, sous la même adresse (menu-mamamia-spicy.png) : l'import
+// créait un produit… en modifiant la photo (get_page_by_path cherche aussi dans les médias).
+$homonyme = wp_insert_attachment(
+	array(
+		'post_title'     => 'Photo homonyme',
+		'post_name'      => 'produit-homonyme-test',
+		'post_mime_type' => 'image/png',
+		'post_content'   => '',
+	)
+);
+$r_h      = bigm_import_produit(
+	array(
+		'titre'       => 'Produit homonyme test',
+		'slug'        => 'produit-homonyme-test',
+		'categories'  => array( 'import-test' ),
+		'description' => 'Texte du produit.',
+	)
+);
+$posts[]  = $r_h['id'];
+$ok( 'cree' === $r_h['etat'] && $r_h['id'] !== $homonyme && 'bigm_produit' === get_post_type( $r_h['id'] ) && '' === get_post_field( 'post_content', $homonyme ) && ! get_post_meta( $homonyme, '_bigm_import', true ) && ! has_term( 'import-test', 'bigm_categorie', $homonyme ), 'photo à la même adresse qu’un nouveau produit : produit créé, photo pas touchée' );
+$ok( null === bigm_post_par_adresse( 'produit-homonyme-test', 'post' ) && $r_h['id'] === bigm_post_par_adresse( 'produit-homonyme-test', 'bigm_produit' )->ID, 'bigm_post_par_adresse() : jamais un média' );
+wp_delete_attachment( $homonyme, true );
+
 WP_CLI::log( 'Import ciblé (POST bigm/v1/carte/importer)' );
 $box_fichier = array_values( array_filter( $fichier['produits'], static fn( $p ): bool => in_array( 'box', (array) ( $p['categories'] ?? array() ), true ) ) );
 $ok( array( 'big-box', 'm-box', 'box-noxx' ) === array_column( $box_fichier, 'slug' ) && in_array( 'box', array_column( $fichier['categories'], 'slug' ), true ), 'fichier : catégorie Box et ses 3 produits' );

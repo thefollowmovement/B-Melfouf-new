@@ -194,7 +194,7 @@ function bigm_reprise_article( array $a, string $source ): array {
 		)
 	);
 	if ( ! $deja && '' !== $slug ) {
-		$par_slug = get_page_by_path( $slug, OBJECT, 'post' );
+		$par_slug = bigm_post_par_adresse( $slug, 'post' );
 		$deja     = $par_slug ? array( $par_slug->ID ) : array();
 	}
 	if ( $deja ) {
