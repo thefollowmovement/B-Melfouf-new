@@ -1,5 +1,9 @@
 # Bascule : la préprod devient bigm-burger.fr
 
+> **Faite le 9 novembre 2026** avec Duplicator Pro, autrement que prévu ci-dessous : le site `bigm-burger.fr` a été supprimé puis recréé dans hPanel (nouvelle installation WordPress, base `u296589459_PMHeU`), et la sauvegarde Duplicator de la préprod y a été installée. La suppression du site a emporté les fichiers de l'ancien site et ceux de la préprod (le sous-domaine `preprod` n'existe plus). Les bases restent : celle de la préprod (`u296589459_IHZJK`, 69 Mo, créée le 4 novembre 2026), une base vide créée le jour même (`u296589459_bigmelfouf`) et, sans doute, celle de l'ancien site (`u296589459_q8mmX`, 228 Mo, 2024). Les garder 30 jours, puis les supprimer ; ne jamais rebrancher celle de l'ancien site. Retour arrière : seulement par une sauvegarde hPanel.
+>
+> Contrôles du jour, par HTTP : pages principales et fiches en 200, redirections des anciennes adresses en 301, plus de `noindex` (ni en-tête, ni balise), XML-RPC refusé (403), `robots.txt` et plan du site corrects, aucune adresse de la préprod dans les pages, l'API ni les CSS d'Elementor. Une copie de l'accueil sans pied de page, faite pendant l'installation, restait dans le CDN pour les clients sans compression : vider le CDN.
+
 Étape 8 du brief, seconde partie. La nouvelle installation (`public_html/preprod`, base de données de la préprod) est copiée à la racine du domaine, avec sa propre base. L'ancien site est sorti du dossier web, gardé quelques semaines, puis supprimé. Le domaine et le serveur ne changent pas : pas de DNS à modifier.
 
 Cette procédure demande un accès **SSH** avec WP-CLI (offres Hostinger Premium et Business). Le remplacement des adresses doit passer par WP-CLI, qui sait corriger les données sérialisées de WordPress et d'Elementor : jamais de rechercher-remplacer à la main dans phpMyAdmin.
