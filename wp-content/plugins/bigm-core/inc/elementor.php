@@ -76,6 +76,7 @@ add_action(
 			'texte'              => 'Bigm_Widget_Texte',
 			'chiffres'           => 'Bigm_Widget_Chiffres',
 			'jeu-concours'       => 'Bigm_Widget_Jeu_Concours',
+			'jeu-concours-banniere' => 'Bigm_Widget_Jeu_Concours_Banniere',
 		);
 		foreach ( $classes as $fichier => $classe ) {
 			require_once BIGM_CORE_DIR . "/inc/elementor/widgets/$fichier.php";

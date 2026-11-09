@@ -9,6 +9,10 @@
  *   (sinon le prochain, sinon le dernier terminé depuis moins de 30 jours), ou un texte d'attente.
  * - Fiche d'un restaurant participant : bande sous le bandeau (crochet tfmsl_after_store_hero de
  *   StoreLocatore, entre les promos et le food court), ou [bigm_jeu_concours_bande].
+ * - Accueil (ou autre page) : la même bande en bannière, widget « Big M — Bannière jeu concours »
+ *   ou [bigm_jeu_concours_banniere] ; rien hors des dates du jeu.
+ * - Toutes les autres pages : bouton flottant « Jeu concours en cours » qu'on peut fermer
+ *   (assets/css/concours-bouton.css, assets/js/concours-bouton.js, filtre bigm_concours_bouton_flottant).
  * - Pages en cache : les dates sont dans le HTML (data-debut, data-fin) et le JS décide de ce
  *   qui s'affiche (compte à rebours, jeu terminé, bande cachée hors des dates). Le cache est
  *   vidé à l'enregistrement d'un jeu et à ses dates de début et de fin.
@@ -549,19 +553,20 @@ function bigm_rendu_concours( array $c ): string {
 }
 
 /**
- * Bande « Jeu concours » de la fiche d'un restaurant participant.
+ * Bande « Jeu concours » : fiche d'un restaurant participant, ou bannière (accueil).
  *
  * @param array<string, mixed> $c        Jeu.
- * @param int                  $store_id Restaurant.
+ * @param int                  $store_id Restaurant, ou 0 pour la bannière.
  */
-function bigm_rendu_concours_bande( array $c, int $store_id ): string {
-	$titre = $c['titre'];
-	$media = bigm_concours_media( $c, 'jc-bande__media', 'medium_large' );
-	return '<section class="jc-bande" data-jc data-jc-bande' . bigm_concours_attributs( $c ) . ( 'en_cours' !== ( $c['etat'] ?? '' ) ? ' hidden' : '' ) . ' aria-labelledby="jc-bande-' . (int) $c['id'] . '-' . $store_id . '">'
+function bigm_rendu_concours_bande( array $c, int $store_id = 0 ): string {
+	$titre    = $c['titre'];
+	$media    = bigm_concours_media( $c, 'jc-bande__media', 'medium_large' );
+	$surtitre = $store_id ? 'Jeu concours dans ce restaurant' : ( 'Jeu concours' . ( '' !== $c['partenaire'] ? ' avec ' . $c['partenaire'] : '' ) );
+	return '<section class="jc-bande' . ( $store_id ? '' : ' jc-bande--banniere' ) . '" data-jc data-jc-bande' . bigm_concours_attributs( $c ) . ( 'en_cours' !== ( $c['etat'] ?? '' ) ? ' hidden' : '' ) . ' aria-labelledby="jc-bande-' . (int) $c['id'] . '-' . $store_id . '">'
 		. '<div class="jc-bande__carte">'
 		. ( '' !== $media ? '<div class="jc-bande__visuel">' . $media . ( $c['video'] ? bigm_concours_boutons_video( false ) : '' ) . '</div>' : '' )
 		. '<div class="jc-bande__corps">'
-		. '<p class="jc-pastille"><span class="jc-pastille__point" aria-hidden="true"></span><span>Jeu concours dans ce restaurant</span></p>'
+		. '<p class="jc-pastille"><span class="jc-pastille__point" aria-hidden="true"></span><span>' . esc_html( $surtitre ) . '</span></p>'
 		. '<h2 class="jc-bande__titre" id="jc-bande-' . (int) $c['id'] . '-' . $store_id . '">' . esc_html( $titre ) . '</h2>'
 		. ( '' !== $c['accroche'] ? '<p class="jc-bande__texte">' . esc_html( $c['accroche'] ) . '</p>' : '' )
 		. ( '' !== $c['condition'] ? '<p class="jc-bande__condition">' . esc_html( $c['condition'] ) . '</p>' : '' )
@@ -571,6 +576,104 @@ function bigm_rendu_concours_bande( array $c, int $store_id ): string {
 		. '<a class="btn btn--outline jc-btn-contour" href="' . esc_url( bigm_concours_page_url() . '#jc-' . (int) $c['id'] ) . '">Lots et règlement</a>'
 		. '</div></div></div></section>';
 }
+
+/**
+ * Jeu en cours (ou qui commence ou finit dans la journée : pages en cache, le JS tranche), ou null.
+ *
+ * @param int $id Jeu choisi (0 : automatique).
+ * @return array<string, mixed>|null
+ */
+function bigm_concours_du_moment( int $id = 0 ): ?array {
+	foreach ( bigm_concours_a_montrer( 1, 1 ) as $c ) {
+		if ( ! $id || (int) $c['id'] === $id ) {
+			return $c;
+		}
+	}
+	return null;
+}
+
+/**
+ * Bannière du jeu en cours (accueil, ou ailleurs avec le widget ou le code court), ou rien.
+ *
+ * @param int $id Jeu choisi (0 : automatique).
+ */
+function bigm_rendu_concours_banniere( int $id = 0 ): string {
+	$c = bigm_concours_du_moment( $id );
+	return $c ? bigm_rendu_concours_bande( $c, 0 ) : '';
+}
+
+/**
+ * La page affiche-t-elle le jeu (widget « Big M — Jeu concours » ou [bigm_jeu_concours]) ?
+ *
+ * @param int $post_id Page.
+ */
+function bigm_concours_page_du_jeu( int $post_id ): bool {
+	$textes = (string) get_post_field( 'post_content', $post_id ) . (string) get_post_meta( $post_id, '_elementor_data', true );
+	return str_contains( $textes, '"widgetType":"bigm-jeu-concours"' ) || str_contains( $textes, '[bigm_jeu_concours]' ) || str_contains( $textes, '[bigm_jeu_concours ' );
+}
+
+/**
+ * Le bouton flottant doit-il être imprimé sur cette page ? Pas sur la page du jeu, ni sur la fiche
+ * d'un restaurant qui a déjà la bande, ni dans l'aperçu d'Elementor. Filtre
+ * bigm_concours_bouton_flottant.
+ *
+ * @return array<string, mixed>|null Jeu, ou null.
+ */
+function bigm_concours_bouton_jeu(): ?array {
+	if ( is_admin() || isset( $_GET['elementor-preview'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		return null;
+	}
+	$c = bigm_concours_du_moment();
+	if ( $c && is_singular() ) {
+		$id = (int) get_queried_object_id();
+		if ( bigm_concours_page_du_jeu( $id ) || ( is_singular( 'tfmsl_store' ) && in_array( $id, $c['restaurants'], true ) ) ) {
+			$c = null;
+		}
+	}
+	return apply_filters( 'bigm_concours_bouton_flottant', $c );
+}
+
+/**
+ * Bouton flottant « Jeu concours en cours », qu'on peut fermer (choix gardé dans le navigateur
+ * jusqu'à la fin du jeu). Caché dans le HTML : le JS le montre pendant le jeu, sans recouvrir le
+ * bandeau des cookies.
+ *
+ * @param array<string, mixed> $c Jeu.
+ */
+function bigm_rendu_concours_bouton( array $c ): string {
+	return '<aside class="jc-flottant" data-jc-flottant data-id="' . (int) $c['id'] . '"' . bigm_concours_attributs( $c ) . ' aria-label="' . esc_attr( 'Jeu concours en cours' ) . '" hidden>'
+		. '<a class="jc-flottant__lien" href="' . esc_url( bigm_concours_page_url() ) . '">'
+		. '<span class="jc-flottant__icone" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-1.5-3-5-3.2-5-1s3 1 5 1zm0 0c1.5-3 5-3.2 5-1s-3 1-5 1z"/></svg></span>'
+		. '<span class="jc-flottant__texte"><strong>Jeu concours en cours</strong><small data-jc-reste>' . esc_html( $c['titre'] ) . '</small></span>'
+		. '</a>'
+		. '<button type="button" class="jc-flottant__fermer" data-jc-fermer aria-label="Fermer : ne plus afficher ce bouton"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>'
+		. '</aside>';
+}
+
+add_action(
+	'wp_footer',
+	static function () {
+		$c = bigm_concours_bouton_jeu();
+		if ( $c ) {
+			echo bigm_rendu_concours_bouton( $c ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- échappé dans bigm_rendu_concours_bouton().
+		}
+	},
+	5
+);
+
+/*
+ * Bandeau des cookies (bigm-cookies) : le bouton fermé est gardé dans le navigateur, avec les
+ * autres stockages nécessaires au site.
+ */
+add_filter(
+	'bigm_cookies_categories',
+	static function ( array $cats ): array {
+		if ( isset( $cats['necessaires']['cookies'] ) ) {
+			$cats['necessaires']['cookies'][] = array( 'bigm_jeu_ferme_*', 'Big M', 'Bouton « Jeu concours en cours » fermé (stockage du navigateur), jusqu’à ce que vous vidiez les données du site' );
+		}
+		return $cats;
+	}
+);
 
 /**
  * Bloc de la page Jeu concours : le jeu à montrer, ou un texte d'attente.
@@ -616,6 +719,19 @@ add_action(
 			wp_enqueue_style( 'bigm-concours' );
 			wp_enqueue_script( 'bigm-concours' );
 		}
+		if ( bigm_concours_bouton_jeu() ) {
+			wp_enqueue_style( 'bigm-concours-bouton', BIGM_CORE_URL . 'assets/css/concours-bouton.css', array(), $v( 'css/concours-bouton.css' ) );
+			wp_enqueue_script(
+				'bigm-concours-bouton',
+				BIGM_CORE_URL . 'assets/js/concours-bouton.js',
+				array(),
+				$v( 'js/concours-bouton.js' ),
+				array(
+					'in_footer' => true,
+					'strategy'  => 'defer',
+				)
+			);
+		}
 	},
 	25
 );
@@ -652,6 +768,19 @@ add_shortcode(
 );
 
 add_shortcode(
+	'bigm_jeu_concours_banniere',
+	static function ( $atts ): string {
+		$atts = shortcode_atts( array( 'id' => 0 ), $atts );
+		$html = bigm_rendu_concours_banniere( (int) $atts['id'] );
+		if ( '' !== $html ) {
+			wp_enqueue_style( 'bigm-concours' );
+			wp_enqueue_script( 'bigm-concours' );
+		}
+		return $html;
+	}
+);
+
+add_shortcode(
 	'bigm_jeu_concours_bande',
 	static function (): string {
 		$html = '';
@@ -677,8 +806,7 @@ add_filter(
 		if ( ! $objet_id || 'page' !== get_post_type( $objet_id ) ) {
 			return $page;
 		}
-		$textes = (string) get_post_field( 'post_content', $objet_id ) . (string) get_post_meta( $objet_id, '_elementor_data', true );
-		if ( ! str_contains( $textes, '"widgetType":"bigm-jeu-concours"' ) && ! str_contains( $textes, '[bigm_jeu_concours' ) ) {
+		if ( ! bigm_concours_page_du_jeu( $objet_id ) ) {
 			return $page;
 		}
 		$jeux = array_values( array_filter( bigm_concours_a_montrer(), static fn( $c ) => 'termine' !== $c['etat'] ) );

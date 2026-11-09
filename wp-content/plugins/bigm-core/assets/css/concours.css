@@ -123,6 +123,11 @@
 .jc-bande__texte { margin: 8px 0 0; color: rgba(255, 255, 255, .94); }
 .jc-bande__condition { margin: 6px 0 0; font-size: 14px; color: rgba(255, 255, 255, .8); }
 .jc-bande__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+/* Bannière (accueil) : largeur du site, entre deux sections. */
+.jc-bande--banniere { max-width: var(--max); padding: clamp(8px, 2vw, 20px) var(--pad) clamp(16px, 3vw, 32px); }
+.jc-bande--banniere .jc-bande__carte { padding: clamp(18px, 2.4vw, 28px); gap: clamp(20px, 3vw, 40px); }
+.jc-bande--banniere .jc-bande__visuel { width: clamp(120px, 12vw, 168px); }
+.jc-bande--banniere .jc-bande__titre { font-size: clamp(26px, 3vw, 38px); }
 
 /* ---------- Mouvement ---------- */
 @media (prefers-reduced-motion: no-preference) {
@@ -169,6 +174,8 @@
   .jc-lot--principal { grid-column: 1 / -1; }
   /* Fiche : petite affiche à côté du texte, sans vidéo (données mobiles). */
   .jc-bande { padding: 24px 16px 0; }
+  .jc-bande--banniere { padding: 8px 16px 24px; }
+  .jc-bande--banniere .jc-bande__visuel { width: 84px; }
   .jc-bande__carte { align-items: flex-start; gap: 16px; padding: 18px 16px 20px; }
   .jc-bande__visuel { width: 84px; border-radius: 12px; transform: rotate(-3deg); }
   .jc-bande__visuel .jc-tel__boutons { display: none; }

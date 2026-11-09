@@ -108,6 +108,16 @@ if ( $restos && count( $restos ) > 1 ) {
 	WP_CLI::log( '  --    moins de deux restaurants : fiches non testées' );
 }
 
+WP_CLI::log( 'Bannière et bouton flottant' );
+$banniere = bigm_rendu_concours_bande( $c, 0 );
+$ok( str_contains( $banniere, 'jc-bande--banniere' ) && str_contains( $banniere, 'Jeu concours avec Boisson test' ) && ! str_contains( $banniere, 'dans ce restaurant' ), 'bannière (accueil) : même bande, sans « dans ce restaurant »' );
+$bouton = bigm_rendu_concours_bouton( $c );
+$ok( (bool) preg_match( '#<aside class="jc-flottant"[^>]* hidden>#', $bouton ) && str_contains( $bouton, 'data-fin="' ) && str_contains( $bouton, 'data-jc-fermer' ) && str_contains( $bouton, 'aria-label="Fermer : ne plus afficher ce bouton"' ), 'bouton flottant : caché dans le HTML (le JS le montre pendant le jeu), croix nommée' );
+$ok( str_contains( $bouton, 'href="' . esc_url( bigm_concours_page_url() ) . '"' ), 'bouton flottant : lien vers la page du jeu' );
+if ( function_exists( 'bigm_cookies_categories' ) ) {
+	$ok( str_contains( wp_json_encode( bigm_cookies_categories()['necessaires']['cookies'] ), 'bigm_jeu_ferme_' ), 'bandeau des cookies : bouton fermé listé avec les stockages nécessaires' );
+}
+
 WP_CLI::log( 'Cache' );
 update_post_meta( $jeu, '_bigm_jc_debut', gmdate( 'Y-m-d H:i', time() + DAY_IN_SECONDS + (int) wp_timezone()->getOffset( new DateTime() ) ) );
 update_post_meta( $jeu, '_bigm_jc_fin', gmdate( 'Y-m-d H:i', time() + 3 * DAY_IN_SECONDS + (int) wp_timezone()->getOffset( new DateTime() ) ) );
@@ -136,6 +146,7 @@ update_post_meta( $page_jeu, '_bigm_seo_description', 'Aucun jeu en cours pour l
 $GLOBALS['wp_query']     = new WP_Query( array( 'page_id' => $page_jeu ) );
 $GLOBALS['wp_the_query'] = $GLOBALS['wp_query'];
 $seo                     = function_exists( 'bigm_seo_page' ) ? bigm_seo_page( true ) : null;
+$ok( bigm_concours_page_du_jeu( $page_jeu ) && null === bigm_concours_bouton_jeu(), 'page du jeu reconnue : pas de bouton flottant dessus' );
 $montre = array_values( array_filter( bigm_concours_a_montrer(), static fn( $j ) => 'termine' !== $j['etat'] ) )[0] ?? null;
 $ok( $seo && $montre && str_starts_with( $seo['description'], html_entity_decode( $montre['titre'], ENT_QUOTES ) . ' jusqu’au ' ) && 'Aucun jeu en cours pour le moment.' !== $seo['description'], 'page du jeu : description du jeu affiché, à la place de celle saisie pour la page sans jeu' );
 wp_reset_query();

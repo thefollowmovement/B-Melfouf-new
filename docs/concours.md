@@ -54,6 +54,15 @@ La section du jeu comprend, dans l'ordre :
 
 Sur mobile, la bande montre l'affiche seule, sans vidéo, pour économiser les données. Dans un modèle Elementor de fiche, on utilise le code court `[bigm_jeu_concours_bande]`. Le CSS et le JS ne sont chargés que sur ces fiches et sur la page du jeu.
 
+**Bannière (accueil).** Widget « Big M — Bannière jeu concours » ou code court `[bigm_jeu_concours_banniere]`. C'est la même bande que sur les fiches, à la largeur du site, avec « Jeu concours avec … » en surtitre. Elle n'affiche rien hors des dates du jeu : le widget peut rester sur l'accueil d'un jeu à l'autre (dans l'éditeur, un cadre en pointillés le signale). Sur l'accueil, elle est placée sous « Nos Box ».
+
+**Bouton flottant.** Une pastille « Jeu concours en cours · Plus que N jours pour jouer » mène à la page du jeu. Elle se place en bas à gauche (à droite, il y a le bouton des promos de StoreLocatore). Sur mobile, elle se place au-dessus de la barre d'onglets.
+- **Où :** sur toutes les pages, sauf celle du jeu et les fiches des restaurants participants, qui ont déjà la bande.
+- **Quand :** imprimée cachée en pied de page (`wp_footer`), puis montrée par le JS pendant le jeu, une fois le bandeau des cookies fermé.
+- **Bannière à l'écran :** la pastille s'efface et revient après.
+- **Fermeture :** la croix la ferme pour de bon. Le choix est gardé dans le navigateur (`bigm_jeu_ferme_{id}`, listé dans les stockages nécessaires du bandeau des cookies), donc un nouveau jeu la remontre.
+- **Fichiers :** `assets/css/concours-bouton.css` et `assets/js/concours-bouton.js`, chargés seulement quand elle s'affiche. Filtre `bigm_concours_bouton_flottant` pour la retirer d'une page.
+
 ## Dates et cache
 
 Les pages sont en cache (LiteSpeed). Les dates de début et de fin sont donc écrites dans le HTML (`data-debut`, `data-fin`), et le JS décide de ce qui s'affiche :
