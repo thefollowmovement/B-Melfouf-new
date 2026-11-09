@@ -70,6 +70,8 @@ function bigm_litespeed_appliquer(): ?array {
 	$reglages = bigm_litespeed_reglages();
 	do_action( 'litespeed_save_conf', $reglages );
 	update_option( 'bigm_litespeed', BIGM_LITESPEED_REGLAGES, false );
+	// Pages mises en cache avant ces réglages (pages à formulaire comprises) : vidées.
+	bigm_vider_cache();
 	$lus = array();
 	foreach ( array_keys( $reglages ) as $id ) {
 		$lus[ $id ] = apply_filters( 'litespeed_conf', $id );
