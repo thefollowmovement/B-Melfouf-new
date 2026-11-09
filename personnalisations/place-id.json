@@ -23,7 +23,8 @@
    "id": 188,
    "nom": "Argenteuil",
    "place_id": "ChIJQ4nvUp1n5kcR498urVOGIFA",
-   "google": "BIG M — COTE SEINE - CENTRE COMMERCIAL, 22 Rue Carême Prenant, 95100 Argenteuil"
+   "google": "BIG M — COTE SEINE - CENTRE COMMERCIAL, 22 Rue Carême Prenant, 95100 Argenteuil",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 118 m)"
   },
   {
    "id": 119,
@@ -41,7 +42,8 @@
    "id": 185,
    "nom": "Boissy-Saint-Léger",
    "place_id": "ChIJubWdRQAL5kcRBJQq2wqAZMA",
-   "google": "Big M — 13 Bd de la Gare, 94470 Boissy-Saint-Léger"
+   "google": "Big M — 13 Bd de la Gare, 94470 Boissy-Saint-Léger",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 161 m)"
   },
   {
    "id": 120,
@@ -71,7 +73,8 @@
    "id": 176,
    "nom": "Bron - Les Sept Chemins",
    "place_id": "ChIJw408W3vB9EcROu6c-2r3yUY",
-   "google": "Big M Bron / Les Septs Chemins (ex-Cheese Nan Bron) — 1 Av. Gallieni, 69500 Bron"
+   "google": "Big M Bron / Les Septs Chemins (ex-Cheese Nan Bron) — 1 Av. Gallieni, 69500 Bron",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 200 m)"
   },
   {
    "id": 143,
@@ -109,7 +112,8 @@
    "id": 192,
    "nom": "Centre commercial Aéroville",
    "place_id": "ChIJgXyqYwAV5kcRTkqDfTSQf7c",
-   "google": "BIG M — 30 Rue des Buissons, 95700 Roissy-en-France"
+   "google": "BIG M — 30 Rue des Buissons, 95700 Roissy-en-France",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 201 m)"
   },
   {
    "id": 122,
@@ -135,19 +139,22 @@
    "id": 160,
    "nom": "Dakar",
    "place_id": "ChIJoQuMdWsNwQ4RodoTKgsDFRI",
-   "google": "Big M® - Dakar I Fast Food I Restaurant de burgers I Sandwicherie — Dakar"
+   "google": "Big M® - Dakar I Fast Food I Restaurant de burgers I Sandwicherie — Dakar",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 210 m)"
   },
   {
    "id": 189,
    "nom": "Dakar 2 - Mariste",
    "place_id": "ChIJX47yIwANwQ4RcmDQTWCPi7Q",
-   "google": "BIG M mariste — PHM8+G7H, Dakar"
+   "google": "BIG M mariste — PHM8+G7H, Dakar",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 277 m)"
   },
   {
    "id": 177,
    "nom": "Dakar 2 - Plateau",
    "place_id": "ChIJpzJR3QJzwQ4R-D8j88zSaWY",
-   "google": "Big M 2 Dakar plateau — 33 rue Abdou Karim Bourgi, Dakar 00010"
+   "google": "Big M 2 Dakar plateau — 33 rue Abdou Karim Bourgi, Dakar 00010",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 265 m)"
   },
   {
    "id": 124,
@@ -159,7 +166,8 @@
    "id": 163,
    "nom": "Ferney-Voltaire",
    "place_id": "ChIJ5bCrCQBljEcReEAB53K_YrI",
-   "google": "Big M — 41 Av. du Jura, 01210 Ferney-Voltaire"
+   "google": "Big M — 41 Av. du Jura, 01210 Ferney-Voltaire",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 259 m)"
   },
   {
    "id": 130,
@@ -195,7 +203,8 @@
    "id": 175,
    "nom": "Lyon - Rillieux-la-Pape",
    "place_id": "ChIJfwmpnvm_9EcRX_TFkaTgyCU",
-   "google": "Big M - Rillieux-La-Pape — 25 Rue Jules Michelet, 69140 Rillieux-la-Pape"
+   "google": "Big M - Rillieux-La-Pape — 25 Rue Jules Michelet, 69140 Rillieux-la-Pape",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 200 m)"
   },
   {
    "id": 131,
@@ -213,7 +222,8 @@
    "id": 156,
    "nom": "Lyon Vaise",
    "place_id": "ChIJKaAdVHbr9EcRY3z1BrjQ0MU",
-   "google": "Big M - Vaise — 32 Rue Marietton, 69009 Lyon"
+   "google": "Big M - Vaise — 32 Rue Marietton, 69009 Lyon",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 162 m)"
   },
   {
    "id": 127,
@@ -238,7 +248,8 @@
    "id": 186,
    "nom": "Montluel",
    "place_id": "ChIJR5nr58G59EcRtuJp1dftF1k",
-   "google": "Big M Montluel Beynost — 74 Grande Rue, 01120 Montluel"
+   "google": "Big M Montluel Beynost — 74 Grande Rue, 01120 Montluel",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 199 m)"
   },
   {
    "id": 145,
@@ -275,7 +286,8 @@
    "id": 150,
    "nom": "Nice",
    "place_id": "ChIJV_0f_tXRzRIRECwtQxtJNFc",
-   "google": "Big M — 75 Bd François Grosso, 06000 Nice"
+   "google": "Big M — 75 Bd François Grosso, 06000 Nice",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 178 m)"
   },
   {
    "id": 123,
@@ -329,7 +341,8 @@
    "id": 133,
    "nom": "Saint-Denis",
    "place_id": "ChIJAQCwZEtp5kcR_0GXrjk8Hew",
-   "google": "Big M - Burger Saint Denis — 4 Bd Félix Faure, 93200 Saint-Denis"
+   "google": "Big M - Burger Saint Denis — 4 Bd Félix Faure, 93200 Saint-Denis",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 67 m)"
   },
   {
    "id": 140,
@@ -379,7 +392,8 @@
    "id": 151,
    "nom": "Thionville",
    "place_id": "ChIJxVQjqwQllUcRdB22i_z8OBg",
-   "google": "Big M — 69 Bd Foch, 57970 Thionville"
+   "google": "Big M — 69 Bd Foch, 57970 Thionville",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 159 m)"
   },
   {
    "id": 137,
