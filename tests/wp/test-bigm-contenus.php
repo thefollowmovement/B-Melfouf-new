@@ -207,6 +207,7 @@ if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() )
 	WP_CLI::log( 'Fenêtre Commander' );
 	$ok( 'https://www.ubereats.com/fr/brand/big-m?diningMode=PICKUP' === bigm_lien_commande_propre( 'https://www.ubereats.com/fr-en/brand/big-m?srsltid=AYCX9v&utm_source=google&diningMode=PICKUP' ), 'lien nettoyé : sans srsltid ni utm_, page française d’Uber Eats, autres paramètres gardés' );
 	$ok( 'https://deliveroo.fr/fr-en/menu/x' === bigm_lien_commande_propre( 'https://deliveroo.fr/fr-en/menu/x?gclid=1' ), 'lien nettoyé : /fr-en/ seulement chez Uber Eats' );
+	$ok( 'https://www.ubereats.com/fr/store/big-m-agen/TD7b?diningMode=DELIVERY' === bigm_lien_commande_propre( 'https://www.ubereats.com/fr/store/big-m-agen/TD7b?diningMode=DELIVERY&pl=JTdCJTIy&ps=1' ) && 'https://deliveroo.fr/fr/menu/angers/doutre/big-m-angers' === bigm_lien_commande_propre( 'https://deliveroo.fr/fr/menu/angers/doutre/big-m-angers?geohash=gbrw43&day=today&time=ASAP' ), 'lien nettoyé : sans l’adresse ni l’heure de livraison de la personne qui l’a copié' );
 	update_post_meta( $resto, 'tfmsl_order_url', 'https://www.ubereats.com/fr-en/store/big-m-test/abc' );
 	update_post_meta( $resto, 'tfmsl_phone', '01 23 45 67 89' );
 	$c = bigm_restaurant_commande( $resto );
@@ -248,6 +249,10 @@ if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() )
 	wp_set_current_user( 0 );
 	$ok( 401 === rest_do_request( $envoi )->get_status() && 401 === rest_do_request( new WP_REST_Request( 'GET', '/bigm/v1/commander/restaurants' ) )->get_status(), 'liens saisis : fermés aux visiteurs' );
 	wp_set_current_user( $anonyme );
+	update_post_meta( $resto, 'tfmsl_order_url', 'https://www.ubereats.com/fr/store/big-m-test/xyz/' );
+	$c = bigm_restaurant_commande( $resto );
+	$ok( '' === $c['autre'] && 1 === count( $c['liens'] ), 'lien StoreLocatore vers une plateforme déjà remplie : pas de « Commander en ligne » en double' );
+	update_post_meta( $resto, 'tfmsl_order_url', 'https://commande.example.test/bigm' );
 	$plateformes = bigm_commande_nettoyer_plateformes(
 		array(
 			array( 'id' => 'ubereats', 'nom' => 'Uber Eats (nouveau nom)', 'couleur' => '#06c167' ),

@@ -99,7 +99,9 @@ function bigm_commande_lien_vers( string $url, array $domaines ): bool {
 
 /**
  * Lien de commande nettoyé : sans paramètres de suivi (srsltid de Google, utm_…, gclid,
- * fbclid), et page française d'Uber Eats (/fr/ au lieu de /fr-en/).
+ * fbclid), sans l'adresse ni l'heure de livraison de la personne qui a copié le lien
+ * (pl, ps d'Uber Eats ; geohash, day, time de Deliveroo), et page française d'Uber Eats
+ * (/fr/ au lieu de /fr-en/).
  *
  * @param string $url Lien saisi.
  */
@@ -111,9 +113,15 @@ function bigm_lien_commande_propre( string $url ): string {
 	$requete = (string) wp_parse_url( $url, PHP_URL_QUERY );
 	if ( '' !== $requete ) {
 		parse_str( $requete, $params );
+		$retirer = array( 'srsltid', 'gclid', 'fbclid', 'msclkid' );
+		if ( bigm_commande_lien_vers( $url, array( 'ubereats.com' ) ) ) {
+			$retirer = array_merge( $retirer, array( 'pl', 'ps', 'mod', 'modctx' ) );
+		} elseif ( bigm_commande_lien_vers( $url, array( 'deliveroo' ) ) ) {
+			$retirer = array_merge( $retirer, array( 'geohash', 'day', 'time' ) );
+		}
 		$suivi = array_filter(
 			array_keys( $params ),
-			static fn( $k ) => in_array( strtolower( (string) $k ), array( 'srsltid', 'gclid', 'fbclid', 'msclkid' ), true ) || str_starts_with( strtolower( (string) $k ), 'utm_' )
+			static fn( $k ) => in_array( strtolower( (string) $k ), $retirer, true ) || str_starts_with( strtolower( (string) $k ), 'utm_' )
 		);
 		if ( $suivi ) {
 			$url = remove_query_arg( $suivi, $url );
@@ -183,8 +191,14 @@ function bigm_restaurant_commande( int $id ): array {
 			$liens[ $p['id'] ] = bigm_lien_commande_propre( $lien );
 		}
 	}
-	if ( '' !== $plugin && in_array( $plugin, $liens, true ) ) {
-		$plugin = '';
+	// Lien de StoreLocatore vers une plateforme déjà remplie (même fiche, autre écriture) : pas de doublon.
+	if ( '' !== $plugin ) {
+		foreach ( bigm_commande_plateformes() as $p ) {
+			if ( isset( $liens[ $p['id'] ] ) && bigm_commande_lien_vers( $plugin, bigm_commande_domaines( $p ) ) ) {
+				$plugin = '';
+				break;
+			}
+		}
 	}
 	$tel = '';
 	if ( '1' === (string) get_post_meta( $id, '_bigm_commande_tel', true ) ) {

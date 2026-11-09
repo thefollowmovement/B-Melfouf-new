@@ -98,7 +98,13 @@ Contrôle axe, ordinateur et mobile :
 
 ## Reste à faire dans l'admin (préprod)
 
-1. **Liens de commande des 75 restaurants** (**Restaurants → Liens de commande**) : lien Uber Eats et Deliveroo de chaque restaurant, case Téléphone pour ceux qui livrent eux-mêmes. 3 restaurants ont déjà un lien Uber Eats dans leur fiche StoreLocatore, repris tant que le champ est vide. En attendant, la fenêtre propose le lien Commander par défaut.
+1. **Liens de commande** (**Restaurants → Liens de commande**), remplis le 9 novembre (`personnalisations/liens-commande.json`) : 69 liens Uber Eats et 58 Deliveroo, sur 70 restaurants. Les trois restaurants de Dakar n'ont rien : Uber Eats et Deliveroo n'y sont pas. Restent à faire :
+   - **Nevers** : ses deux fiches Uber Eats sont marquées fermées en 2025, aucune fiche Deliveroo. Laissé vide.
+   - **Villeurbanne – Croix Luizet** : pas de fiche Uber Eats. Fiche Deliveroo probable mais non confirmée (`https://deliveroo.fr/fr/menu/lyon/lyon-vaulx-en-velin/big-m-69`, « Big M - Villeurbanne »). Laissé vide.
+   - **Boulogne** : la fiche Uber Eats existe, mais son adresse est introuvable dans les résultats de recherche. Deliveroo seulement.
+   - À vérifier d'un clic : Deliveroo de **Marseille** (« Big M Marseille Massilia », zone Allauch) et de **Béziers** (fiche aux prix anciens) ; Uber Eats de **Paris 20 – Pyrénées** (deux fiches au même endroit, celle aux 2 000 avis retenue).
+   - Case **Téléphone** pour les restaurants qui livrent eux-mêmes (cochée seulement pour Agen).
+   - **Montpellier nord** garde son lien StoreLocatore générique (`order.store/fr/brand/big-m`), affiché en « Commander en ligne » en plus d'Uber Eats et Deliveroo : à retirer de sa fiche StoreLocatore s'il ne sert plus.
 2. **Logos des plateformes** (Réglages Big M → Commande) : logos carrés officiels d'Uber Eats et de Deliveroo, à demander aux plateformes ou au client. Sans logo, une pastille de couleur porte l'initiale.
 
 ## À signaler dans le dépôt de StoreLocatore
