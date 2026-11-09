@@ -1,6 +1,6 @@
 {
  "source": "Uber Eats, Big M Bondy et Big M Argenteuil (captures et pages enregistrées, 7 et 8 novembre 2026)",
- "notes": "Noms des menus, menus, boissons et sauces recopiés des cartes Uber Eats ; photos et descriptions : ops/carte/uber-eats/{restaurant}.json (extraits des pages enregistrées). Prix non repris (brief). Bacon : bœuf (confirmé par l'agence), même là où Uber Eats écrit « dinde ». Non repris faute d'allergènes dans le tableau : Toast M, Fish M, Big Kroosty (et Spicy), Kids Burger, petit déjeuner (Egg Muffin, Big Egg, Croque Nutella), Mini Donuts, Mini Dooti, Beignet Dubai, Pom'potes, Kinder Surprise, sauces Yoop's et Creamy, Frites cheddar bacon (sans crispy), Grandes frites. Box (Big Box, M Box, Box Noxx) : composition d'après les affiches des Box, ordre 3 pour la catégorie (entre Menus et Burgers), boisson NOXX non comprise dans les allergènes comme pour les menus. W1 à W4 retirés des Nouveautés (9 novembre 2026, place aux Box), badge « Nouveau » gardé. Gamme Mamamia (3 burgers au pain puccia et leurs menus simples) : ingrédients donnés par l'agence ; allergènes réunis à partir des composants connus (sauces, emmental, pain, Tenders pour le poulet frit), à confirmer avec les fiches fournisseurs.",
+ "notes": "Noms des menus, menus, boissons et sauces recopiés des cartes Uber Eats ; photos et descriptions : ops/carte/uber-eats/{restaurant}.json (extraits des pages enregistrées). Prix non repris (brief). Bacon : bœuf (confirmé par l'agence), même là où Uber Eats écrit « dinde ». Non repris faute d'allergènes dans le tableau : Toast M, Fish M, Big Kroosty (et Spicy), Kids Burger, petit déjeuner (Egg Muffin, Big Egg, Croque Nutella), Mini Donuts, Mini Dooti, Beignet Dubai, Pom'potes, Kinder Surprise, sauces Yoop's et Creamy, Frites cheddar bacon (sans crispy), Grandes frites. Box (Big Box, M Box, Box Noxx) : composition d'après les affiches des Box, ordre 3 pour la catégorie (entre Menus et Burgers), boisson NOXX non comprise dans les allergènes comme pour les menus. W1 à W4 retirés des Nouveautés et sans badge (9 novembre 2026, place aux Box et aux Mamamia). Gamme Mamamia (3 burgers au pain puccia et leurs menus simples) : ingrédients donnés par l'agence ; allergènes réunis à partir des composants connus (sauces, emmental, pain, Tenders pour le poulet frit), à confirmer avec les fiches fournisseurs.",
  "categories": [
   {
    "slug": "menus-doubles",
@@ -261,7 +261,7 @@
    "categories": [
     "menus-doubles"
    ],
-   "badge": "Nouveau",
+   "badge": "",
    "composants": [
     "Wrap Curry",
     "Wrap Tandoori",
@@ -276,7 +276,7 @@
    "categories": [
     "menus-doubles"
    ],
-   "badge": "Nouveau",
+   "badge": "",
    "composants": [
     "Wrap Curry",
     "Wrap Tandoori",
@@ -291,7 +291,7 @@
    "categories": [
     "menus-doubles"
    ],
-   "badge": "Nouveau",
+   "badge": "",
    "composants": [
     "Wrap Curry",
     "Wrap Tandoori",
@@ -306,7 +306,7 @@
    "categories": [
     "menus-doubles"
    ],
-   "badge": "Nouveau",
+   "badge": "",
    "composants": [
     "Wrap Curry",
     "Wrap Tandoori",

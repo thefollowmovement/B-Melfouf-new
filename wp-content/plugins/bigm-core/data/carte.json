@@ -1255,7 +1255,7 @@
    "ordre": 14,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Wrap Curry, Wrap Tandoori, Nuggets, Frites",
-   "badge": "Nouveau"
+   "badge": ""
   },
   {
    "titre": "W2 – Wrap au choix + Cheeseburger M",
@@ -1284,7 +1284,7 @@
    "ordre": 15,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Wrap Curry, Wrap Tandoori, Cheeseburger M, Frites",
-   "badge": "Nouveau"
+   "badge": ""
   },
   {
    "titre": "W3 – Wrap au choix + Big",
@@ -1314,7 +1314,7 @@
    "ordre": 16,
    "statut": "publish",
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Wrap Curry, Wrap Tandoori, Big, Frites",
-   "badge": "Nouveau"
+   "badge": ""
   },
   {
    "titre": "Little Kids Burger",
@@ -2434,7 +2434,7 @@
    "statut": "publish",
    "ordre": 17,
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Wrap Curry, Wrap Tandoori, Géant, Frites",
-   "badge": "Nouveau"
+   "badge": ""
   },
   {
    "slug": "little-double",
