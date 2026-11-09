@@ -329,7 +329,23 @@ if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() )
 	$vu   = $fait['avis'][0] ?? 0;
 	$avis = get_transient( 'tfmsl_reviews_' . $vu );
 	$ok( 2 === count( $fait['horaires'] ) && 1 === count( $fait['avis'] ) && 2 === $c['details'] && 1 === $c['avis'], 'planification : un groupe de restaurants par passage, un appel par restaurant et par sujet' );
-	$ok( is_array( $avis ) && 2 === count( $avis ) && 'Sami' === $avis[0]['author_name'] && (int) get_option( '_transient_timeout_tfmsl_reviews_' . $vu ) > time() + 7 * DAY_IN_SECONDS && is_array( get_transient( 'tfmsl_place_summary_' . $vu ) ), 'avis : un appel remplit la fiche et le tableau de bord, gardés plus d’une semaine' );
+	$ok( is_array( $avis ) && 1 === count( $avis ) && 'Sami' === $avis[0]['author_name'] && 2 === count( get_transient( 'tfmsl_place_summary_' . $vu )['reviews'] ?? array() ) && (int) get_option( '_transient_timeout_tfmsl_reviews_' . $vu ) > time() + 7 * DAY_IN_SECONDS && is_array( get_transient( 'tfmsl_place_summary_' . $vu ) ), 'avis : un appel remplit la fiche (5 étoiles seulement) et le tableau de bord (tous), gardés plus d’une semaine' );
+	$GLOBALS['wp_query'] = new WP_Query( array( 'p' => $vu, 'post_type' => 'tfmsl_store' ) ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+	$GLOBALS['wp_the_query'] = $GLOBALS['wp_query']; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+	$GLOBALS['wp_query']->is_singular = true;
+	$GLOBALS['wp_query']->queried_object_id = $vu;
+	$GLOBALS['wp_query']->queried_object = get_post( $vu );
+	do_action( 'wp', $GLOBALS['wp_query'] ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- crochet de WordPress.
+	$pendant_head = null;
+	$lire = static function () use ( $vu, &$pendant_head ) {
+		$pendant_head = get_transient( 'tfmsl_reviews_' . $vu );
+	};
+	add_action( 'wp_head', $lire, 0 );
+	ob_start();
+	do_action( 'wp_head' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- crochet de WordPress.
+	$head = (string) ob_get_clean();
+	remove_action( 'wp_head', $lire, 0 );
+	$ok( array() === $pendant_head && ! str_contains( $head, 'aggregateRating' ) && 1 === count( (array) get_transient( 'tfmsl_reviews_' . $vu ) ), 'fiche : pas de note calculée dans les données structurées, avis 5 étoiles affichés' );
 	$h = get_post_meta( $fait['horaires'][0], 'tfmsl_hours', true );
 	$ok( '14:00' === ( $h['tuesday']['break_start'] ?? '' ), 'horaires importés avec la pause' );
 	$encore = bigm_google_planification( 3, 3 );

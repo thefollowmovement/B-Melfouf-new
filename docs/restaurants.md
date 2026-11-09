@@ -56,6 +56,8 @@ Google facture les appels de StoreLocatore au-delà de 1 000 par mois et par cat
 | Import de StoreLocatore | Son import quotidien est débranché : la case « Synchronisation automatique » des fiches n'a plus d'effet |
 | Disjoncteur | Une page vue par un visiteur n'appelle jamais Google. Seuls la planification, l'admin (bouton « Synchroniser » d'une fiche, « Actualiser » du tableau de bord : un appel par restaurant) et l'API des comptes qui modifient les restaurants le peuvent. Au-delà du plafond (900 par mois et par catégorie), plus aucun appel jusqu'au mois suivant |
 | Réglages | Réglages Big M → Google : fréquence des horaires (jours), des avis (jours), plafond ; compteur du mois, dernier et prochain passage |
+| Avis de la fiche | Les 5 étoiles seulement (filtre `bigm_google_avis_note_min`) : le gabarit de StoreLocatore les présente comme « avis 5 étoiles vérifiés ». Le tableau de bord garde tous les avis |
+| Données structurées de la fiche | Sans note (`aggregateRating`) : StoreLocatore la calculait sur les quelques avis en mémoire, pas sur la vraie note Google, et Google n'affiche pas la note qu'un commerce publie sur son propre site |
 
 `POST /wp-json/bigm/v1/google/planification` (administrateurs) lance un passage tout de suite, par exemple `{"horaires": 0, "avis": 70}` pour remplir les avis de toutes les fiches d'un coup (dans la limite du plafond). WP-Cron ne tourne qu'avec des visites : sur la production, une tâche cron d'Hostinger qui appelle `wp-cron.php` toutes les heures garantit le passage de la nuit.
 

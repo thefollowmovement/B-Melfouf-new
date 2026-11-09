@@ -117,14 +117,17 @@ add_filter(
 
 /**
  * Avis au format de la fiche (TFMSL_Google_API::get_reviews) à partir du résumé du tableau de bord.
+ * Seulement les 5 étoiles (filtre bigm_google_avis_note_min) : le gabarit de la fiche les présente
+ * comme « avis 5 étoiles vérifiés » et les demande ainsi (get_reviews( $id, 5, 8 )).
  *
  * @param array $resume Résumé (get_place_summary).
  * @return array<int, array<string, mixed>>
  */
 function bigm_google_avis_fiche( array $resume ): array {
+	$min  = (int) apply_filters( 'bigm_google_avis_note_min', 5 );
 	$avis = array();
 	foreach ( (array) ( $resume['reviews'] ?? array() ) as $r ) {
-		if ( (int) ( $r['rating'] ?? 0 ) < 1 ) {
+		if ( (int) ( $r['rating'] ?? 0 ) < $min ) {
 			continue;
 		}
 		$avis[] = array(
@@ -243,6 +246,45 @@ function bigm_google_planification( ?int $horaires = null, ?int $avis = null ): 
 	update_option( 'bigm_google_dernier_passage', array( 'date' => current_time( 'mysql' ), 'horaires' => count( $fait['horaires'] ), 'avis' => count( $fait['avis'] ) ), false );
 	return $fait;
 }
+
+/*
+ * Fiche d'un restaurant : pas de note dans les données structurées. StoreLocatore la calcule sur
+ * les quelques avis en mémoire (5 au plus, ici les 5 étoiles), pas sur la vraie note Google ;
+ * Google n'affiche de toute façon pas la note qu'un commerce publie sur son propre site.
+ * Pendant wp_head (JSON-LD du plugin), la mémoire des avis se lit vide : ni note, ni appel.
+ */
+add_action(
+	'wp',
+	static function () {
+		if ( ! is_singular( 'tfmsl_store' ) ) {
+			return;
+		}
+		$id = (int) get_queried_object_id();
+		add_filter( 'transient_tfmsl_reviews_' . $id, static fn( $valeur ) => doing_action( 'wp_head' ) ? array() : $valeur );
+	}
+);
+
+/*
+ * Mise à jour 0.8.1 : avis des fiches recalculés depuis la mémoire du tableau de bord (5 étoiles),
+ * sans appel à Google.
+ */
+add_action(
+	'init',
+	static function () {
+		if ( '2' === get_option( 'bigm_google_avis_format' ) || ! post_type_exists( 'tfmsl_store' ) ) {
+			return;
+		}
+		$duree = ( max( 1, (int) bigm_reglage( 'google_avis_jours' ) ) + 8 ) * DAY_IN_SECONDS;
+		foreach ( get_posts( array( 'post_type' => 'tfmsl_store', 'post_status' => 'any', 'posts_per_page' => -1, 'fields' => 'ids' ) ) as $id ) {
+			$resume = get_transient( 'tfmsl_place_summary_' . $id );
+			if ( is_array( $resume ) && $resume ) {
+				set_transient( 'tfmsl_reviews_' . $id, bigm_google_avis_fiche( $resume ), $duree );
+			}
+		}
+		update_option( 'bigm_google_avis_format', '2', false );
+	},
+	40
+);
 
 /*
  * Chaque nuit vers 4 h (heure du site).
