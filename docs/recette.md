@@ -105,7 +105,12 @@ Contrôle axe, ordinateur et mobile :
    - À vérifier d'un clic : Deliveroo de **Marseille** (« Big M Marseille Massilia », zone Allauch) et de **Béziers** (fiche aux prix anciens) ; Uber Eats de **Paris 20 – Pyrénées** (deux fiches au même endroit, celle aux 2 000 avis retenue).
    - Case **Téléphone** pour les restaurants qui livrent eux-mêmes (cochée seulement pour Agen).
    - **Montpellier nord** garde son lien StoreLocatore générique (`order.store/fr/brand/big-m`), affiché en « Commander en ligne » en plus d'Uber Eats et Deliveroo : à retirer de sa fiche StoreLocatore s'il ne sert plus.
-2. **Logos des plateformes** (Réglages Big M → Commande) : logos carrés officiels d'Uber Eats et de Deliveroo, à demander aux plateformes ou au client. Sans logo, une pastille de couleur porte l'initiale.
+2. **Google Place ID**, remplis le 9 novembre pour 70 restaurants sur 75 (`personnalisations/place-id.json`). À voir avec le client :
+   - Google indique **fermés définitivement** Le Creusot, Sarreguemines et Villeurbanne – Croix Luizet ; la fiche Google de Salengro s'appelle « Salengro/Croix-Luizet ». Si ces restaurants ont fermé, les retirer de la liste ; sinon, leur créer ou rouvrir une fiche Google.
+   - **Colmar** et **Mérignac** sont dans un « Big Canteen » : pas de fiche Google au nom de Big M.
+   - Coordonnées GPS décalées de plus de 300 m sur 7 fiches (Sète, Nevers, O'Parinor, Rosny 2, Metz, Saumur, Claye-Souilly) : l'épingle de la carte est à côté. Les corriger avec le bouton de géocodage de la fiche.
+   - Lyon Vaise : Google et Uber Eats donnent le 32 rue Marietton, la fiche le 53.
+3. **Logos des plateformes** (Réglages Big M → Commande) : logos carrés officiels d'Uber Eats et de Deliveroo, à demander aux plateformes ou au client. Sans logo, une pastille de couleur porte l'initiale.
 
 ## À signaler dans le dépôt de StoreLocatore
 
