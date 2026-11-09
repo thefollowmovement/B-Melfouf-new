@@ -42,6 +42,10 @@ Les restaurants réels se saisissent dans le menu **Restaurants**, ou s'importen
 
 Le widget Store – Locator de la page Nos restaurants est en habillage « Aux couleurs du site ». Ses réglages (hauteur, textes, mode mobile « Carte d'abord ») se modifient dans Elementor.
 
+## Horaires importés de Google (pause de midi)
+
+StoreLocatore 2.5 importe les horaires de Google (bouton « Synchroniser » de la fiche, import quotidien des fiches en synchronisation automatique), mais garde une seule plage par jour : un restaurant ouvert 11:15–14:00 puis 18:30–23:00 n'avait plus que 18:30–23:00. bigm-core (`inc/horaires.php`) corrige juste après chaque import, sans modifier le plugin : il relit les plages reçues de Google et réécrit les horaires de la fiche (première ouverture, dernière fermeture, et la plus longue coupure comme pause, que la fiche affiche et compte pour « Ouvert / Fermé »). `POST /wp-json/bigm/v1/restaurants/{id}/horaires-google` relance l'import d'un restaurant. À retirer quand StoreLocatore gardera lui-même les pauses.
+
 ## Food courts (Big Canteen)
 
 Certains Big M sont dans un **Big Canteen**, le food court du groupe : plusieurs enseignes (Big M, Fatburger, Buffalo's Café, Original Riz Crousty, ADS…) partagent la même salle. bigm-core (`inc/food-court.php`) :

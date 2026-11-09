@@ -248,6 +248,29 @@ if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() )
 	$ok( 'Big Canteen Mérignac' === ( $appel['corps']['textQuery'] ?? '' ), 'Place ID possibles : recherche libre (?q=)' );
 	false === $cle_avant ? delete_option( 'tfmsl_google_api_key' ) : update_option( 'tfmsl_google_api_key', $cle_avant );
 
+	WP_CLI::log( 'Horaires importés de Google (pause)' );
+	$plage   = static fn( $j, $h1, $m1, $h2, $m2, $j2 = null ) => array( 'open' => array( 'day' => $j, 'hour' => $h1, 'minute' => $m1 ), 'close' => array( 'day' => $j2 ?? $j, 'hour' => $h2, 'minute' => $m2 ) );
+	// Horaires de la capture : lundi fermé, mardi à samedi 11:15–14:00 et 18:30–23:00, dimanche 17:00–23:00 ; vendredi jusqu'à 1 h.
+	$periodes = array( $plage( 0, 17, 0, 23, 0 ) );
+	foreach ( array( 2, 3, 4, 5, 6 ) as $j ) {
+		$periodes[] = $plage( $j, 18, 30, 5 === $j ? 1 : 23, 0, 5 === $j ? 6 : null );
+		$periodes[] = $plage( $j, 11, 15, 14, 0 );
+	}
+	$h = bigm_horaires_depuis_google( $periodes );
+	$ok( '1' === $h['monday']['closed'] && array( '0', '11:15', '23:00', '14:00', '18:30' ) === array_values( $h['tuesday'] ) && array( '0', '17:00', '23:00', '', '' ) === array_values( $h['sunday'] ), 'horaires Google à deux plages : ouverture, fermeture et pause de midi ; jour fermé ; dimanche sans pause' );
+	$ok( '01:00' === $h['friday']['close'] && '14:00' === $h['friday']['break_start'], 'fermeture après minuit gardée, pause juste' );
+	// Import de StoreLocatore simulé : il écrit la dernière plage seulement, puis la date de l'import.
+	update_option( 'tfmsl_gmb_debug_' . $resto, array( 'periods' => $periodes, 'date' => current_time( 'mysql' ) ), false );
+	update_post_meta( $resto, 'tfmsl_hours', array( 'tuesday' => array( 'closed' => '0', 'open' => '18:30', 'close' => '23:00', 'break_start' => '', 'break_end' => '' ) ) );
+	update_post_meta( $resto, 'tfmsl_gmb_last_sync', current_time( 'mysql' ) );
+	$apres = get_post_meta( $resto, 'tfmsl_hours', true );
+	$ok( '11:15' === ( $apres['tuesday']['open'] ?? '' ) && '14:00' === ( $apres['tuesday']['break_start'] ?? '' ) && '18:30' === ( $apres['tuesday']['break_end'] ?? '' ), 'après un import de StoreLocatore : horaires réécrits avec la pause' );
+	delete_option( 'tfmsl_gmb_debug_' . $resto );
+	$moi = get_current_user_id();
+	wp_set_current_user( 0 );
+	$ok( 401 === rest_do_request( new WP_REST_Request( 'POST', '/bigm/v1/restaurants/' . $resto . '/horaires-google' ) )->get_status(), 'relance de l’import des horaires : fermée aux visiteurs' );
+	wp_set_current_user( $moi );
+
 	WP_CLI::log( 'Food court (Big Canteen)' );
 	$ok( taxonomy_exists( 'bigm_food_court' ) && '' === bigm_rendu_food_court( $resto ), 'food courts déclarés ; restaurant hors food court : pas de bloc' );
 	$fc = wp_insert_term( 'Big Canteen test', 'bigm_food_court', array( 'description' => 'Plusieurs enseignes du groupe sous un même toit.' ) );
