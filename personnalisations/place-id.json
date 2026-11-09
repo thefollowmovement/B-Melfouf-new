@@ -96,14 +96,14 @@
    "nom": "Centre Commercial O'Parinor",
    "place_id": "ChIJaf7cvlMV5kcR6FW4IzxsAqc",
    "google": "Big M O'parinor — Centre commercial OParinor, 93600 Aulnay-sous-Bois",
-   "gps_fiche_decale_m": 447
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026"
   },
   {
    "id": 171,
    "nom": "Centre Commercial Rosny 2",
    "place_id": "ChIJe_a629AT5kcRWKsO2ocaQDU",
    "google": "Big M Centre Commercial Rosny 2 — Av. du Général de Gaulle, 93110 Rosny-sous-Bois",
-   "gps_fiche_decale_m": 412
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026"
   },
   {
    "id": 192,
@@ -116,7 +116,7 @@
    "nom": "Claye-Souilly",
    "place_id": "ChIJe_kWRWoZ5kcRzX79dAflLZE",
    "google": "BIG M Claye-Souilly — Centre Commercial, 77410 Claye-Souilly",
-   "gps_fiche_decale_m": 315
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026"
   },
   {
    "id": 190,
@@ -226,7 +226,7 @@
    "nom": "Metz",
    "place_id": "ChIJL5wbAgDdlEcR1-dDpDoSgEU",
    "google": "Big M — 62 Rue Serpenoise, 57000 Metz",
-   "gps_fiche_decale_m": 408
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026"
   },
   {
    "id": 179,
@@ -269,7 +269,7 @@
    "nom": "Nevers",
    "place_id": "ChIJB2oeXGxF8EcRe3_jNyQeQxI",
    "google": "BigM Nevers — 7 Rue de la Passière, 58000 Nevers",
-   "gps_fiche_decale_m": 937
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026"
   },
   {
    "id": 150,
@@ -360,7 +360,7 @@
    "nom": "Saumur",
    "place_id": "ChIJW_bWw1L3B0gRWXNXJVLRZAY",
    "google": "Big M Saumur — 50 Av. du Général de Gaulle, 49400 Saumur",
-   "gps_fiche_decale_m": 367
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026"
   },
   {
    "id": 118,
@@ -373,7 +373,7 @@
    "nom": "Sète",
    "place_id": "ChIJV1kTdlE1sRIRxpdAzxaeyew",
    "google": "Big M - Sète — 1054 Bd de Verdun, 34200 Sète",
-   "gps_fiche_decale_m": 970
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026"
   },
   {
    "id": 151,

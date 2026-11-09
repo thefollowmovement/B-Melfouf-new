@@ -109,7 +109,7 @@ Contrôle axe, ordinateur et mobile :
    - Google indique **fermés définitivement** Le Creusot, Sarreguemines et Villeurbanne – Croix Luizet ; la fiche Google de Salengro s'appelle « Salengro/Croix-Luizet ». Si ces restaurants ont fermé, les retirer de la liste ; sinon, leur créer ou rouvrir une fiche Google.
    - **Colmar** et **Mérignac** sont dans un Big Canteen, le food court du groupe (Restaurants → Food courts). Colmar a le Place ID de son Big Canteen. Le Big Canteen de **Mérignac** a fermé : sa fiche est à la corbeille depuis le 9 novembre (74 restaurants).
    - Big Canteen : marques sur place (Colmar : Big M, ADS ; par défaut : Big M, Fatburger, Buffalo's Café, Original Riz Crousty, ADS) à confirmer ; logo et site web à ajouter.
-   - Coordonnées GPS décalées de plus de 300 m sur 7 fiches (Sète, Nevers, O'Parinor, Rosny 2, Metz, Saumur, Claye-Souilly) : l'épingle de la carte est à côté. Les corriger avec le bouton de géocodage de la fiche.
+   - Coordonnées GPS décalées de 300 m à 1 km sur 7 fiches (Sète, Nevers, O'Parinor, Rosny 2, Metz, Saumur, Claye-Souilly) : corrigées le 9 novembre avec celles de Google (même Place ID), épingles contrôlées.
    - Lyon Vaise : Google et Uber Eats donnent le 32 rue Marietton, la fiche le 53.
 3. **Logos des plateformes** (Réglages Big M → Commande) : logos carrés officiels d'Uber Eats et de Deliveroo, à demander aux plateformes ou au client. Sans logo, une pastille de couleur porte l'initiale.
 

@@ -18,7 +18,7 @@ Liens Uber Eats et Deliveroo de chaque restaurant (**Restaurants → Liens de co
 
 ## `place-id.json`
 
-Google Place ID des restaurants (champ « Google Place ID » des fiches StoreLocatore : avis Google, horaires, lien « Laisser un avis »), saisis sur la préprod le 9 novembre 2026 : 71 restaurants sur 74 (Colmar avec le Place ID de son Big Canteen ; Mérignac, fermé, retiré). Trouvés par l'API Places de Google (« Big M » + adresse de la fiche, avec la clé des réglages de StoreLocatore), en ne gardant qu'un établissement « Big M » ouvert à l'adresse de la fiche. Les 5 Place ID déjà saisis à la main étaient identiques. `non_remplis` donne la raison des 5 autres ; `gps_fiche_decale_m` signale les fiches dont les coordonnées GPS sont à plus de 300 m du restaurant sur Google.
+Google Place ID des restaurants (champ « Google Place ID » des fiches StoreLocatore : avis Google, horaires, lien « Laisser un avis »), saisis sur la préprod le 9 novembre 2026 : 71 restaurants sur 74 (Colmar avec le Place ID de son Big Canteen ; Mérignac, fermé, retiré). Trouvés par l'API Places de Google (« Big M » + adresse de la fiche, avec la clé des réglages de StoreLocatore), en ne gardant qu'un établissement « Big M » ouvert à l'adresse de la fiche. Les 5 Place ID déjà saisis à la main étaient identiques. `non_remplis` donne la raison des 5 autres ; `gps_corrige` signale les 7 fiches dont les coordonnées GPS étaient à plus de 300 m du restaurant sur Google (Sète, Nevers, O'Parinor, Rosny 2, Metz, Saumur, Claye-Souilly) : remplacées par celles de Google le 9 novembre 2026, anciennes valeurs sauvegardées hors du dépôt.
 
 ## Food court Big Canteen
 
