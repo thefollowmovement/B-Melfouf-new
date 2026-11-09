@@ -209,6 +209,16 @@ if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() )
 	$ok( 200 === rest_do_request( $maj )->get_status() && 'ChIJ_test-123' === get_post_meta( $resto, 'tfmsl_gmb_place_id', true ) && 'Restaurant test' === get_the_title( $resto ), 'Place ID modifiable par l’API REST (nettoyé), fiche inchangée' );
 	$maj->set_body_params( array( 'meta' => array( 'tfmsl_lat' => '48.90310123456', 'tfmsl_lng' => '2,4828' ) ) );
 	$ok( 200 === rest_do_request( $maj )->get_status() && '48.9031012' === get_post_meta( $resto, 'tfmsl_lat', true ) && '2.4828' === get_post_meta( $resto, 'tfmsl_lng', true ), 'coordonnées GPS modifiables par l’API REST (7 décimales, virgule acceptée)' );
+	$maj->set_body_params(
+		array(
+			'meta' => array(
+				'tfmsl_services'        => 'Vente à emporter, Livraison, <b>Sur place</b>',
+				'tfmsl_payment_methods' => 'Carte bancaire, Espèces, Ticket restaurant',
+				'tfmsl_order_url'       => ' https://www.ubereats.com/fr/store/big-m-test/abc ',
+			),
+		)
+	);
+	$ok( 200 === rest_do_request( $maj )->get_status() && 'Vente à emporter, Livraison, Sur place' === get_post_meta( $resto, 'tfmsl_services', true ) && 'Carte bancaire, Espèces, Ticket restaurant' === get_post_meta( $resto, 'tfmsl_payment_methods', true ) && 'https://www.ubereats.com/fr/store/big-m-test/abc' === get_post_meta( $resto, 'tfmsl_order_url', true ), 'services, paiements et lien Commander modifiables par l’API REST (nettoyés)' );
 	$moi = get_current_user_id();
 	wp_set_current_user( 0 );
 	$maj->set_body_params( array( 'meta' => array( 'tfmsl_gmb_place_id' => 'ChIJpirate' ) ) );

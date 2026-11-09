@@ -145,9 +145,9 @@ add_filter(
 );
 
 /*
- * Google Place ID des restaurants (avis Google, horaires, lien « Laisser un avis » du plugin) dans
- * l'API REST : champ meta de /wp/v2/tfmsl_store/{id}, modifiable par les comptes qui peuvent
- * modifier le restaurant. Une saisie en lot (75 restaurants) n'a plus à passer par l'écran de
+ * Google Place ID des restaurants (avis Google, horaires, lien « Laisser un avis » du plugin),
+ * coordonnées, services, paiements et lien du bouton Commander dans l'API REST : champs meta de
+ * /wp/v2/tfmsl_store/{id}, modifiables par les comptes qui peuvent modifier le restaurant. Une saisie en lot (75 restaurants) n'a plus à passer par l'écran de
  * chaque fiche. Le plugin garde sa propre saisie ; un Place ID n'a que des lettres, chiffres, - et _.
  */
 add_action(
@@ -183,6 +183,32 @@ add_action(
 				'single'            => true,
 				'show_in_rest'      => true,
 				'sanitize_callback' => static fn( $valeur ): string => '1' === (string) $valeur ? '1' : '',
+				'auth_callback'     => static fn( $permis, $k, $post_id ): bool => current_user_can( 'edit_post', (int) $post_id ),
+			)
+		);
+		// Services et moyens de paiement (textes séparés par des virgules), lien du bouton Commander
+		// du plugin : saisie en lot pour tous les restaurants.
+		foreach ( array( 'tfmsl_services', 'tfmsl_payment_methods' ) as $cle ) {
+			register_post_meta(
+				'tfmsl_store',
+				$cle,
+				array(
+					'type'              => 'string',
+					'single'            => true,
+					'show_in_rest'      => true,
+					'sanitize_callback' => static fn( $valeur ): string => sanitize_text_field( (string) $valeur ),
+					'auth_callback'     => static fn( $permis, $k, $post_id ): bool => current_user_can( 'edit_post', (int) $post_id ),
+				)
+			);
+		}
+		register_post_meta(
+			'tfmsl_store',
+			'tfmsl_order_url',
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => true,
+				'sanitize_callback' => static fn( $valeur ): string => esc_url_raw( trim( (string) $valeur ) ),
 				'auth_callback'     => static fn( $permis, $k, $post_id ): bool => current_user_can( 'edit_post', (int) $post_id ),
 			)
 		);
