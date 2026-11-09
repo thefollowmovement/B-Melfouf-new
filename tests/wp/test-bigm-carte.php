@@ -315,6 +315,13 @@ bigm_import_produit( array_merge( $fiche_d, array( 'description' => 'Autre texte
 $ok( 'Texte écrit dans l’admin.' === get_post_field( 'post_content', $rd['id'] ), 'description retouchée dans l’admin : gardée' );
 bigm_import_produit( array_merge( $fiche_d, array( 'description' => 'Texte corrigé.', 'anciennes_descriptions' => array( 'Texte écrit dans l’admin.' ) ) ) );
 $ok( 'Texte corrigé.' === get_post_field( 'post_content', $rd['id'] ), 'description listée dans « anciennes_descriptions » (import d’une version précédente) : remplacée' );
+bigm_import_produit( array_merge( $fiche_d, array( 'ingredients' => array( 'Pain', '', 'Steak' ) ) ) );
+$ok( array( 'Pain', 'Steak' ) === bigm_produit( $rd['id'] )['ingredients'], 'ingrédients du fichier : repris (lignes vides retirées)' );
+bigm_import_produit( array_merge( $fiche_d, array( 'ingredients' => array( 'Pain puccia', 'Steak' ) ) ) );
+$ok( array( 'Pain puccia', 'Steak' ) === bigm_produit( $rd['id'] )['ingredients'], 'ingrédients d’un import précédent, pas retouchés : remplacés' );
+update_post_meta( $rd['id'], '_bigm_ingredients', array( 'Liste écrite dans l’admin' ) );
+bigm_import_produit( array_merge( $fiche_d, array( 'ingredients' => array( 'Autre liste' ) ) ) );
+$ok( array( 'Liste écrite dans l’admin' ) === bigm_produit( $rd['id'] )['ingredients'], 'ingrédients retouchés dans l’admin : gardés' );
 $ok( ! array_key_exists( 'dinde', bigm_viandes() ) && array( 'boeuf', 'poulet', 'poisson', 'vegetarien' ) === array_keys( bigm_viandes() ), 'viandes : bœuf, poulet, poisson, végétarien (bacon de bœuf)' );
 // Photos (sans réseau) : des images déjà dans la médiathèque, retrouvées par leur adresse d'origine.
 $image_test = static function ( string $nom, string $origine ) use ( &$posts ): int {
@@ -378,6 +385,8 @@ $ok( 'Z9 – Menu test' === get_the_title( $code['id'] ) && 'publish' === get_po
 WP_CLI::log( 'Import ciblé (POST bigm/v1/carte/importer)' );
 $box_fichier = array_values( array_filter( $fichier['produits'], static fn( $p ): bool => in_array( 'box', (array) ( $p['categories'] ?? array() ), true ) ) );
 $ok( array( 'big-box', 'm-box', 'box-noxx' ) === array_column( $box_fichier, 'slug' ) && in_array( 'box', array_column( $fichier['categories'], 'slug' ), true ), 'fichier : catégorie Box et ses 3 produits' );
+$mamamia = array_column( array_filter( $fichier['produits'], static fn( $p ): bool => str_contains( (string) $p['slug'], 'mamamia' ) ), null, 'slug' );
+$ok( 6 === count( $mamamia ) && 6 === count( $mamamia['mamamia-spicy']['ingredients'] ?? array() ) && array() === array_diff( $mamamia['mamamia-original']['contient'], $mamamia['menu-mamamia-original']['contient'] ) && array( 'menus-simples' ) === $mamamia['menu-mamamia-chicken']['categories'], 'fichier : gamme Mamamia, 3 burgers avec ingrédients et 3 menus simples (allergènes du burger repris)' );
 $termes_avant = get_terms(
 	array(
 		'taxonomy'   => 'bigm_categorie',

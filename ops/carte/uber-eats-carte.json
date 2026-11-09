@@ -1,6 +1,6 @@
 {
  "source": "Uber Eats, Big M Bondy et Big M Argenteuil (captures et pages enregistrées, 7 et 8 novembre 2026)",
- "notes": "Noms des menus, menus, boissons et sauces recopiés des cartes Uber Eats ; photos et descriptions : ops/carte/uber-eats/{restaurant}.json (extraits des pages enregistrées). Prix non repris (brief). Bacon : bœuf (confirmé par l'agence), même là où Uber Eats écrit « dinde ». Non repris faute d'allergènes dans le tableau : Toast M, Fish M, Big Kroosty (et Spicy), Kids Burger, petit déjeuner (Egg Muffin, Big Egg, Croque Nutella), Mini Donuts, Mini Dooti, Beignet Dubai, Pom'potes, Kinder Surprise, sauces Yoop's et Creamy, Frites cheddar bacon (sans crispy), Grandes frites. Box (Big Box, M Box, Box Noxx) : composition d'après les affiches des Box, ordre 3 pour la catégorie (entre Menus et Burgers), boisson NOXX non comprise dans les allergènes comme pour les menus. W1 à W4 retirés des Nouveautés (9 novembre 2026, place aux Box), badge « Nouveau » gardé.",
+ "notes": "Noms des menus, menus, boissons et sauces recopiés des cartes Uber Eats ; photos et descriptions : ops/carte/uber-eats/{restaurant}.json (extraits des pages enregistrées). Prix non repris (brief). Bacon : bœuf (confirmé par l'agence), même là où Uber Eats écrit « dinde ». Non repris faute d'allergènes dans le tableau : Toast M, Fish M, Big Kroosty (et Spicy), Kids Burger, petit déjeuner (Egg Muffin, Big Egg, Croque Nutella), Mini Donuts, Mini Dooti, Beignet Dubai, Pom'potes, Kinder Surprise, sauces Yoop's et Creamy, Frites cheddar bacon (sans crispy), Grandes frites. Box (Big Box, M Box, Box Noxx) : composition d'après les affiches des Box, ordre 3 pour la catégorie (entre Menus et Burgers), boisson NOXX non comprise dans les allergènes comme pour les menus. W1 à W4 retirés des Nouveautés (9 novembre 2026, place aux Box), badge « Nouveau » gardé. Gamme Mamamia (3 burgers au pain puccia et leurs menus simples) : ingrédients donnés par l'agence ; allergènes réunis à partir des composants connus (sauces, emmental, pain, Tenders pour le poulet frit), à confirmer avec les fiches fournisseurs.",
  "categories": [
   {
    "slug": "menus-doubles",
@@ -910,6 +910,142 @@
    ],
    "description": "2 Little Géant, 4 onion rings, des frites et 1 boisson énergisante NOXX 50 cl.",
    "badge": "Nouveau"
+  },
+  {
+   "titre": "Mamamia Spicy",
+   "slug": "mamamia-spicy",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "categories": [
+    "boeuf",
+    "nouveautes"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "Pain puccia, 1 steak, 1 tranche d'emmental, tomate, salade et sauce algérienne.",
+   "ingredients": [
+    "Pain puccia",
+    "Steak de bœuf",
+    "Emmental",
+    "Tomate",
+    "Salade",
+    "Sauce algérienne"
+   ],
+   "a_verifier": "allergènes à confirmer avec les fiches fournisseurs (pain puccia, steak) ; repris de : pain (gluten), emmental (lait), Sauce algérienne",
+   "badge": "Nouveau"
+  },
+  {
+   "titre": "Mamamia Chicken",
+   "slug": "mamamia-chicken",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "categories": [
+    "burgers-poulet",
+    "nouveautes"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "description": "Pain puccia, poulet frit, 1 galette de pomme de terre, 2 tranches d'emmental, salade et mayonnaise.",
+   "ingredients": [
+    "Pain puccia",
+    "Poulet frit",
+    "Galette de pomme de terre",
+    "Emmental ×2",
+    "Salade",
+    "Mayonnaise"
+   ],
+   "a_verifier": "allergènes à confirmer avec les fiches fournisseurs (pain puccia, galette de pomme de terre, poulet frit) ; repris de : pain (gluten), emmental (lait), Mayonnaise, Tenders pour le poulet frit",
+   "badge": "Nouveau"
+  },
+  {
+   "titre": "Mamamia Original",
+   "slug": "mamamia-original",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "categories": [
+    "boeuf",
+    "nouveautes"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [],
+   "description": "Pain puccia, 1 steak, 1 galette de pomme de terre, 2 tranches d'emmental, salade et sauce Biggy Burger.",
+   "ingredients": [
+    "Pain puccia",
+    "Steak de bœuf",
+    "Galette de pomme de terre",
+    "Emmental ×2",
+    "Salade",
+    "Sauce Biggy Burger"
+   ],
+   "a_verifier": "allergènes à confirmer avec les fiches fournisseurs (pain puccia, steak, galette de pomme de terre) ; repris de : pain (gluten), emmental (lait), Sauce Biggy Burger",
+   "badge": "Nouveau"
+  },
+  {
+   "titre": "Menu Mamamia Spicy",
+   "slug": "menu-mamamia-spicy",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Mamamia Spicy",
+    "Frite"
+   ],
+   "badge": "Nouveau",
+   "a_verifier": "allergènes du Mamamia Spicy (à confirmer, voir sa fiche) et des frites, boisson non comprise"
+  },
+  {
+   "titre": "Menu Mamamia Chicken",
+   "slug": "menu-mamamia-chicken",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Mamamia Chicken",
+    "Frite"
+   ],
+   "badge": "Nouveau",
+   "a_verifier": "allergènes du Mamamia Chicken (à confirmer, voir sa fiche) et des frites, boisson non comprise"
+  },
+  {
+   "titre": "Menu Mamamia Original",
+   "slug": "menu-mamamia-original",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "categories": [
+    "menus-simples"
+   ],
+   "composants": [
+    "Mamamia Original",
+    "Frite"
+   ],
+   "badge": "Nouveau",
+   "a_verifier": "allergènes du Mamamia Original (à confirmer, voir sa fiche) et des frites, boisson non comprise"
   }
  ]
 }

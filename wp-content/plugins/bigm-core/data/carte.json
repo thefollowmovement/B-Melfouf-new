@@ -3993,6 +3993,191 @@
    "ordre": 3,
    "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Little Géant, Onion rings panko, Frites",
    "badge": "Nouveau"
+  },
+  {
+   "slug": "mamamia-spicy",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "",
+   "titre": "Mamamia Spicy",
+   "categories": [
+    "boeuf",
+    "nouveautes"
+   ],
+   "description": "Pain puccia, 1 steak, 1 tranche d'emmental, tomate, salade et sauce algérienne.",
+   "statut": "publish",
+   "ordre": 22,
+   "a_verifier": "allergènes à confirmer avec les fiches fournisseurs (pain puccia, steak) ; repris de : pain (gluten), emmental (lait), Sauce algérienne",
+   "badge": "Nouveau",
+   "ingredients": [
+    "Pain puccia",
+    "Steak de bœuf",
+    "Emmental",
+    "Tomate",
+    "Salade",
+    "Sauce algérienne"
+   ]
+  },
+  {
+   "slug": "mamamia-chicken",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "image": "",
+   "titre": "Mamamia Chicken",
+   "categories": [
+    "burgers-poulet",
+    "nouveautes"
+   ],
+   "description": "Pain puccia, poulet frit, 1 galette de pomme de terre, 2 tranches d'emmental, salade et mayonnaise.",
+   "statut": "publish",
+   "ordre": 7,
+   "a_verifier": "allergènes à confirmer avec les fiches fournisseurs (pain puccia, galette de pomme de terre, poulet frit) ; repris de : pain (gluten), emmental (lait), Mayonnaise, Tenders pour le poulet frit",
+   "badge": "Nouveau",
+   "ingredients": [
+    "Pain puccia",
+    "Poulet frit",
+    "Galette de pomme de terre",
+    "Emmental ×2",
+    "Salade",
+    "Mayonnaise"
+   ]
+  },
+  {
+   "slug": "mamamia-original",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "",
+   "titre": "Mamamia Original",
+   "categories": [
+    "boeuf",
+    "nouveautes"
+   ],
+   "description": "Pain puccia, 1 steak, 1 galette de pomme de terre, 2 tranches d'emmental, salade et sauce Biggy Burger.",
+   "statut": "publish",
+   "ordre": 23,
+   "a_verifier": "allergènes à confirmer avec les fiches fournisseurs (pain puccia, steak, galette de pomme de terre) ; repris de : pain (gluten), emmental (lait), Sauce Biggy Burger",
+   "badge": "Nouveau",
+   "ingredients": [
+    "Pain puccia",
+    "Steak de bœuf",
+    "Galette de pomme de terre",
+    "Emmental ×2",
+    "Salade",
+    "Sauce Biggy Burger"
+   ]
+  },
+  {
+   "slug": "menu-mamamia-spicy",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "",
+   "titre": "Menu Mamamia Spicy",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Mamamia Spicy, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 22,
+   "a_verifier": "allergènes du Mamamia Spicy (à confirmer, voir sa fiche) et des frites, boisson non comprise",
+   "badge": "Nouveau"
+  },
+  {
+   "slug": "menu-mamamia-chicken",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "image": "",
+   "titre": "Menu Mamamia Chicken",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Mamamia Chicken, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 23,
+   "a_verifier": "allergènes du Mamamia Chicken (à confirmer, voir sa fiche) et des frites, boisson non comprise",
+   "badge": "Nouveau"
+  },
+  {
+   "slug": "menu-mamamia-original",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "",
+   "titre": "Menu Mamamia Original",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Mamamia Original, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 24,
+   "a_verifier": "allergènes du Mamamia Original (à confirmer, voir sa fiche) et des frites, boisson non comprise",
+   "badge": "Nouveau"
   }
  ]
 }

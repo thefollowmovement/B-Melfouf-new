@@ -344,7 +344,7 @@ def fusion_uber(produits, chemin):
         ordre[p["categories"][0]] = max(ordre.get(p["categories"][0], 0), p["ordre"])
     for u in uber["produits"]:
         composants = u.get("composants", [])
-        contient, traces, viandes = profil(composants) if composants else (u.get("contient", []), u.get("traces", []), [])
+        contient, traces, viandes = profil(composants) if composants else (u.get("contient", []), u.get("traces", []), list(u.get("viandes", [])))
         if not composants and "remplace" not in u:
             contient, traces = list(u.get("contient", [])), list(u.get("traces", []))
         description = u.get("description", "")
@@ -364,8 +364,11 @@ def fusion_uber(produits, chemin):
             p = {"slug": u.get("slug", slug(u["titre"])), "source": u.get("source", "Uber Eats : " + u["titre"]),
                  "contient": contient, "traces": traces, "viandes": viandes, "image": ""}
             produits.append(p)
+            par_titre[u["titre"]] = p  # un menu plus loin peut le contenir
         p.update({"titre": u["titre"], "categories": u["categories"], "description": description,
                   "statut": "publish", "ordre": ordre[cat], "a_verifier": note, "badge": u.get("badge", "")})
+        if "ingredients" in u:
+            p["ingredients"] = u["ingredients"]
     return uber
 
 

@@ -8,13 +8,15 @@
  * - catégories : créées si leur adresse n'existe pas encore (nom, titre, ordre, parent, icône) ;
  *   celles qui existent ne sont pas modifiées ;
  * - produits : retrouvés par leur adresse. Un nouveau produit est créé complet (catégories,
- *   viandes, allergènes « contient » et « traces », description, photo, ordre, statut, badge).
+ *   viandes, allergènes « contient » et « traces », description, ingrédients, photo, ordre, statut,
+ *   badge).
  *   Un produit existant reçoit les viandes et les allergènes du fichier, qui font foi. Si son nom
  *   n'a pas été retouché depuis le dernier import (ou s'il est provisoire, « nom à compléter »),
  *   il reprend aussi le nom, les catégories, le statut, l'ordre et le badge du fichier ; sinon
- *   ils ne changent pas. La description est remplacée si elle est vide ou encore celle d'un
- *   import précédent (pas retouchée) ; la photo est ajoutée s'il n'y en a pas, ou remplacée si
- *   elle vient d'un import précédent (l'ancienne est supprimée si plus rien ne s'en sert). On
+ *   ils ne changent pas. La description et la liste d'ingrédients sont remplacées si elles sont
+ *   vides ou encore celles d'un import précédent (pas retouchées) ; la photo est ajoutée s'il n'y
+ *   en a pas, ou remplacée si elle vient d'un import précédent (l'ancienne est supprimée si plus
+ *   rien ne s'en sert). On
  *   peut donc relancer l'import sans perdre ce qui a été retouché dans l'admin ;
  * - photos : téléchargées une fois (l'adresse d'origine est gardée sur le média : c'est elle qui
  *   distingue une photo importée d'une photo choisie dans l'admin) ;
@@ -248,6 +250,19 @@ function bigm_import_produit( array $p ): array {
 	update_post_meta( $id, '_bigm_a_verifier', sanitize_text_field( (string) ( $p['a_verifier'] ?? '' ) ) );
 	update_post_meta( $id, '_bigm_import_titre', (string) get_the_title( $id ) );
 	update_post_meta( $id, '_bigm_import_description', $desc );
+
+	// Ingrédients : ceux du fichier si la liste est vide, ou encore celle d'un import précédent
+	// (pas retouchée dans l'admin).
+	if ( isset( $p['ingredients'] ) ) {
+		$liste    = static fn( $v ): array => array_values( array_filter( array_map( 'sanitize_text_field', (array) $v ) ) );
+		$fichier  = $liste( $p['ingredients'] );
+		$actuels  = $liste( get_post_meta( $id, '_bigm_ingredients', true ) );
+		$importes = $liste( get_post_meta( $id, '_bigm_import_ingredients', true ) );
+		if ( ! $actuels || $actuels === $importes ) {
+			update_post_meta( $id, '_bigm_ingredients', $fichier );
+		}
+		update_post_meta( $id, '_bigm_import_ingredients', $fichier );
+	}
 
 	// Photo : ajoutée s'il n'y en a pas ; remplacée si la photo actuelle vient d'un import précédent
 	// (autre adresse d'origine). Une photo choisie dans l'admin n'est jamais remplacée.
