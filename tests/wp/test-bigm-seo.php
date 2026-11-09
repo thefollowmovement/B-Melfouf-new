@@ -152,6 +152,22 @@ $ariane = $json( 'BreadcrumbList' );
 $ok( $menu && 'Produit référencement' === $menu['name'] && str_contains( wp_json_encode( $menu ), 'HalalDiet' ), 'fiche produit : MenuItem, halal' );
 $ok( $ariane && 'Accueil' === $ariane['itemListElement'][0]['name'] && end( $ariane['itemListElement'] )['name'] === 'Produit référencement', 'fiche produit : fil d’Ariane Accueil › … › produit' );
 
+// Produit sans texte (boissons, sauces…) : description tirée des ingrédients, sinon de la catégorie.
+wp_update_post( array( 'ID' => $produit, 'post_content' => '' ) );
+update_post_meta( $produit, '_bigm_ingredients', array( 'Steak de bœuf', 'Cheddar', 'Sauce Biggy' ) );
+$page(
+	array(
+		'p'         => $produit,
+		'post_type' => 'bigm_produit',
+	)
+);
+$s    = bigm_seo_page( true );
+$menu = $json( 'MenuItem' );
+$ok( $s && 'Produit référencement Big M : steak de bœuf, cheddar, sauce Biggy. 100 % halal, avec les allergènes et les valeurs nutritionnelles.' === $s['description'] && $menu && $s['description'] === ( $menu['description'] ?? '' ), 'produit sans texte : description tirée des ingrédients (meta et MenuItem)' );
+delete_post_meta( $produit, '_bigm_ingredients' );
+$sans = bigm_seo_description_produit( $produit );
+$ok( $cat && ! is_wp_error( $cat ) ? str_contains( $sans, 'rubrique ' . html_entity_decode( $cat[0]->name, ENT_QUOTES ) ) : str_contains( $sans, 'à la carte de Big M' ), 'produit sans texte ni ingrédients : description tirée de la catégorie' );
+
 $page( array( 'post_type' => 'bigm_produit' ) );
 $s = bigm_seo_page( true );
 $ok( $s && get_post_type_archive_link( 'bigm_produit' ) === $s['url'], '/carte/ : adresse canonique et description des réglages' );

@@ -64,6 +64,30 @@ function bigm_seo_extrait( string $html ): string {
 }
 
 /**
+ * Description d'un produit sans texte (boissons, sauces, menus…) : nom, ingrédients s'il y en
+ * a, sinon catégorie, pour que chaque fiche ait sa propre description dans Google.
+ *
+ * @param int $id Produit.
+ */
+function bigm_seo_description_produit( int $id ): string {
+	$p = function_exists( 'bigm_produit' ) ? bigm_produit( $id ) : null;
+	if ( ! $p ) {
+		return '';
+	}
+	$nom = html_entity_decode( (string) $p['titre'], ENT_QUOTES );
+	if ( $p['ingredients'] ) {
+		$liste = array_map( static fn( string $i ): string => mb_strtolower( mb_substr( $i, 0, 1 ) ) . mb_substr( $i, 1 ), array_map( 'strval', $p['ingredients'] ) );
+		$texte = sprintf( "%s Big M\u{202F}: %s. 100\u{202F}%% halal, avec les allergènes et les valeurs nutritionnelles.", $nom, implode( ', ', $liste ) );
+	} else {
+		$terme = $p['categories_ids'] ? get_term( (int) $p['categories_ids'][0], 'bigm_categorie' ) : null;
+		$texte = $terme instanceof WP_Term
+			? sprintf( "%s, rubrique %s de la carte Big M, 100\u{202F}%% halal\u{202F}: allergènes et valeurs nutritionnelles.", $nom, html_entity_decode( $terme->name, ENT_QUOTES ) )
+			: sprintf( "%s, à la carte de Big M, 100\u{202F}%% halal\u{202F}: allergènes et valeurs nutritionnelles.", $nom );
+	}
+	return bigm_seo_extrait( $texte );
+}
+
+/**
  * Ce que la page affichée dit d'elle-même aux moteurs et aux réseaux, ou null quand ce n'est
  * pas à ce module de le dire (restaurants du plugin, recherche, 404). Calculé une fois par page.
  *
@@ -113,6 +137,9 @@ function bigm_seo_calcul(): ?array {
 		$page['noindex']     = '1' === get_post_meta( $objet_id, '_bigm_seo_noindex', true );
 		if ( '' === $page['description'] ) {
 			$page['description'] = bigm_seo_extrait( has_excerpt( $post ) ? get_the_excerpt( $post ) : (string) $post->post_content );
+		}
+		if ( '' === $page['description'] && 'bigm_produit' === $post->post_type ) {
+			$page['description'] = bigm_seo_description_produit( $post->ID );
 		}
 		if ( '' === $page['description'] && is_front_page() ) {
 			$page['description'] = (string) get_bloginfo( 'description' );
@@ -316,6 +343,7 @@ function bigm_seo_donnees_structurees(): array {
 				'suitableForDiet' => 'https://schema.org/HalalDiet',
 			);
 			$texte = bigm_seo_extrait( (string) $p['description'] );
+			$texte = '' !== $texte ? $texte : bigm_seo_description_produit( $p['id'] );
 			if ( '' !== $texte ) {
 				$plat['description'] = $texte;
 			}

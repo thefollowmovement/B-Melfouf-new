@@ -27,6 +27,10 @@ Réécrite le 9 novembre 2026 (ancienne version sauvegardée hors du dépôt) : 
 
 Elle doit décrire la même chose que le bandeau : Google Analytics, les contenus d'autres sites, le lien pour changer d'avis. Codes courts : `[bigm_cookies_liste]` (tableau des cookies), `[bigm_cookies_gestion]` (bouton « Gérer mes cookies »).
 
+## Affichage du bandeau
+
+Caché dans le HTML (`hidden`) : sans JavaScript, rien n'est accepté ni chargé. Un script en ligne de quelques lignes, imprimé juste après lui, lit le cookie `bigm_cookies` comme `cookies.js` et l'affiche aussitôt s'il n'y a pas de choix valable (1.0.3). Le bandeau apparaît avec le reste de la page au lieu d'attendre le script différé : à la première visite, son texte est souvent le plus grand élément de l'écran, celui que mesure le LCP.
+
 ## Cache des pages
 
 Le bandeau est imprimé dans le HTML, identique pour tous les visiteurs : les pages restent en cache (LiteSpeed Cache), le choix est lu dans le navigateur. Depuis 1.0.2, enregistrer **Réglages → Cookies** vide tout le cache (`litespeed_purge_all`), pour qu'un nouveau texte ou « Redemander le choix » s'affiche tout de suite.

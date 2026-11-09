@@ -319,7 +319,8 @@ class Bigm_Box_Widget extends \Elementor\Widget_Base {
 			$media  = ! empty( $b['contenu']['url'] ) && ! str_contains( (string) $b['contenu']['url'], 'placeholder.png' ) ? $b['contenu'] : ( $b['photo'] ?? array() );
 			// Visuel de la première Box : visible dès l'arrivée (souvent l'élément le plus grand de l'écran
 			// sur mobile), donc chargé tout de suite. Les autres attendent (box.js les précharge).
-			$charge = 0 === $i ? array( 'loading' => 'eager' ) : array();
+			// Premier visuel : souvent le plus grand élément de l'écran sur mobile (LCP), chargé tout de suite et en priorité.
+			$charge = 0 === $i ? array( 'loading' => 'eager', 'fetchpriority' => 'high' ) : array();
 			$visuel = $this->image( $media, array( 'alt' => $this->alt( $media, $nom ), 'sizes' => '(max-width: 960px) 92vw, 680px' ) + $charge, 'large' );
 			$desc   = trim( (string) ( $b['texte'] ?? '' ) );
 			$lien   = $bouton ? $this->lien( $b['lien'] ?? array() ) : array( 'url' => '' );

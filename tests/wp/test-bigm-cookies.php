@@ -43,6 +43,11 @@ add_filter( 'bigm_cookies_reglages', $filtre_off );
 $ok( ! str_contains( bigm_cookies_html(), 'data-bigm-cookies-cat="contenus"' ), 'finalité décochée dans Réglages → Cookies : plus proposée' );
 remove_filter( 'bigm_cookies_reglages', $filtre_off );
 
+ob_start();
+do_action( 'wp_body_open' );
+$debut = (string) ob_get_clean();
+$ok( str_contains( $debut, 'id="bigm-cookies"' ) && (bool) preg_match( '#</div>\s*<script[^>]*>\s*\(function\(\)\{var r=document\.getElementById\("bigm-cookies"\)#', $debut ) && str_contains( $debut, 'r.hidden=false' ), 'bandeau affiché par un script en ligne juste après lui, sans attendre cookies.js (LCP)' );
+
 WP_CLI::log( 'Scripts mis en attente' );
 $tag_ga = apply_filters( 'script_loader_tag', "<script id=\"google_gtagjs-js-before\">var a=1;</script>\n<script src=\"https://www.googletagmanager.com/gtag/js?id=G-TEST\" id=\"google_gtagjs-js\" async></script>\n<script id=\"google_gtagjs-js-after\">gtag(\"config\",\"G-TEST\");</script>", 'google_gtagjs', 'https://www.googletagmanager.com/gtag/js?id=G-TEST' );
 $ok( 3 === substr_count( $tag_ga, '<script type="text/plain" data-bigm-cookies="mesure"' ) && str_contains( $tag_ga, 'src="https://www.googletagmanager.com/gtag/js?id=G-TEST"' ), 'Google Analytics de Site Kit (script et scripts en ligne) : en attente, adresse gardée' );

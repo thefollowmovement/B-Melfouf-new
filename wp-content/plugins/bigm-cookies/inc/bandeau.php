@@ -5,7 +5,8 @@
  * pied de page pour changer d'avis, codes courts pour la page de la politique.
  *
  * Imprimé au début de la page (wp_body_open, premier élément atteint au clavier), caché tant que
- * le script n'a pas lu le choix du visiteur : sans JavaScript, rien n'est accepté ni chargé.
+ * le choix du visiteur n'a pas été lu : sans JavaScript, rien n'est accepté ni chargé. Un petit
+ * script en ligne, juste après, l'affiche aussitôt quand il n'y a pas de choix valable.
  *
  * @package BigM\Cookies
  */
@@ -101,6 +102,10 @@ $bigm_cookies_imprimer = static function () {
 	}
 	$fait = true;
 	echo bigm_cookies_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- échappé dans bigm_cookies_html().
+	// Sans choix valable, le bandeau s'affiche dès cette ligne, avec le reste de la page, sans
+	// attendre assets/cookies.js (différé) : c'est souvent le plus grand texte de l'écran (LCP).
+	// Même lecture du cookie que lire() dans cookies.js.
+	wp_print_inline_script_tag( '(function(){var r=document.getElementById("bigm-cookies"),m=document.cookie.match(/(?:^|;\\s*)bigm_cookies=([^;]*)/),c=null;try{c=m&&JSON.parse(decodeURIComponent(m[1]));}catch(e){}if(r&&!(c&&c.v===(r.dataset.version||"1"))){r.hidden=false;document.documentElement.classList.add("bigm-cookies-ouvert");}})();' );
 };
 add_action( 'wp_body_open', $bigm_cookies_imprimer, 1 );
 add_action( 'wp_footer', $bigm_cookies_imprimer, 1 );

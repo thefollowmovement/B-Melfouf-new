@@ -44,7 +44,7 @@ Le référencement Big M s'efface de lui-même si une extension SEO est active (
 
 | Sujet | Où |
 |---|---|
-| Titre et description | Bloc **Référencement** des pages, articles et produits ; champs en bas des catégories de produits et d'articles. Sans saisie : le titre de WordPress, et l'extrait ou le début du texte (155 caractères). `/carte/` reprend le texte de Réglages Big M → La carte. |
+| Titre et description | Bloc **Référencement** des pages, articles et produits ; champs en bas des catégories de produits et d'articles. Sans saisie : le titre de WordPress, et l'extrait ou le début du texte (155 caractères). Produit sans texte (boissons, sauces, menus : 85 sur 163 au 9 novembre 2026) : phrase tirée de ses ingrédients, sinon de sa catégorie (`bigm_seo_description_produit()`, aussi dans le `MenuItem`). `/carte/` reprend le texte de Réglages Big M → La carte. |
 | Ne pas indexer | Case du bloc Référencement : balise `noindex`, page retirée du plan du site |
 | Partage (Open Graph, Twitter) | Image du bloc Référencement, sinon image à la une, image de la catégorie, puis **Réglages Big M → Référencement → Image de partage** (1200 × 630), puis le logo |
 | Adresse canonique | Celle de WordPress sur les pages ; ajoutée sur la carte, les catégories et les listes d'articles |
@@ -142,6 +142,29 @@ Lighthouse mobile sur la préprod, avant cette étape :
 - Sur l'accueil, l'élément le plus lent est une image du widget **Nos Box** (`bigm-box`), chargée en différé alors qu'elle est en haut de page. Il faut lui retirer `loading="lazy"`, lui donner `fetchpriority="high"` et des tailles adaptées (`srcset`).
 - La première slide du hero est une vidéo MP4 de 1,8 Mo sans version WebM : en ajouter une (VP9, 3 Mo maximum, brief § 11).
 - Le score SEO (~60) vient du `noindex` de la préprod : normal.
+
+Lighthouse 12 mobile en production, le 9 novembre 2026, avec LiteSpeed Cache (simulation Moto G Power en 4G lente, depuis l'environnement de Claude Code : l'API PageSpeed Insights était à court de quota) :
+
+| Page | Performance | LCP | TBT | CLS | Accessibilité | Bonnes pratiques | SEO |
+|---|---|---|---|---|---|---|---|
+| Accueil | 80 | 4,4 s | 190 ms | 0 | 100 | 100 | 100 |
+| Carte | 97 | 2,6 s | 0 | 0 | 100 | 100 | 100 |
+| Catégorie Burgers | 95 | 2,4 s | 0 | 0,058 | 100 | 100 | 100 |
+| Fiche produit (Street Tropical) | 100 | 1,5 s | 0 | 0 | 100 | 100 | 92 |
+| Restaurants | 90 | 3,4 s | 0 | 0 | 100 | 96 | 100 |
+| Fiche restaurant (Bondy) | 87 | 3,9 s | 10 ms | 0 | 97 | 96 | 100 |
+| Actualités | 99 | 2,0 s | 0 | 0 | 100 | 100 | 100 |
+| Devenir franchisé | 99 | 1,9 s | 10 ms | 0 | 100 | 100 | 100 |
+| Nous rejoindre | 99 | 2,0 s | 40 ms | 0 | 100 | 100 | 100 |
+
+Corrections qui ont suivi (bigm-core 0.9.2, bigm-box 1.0.2, bigm-cookies 1.0.3) :
+
+- **Accueil** : le plus grand élément est le premier visuel de **Nos Box**, plus grand que la slide sur mobile. Il était chargé sans priorité, derrière les autres images : `fetchpriority="high"`.
+- **Bandeau cookies** : à la première visite, son texte est souvent le plus grand élément de l'écran (page Restaurants). Il attendait le script différé `cookies.js` (2,7 s de « délai de rendu ») ; un petit script en ligne, juste après lui, l'affiche aussitôt.
+- **Fiche produit, SEO 92** : pas de meta description sur les produits sans texte. Description automatique (ci-dessus).
+- **Fiche restaurant, accessibilité 97** : le jour en cours des horaires, en couleur des boutons sur fond gris, n'avait que 4,4:1. Il prend la teinte de survol des boutons (`--tfmsl-l-btn-hover`), au-dessus de 4,5:1.
+- À corriger dans StoreLocatore (dépôt de l'agence) : la photo du bandeau des fiches est servie en taille d'origine, sans `srcset` ni `fetchpriority` (355 Ko pour Bondy), et Leaflet (CSS bloquant) vient de unpkg.com, un autre domaine.
+- Non significatif : « Bonnes pratiques 96 » sur les pages restaurants (erreurs de console) et une partie du « CSS bloquant » viennent de unpkg.com et des tuiles de carte, bloqués par le proxy de l'environnement de test, pas chez les visiteurs.
 
 ## Accessibilité
 

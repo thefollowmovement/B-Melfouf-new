@@ -3,7 +3,7 @@
  * Plugin Name:       Big M — Nos Box
  * Description:       Widget Elementor « Big M — Nos Box » : les Box en cartes (photo et titre) ; la Box choisie montre son contenu en grand. Les Box s'ajoutent dans le widget.
  * Author:            The Follow Movement
- * Version:           1.0.1
+ * Version:           1.0.2
  * Requires at least: 6.5
  * Requires PHP:      8.1
  * Requires Plugins:  elementor
@@ -15,7 +15,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'BIGM_BOX_VERSION', '1.0.1' );
+define( 'BIGM_BOX_VERSION', '1.0.2' );
 define( 'BIGM_BOX_DIR', __DIR__ );
 define( 'BIGM_BOX_URL', plugin_dir_url( __FILE__ ) );
 
