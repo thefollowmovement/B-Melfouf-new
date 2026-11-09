@@ -42,6 +42,18 @@ Les restaurants réels se saisissent dans le menu **Restaurants**, ou s'importen
 
 Le widget Store – Locator de la page Nos restaurants est en habillage « Aux couleurs du site ». Ses réglages (hauteur, textes, mode mobile « Carte d'abord ») se modifient dans Elementor.
 
+## Food courts (Big Canteen)
+
+Certains Big M sont dans un **Big Canteen**, le food court du groupe : plusieurs enseignes (Big M, Fatburger, Buffalo's Café, Original Riz Crousty, ADS…) partagent la même salle. bigm-core (`inc/food-court.php`) :
+
+| Où | Quoi |
+|---|---|
+| Restaurants → Food courts | Un food court : nom, présentation (description), logo carré, marques par défaut (une par ligne), site web (bouton « Découvrir le … ») |
+| Fiche d'un restaurant | Case du food court (bloc « Food courts ») ; bloc « Food court : marques sur place » si ses enseignes diffèrent de celles du food court |
+| Site | Bloc « Ce Big M est au Big Canteen » sous le bandeau de la fiche (crochet `tfmsl_after_store_hero` du gabarit de StoreLocatore), avec la présentation et les marques ; shortcode `[bigm_food_court]` pour un modèle Elementor de fiche. CSS (`assets/css/food-court.css`) chargé seulement sur ces fiches |
+
+Le Place ID d'un restaurant de food court est celui du food court sur Google (fiche « Big Canteen »). `GET /wp-json/bigm/v1/restaurants/{id}/place-id?q=Big Canteen Mérignac` cherche un nom libre. Food courts, champs et marques sont aussi dans l'API REST (`/wp/v2/bigm_food_court`, meta `_bigm_fc_logo`, `_bigm_fc_marques`, `_bigm_fc_site` ; meta `_bigm_fc_marques` du restaurant).
+
 ## Fenêtre Commander
 
 Les boutons Commander du site (en-tête, bouton central mobile, fiches produit sans lien propre, widgets) ouvrent une fenêtre, gérée par bigm-core (`inc/commander.php`, `assets/js/commander.js`) :

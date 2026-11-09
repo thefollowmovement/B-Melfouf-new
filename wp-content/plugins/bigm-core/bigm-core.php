@@ -3,7 +3,7 @@
  * Plugin Name:       Big M — cœur
  * Description:       Contenus de Big M gérés dans l'admin (produits, catégories de la carte, sliders et bannières, réglages) et widgets Elementor Big M (slider, accueil, carte, catégories, fiche produit, pages de contenu) ; intégration du plugin StoreLocatore (restaurants).
  * Author:            The Follow Movement
- * Version:           0.7.4
+ * Version:           0.7.5
  * Requires at least: 6.5
  * Requires PHP:      8.2
  * License:           GPL-2.0-or-later
@@ -14,7 +14,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'BIGM_CORE_VERSION', '0.7.4' );
+define( 'BIGM_CORE_VERSION', '0.7.5' );
 define( 'BIGM_CORE_FILE', __FILE__ );
 define( 'BIGM_CORE_DIR', __DIR__ );
 define( 'BIGM_CORE_URL', plugin_dir_url( __FILE__ ) );
@@ -31,6 +31,7 @@ require BIGM_CORE_DIR . '/inc/rendu.php';
 require BIGM_CORE_DIR . '/inc/pages.php';
 require BIGM_CORE_DIR . '/inc/restaurants.php';
 require BIGM_CORE_DIR . '/inc/commander.php';
+require BIGM_CORE_DIR . '/inc/food-court.php';
 require BIGM_CORE_DIR . '/inc/redirections.php';
 require BIGM_CORE_DIR . '/inc/seo.php';
 require BIGM_CORE_DIR . '/inc/performance.php';

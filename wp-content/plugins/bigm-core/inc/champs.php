@@ -158,6 +158,7 @@ add_action(
 		$ours = $ours || ( 'bigm_categorie' === $screen->taxonomy && in_array( $hook, array( 'edit-tags.php', 'term.php' ), true ) );
 		$ours = $ours || 'toplevel_page_bigm-reglages' === $hook;
 		$ours = $ours || 'tfmsl_store_page_bigm-commande' === $hook;
+		$ours = $ours || ( 'bigm_food_court' === $screen->taxonomy && in_array( $hook, array( 'edit-tags.php', 'term.php' ), true ) );
 		// Bloc Référencement (image de partage) des pages et articles.
 		$ours = $ours || ( in_array( $screen->post_type, array( 'page', 'post' ), true ) && in_array( $hook, array( 'post.php', 'post-new.php' ), true ) );
 		if ( ! $ours ) {

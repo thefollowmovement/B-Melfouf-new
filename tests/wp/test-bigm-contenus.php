@@ -238,7 +238,33 @@ if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() )
 	remove_filter( 'pre_http_request', $google, 10 );
 	$c = $reponse->get_data()['candidats'][0] ?? array();
 	$ok( 200 === $reponse->get_status() && 'ChIJabc' === ( $c['place_id'] ?? '' ) && 100 === ( $c['distance_m'] ?? 0 ) && 'CLE-TEST' === ( $appel['cle'] ?? '' ) && str_starts_with( (string) ( $appel['corps']['textQuery'] ?? '' ), 'Big M ' ) && isset( $appel['corps']['locationBias'] ), 'Place ID possibles : recherche Google avec la clé du plugin, près de la fiche, distance calculée' );
+	add_filter( 'pre_http_request', $google, 10, 3 );
+	$req = new WP_REST_Request( 'GET', '/bigm/v1/restaurants/' . $resto . '/place-id' );
+	$req->set_query_params( array( 'q' => 'Big Canteen Mérignac' ) );
+	rest_do_request( $req );
+	remove_filter( 'pre_http_request', $google, 10 );
+	$ok( 'Big Canteen Mérignac' === ( $appel['corps']['textQuery'] ?? '' ), 'Place ID possibles : recherche libre (?q=)' );
 	false === $cle_avant ? delete_option( 'tfmsl_google_api_key' ) : update_option( 'tfmsl_google_api_key', $cle_avant );
+
+	WP_CLI::log( 'Food court (Big Canteen)' );
+	$ok( taxonomy_exists( 'bigm_food_court' ) && '' === bigm_rendu_food_court( $resto ), 'food courts déclarés ; restaurant hors food court : pas de bloc' );
+	$fc = wp_insert_term( 'Big Canteen test', 'bigm_food_court', array( 'description' => 'Plusieurs enseignes du groupe sous un même toit.' ) );
+	$fc = is_wp_error( $fc ) ? 0 : (int) $fc['term_id'];
+	update_term_meta( $fc, '_bigm_fc_marques', "Big M\nFatburger\nBuffalo's Café" );
+	update_term_meta( $fc, '_bigm_fc_site', 'https://bigcanteen.example.test/' );
+	wp_set_object_terms( $resto, array( $fc ), 'bigm_food_court' );
+	$bloc = bigm_rendu_food_court( $resto );
+	$ok( str_contains( $bloc, 'Ce Big M est au Big Canteen test' ) && 3 === substr_count( $bloc, '<li>' ) && str_contains( $bloc, 'Plusieurs enseignes' ) && str_contains( $bloc, 'href="https://bigcanteen.example.test/"' ), 'bloc Food court : nom, présentation, marques du food court, site' );
+	update_post_meta( $resto, '_bigm_fc_marques', "Big M\nADS" );
+	$bloc = bigm_rendu_food_court( $resto );
+	$ok( 2 === substr_count( $bloc, '<li>' ) && str_contains( $bloc, '<li>ADS</li>' ), 'marques sur place propres au restaurant' );
+	$page( array( 'p' => $resto, 'post_type' => 'tfmsl_store' ) );
+	$GLOBALS['wp_query']->is_singular = true;
+	$ok( in_array( 'bigm-food-court', $assets(), true ), 'fiche d’un restaurant de food court : CSS du bloc chargé' );
+	ob_start();
+	do_action( 'tfmsl_after_store_hero', $resto );
+	$ok( str_contains( (string) ob_get_clean(), 'class="bigm-fc"' ), 'bloc affiché sous le bandeau de la fiche (crochet de StoreLocatore)' );
+	wp_delete_term( $fc, 'bigm_food_court' );
 
 	WP_CLI::log( 'Fenêtre Commander' );
 	$ok( 'https://www.ubereats.com/fr/brand/big-m?diningMode=PICKUP' === bigm_lien_commande_propre( 'https://www.ubereats.com/fr-en/brand/big-m?srsltid=AYCX9v&utm_source=google&diningMode=PICKUP' ), 'lien nettoyé : sans srsltid ni utm_, page française d’Uber Eats, autres paramètres gardés' );

@@ -175,16 +175,17 @@ add_action(
  * (« Big M » + adresse de la fiche), près des coordonnées de la fiche, avec la clé Google des
  * réglages de StoreLocatore (celle qui sert aux avis et aux horaires). Rien n'est enregistré.
  *
- * @param int $id Restaurant (tfmsl_store).
+ * @param int    $id      Restaurant (tfmsl_store).
+ * @param string $requete Recherche libre (« Big Canteen Mérignac »), sinon « Big M » + adresse.
  * @return array<int, array{place_id: string, nom: string, adresse: string, statut: string, distance_m: ?int, maps: string}>|WP_Error
  */
-function bigm_restaurant_place_candidats( int $id ) {
+function bigm_restaurant_place_candidats( int $id, string $requete = '' ) {
 	$cle = trim( (string) get_option( 'tfmsl_google_api_key', '' ) );
 	if ( '' === $cle ) {
 		return new WP_Error( 'bigm_place_cle', 'Clé API Google absente des réglages de StoreLocatore.', array( 'status' => 400 ) );
 	}
 	$m       = static fn( string $k ): string => trim( (string) get_post_meta( $id, $k, true ) );
-	$requete = trim( 'Big M ' . $m( 'tfmsl_address' ) . ', ' . $m( 'tfmsl_zip' ) . ' ' . $m( 'tfmsl_city' ) );
+	$requete = '' !== trim( $requete ) ? trim( $requete ) : trim( 'Big M ' . $m( 'tfmsl_address' ) . ', ' . $m( 'tfmsl_zip' ) . ' ' . $m( 'tfmsl_city' ) );
 	$corps   = array(
 		'textQuery'    => $requete,
 		'languageCode' => 'fr',
@@ -247,7 +248,7 @@ function bigm_restaurant_place_candidats( int $id ) {
 }
 
 /*
- * GET /wp-json/bigm/v1/restaurants/{id}/place-id : Place ID possibles d'un restaurant, pour les
+ * GET /wp-json/bigm/v1/restaurants/{id}/place-id[?q=…] : Place ID possibles d'un restaurant, pour les
  * comptes qui peuvent le modifier. La clé reste sur le serveur. Enregistrer le bon avec
  * POST /wp/v2/tfmsl_store/{id} {"meta": {"tfmsl_gmb_place_id": "…"}}, ou dans la fiche.
  */
@@ -261,7 +262,7 @@ add_action(
 				'methods'             => 'GET',
 				'permission_callback' => static fn( WP_REST_Request $r ): bool => 'tfmsl_store' === get_post_type( (int) $r['id'] ) && current_user_can( 'edit_post', (int) $r['id'] ),
 				'callback'            => static function ( WP_REST_Request $r ) {
-					$c = bigm_restaurant_place_candidats( (int) $r['id'] );
+					$c = bigm_restaurant_place_candidats( (int) $r['id'], sanitize_text_field( (string) $r->get_param( 'q' ) ) );
 					return is_wp_error( $c ) ? $c : rest_ensure_response(
 						array(
 							'id'        => (int) $r['id'],
