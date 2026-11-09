@@ -24,3 +24,7 @@ Google Place ID des restaurants (champ « Google Place ID » des fiches StoreLoc
 
 Restaurants → Food courts → **Big Canteen** (créé le 9 novembre 2026 sur la préprod) : présentation « Le food court du groupe Big M : plusieurs enseignes sous un même toit, une grande salle, et chacun choisit ce qu’il aime. », marques par défaut Big M, Fatburger, Buffalo’s Café, Original Riz Crousty, ADS. Associé à **Colmar - Big Canteen** (marques sur place : Big M, ADS ; la fiche s'appelait « Colmar », son adresse `/restaurants/colmar/` n'a pas changé). Le Big Canteen de Mérignac a fermé : sa fiche a été mise à la corbeille le 9 novembre 2026 (sauvegarde gardée hors du dépôt). Marques d'après la presse des ouvertures (2026), à confirmer. Logo et site web à ajouter.
 
+
+## Catégories Poulet et Sauces retirées de la carte
+
+Supprimées dans l'admin par l'agence le 9 novembre 2026, volontairement et pour le moment : pas de commande de ces produits actuellement. Les 2 Chick'n Box (Curry, Tandoori) et les 13 sauces restent publiés, sans catégorie, donc absents de la carte. Ne pas les recréer ni ranger ces produits ailleurs sans demande. `data/carte.json` contient toujours ces deux catégories : un import complet (Produits → Importer la carte) les recréerait et y remettrait ces produits. Pour ajouter ou corriger un produit, passer par l'import ciblé (`POST bigm/v1/carte/importer`), qui ne crée que les catégories du produit demandé.
