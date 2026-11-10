@@ -54,7 +54,7 @@ La section du jeu comprend, dans l'ordre :
 
 Sur mobile, la bande montre l'affiche seule, sans vidéo, pour économiser les données. Dans un modèle Elementor de fiche, on utilise le code court `[bigm_jeu_concours_bande]`. Le CSS et le JS ne sont chargés que sur ces fiches et sur la page du jeu.
 
-**Bannière (accueil).** Widget « Big M — Bannière jeu concours » ou code court `[bigm_jeu_concours_banniere]`. C'est la même bande que sur les fiches, à la largeur du site, avec « Jeu concours avec … » en surtitre. Elle n'affiche rien hors des dates du jeu : le widget peut rester sur l'accueil d'un jeu à l'autre (dans l'éditeur, un cadre en pointillés le signale). Sur l'accueil, elle est placée sous « Nos Box ».
+**Bannière.** Widget « Big M — Bannière jeu concours » ou code court `[bigm_jeu_concours_banniere]`. C'est la même bande que sur les fiches, à la largeur du site, avec « Jeu concours avec … » en surtitre. Elle n'affiche rien hors des dates du jeu : le widget peut rester en place d'un jeu à l'autre (dans l'éditeur, un cadre en pointillés le signale). Elle n'est pas posée sur l'accueil : Big M a préféré le garder tel quel (10 novembre 2026). Pour l'ajouter, il suffit de glisser le widget sous « Nos Box » dans Elementor.
 
 **Bouton flottant.** Une pastille « Jeu concours en cours · Plus que N jours pour jouer » mène à la page du jeu. Elle se place en bas à gauche (à droite, il y a le bouton des promos de StoreLocatore). Sur mobile, elle se place au-dessus de la barre d'onglets.
 - **Où :** sur toutes les pages, sauf celle du jeu et les fiches des restaurants participants, qui ont déjà la bande.

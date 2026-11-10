@@ -73,6 +73,24 @@ Certains Big M sont dans un **Big Canteen**, le food court du groupe : plusieurs
 
 Le Place ID d'un restaurant de food court est celui du food court sur Google (fiche « Big Canteen »). `GET /wp-json/bigm/v1/restaurants/{id}/place-id?q=Big Canteen Mérignac` cherche un nom libre. Food courts, champs et marques sont aussi dans l'API REST (`/wp/v2/bigm_food_court`, meta `_bigm_fc_logo`, `_bigm_fc_marques`, `_bigm_fc_site` ; meta `_bigm_fc_marques` du restaurant).
 
+## Galerie commune
+
+Les photos de la section « Galerie » des fiches sont les mêmes pour tous les restaurants. Elles se règlent une seule fois dans **Restaurants → Galerie commune** (`bigm-core/inc/galerie-restaurants.php`, option `bigm_galerie_restaurants`, aussi dans `/wp-json/wp/v2/settings`).
+
+- **Sur la page de réglage :**
+  - « Ajouter des photos » ouvre la médiathèque ;
+  - on glisse les photos pour changer l'ordre et la croix retire une photo ;
+  - « Reprendre la galerie d'un restaurant » copie celle d'une fiche ;
+  - une étiquette rouge signale les photos sans texte de remplacement, avec un lien pour le saisir.
+- **Sur le site :** StoreLocatore lit la galerie d'une fiche par `get_post_meta( …, 'tfmsl_gallery', true )`. Dans son gabarit, son widget Elementor, son API et son score de complétude, cette lecture passe par le filtre `get_post_metadata` : toutes les fiches reçoivent la galerie commune, sans modifier le plugin. Les mêmes fichiers servent partout, donc le navigateur les garde en cache d'une fiche à l'autre.
+- **Galerie commune vide :** chaque restaurant garde sa propre galerie. Elle n'est jamais effacée et se lit par `bigm_galerie_du_restaurant()`.
+- **Dans la fiche d'un restaurant :** le champ « Galerie » du plugin est remplacé par un renvoi vers la page de réglage. Il n'est plus envoyé à l'enregistrement, donc la galerie propre reste telle quelle.
+- **Cache :** le cache des pages (LiteSpeed) est vidé à chaque enregistrement.
+
+État au 10 novembre 2026, avant la galerie commune : 9 fiches sur 70 avaient une galerie (Roanne et Agen 7 photos, Compiègne et Bondy 6, Aéroville, Argenteuil, Rosny 2, Ferney-Voltaire et Décines 5), avec 9 photos différentes en tout.
+
+Test : `tests/wp/test-bigm-galerie.php`.
+
 ## Fenêtre Commander
 
 Les boutons Commander du site (en-tête, bouton central mobile, fiches produit sans lien propre, widgets) ouvrent une fenêtre, gérée par bigm-core (`inc/commander.php`, `assets/js/commander.js`) :
