@@ -91,6 +91,38 @@ Les photos de la section « Galerie » des fiches sont les mêmes pour tous les 
 
 Test : `tests/wp/test-bigm-galerie.php`.
 
+## Récapitulatif des avis par e-mail
+
+`bigm-core/inc/recap-avis.php`. L'e-mail est aux couleurs de Big M : en-tête brun avec le logo, filet orange, tuiles beiges, étoiles jaunes, boutons orange et texte brun. Les polices sont Fredoka et Figtree, avec un repli sur Arial dans les messageries qui ne les chargent pas. Une version texte est jointe.
+
+**Ce qu'il contient**, par restaurant, sur la période :
+- la note Google et son évolution, calculée depuis `tfmsl_rating_history` ;
+- le nombre d'avis Google ;
+- les nouveaux avis Google : note, auteur, date, texte et bouton « Répondre sur Google » ;
+- les retours privés laissés sur la page d'avis du site (table `tfmsl_feedback`) : note, message, nom, contact cliquable ;
+- les chiffres de la page d'avis (`tfmsl_events`) : notes données et clics vers Google.
+
+L'e-mail général ajoute en tête la note du réseau (moyenne pondérée par le nombre d'avis), le total des nouveaux avis et des retours, puis le tableau de tous les restaurants. Il détaille ensuite ceux qui ont du nouveau.
+
+**Réglages** (Réglages Big M → Avis) :
+- adresse générale, qui reçoit tous les restaurants ;
+- « Envoyer aussi à chaque restaurant » : à l'adresse « Email du responsable » de sa fiche (onglet Intégrations de StoreLocatore, la même qui reçoit déjà les retours privés), seulement s'il y a du nouveau ;
+- fréquence : le lundi pour la semaine écoulée (par défaut), chaque jour pour la veille, le 1er du mois pour le mois écoulé, ou jamais.
+
+**Envoi :** tâche `bigm_recap_avis` chaque jour à 9 h, une seule fois par jour (`bigm_recap_dernier_jour`). Le bilan du dernier envoi est gardé dans `bigm_recap_dernier`. L'expéditeur s'appelle « Big M », avec l'adresse d'envoi du site.
+
+**Restaurants → Récapitulatif des avis :**
+- aperçu de l'e-mail général ou de celui d'un restaurant ;
+- « M'envoyer un essai » : tout part vers soi, rien aux restaurants ;
+- « Envoyer maintenant » ;
+- API : `POST bigm/v1/avis/recap` (`action` : `apercu`, `essai` ou `envoyer` ; `restaurant` ; `jours`).
+
+**Limites :**
+- Google ne donne que 5 avis par restaurant, les plus utiles selon lui. Ils sont relevés par la planification de `inc/google.php` (tous les 7 jours par défaut, voir « Appels à Google »). Un avis très récent ou noyé parmi d'autres peut donc manquer, alors que la note et le nombre d'avis sont toujours à jour.
+- Les e-mails partent par `wp_mail`. Si rien n'arrive, installer une extension SMTP (ou l'outil e-mail d'Hostinger) avec l'adresse du domaine.
+
+Test : `tests/wp/test-bigm-recap.php`.
+
 ## Fenêtre Commander
 
 Les boutons Commander du site (en-tête, bouton central mobile, fiches produit sans lien propre, widgets) ouvrent une fenêtre, gérée par bigm-core (`inc/commander.php`, `assets/js/commander.js`) :

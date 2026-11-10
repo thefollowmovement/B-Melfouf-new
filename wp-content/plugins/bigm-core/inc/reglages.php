@@ -165,6 +165,36 @@ function bigm_reglages_champs(): array {
 				),
 			),
 		),
+		'avis'         => array(
+			'titre'  => 'Avis : récapitulatif par e-mail',
+			'aide'   => 'Un e-mail aux couleurs de Big M avec, par restaurant, la note Google et son évolution, les nouveaux avis Google et les retours privés laissés sur la page d’avis du site (QR code). Aperçu et envoi d’essai : Restaurants → Récapitulatif des avis.',
+			'champs' => array(
+				'recap_email'       => array(
+					'label'  => 'Adresse générale',
+					'type'   => 'email',
+					'aide'   => 'Reçoit le récapitulatif de tous les restaurants. Vide : pas d’envoi général.',
+					'defaut' => '',
+				),
+				'recap_restaurants' => array(
+					'label'  => 'Restaurants',
+					'type'   => 'case',
+					'case'   => 'Envoyer aussi à chaque restaurant son propre récapitulatif',
+					'aide'   => 'À l’adresse « Email du responsable » de sa fiche (onglet Intégrations), seulement s’il y a du nouveau.',
+					'defaut' => '1',
+				),
+				'recap_frequence'   => array(
+					'label'   => 'Fréquence',
+					'type'    => 'choix',
+					'options' => array(
+						'semaine' => 'Chaque lundi à 9 h (semaine écoulée)',
+						'jour'    => 'Chaque jour à 9 h (veille)',
+						'mois'    => 'Le 1er du mois à 9 h (mois écoulé)',
+						'aucune'  => 'Jamais (envoi à la main seulement)',
+					),
+					'defaut'  => 'semaine',
+				),
+			),
+		),
 		'redirections' => array(
 			'titre'  => 'Redirections',
 			'aide'   => 'Adresses de l’ancien site renvoyées vers le nouveau (301), une règle par ligne : « /ancienne/ /nouvelle/ ». « /debut/* /autre/* » couvre toutes les adresses qui commencent ainsi ; [commander] renvoie vers le lien Commander. Une règle ne joue que si l’adresse n’existe pas sur le site. Les adresses introuvables sont listées en bas de page.',
@@ -362,6 +392,9 @@ function bigm_reglages_nettoyer( $input ): array {
 			case 'email':
 				$out[ $cle ] = sanitize_email( $v );
 				break;
+			case 'choix':
+				$out[ $cle ] = isset( $def['options'][ $v ] ) ? $v : (string) $def['defaut'];
+				break;
 			case 'long':
 			case 'regles':
 				$out[ $cle ] = sanitize_textarea_field( (string) ( $input[ $cle ] ?? '' ) );
@@ -457,6 +490,12 @@ function bigm_reglages_page(): void {
 										<?php endforeach; ?>
 									</select>
 									<p class="description">Un slider du menu Sliders, affiché en format bannière.</p>
+								<?php elseif ( 'choix' === $def['type'] ) : ?>
+									<select id="bigm_<?php echo esc_attr( $cle ); ?>" name="bigm_reglages[<?php echo esc_attr( $cle ); ?>]">
+										<?php foreach ( (array) $def['options'] as $option => $libelle ) : ?>
+											<option value="<?php echo esc_attr( (string) $option ); ?>"<?php selected( (string) $valeur, (string) $option ); ?>><?php echo esc_html( $libelle ); ?></option>
+										<?php endforeach; ?>
+									</select>
 								<?php elseif ( 'media' === $def['type'] ) : ?>
 									<?php bigm_champ_media( 'bigm_reglages[' . $cle . ']', (int) $valeur, 'image', '' ); ?>
 								<?php elseif ( 'regles' === $def['type'] ) : ?>
@@ -472,7 +511,7 @@ function bigm_reglages_page(): void {
 								<?php if ( ! empty( $def['aide'] ) ) : ?>
 									<p class="description"><?php echo esc_html( $def['aide'] ); ?></p>
 								<?php endif; ?>
-								<?php if ( ! in_array( $def['type'], array( 'slider', 'regles', 'media', 'case', 'plateformes' ), true ) ) : ?>
+								<?php if ( ! in_array( $def['type'], array( 'slider', 'regles', 'media', 'case', 'plateformes', 'choix' ), true ) && ! str_starts_with( $cle, 'recap_' ) ) : ?>
 									<p class="description"><code>[bigm_reglage cle="<?php echo esc_html( $cle ); ?>"]</code><?php echo $numeric && '' !== $valeur ? ' → ' . esc_html( bigm_reglage_texte( $cle ) ) : ''; ?></p>
 								<?php endif; ?>
 							</td>
