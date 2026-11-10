@@ -1,0 +1,4183 @@
+{
+ "version": "2026-11-09",
+ "sources": [
+  "tableau des allergènes (Liste consolidée, version de travail)",
+  "Uber Eats, Big M Bondy et Big M Argenteuil (captures et pages enregistrées, 7 et 8 novembre 2026)",
+  "pages Uber Eats big-m-argenteuil, big-m-bondy (photos et descriptions)"
+ ],
+ "categories": [
+  {
+   "slug": "nouveautes",
+   "nom": "Nouveautés",
+   "titre": "Nos nouveautés",
+   "ordre": 1
+  },
+  {
+   "slug": "menus",
+   "nom": "Menus",
+   "titre": "Nos menus",
+   "ordre": 2
+  },
+  {
+   "slug": "burgers",
+   "nom": "Burgers",
+   "titre": "Nos burgers",
+   "ordre": 3
+  },
+  {
+   "slug": "boeuf",
+   "nom": "Bœuf",
+   "parent": "burgers",
+   "ordre": 1
+  },
+  {
+   "slug": "burgers-poulet",
+   "nom": "Poulet",
+   "parent": "burgers",
+   "ordre": 2
+  },
+  {
+   "slug": "poulet",
+   "nom": "Poulet",
+   "titre": "Notre poulet",
+   "ordre": 4
+  },
+  {
+   "slug": "wraps",
+   "nom": "Wraps",
+   "titre": "Nos wraps",
+   "ordre": 5,
+   "trace": "M4 7c5-3 11-3 16 0l-2 12c-4 2-8 2-12 0z M7 9.5c3 1.4 7 1.4 10 0"
+  },
+  {
+   "slug": "petite-faim",
+   "nom": "Petite faim",
+   "titre": "Petite faim",
+   "ordre": 7
+  },
+  {
+   "slug": "desserts",
+   "nom": "Desserts",
+   "titre": "Nos desserts",
+   "ordre": 8
+  },
+  {
+   "slug": "sauces",
+   "nom": "Sauces",
+   "titre": "Nos sauces",
+   "ordre": 9,
+   "trace": "M10 3h4v3l2 3v11a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V9l2-3z M8 13h8"
+  },
+  {
+   "slug": "boissons",
+   "nom": "Boissons",
+   "titre": "Nos boissons",
+   "ordre": 10
+  },
+  {
+   "slug": "menus-doubles",
+   "nom": "Burgers doublés",
+   "parent": "menus",
+   "ordre": 1
+  },
+  {
+   "slug": "menus-simples",
+   "nom": "Menus simples",
+   "parent": "menus",
+   "ordre": 2
+  },
+  {
+   "slug": "menus-wraps",
+   "nom": "Menus wraps",
+   "parent": "menus",
+   "ordre": 3
+  },
+  {
+   "slug": "menus-grill",
+   "nom": "Menus burgers grill",
+   "parent": "menus",
+   "ordre": 4
+  },
+  {
+   "slug": "menus-enfant",
+   "nom": "Menus enfant",
+   "parent": "menus",
+   "ordre": 5
+  },
+  {
+   "slug": "box",
+   "nom": "Box",
+   "titre": "Nos Box",
+   "ordre": 3,
+   "trace": "M4 11h16v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z M4 11 6.5 4h11l2.5 7 M9 15.5h6"
+  }
+ ],
+ "produits": [
+  {
+   "titre": "Cheeseburger M",
+   "slug": "cheeseburger-m",
+   "source": "Cheeseburger M",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "oeufs",
+    "sesame"
+   ],
+   "description": "1 steak 45 g, 1 tranche de cheddar, cornichons, ketchup et moutarde.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/50e277cb2b71879d3370fd37a27b3cc4/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 1,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "M Burger",
+   "slug": "m-burger",
+   "source": "M Burger",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten"
+   ],
+   "traces": [
+    "oeufs",
+    "lait",
+    "sesame"
+   ],
+   "description": "1 steak 45 g, cornichons, ketchup et moutarde.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/5192932377290ae88935a9357dc7b3f4/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 2,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Double Cheese Bacon",
+   "slug": "double-cheese-bacon",
+   "source": "Double Cheese Bacon",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "oeufs",
+    "sesame"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/47c1b7e5e71ef7aab08b99f0ca8cf607/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 3,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Double Cheeseburger M",
+   "slug": "double-cheeseburger-m",
+   "source": "Double Cheeseburger M",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "oeufs",
+    "sesame"
+   ],
+   "description": "2 steaks 45 g, 3 tranches de cheddar, cornichons, ketchup et moutarde.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/667fe7545629b739258f5b2a5e47e9c1/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 4,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Triple Cheeseburger M",
+   "slug": "triple-cheeseburger-m",
+   "source": "Triple Cheeseburger M",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "oeufs",
+    "sesame"
+   ],
+   "description": "3 steaks 45 g, 3 tranches de cheddar, cornichons, ketchup et moutarde.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/47e418f0e448c2cc066a378522c7beb4/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 5,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Géant",
+   "slug": "geant",
+   "source": "Géant",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "sesame",
+    "poissons"
+   ],
+   "description": "2 steaks 45 g, 1 tranche de cheddar, salade, oignons et sauce Géant.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/b8a362c6026422e2d82d0a55fc37d991/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 6,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Big",
+   "slug": "big",
+   "source": "Big",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [],
+   "description": "2 steaks 45 g, 1 tranche de cheddar, salade, cornichons, oignons, sauce Big.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/d82ec85645803f9ca54746e450a230a2/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 7,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Beef Chicken",
+   "slug": "beef-chicken",
+   "source": "Beef Chicken",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "celeri"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/5e72678cab9e5fc9418c5d0c72fdf022/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 8,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Big Thunder",
+   "slug": "big-thunder",
+   "source": "Big Thunder",
+   "categories": [
+    "burgers-poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [],
+   "description": "1 Galette de pommes de terre, 2 tenders, salade, 1 tranche de cheddar, sauce ketchup et mayonnaise.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/891522e3e383231a71236e290a6434bd/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 1,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Long Beef M",
+   "slug": "long-beef-m",
+   "source": "Long Beef M",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "fruitsacoque",
+    "soja"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/eb7291ce71745e9639650ff0fc21038c/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 9,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Long Chicken",
+   "slug": "long-chicken",
+   "source": "Long Chicken",
+   "categories": [
+    "burgers-poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "fruitsacoque",
+    "celeri"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/0aaa379c303b8c885a280c127ac9ef25/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 2,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Long Smoky Bacon",
+   "slug": "long-smoky-bacon",
+   "source": "Long Smoky Bacon",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "lait",
+    "sesame"
+   ],
+   "traces": [
+    "oeufs",
+    "fruitsacoque",
+    "soja",
+    "moutarde"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/6919b5168fda237dfee4ccc93265906b/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 10,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Chicken M",
+   "slug": "chicken-m",
+   "source": "Chicken M",
+   "categories": [
+    "burgers-poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/6ebcea13df3fc10b99572d91fb3b475e/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 3,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "M Luxe Beef",
+   "slug": "m-luxe-beef",
+   "source": "M Luxe Beef",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "1 Steak 45 g, 1 Tranche de cheddar, tomates, salade, sauce crémeuse et poivrée.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/1d5c187a5c2997ce997b2c5a65bcb99f/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 11,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "M Luxe Chicken",
+   "slug": "m-luxe-chicken",
+   "source": "M Luxe Chicken",
+   "categories": [
+    "burgers-poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [
+    "celeri"
+   ],
+   "description": "1 escalope de poulet panée, 1 tranche de cheddar, tomates, salade, sauce crémeuse et poivrée.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/6295af1b3440577cfaea3ca9791d3f97/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 4,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Le Frenchy",
+   "slug": "le-frenchy",
+   "source": "Le Frenchy",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "sesame"
+   ],
+   "description": "Pain Boulanger, 1 steak 120 g, 1 tranche de cheddar, 1 tranche d'emmental, tomates, oignons, ketchup.",
+   "image": "",
+   "ordre": 12,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Le Frenchy Pepper",
+   "slug": "le-frenchy-pepper",
+   "source": "Le Frenchy Pepper",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "sesame"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 13,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Long Bacon M",
+   "slug": "long-bacon-m",
+   "source": "Long bacon M",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "description": "2 steaks 45 g, 1 tranche de cheddar, bacon de bœuf, salade et sauce LBM.",
+   "image": "",
+   "ordre": 14,
+   "statut": "publish",
+   "a_verifier": "",
+   "anciennes_descriptions": [
+    "2 steaks 45 g, 1 tranche de cheddar, bacon de dinde, salade et sauce LBM."
+   ]
+  },
+  {
+   "titre": "Little Géant",
+   "slug": "little-geant",
+   "source": "Little Géant",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "sesame",
+    "sulfites",
+    "poissons"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/706122bd13605cef7c20b835d4ac6611/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 15,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Little Big",
+   "slug": "little-big",
+   "source": "Little Big",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "sulfites"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/81df589db396ca31c53a82252a332a72/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 16,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Monster",
+   "slug": "monster",
+   "source": "Monster",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sesame",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [
+    "celeri"
+   ],
+   "description": "2 Steaks 120 g, escalope de poulet, cornichons, salade iceberg, tomate et rondelles d’oignons.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/7f7d47cc910838391e5984abfc976c65/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 17,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Jumbo",
+   "slug": "jumbo",
+   "source": "Jumbo",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "Steak 120 g, salade iceberg, cornichons, tomate et rondelles d'oignons rouges.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/32bc04f9d10949d2a81dfb4f898bbf6a/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 18,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Naan Géant",
+   "slug": "naan-geant",
+   "source": "Naan Géant",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "sesame",
+    "sulfites",
+    "poissons"
+   ],
+   "description": "Pain naan avec sa sauce géant, 2 viandes de bœuf et ses 2 tranches de cheddar, oignons.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/741bc621d5ec40e0fea50038f2d31c01/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 19,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Naan Big",
+   "slug": "naan-big",
+   "source": "Naan Big",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "sesame",
+    "sulfites"
+   ],
+   "description": "Pain naan avec salade, une viande de bœuf grillé, son fromage fondu et sa sauce BIG.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/2b398c1387075abc31f279eb6b747d83/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 20,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Naan Thunder",
+   "slug": "naan-thunder",
+   "source": "Naan Thunder",
+   "categories": [
+    "burgers-poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [
+    "sesame",
+    "sulfites"
+   ],
+   "description": "Pain Naan, salade, morceaux de tenders panés, cheddar et sauce mayonnaise/ketchup.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/bd91c74bec8f06b62b127a955fea790d/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 5,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Mbao Beef",
+   "slug": "mbao-beef",
+   "source": "Mbao Beef",
+   "categories": [
+    "boeuf"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "lait",
+    "soja",
+    "sesame",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "Pain bao avec 2 steaks 45 g, oignons caramélisés, sauce barbecue et 2 tranches de cheddar.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/58f63f37fed9271675c28c6e29511019/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 21,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Mbao Chicken",
+   "slug": "mbao-chicken",
+   "source": "Mbao Chicken",
+   "categories": [
+    "burgers-poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "lait",
+    "soja",
+    "sesame",
+    "sulfites",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [],
+   "description": "Pain bao avec 2 Tenders, oignons caramélisés, sauce barbecue et 2 tranches de cheddar.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/1d383f49a61a155fda52840fe70dac66/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 6,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "M1 – Cheeseburger M + Croque",
+   "slug": "m1",
+   "source": "M1",
+   "categories": [
+    "menus-doubles"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "oeufs",
+    "soja",
+    "sesame",
+    "celeri"
+   ],
+   "description": "1 Cheeseburger M et 1 Croque, servis avec des frites et une boisson au choix.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/ea91bb82637b1771feaa741d12a56fee/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 1,
+   "statut": "publish",
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Cheeseburger M, Croq Monsieur, Frites",
+   "badge": ""
+  },
+  {
+   "titre": "M2 – Cheeseburger M + Double Cheese Bacon",
+   "slug": "m2",
+   "source": "M2",
+   "categories": [
+    "menus-doubles"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "oeufs",
+    "soja",
+    "sesame",
+    "celeri"
+   ],
+   "description": "1 Cheeseburger M et 1 Double Cheese Bacon, servis avec des frites et une boisson au choix.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/34b87405d63c3858cafc80d581c3338a/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 2,
+   "statut": "publish",
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Cheeseburger M, Double Cheese Bacon, Frites",
+   "badge": ""
+  },
+  {
+   "titre": "M3 – Big + Cheeseburger M",
+   "slug": "m3",
+   "source": "M3",
+   "categories": [
+    "menus-doubles"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "description": "1 Big et 1 Cheeseburger M, servis avec des frites et une boisson au choix.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/4e275264b0071989cb69c2c4ecccc4a2/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 3,
+   "statut": "publish",
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Big, Cheeseburger M, Frites",
+   "badge": ""
+  },
+  {
+   "titre": "M5 – Géant + Cheeseburger M",
+   "slug": "m5",
+   "source": "M5",
+   "categories": [
+    "menus-doubles"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "sesame",
+    "celeri",
+    "poissons"
+   ],
+   "description": "1 Cheeseburger M et 1 Géant, servis avec des frites et une boisson au choix.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/8b4247f34aa4c81f16e8e6c10419457c/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 4,
+   "statut": "publish",
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Géant, Cheeseburger M, Frites",
+   "badge": ""
+  },
+  {
+   "titre": "M6 – Big + Chicken M",
+   "slug": "m6",
+   "source": "M6",
+   "categories": [
+    "menus-doubles"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "description": "1 Big et 1 Chicken M, servis avec des frites et une boisson au choix.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/35396a56506557f084498677b2025d9e/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 5,
+   "statut": "publish",
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Big, Chicken M, Frites",
+   "badge": ""
+  },
+  {
+   "titre": "M7 – 2 Géant",
+   "slug": "m7",
+   "source": "M7",
+   "categories": [
+    "menus-doubles"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "sesame",
+    "celeri",
+    "poissons"
+   ],
+   "description": "2 Géant, servis avec des frites et une boisson au choix.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/00bcd216d07787d75a576387ed70a027/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 6,
+   "statut": "publish",
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Géant, Frites",
+   "badge": ""
+  },
+  {
+   "titre": "M8 (nom à compléter)",
+   "slug": "m8",
+   "source": "M8",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 7,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "M9 – Big + Géant",
+   "slug": "m9",
+   "source": "M9",
+   "categories": [
+    "menus-doubles"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "description": "1 Big et 1 Géant, servis avec des frites et une boisson au choix.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/b1e147e05ff7698e8fd5bab5f5c670f9/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 7,
+   "statut": "publish",
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Big, Géant, Frites",
+   "badge": ""
+  },
+  {
+   "titre": "M10 – Big Thunder + Cheeseburger M ou 5 nuggets",
+   "slug": "m10",
+   "source": "M10",
+   "categories": [
+    "menus-doubles"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "description": "1 Big Thunder et 1 Cheeseburger M ou 5 nuggets, servis avec des frites et une boisson au choix.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/58dae03ea0835f64d8ee2bd7e2623039/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 8,
+   "statut": "publish",
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Big Thunder, Cheeseburger M, Nuggets, Frites",
+   "badge": ""
+  },
+  {
+   "titre": "M12 (nom à compléter)",
+   "slug": "m12",
+   "source": "M12",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/1af08317572709a7c5040544736aa5af/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 10,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "M13 – Big + 5 nuggets",
+   "slug": "m13",
+   "source": "M13",
+   "categories": [
+    "menus-doubles"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "celeri",
+    "poissons"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "description": "1 Big et 5 nuggets, servis avec des frites et une boisson 33 cl au choix.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/43c0da78bdc6fe240de8bb448210899c/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 9,
+   "statut": "publish",
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Big, Nuggets, Frites",
+   "badge": ""
+  },
+  {
+   "titre": "M14 – Chicken M + Géant",
+   "slug": "m14",
+   "source": "M14",
+   "categories": [
+    "menus-doubles"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "celeri",
+    "poissons"
+   ],
+   "description": "1 Chicken M et 1 Géant, servis avec des frites et une boisson 33 cl au choix.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/d61277e57f4431c6aa058c0d071f3de4/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 10,
+   "statut": "publish",
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Chicken M, Géant, Frites",
+   "badge": ""
+  },
+  {
+   "titre": "M15 – 2 Big",
+   "slug": "m15",
+   "source": "M15",
+   "categories": [
+    "menus-doubles"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "description": "2 Big, servis avec des frites et une boisson 33 cl au choix.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/be0f6c746ad91da47422343dade3441b/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 11,
+   "statut": "publish",
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Big, Frites",
+   "badge": ""
+  },
+  {
+   "titre": "M16 – Géant + 5 nuggets",
+   "slug": "m16",
+   "source": "M16",
+   "categories": [
+    "menus-doubles"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [
+    "soja",
+    "sesame",
+    "poissons"
+   ],
+   "description": "1 Géant et 5 nuggets, servis avec des frites et une boisson 33 cl au choix.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/c5dd44f1e39d90578629412cc1ac945c/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 12,
+   "statut": "publish",
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Géant, Nuggets, Frites",
+   "badge": ""
+  },
+  {
+   "titre": "M17 (nom à compléter)",
+   "slug": "m17",
+   "source": "M17",
+   "categories": [
+    "burgers"
+   ],
+   "viandes": [],
+   "contient": [],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 15,
+   "statut": "draft",
+   "a_verifier": "code interne : nom, photo et contenu à compléter"
+  },
+  {
+   "titre": "W1 – Wrap au choix + 4 nuggets",
+   "slug": "w1",
+   "source": "W1",
+   "categories": [
+    "menus-doubles"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "description": "Wrap curry ou tandoori et 4 nuggets, servis avec des frites et une boisson 33 cl.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/4bd74855e3c9e640c51bdb09a518580a/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 14,
+   "statut": "publish",
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Wrap Curry, Wrap Tandoori, Nuggets, Frites",
+   "badge": ""
+  },
+  {
+   "titre": "W2 – Wrap au choix + Cheeseburger M",
+   "slug": "w2",
+   "source": "W2",
+   "categories": [
+    "menus-doubles"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "sesame",
+    "celeri"
+   ],
+   "description": "Wrap curry ou tandoori et 1 Cheeseburger M, servis avec des frites et une boisson.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/61dac0d34df7b023aa84d8fb121ca126/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 15,
+   "statut": "publish",
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Wrap Curry, Wrap Tandoori, Cheeseburger M, Frites",
+   "badge": ""
+  },
+  {
+   "titre": "W3 – Wrap au choix + Big",
+   "slug": "w3",
+   "source": "W3",
+   "categories": [
+    "menus-doubles"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "description": "Wrap curry ou tandoori et 1 Big, servis avec des frites et une boisson 33 cl.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/b2232b73986c3668fa9cfb5c3878ab64/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 16,
+   "statut": "publish",
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Wrap Curry, Wrap Tandoori, Big, Frites",
+   "badge": ""
+  },
+  {
+   "titre": "Little Kids Burger",
+   "slug": "menu-kids",
+   "source": "Menu kids",
+   "categories": [
+    "menus-enfant"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/322caf3fe47c99ba98ceac201108d1d3/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 1,
+   "statut": "publish",
+   "a_verifier": "composition du menu enfant : allergènes de la ligne « Menu kids » du tableau",
+   "badge": ""
+  },
+  {
+   "titre": "Croq Monsieur",
+   "slug": "croq-monsieur",
+   "source": "Croq Monsieur",
+   "categories": [
+    "petite-faim"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "lait"
+   ],
+   "traces": [
+    "oeufs",
+    "soja",
+    "sesame",
+    "moutarde",
+    "celeri"
+   ],
+   "description": "1 tranche de cheddar, 1 tranche d'emmental et 1 tranche de bacon de bœuf.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/dd30943a2fcae98fe577aa320d8e3b31/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 1,
+   "statut": "publish",
+   "a_verifier": "description : Uber Eats indique « jambon de dinde » ; recette et agence : bacon de bœuf"
+  },
+  {
+   "titre": "Boîte Mix",
+   "slug": "boite-mix",
+   "source": "Boîte Mix",
+   "categories": [
+    "petite-faim",
+    "poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sulfites",
+    "celeri"
+   ],
+   "traces": [
+    "soja",
+    "moutarde"
+   ],
+   "description": "Un assortiment savoureux de deux pièces de chaque produit : des oignons rings, des bouchées de camembert fondant, des nuggets dorés et des mozza sticks. Parfait pour partager ou pour ceux qui veulent goûter un peu de tout !",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/ed27c127e72edc2c871ca3934ed63264/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 2,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Wrap Tandoori",
+   "slug": "wrap-tandoori",
+   "source": "Wrap Tandoori",
+   "categories": [
+    "wraps"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 1,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Wrap Curry",
+   "slug": "wrap-curry",
+   "source": "Wrap Curry",
+   "categories": [
+    "wraps"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/30cb3a0c221806b8e916c0c18ebda360/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 2,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Wrap Steak",
+   "slug": "wrap-steak",
+   "source": "Wrap Steak",
+   "categories": [
+    "wraps"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/944b0fa276133dbcb22e8e8905666b39/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 3,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Wrap Kebab",
+   "slug": "wrap-kebab",
+   "source": "Wrap Kebab",
+   "categories": [
+    "wraps"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait"
+   ],
+   "traces": [
+    "soja",
+    "moutarde",
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 4,
+   "statut": "publish",
+   "a_verifier": "viande kebab (veau, dinde, bœuf ?)"
+  },
+  {
+   "titre": "Wrap Tenders",
+   "slug": "wrap-tenders",
+   "source": "Wrap Tenders",
+   "categories": [
+    "wraps"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/01c99f0c60f13c7140cc138b92961241/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 5,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Chick'n Box Curry",
+   "slug": "chickn-box-curry",
+   "source": "CHICK'N BOX CURRY",
+   "categories": [
+    "poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "oeufs",
+    "lait",
+    "soja",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [
+    "gluten",
+    "sesame",
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 2,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Chick'n Box Tandoori",
+   "slug": "chickn-box-tandoori",
+   "source": "CHICK'N BOX TANDOORI",
+   "categories": [
+    "poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "oeufs",
+    "lait",
+    "soja",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [
+    "gluten",
+    "sesame",
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 3,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Nuggets",
+   "slug": "nuggets",
+   "source": "Nuggets (petite faim)",
+   "categories": [
+    "petite-faim",
+    "poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "celeri"
+   ],
+   "traces": [
+    "oeufs",
+    "lait",
+    "soja",
+    "moutarde"
+   ],
+   "description": "Boîte de 4 ou de 8 nuggets.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/a16cd365445acda8f20e415dafb109fd/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 3,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Tenders",
+   "slug": "tenders",
+   "source": "Tenders (petite faim)",
+   "categories": [
+    "petite-faim",
+    "poulet"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "contient": [
+    "gluten",
+    "celeri"
+   ],
+   "traces": [
+    "oeufs",
+    "lait",
+    "soja",
+    "moutarde"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/d74654f7d40f7a491864bf613dfaf6db/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 4,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Mozza sticks",
+   "slug": "mozza-sticks",
+   "source": "Mozza-stick",
+   "categories": [
+    "petite-faim",
+    "tex-mex"
+   ],
+   "viandes": [
+    "vegetarien"
+   ],
+   "contient": [
+    "gluten",
+    "lait"
+   ],
+   "traces": [],
+   "description": "Par 4 ou par 8.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/6471a349591fc6eea18ae768b070573d/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 5,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Bouchées camembert",
+   "slug": "bouchees-camembert",
+   "source": "Bouchée camembert",
+   "categories": [
+    "petite-faim",
+    "tex-mex"
+   ],
+   "viandes": [
+    "vegetarien"
+   ],
+   "contient": [
+    "gluten",
+    "lait"
+   ],
+   "traces": [],
+   "description": "Par 4 ou par 8.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/be30385f2548edf2742329d9a653cd8e/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 6,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Chili cheese nuggets",
+   "slug": "chili-cheese-nuggets",
+   "source": "Chilli cheese nuggets",
+   "categories": [
+    "petite-faim",
+    "tex-mex"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "lait"
+   ],
+   "traces": [
+    "oeufs",
+    "soja",
+    "moutarde",
+    "celeri"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/36717ed85e7f72cc8e94a08a0a889850/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 7,
+   "statut": "publish",
+   "a_verifier": "pas de recette : végétarien ?"
+  },
+  {
+   "titre": "Mini smoky cheese",
+   "slug": "mini-smoky-cheese",
+   "source": "Mini smoky cheese",
+   "categories": [
+    "petite-faim"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "lait"
+   ],
+   "traces": [
+    "oeufs",
+    "soja",
+    "moutarde",
+    "celeri"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 8,
+   "statut": "publish",
+   "a_verifier": "pas de recette : viande ou végétarien ?"
+  },
+  {
+   "titre": "Onion rings panko",
+   "slug": "onion-rings-panko",
+   "source": "Panko Onion rings",
+   "categories": [
+    "petite-faim",
+    "tex-mex"
+   ],
+   "viandes": [
+    "vegetarien"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sulfites"
+   ],
+   "traces": [
+    "soja",
+    "moutarde",
+    "celeri"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/9d8045ddb21c48bfc51a1a519e964f09/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 9,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Frites",
+   "slug": "frites",
+   "source": "Frite",
+   "categories": [
+    "petite-faim"
+   ],
+   "viandes": [
+    "vegetarien"
+   ],
+   "contient": [],
+   "traces": [
+    "gluten",
+    "lait",
+    "soja",
+    "moutarde",
+    "celeri"
+   ],
+   "description": "Portion de frites.",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/fc08e50bd85d6a4fd345839d2e7c7d1c/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 10,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Frites cheddar crispy",
+   "slug": "frites-cheddar-crispy",
+   "source": "Frite cheedar cripsy",
+   "categories": [
+    "petite-faim"
+   ],
+   "viandes": [
+    "vegetarien"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/c0c90d591f8c2705fada5192096275c2/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 11,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Frites cheddar",
+   "slug": "frites-cheddar",
+   "source": "Frite cheddar",
+   "categories": [
+    "petite-faim"
+   ],
+   "viandes": [
+    "vegetarien"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/6bbbc54eade0cfeb1e11c6f4fcb89501/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 12,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Frites cheddar crispy bacon",
+   "slug": "frites-cheddar-crispy-bacon",
+   "source": "Frite cheddar cripsy bacon",
+   "categories": [
+    "petite-faim"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/9f4ec26a28b34c80303e5a929de03834/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 13,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "My Can Magic Red",
+   "slug": "my-can-magic-red",
+   "source": "My Can Magic Red",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait"
+   ],
+   "traces": [
+    "fruitsacoque",
+    "soja",
+    "sesame",
+    "moutarde"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/b43a1258c5eee15f456ba8793ba77e10/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 1,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "My Can Paris Best",
+   "slug": "my-can-paris-best",
+   "source": "My Can Paris Best",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja"
+   ],
+   "traces": [
+    "sesame",
+    "moutarde"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/a1301ae637f135d9f3ac2312bf5325f8/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 2,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "My Can Choco Bomb",
+   "slug": "my-can-choco-bomb",
+   "source": "My Can Choco Bomb",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja"
+   ],
+   "traces": [
+    "sesame",
+    "moutarde"
+   ],
+   "description": "",
+   "image": "",
+   "ordre": 3,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "My Can Tropical Island",
+   "slug": "my-can-tropical-island",
+   "source": "My Can Tropical Island",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "fruitsacoque",
+    "soja",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/39ee2c72decfec66a9d9945ae654e45e/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 4,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Tarte choco-coco",
+   "slug": "tarte-choco-coco",
+   "source": "Tarte Choco coco",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "fruitsacoque"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/1d3d2ff44aea54a1280a1a4839448256/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 5,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Tarte au Daim",
+   "slug": "tarte-au-daim",
+   "source": "Tarte au daim",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "oeufs",
+    "lait",
+    "fruitsacoque",
+    "soja"
+   ],
+   "traces": [
+    "arachides"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/b8548d18965257e955cf620e911b6972/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 6,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Little Cream Fraise",
+   "slug": "little-cream-fraise",
+   "source": "Little Cream Fraise",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja",
+    "sesame",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 7,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Little Cream Caramel",
+   "slug": "little-cream-caramel",
+   "source": "Little Cream Caramel",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja",
+    "sesame",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 8,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Little Cream Chocolat",
+   "slug": "little-cream-chocolat",
+   "source": "Little Cream Chocolat",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja",
+    "sesame",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 9,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "My Can Pistachoise",
+   "slug": "my-can-pistachoise",
+   "source": "My Can Pistachoise",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "fruitsacoque"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/093c25182812f613484d48d0aedb3b76/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 10,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "My Chou Choco",
+   "slug": "my-chou-choco",
+   "source": "My Chou Choco",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "fruitsacoque",
+    "soja"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/afce207c9d076f66191a62e883c185e6/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 11,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "My Chou Bueno",
+   "slug": "my-chou-bueno",
+   "source": "My Chou Bueno",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/c7c460140c460753c558768f1adb4509/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 12,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "My Chou Dubaï pistache",
+   "slug": "my-chou-dubai-pistache",
+   "source": "My Chou Dubai (Pistache)",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/62ed92aca71aee269a21067f75f71c0b/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 13,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Big Ice Spéculoos",
+   "slug": "big-ice-speculoos",
+   "source": "BIG ICE spéculos",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja",
+    "sesame",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 14,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Big Ice Daim",
+   "slug": "big-ice-daim",
+   "source": "BIG ICE daim",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja",
+    "sesame",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 15,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Big Ice M&M's",
+   "slug": "big-ice-m-ms",
+   "source": "BIG ICE m&ms",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja",
+    "sesame",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 16,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Big Ice Oreo",
+   "slug": "big-ice-oreo",
+   "source": "BIG ICE oréo",
+   "categories": [
+    "desserts"
+   ],
+   "viandes": [],
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "arachides",
+    "fruitsacoque",
+    "soja",
+    "sesame",
+    "sulfites"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 17,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Mayonnaise",
+   "slug": "mayonnaise",
+   "source": "Mayonnaise aux œufs",
+   "categories": [
+    "sauces"
+   ],
+   "viandes": [],
+   "contient": [
+    "oeufs",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/94a1d9a8123b6e930abd5a4182585f57/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 1,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Sauce Burger",
+   "slug": "sauce-burger",
+   "source": "Sauce Burger",
+   "categories": [
+    "sauces"
+   ],
+   "viandes": [],
+   "contient": [
+    "oeufs",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 2,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Sauce Géant",
+   "slug": "sauce-geant",
+   "source": "Sauce géant",
+   "categories": [
+    "sauces"
+   ],
+   "viandes": [],
+   "contient": [
+    "oeufs",
+    "moutarde"
+   ],
+   "traces": [
+    "poissons"
+   ],
+   "description": "",
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/3c4f99957f2b888fb1cdd7430aa30ec6/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "ordre": 3,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Sauce Poivre",
+   "slug": "sauce-poivre",
+   "source": "Sauce Poivre",
+   "categories": [
+    "sauces"
+   ],
+   "viandes": [],
+   "contient": [
+    "oeufs",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 4,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Sauce Bao",
+   "slug": "sauce-bao",
+   "source": "Sauce bao",
+   "categories": [
+    "sauces"
+   ],
+   "viandes": [],
+   "contient": [
+    "soja",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 5,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "titre": "Sauce Monster",
+   "slug": "sauce-monster",
+   "source": "Sauce Monster",
+   "categories": [
+    "sauces"
+   ],
+   "viandes": [],
+   "contient": [
+    "oeufs",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [],
+   "description": "",
+   "image": "",
+   "ordre": 6,
+   "statut": "publish",
+   "a_verifier": ""
+  },
+  {
+   "slug": "mbao",
+   "source": "Uber Eats : MBAO – Mbao Beef + Mbao Chicken",
+   "contient": [
+    "gluten",
+    "lait",
+    "soja",
+    "sesame",
+    "sulfites",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/b810fe85de761a787841ae00af3503cf/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "MBAO – Mbao Beef + Mbao Chicken",
+   "categories": [
+    "menus-doubles"
+   ],
+   "description": "1 Bao Beef et 1 Bao Chicken, servis avec des frites et une boisson 33 cl.",
+   "statut": "publish",
+   "ordre": 13,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Mbao Beef, Mbao Chicken, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "w4",
+   "source": "Uber Eats : W4 – Wrap au choix + Géant",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "sesame",
+    "celeri",
+    "poissons"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/78f054e035234f583f6057001c31516d/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "W4 – Wrap au choix + Géant",
+   "categories": [
+    "menus-doubles"
+   ],
+   "description": "Wrap curry ou tandoori et 1 Géant, servis avec des frites et une boisson.",
+   "statut": "publish",
+   "ordre": 17,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Wrap Curry, Wrap Tandoori, Géant, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "little-double",
+   "source": "Uber Eats : Little Doublé",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "soja",
+    "sulfites",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/2daa5dd824758e7b6ec7552b26dfc573/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Little Doublé",
+   "categories": [
+    "menus-doubles"
+   ],
+   "description": "1 Little Big et 1 Little Géant, servis avec des frites et une boisson.",
+   "statut": "publish",
+   "ordre": 18,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Little Big, Little Géant, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-cheeseburger-m",
+   "source": "Uber Eats : Menu Cheeseburger M",
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "oeufs",
+    "soja",
+    "sesame",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/06e91c1e48ac88f0a69faba2f5ce5dab/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Cheeseburger M",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Cheeseburger M, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 1,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Cheeseburger M, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-double-cheeseburger-m",
+   "source": "Uber Eats : Menu Double Cheeseburger M",
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "oeufs",
+    "soja",
+    "sesame",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/39084123aec1eadce908092bef1071f6/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Double Cheeseburger M",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Double Cheeseburger M, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 2,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Double Cheeseburger M, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-big",
+   "source": "Uber Eats : Menu Big",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/9cb37987b40756c366fe41efbbea890d/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Big",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Big, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 3,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Big, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-geant",
+   "source": "Uber Eats : Menu Géant",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "sesame",
+    "celeri",
+    "poissons"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/f873f8fddeece49bd49371b601b2bbc8/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Géant",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Géant, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 4,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Géant, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-chicken-m",
+   "source": "Uber Eats : Menu Chicken M",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/dc216d4cf9529802d20e0b1a35555367/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Chicken M",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Chicken M, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 5,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Chicken M, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-long-bacon-m",
+   "source": "Uber Eats : Menu Long Bacon M",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/315c62055d8d5bfe84a3ad71e5d64d8c/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Long Bacon M",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Long Bacon M, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 6,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Long Bacon M, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-le-frenchy",
+   "source": "Uber Eats : Menu Le Frenchy",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "sesame",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/9d49b3e8ccd6b17f465fb19bdfb1f5d8/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Le Frenchy",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Le Frenchy, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 7,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Le Frenchy, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-beef-chicken",
+   "source": "Uber Eats : Menu Beef Chicken",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/11e6d2172aa4bfcddf93a2bfdfe63319/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Beef Chicken",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Beef Chicken, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 8,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Beef Chicken, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-big-thunder",
+   "source": "Uber Eats : Menu Big Thunder",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/bab003a2514d1acf99e5762f5ee7386a/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Big Thunder",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Big Thunder, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 9,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Big Thunder, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-triple-cheeseburger-m",
+   "source": "Uber Eats : Menu Triple Cheeseburger M",
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "oeufs",
+    "soja",
+    "sesame",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/011528afe358045bf35b60c692fdb38a/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Triple Cheeseburger M",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Triple Cheeseburger M, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 10,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Triple Cheeseburger M, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-m-luxe-beef",
+   "source": "Uber Eats : Menu M Luxe Beef",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/abcce54ca950bca6c0c130025390d944/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu M Luxe Beef",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 M Luxe Beef, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 11,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : M Luxe Beef, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-m-luxe-chicken",
+   "source": "Uber Eats : Menu M Luxe Chicken",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sesame",
+    "moutarde"
+   ],
+   "traces": [
+    "celeri"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/9b641b2a8e6638a887d9e96c1ccf7250/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu M Luxe Chicken",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 M Luxe Chicken, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 12,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : M Luxe Chicken, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-mbao-chicken",
+   "source": "Uber Eats : Menu Mbao Chicken",
+   "contient": [
+    "gluten",
+    "lait",
+    "soja",
+    "sesame",
+    "sulfites",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [],
+   "viandes": [
+    "poulet"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/ce756d7c4973b7254ae2939d8d115f61/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Mbao Chicken",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Mbao Chicken, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 13,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Mbao Chicken, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-mbao-beef",
+   "source": "Uber Eats : Menu Mbao Beef",
+   "contient": [
+    "gluten",
+    "lait",
+    "soja",
+    "sesame",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/a64432ca4fe5f2ebcb8ed61290f8c07b/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Mbao Beef",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Mbao Beef, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 14,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Mbao Beef, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-naan-thunder",
+   "source": "Uber Eats : Menu Naan Thunder",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [
+    "soja",
+    "sesame",
+    "sulfites"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/106d6a9a089df1084b5d815dea678a37/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Naan Thunder",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Naan Thunder, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 15,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Naan Thunder, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-naan-big",
+   "source": "Uber Eats : Menu Naan Big",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "soja",
+    "sesame",
+    "sulfites",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/d1437026c8cf753888c2a48ddfe27790/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Naan Big",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Naan Big, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 16,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Naan Big, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-naan-geant",
+   "source": "Uber Eats : Menu Naan Géant",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "sesame",
+    "sulfites",
+    "celeri",
+    "poissons"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/4cadea1cefd7e2b48bcd0cc4f23072f5/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Naan Géant",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Naan Géant, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 17,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Naan Géant, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-double-cheese-bacon",
+   "source": "Uber Eats : Menu Double Cheese Bacon",
+   "contient": [
+    "gluten",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "oeufs",
+    "soja",
+    "sesame",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/9578e1e12794f01b66e60442b8d7a40d/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Double Cheese Bacon",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Double Cheese Bacon, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 18,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Double Cheese Bacon, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-long-beef-m",
+   "source": "Uber Eats : Menu Long Beef M",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "fruitsacoque",
+    "soja",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/59f2fc10f1acbc2963db9b2b7efbdeb8/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Long Beef M",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Long Beef M, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 19,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Long Beef M, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-long-chicken",
+   "source": "Uber Eats : Menu Long Chicken",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "fruitsacoque",
+    "celeri"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/ac76a686a567096cb46982e9a2403334/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Long Chicken",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Long Chicken, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 20,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Long Chicken, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-long-smoky-bacon",
+   "source": "Uber Eats : Menu Long Smoky Bacon",
+   "contient": [
+    "gluten",
+    "lait",
+    "sesame"
+   ],
+   "traces": [
+    "oeufs",
+    "fruitsacoque",
+    "soja",
+    "moutarde",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/aee53c5e7c672a99f0b02265b4d5941d/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Long Smoky Bacon",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Long Smoky Bacon, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 21,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Long Smoky Bacon, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-wrap-steak",
+   "source": "Uber Eats : Menu Wrap Steak",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/eae6d2acb3954406ec8f6c0df48bec2e/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Wrap Steak",
+   "categories": [
+    "menus-wraps"
+   ],
+   "description": "1 Wrap Steak, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 1,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Wrap Steak, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-wrap-tenders",
+   "source": "Uber Eats : Menu Wrap Tenders",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/d02183a7b1f700668cab2f2223041cd1/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Wrap Tenders",
+   "categories": [
+    "menus-wraps"
+   ],
+   "description": "1 Wrap Tenders, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 2,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Wrap Tenders, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-wrap-tandoori",
+   "source": "Uber Eats : Menu Wrap Tandoori",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/90a0e8093a5932c2c1daad460fb41a51/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Wrap Tandoori",
+   "categories": [
+    "menus-wraps"
+   ],
+   "description": "1 Wrap Tandoori, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 3,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Wrap Tandoori, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-wrap-curry",
+   "source": "Uber Eats : Menu Wrap Curry",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/863a58beca9fa4e36476e56f2091a115/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Wrap Curry",
+   "categories": [
+    "menus-wraps"
+   ],
+   "description": "1 Wrap Curry, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 4,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Wrap Curry, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-jumbo",
+   "source": "Uber Eats : Menu Jumbo",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/bd32951c2f1dc52f20d04d16926f3ba8/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Jumbo",
+   "categories": [
+    "menus-grill"
+   ],
+   "description": "1 Jumbo, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 1,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Jumbo, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "menu-monster",
+   "source": "Uber Eats : Menu Monster",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "soja",
+    "sesame",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/c448d04b160e6140eb10ddffd92555c8/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Menu Monster",
+   "categories": [
+    "menus-grill"
+   ],
+   "description": "1 Monster, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 2,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Monster, Frites",
+   "badge": ""
+  },
+  {
+   "slug": "little-kids-croq",
+   "source": "Uber Eats : Little Kids Croq",
+   "contient": [
+    "gluten",
+    "lait"
+   ],
+   "traces": [
+    "oeufs",
+    "soja",
+    "sesame",
+    "moutarde",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/648595f6367b3e706c60c0bf07eceda7/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Little Kids Croq",
+   "categories": [
+    "menus-enfant"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 2,
+   "a_verifier": "composition du menu enfant (croque + frites supposés)",
+   "badge": ""
+  },
+  {
+   "slug": "little-kids-nuggets",
+   "source": "Uber Eats : Little Kids Nuggets",
+   "contient": [
+    "gluten",
+    "celeri"
+   ],
+   "traces": [
+    "oeufs",
+    "lait",
+    "soja",
+    "moutarde"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "image": "",
+   "titre": "Little Kids Nuggets",
+   "categories": [
+    "menus-enfant"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 3,
+   "a_verifier": "composition du menu enfant (4 nuggets + frites supposés)",
+   "badge": ""
+  },
+  {
+   "slug": "sauce-algerienne",
+   "source": "Uber Eats : Sauce algérienne",
+   "contient": [
+    "oeufs",
+    "moutarde"
+   ],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/c3ee2b5aeaaf58d656a3b3f019b574f8/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Sauce algérienne",
+   "categories": [
+    "sauces"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 7,
+   "a_verifier": "stick Nawhal's (moutarde en traces) ou Delka (moutarde) : profil le plus strict retenu",
+   "badge": ""
+  },
+  {
+   "slug": "sauce-pita",
+   "source": "Uber Eats : Sauce pita",
+   "contient": [
+    "oeufs"
+   ],
+   "traces": [
+    "lait"
+   ],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/7aee2a1a747bbb02f924ea6fba1c57a2/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Sauce pita",
+   "categories": [
+    "sauces"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 8,
+   "a_verifier": "fiche Farm'Sauce à confirmer",
+   "badge": ""
+  },
+  {
+   "slug": "sauce-barbecue",
+   "source": "Uber Eats : Sauce barbecue",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "",
+   "titre": "Sauce barbecue",
+   "categories": [
+    "sauces"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 9,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "sauce-biggy-burger",
+   "source": "Uber Eats : Sauce Biggy Burger",
+   "contient": [
+    "oeufs",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/8954c6fc5073623d8f7ded5d05b50013/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Sauce Biggy Burger",
+   "categories": [
+    "sauces"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 10,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "sauce-blanche",
+   "source": "Uber Eats : Sauce blanche",
+   "contient": [
+    "oeufs"
+   ],
+   "traces": [],
+   "viandes": [],
+   "image": "",
+   "titre": "Sauce blanche",
+   "categories": [
+    "sauces"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 11,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "ketchup",
+   "source": "Uber Eats : Ketchup",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/93f0aa8e3e026f9bd2ffc4becdb89a98/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Ketchup",
+   "categories": [
+    "sauces"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 12,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "sauce-samourai",
+   "source": "Uber Eats : Sauce samouraï",
+   "contient": [
+    "oeufs",
+    "moutarde"
+   ],
+   "traces": [],
+   "viandes": [],
+   "image": "",
+   "titre": "Sauce samouraï",
+   "categories": [
+    "sauces"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 13,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "sprite-33-cl",
+   "source": "Uber Eats : Sprite 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/984431eef7f2abf096fe75dbc677cba7/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Sprite 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 1,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "fanta-orange-33-cl",
+   "source": "Uber Eats : Fanta Orange 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/15cbc39878637dd6c2c2511df4936498/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Fanta Orange 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 2,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "fanta-exotique-33-cl",
+   "source": "Uber Eats : Fanta Exotique 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/3b45e32b3f0f5abfe158e9d9db6f11a1/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Fanta Exotique 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 3,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "fanta-fruits-du-dragon-33-cl",
+   "source": "Uber Eats : Fanta Fruits du Dragon 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/85ed79db0a9784a4551aa45568493222/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Fanta Fruits du Dragon 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 4,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "fanta-citron-33-cl",
+   "source": "Uber Eats : Fanta Citron 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/4fd3d2517c8ca5655c1308e589675c2a/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Fanta Citron 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 5,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "coca-cola-33-cl",
+   "source": "Uber Eats : Coca-Cola 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/5437267a13684cf1c8c9ef9ea2373fd2/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Coca-Cola 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 6,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "coca-cola-zero-33-cl",
+   "source": "Uber Eats : Coca-Cola Zéro 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/dba4634c6df665ed3e9b18c3edc65279/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Coca-Cola Zéro 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 7,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "coca-cola-cherry-33-cl",
+   "source": "Uber Eats : Coca-Cola Cherry 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/28f0954e304145b472e5648345ba6351/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Coca-Cola Cherry 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 8,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "coca-cola-vanille-33-cl",
+   "source": "Uber Eats : Coca-Cola Vanille 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "",
+   "titre": "Coca-Cola Vanille 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 9,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "oasis-tropical-33-cl",
+   "source": "Uber Eats : Oasis Tropical 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/d2433c06525d77101c318364275d6c20/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Oasis Tropical 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 10,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "oasis-pomme-cassis-33-cl",
+   "source": "Uber Eats : Oasis Pomme Cassis 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/a0feec6b945b544a064075e22ea9ef84/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Oasis Pomme Cassis 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 11,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "orangina-33-cl",
+   "source": "Uber Eats : Orangina 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/6dd8feca03360abd27168e1cacbde61c/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Orangina 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 12,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "schweppes-agrum-33-cl",
+   "source": "Uber Eats : Schweppes Agrum' 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/995120e7e098c4b25d0fabdabcb0833c/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Schweppes Agrum' 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 13,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "hawai-33-cl",
+   "source": "Uber Eats : Hawaï 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/311adb28d3c74ebcfac85f70052d9fad/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Hawaï 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 14,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "tropico-33-cl",
+   "source": "Uber Eats : Tropico 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "",
+   "titre": "Tropico 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 15,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "perrier-33-cl",
+   "source": "Uber Eats : Perrier 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "",
+   "titre": "Perrier 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 16,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "cristaline-50-cl",
+   "source": "Uber Eats : Cristaline 50 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/f817400844e719634ab4266568f64387/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Cristaline 50 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 17,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "fuze-tea-peche-33-cl",
+   "source": "Uber Eats : Fuze Tea pêche 33 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/39ae652c7f71010638bf235a93287ab4/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Fuze Tea pêche 33 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 18,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "chill-cosmopolitain-20-cl",
+   "source": "Uber Eats : Chill Cosmopolitain 20 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/ee0868e414b527b09aa87ac910cf4b0d/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Chill Cosmopolitain 20 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 19,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "chill-mojito-20-cl",
+   "source": "Uber Eats : Chill Mojito 20 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/7ab9f0b6cf68f8a0868a32f128d3abe6/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Chill Mojito 20 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 20,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "chill-blue-hawaii-20-cl",
+   "source": "Uber Eats : Chill Blue Hawaii 20 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/e8b275fedd3cfa0c4f3c906f16ac9c0a/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Chill Blue Hawaii 20 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 21,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "chill-kiwi-citron-20-cl",
+   "source": "Uber Eats : Chill Kiwi Citron 20 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/02ad299be75f501766b5b46964578bb6/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Chill Kiwi Citron 20 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 22,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "chill-litchi-maracuja-20-cl",
+   "source": "Uber Eats : Chill Litchi Maracuja 20 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/634ca8b92be9a043b37e1aa976fd88ba/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Chill Litchi Maracuja 20 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 23,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "chill-mangue-poire-20-cl",
+   "source": "Uber Eats : Chill Mangue Poire 20 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/32bb0c193eafe4094184804d3bdcaede/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Chill Mangue Poire 20 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 24,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "chill-melon-peche-20-cl",
+   "source": "Uber Eats : Chill Melon Pêche 20 cl",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/59926da56df64d81a5bb5533b178a882/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Chill Melon Pêche 20 cl",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 25,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "street-cherry",
+   "source": "Uber Eats : Street Cherry",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "",
+   "titre": "Street Cherry",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 26,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "street-orange",
+   "source": "Uber Eats : Street Orange",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "",
+   "titre": "Street Orange",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 27,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "cafe",
+   "source": "Uber Eats : Café",
+   "contient": [],
+   "traces": [],
+   "viandes": [],
+   "image": "https://tb-static.uber.com/prod/image-proc/processed_images/1dbd763afe663c4b77fa86c7d7363ed1/d03e52b3c8af19d8fa8222e23efd9cfa.jpeg",
+   "titre": "Café",
+   "categories": [
+    "boissons"
+   ],
+   "description": "",
+   "statut": "publish",
+   "ordre": 28,
+   "a_verifier": "",
+   "badge": ""
+  },
+  {
+   "slug": "big-box",
+   "source": "Affiches des Box (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "soja",
+    "sulfites",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "image": "",
+   "titre": "Big Box",
+   "categories": [
+    "box",
+    "nouveautes"
+   ],
+   "description": "2 Chicken M, 1 Géant, 1 Little Big et des frites.",
+   "statut": "publish",
+   "ordre": 1,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Chicken M, Géant, Little Big, Frites",
+   "badge": "Nouveau"
+  },
+  {
+   "slug": "m-box",
+   "source": "Affiches des Box (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sesame",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [
+    "soja",
+    "poissons"
+   ],
+   "viandes": [
+    "boeuf",
+    "poulet"
+   ],
+   "image": "",
+   "titre": "M Box",
+   "categories": [
+    "box",
+    "nouveautes"
+   ],
+   "description": "1 Chicken M, 1 Géant, 4 nuggets et des frites.",
+   "statut": "publish",
+   "ordre": 2,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Chicken M, Géant, Nuggets, Frites",
+   "badge": "Nouveau"
+  },
+  {
+   "slug": "box-noxx",
+   "source": "Affiches des Box (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "sulfites",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "sesame",
+    "celeri",
+    "poissons"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "",
+   "titre": "Box Noxx",
+   "categories": [
+    "box",
+    "nouveautes"
+   ],
+   "description": "2 Little Géant, 4 onion rings, des frites et 1 boisson énergisante NOXX 50 cl.",
+   "statut": "publish",
+   "ordre": 3,
+   "a_verifier": "allergènes calculés à partir des produits du menu (boisson non comprise) : Little Géant, Onion rings panko, Frites",
+   "badge": "Nouveau"
+  },
+  {
+   "slug": "mamamia-spicy",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "",
+   "titre": "Mamamia Spicy",
+   "categories": [
+    "boeuf",
+    "nouveautes"
+   ],
+   "description": "Pain puccia, 1 steak, 1 tranche d'emmental, tomate, salade et sauce algérienne.",
+   "statut": "publish",
+   "ordre": 22,
+   "a_verifier": "allergènes à confirmer avec les fiches fournisseurs (pain puccia, steak) ; repris de : pain (gluten), emmental (lait), Sauce algérienne",
+   "badge": "Nouveau",
+   "ingredients": [
+    "Pain puccia",
+    "Steak de bœuf",
+    "Emmental",
+    "Tomate",
+    "Salade",
+    "Sauce algérienne"
+   ]
+  },
+  {
+   "slug": "mamamia-chicken",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "image": "",
+   "titre": "Mamamia Chicken",
+   "categories": [
+    "burgers-poulet",
+    "nouveautes"
+   ],
+   "description": "Pain puccia, poulet frit, 1 galette de pomme de terre, 2 tranches d'emmental, salade et mayonnaise.",
+   "statut": "publish",
+   "ordre": 7,
+   "a_verifier": "allergènes à confirmer avec les fiches fournisseurs (pain puccia, galette de pomme de terre, poulet frit) ; repris de : pain (gluten), emmental (lait), Mayonnaise, Tenders pour le poulet frit",
+   "badge": "Nouveau",
+   "ingredients": [
+    "Pain puccia",
+    "Poulet frit",
+    "Galette de pomme de terre",
+    "Emmental ×2",
+    "Salade",
+    "Mayonnaise"
+   ]
+  },
+  {
+   "slug": "mamamia-original",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "",
+   "titre": "Mamamia Original",
+   "categories": [
+    "boeuf",
+    "nouveautes"
+   ],
+   "description": "Pain puccia, 1 steak, 1 galette de pomme de terre, 2 tranches d'emmental, salade et sauce Biggy Burger.",
+   "statut": "publish",
+   "ordre": 23,
+   "a_verifier": "allergènes à confirmer avec les fiches fournisseurs (pain puccia, steak, galette de pomme de terre) ; repris de : pain (gluten), emmental (lait), Sauce Biggy Burger",
+   "badge": "Nouveau",
+   "ingredients": [
+    "Pain puccia",
+    "Steak de bœuf",
+    "Galette de pomme de terre",
+    "Emmental ×2",
+    "Salade",
+    "Sauce Biggy Burger"
+   ]
+  },
+  {
+   "slug": "menu-mamamia-spicy",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "",
+   "titre": "Menu Mamamia Spicy",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Mamamia Spicy, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 22,
+   "a_verifier": "allergènes du Mamamia Spicy (à confirmer, voir sa fiche) et des frites, boisson non comprise",
+   "badge": "Nouveau"
+  },
+  {
+   "slug": "menu-mamamia-chicken",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "celeri"
+   ],
+   "traces": [
+    "soja"
+   ],
+   "viandes": [
+    "poulet"
+   ],
+   "image": "",
+   "titre": "Menu Mamamia Chicken",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Mamamia Chicken, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 23,
+   "a_verifier": "allergènes du Mamamia Chicken (à confirmer, voir sa fiche) et des frites, boisson non comprise",
+   "badge": "Nouveau"
+  },
+  {
+   "slug": "menu-mamamia-original",
+   "source": "Gamme Mamamia (agence, 9 novembre 2026)",
+   "contient": [
+    "gluten",
+    "oeufs",
+    "lait",
+    "moutarde",
+    "poissons"
+   ],
+   "traces": [
+    "soja",
+    "celeri"
+   ],
+   "viandes": [
+    "boeuf"
+   ],
+   "image": "",
+   "titre": "Menu Mamamia Original",
+   "categories": [
+    "menus-simples"
+   ],
+   "description": "1 Mamamia Original, servi avec des frites et une boisson 33 cl au choix.",
+   "statut": "publish",
+   "ordre": 24,
+   "a_verifier": "allergènes du Mamamia Original (à confirmer, voir sa fiche) et des frites, boisson non comprise",
+   "badge": "Nouveau"
+  }
+ ]
+}

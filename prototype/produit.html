@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Smash Naan · Big M</title>
+<meta name="description" content="Le Smash Naan : ingrédients, allergènes et valeurs nutritionnelles.">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preload" href="assets/fonts/fredoka-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<style>
+
+.p-band { background: var(--orange); }
+.p-band__inner { position: relative; display: flex; justify-content: center; padding-block: 28px 0; }
+.p-back { position: absolute; left: var(--pad); top: 24px; z-index: 1; display: inline-flex; align-items: center; gap: 6px; background: #fff; border-radius: 999px; padding: 8px 16px 8px 10px; font-family: var(--display); font-weight: 600; text-decoration: none; }
+.p-back:hover { background: var(--tile); }
+.p-band img { width: min(640px, 100%); aspect-ratio: 520 / 350; object-fit: cover; border-radius: 28px 28px 0 0; margin-top: 52px; }
+.p-main { max-width: 860px; margin-inline: auto; padding: 40px var(--pad) 0; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.p-main h1 { font-size: clamp(40px, 5vw, 64px); }
+.p-main > p { font-size: 19px; color: var(--muted); max-width: 52ch; }
+.p-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+.acc { max-width: 860px; margin: 40px auto 0; padding-inline: var(--pad); display: flex; flex-direction: column; gap: 12px; }
+.acc details { background: #fff; border-radius: var(--radius); }
+.acc summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; font-family: var(--display); font-weight: 600; font-size: 22px; }
+.acc summary::-webkit-details-marker { display: none; }
+.acc summary svg { transition: transform .2s var(--ease); transform: rotate(90deg); }
+.acc details[open] summary svg { transform: rotate(-90deg); }
+.acc__body { padding: 0 24px 24px; display: flex; flex-direction: column; gap: 14px; }
+.ingredients { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 24px; }
+.ingredients li { display: flex; align-items: center; gap: 10px; }
+.ingredients li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--btn); flex: 0 0 auto; }
+.al-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.al-list li { border-radius: 999px; padding: 6px 14px; font-weight: 600; background: var(--ink); color: #fff; }
+.al-list.traces li { background: var(--tile); color: var(--ink); }
+.acc h3 { font-size: 18px; }
+.acc small { color: var(--muted); font-size: 14px; }
+.acc table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.acc th, .acc td { padding: 10px 0; border-bottom: 1px solid rgba(43,20,6,.12); text-align: left; }
+.acc td + td, .acc th + th { text-align: right; }
+.with { max-width: 860px; margin: 56px auto 0; padding-inline: var(--pad); }
+.with h2 { font-size: 30px; margin-bottom: 16px; }
+.with__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 700px) { .ingredients { grid-template-columns: 1fr; } .with__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .p-back { top: 14px; } .p-band img { margin-top: 56px; } }
+
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header__inner">
+    <div class="header__left">
+      <button class="burger" type="button" data-open-drawer aria-expanded="false" aria-controls="drawer" aria-label="Ouvrir le menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <nav class="header__nav" aria-label="Navigation principale">
+        <a href="carte.html" aria-current="page">Notre carte</a>
+        <a href="index.html#actus">Actualités</a>
+        <a href="index.html#franchise">Franchise</a>
+        <a href="index.html#recrutement">Recrutez-nous&#8239;!</a>
+      </nav>
+    </div>
+    <a class="header__logo" href="index.html" aria-label="Big M, accueil"><img src="assets/img/logo.webp" alt="Big M" width="273" height="352"></a>
+    <div class="header__right">
+      <a class="hide-sm" href="index.html#restaurants"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Restaurants</a>
+      <a class="btn" href="index.html#appli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>Commander</a>
+    </div>
+  </div>
+</header>
+<div class="drawer" id="drawer" data-open="false" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="drawer__scrim" data-close-drawer></div>
+  <nav class="drawer__panel" aria-label="Menu">
+    <button class="drawer__close" type="button" data-close-drawer aria-label="Fermer le menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <a href="index.html">Accueil</a>
+    <a href="carte.html">Notre carte</a>
+    <a href="index.html#restaurants">Nos restaurants</a>
+    <a href="index.html#actus">Actualités</a>
+    <a href="index.html#franchise">Devenir franchisé</a>
+    <a href="index.html#recrutement">Recrutez-nous&#8239;!</a>
+    <a href="index.html#legendes">Jeu concours</a>
+  </nav>
+</div>
+<main>
+  <div class="p-band"><div class="container p-band__inner">
+    <a class="p-back" href="categorie.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Revenir aux burgers</a>
+    <img src="assets/img/p-smashnaan.jpg" alt="Le Smash Naan : deux steaks smashés, cheddar fondu et cornichons dans un naan grillé" width="520" height="350">
+  </div></div>
+  <div class="p-main">
+    <h1>Smash Naan</h1>
+    <p>Deux steaks smashés sur la plaque, double cheddar fondu, cornichons et salade, le tout dans un naan grillé. [Description à valider]</p>
+    <div class="p-actions"><a class="btn" href="index.html#appli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>Commander</a><a class="btn btn--outline" href="index.html#restaurants">Trouver un restaurant</a></div>
+  </div>
+  <div class="acc">
+    <details open><summary>Ingrédients <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="acc__body">
+      <ul class="ingredients"><li>Naan grillé</li><li>Steak de bœuf smashé ×2</li><li>Cheddar fondu ×2</li><li>Cornichons</li><li>Salade</li><li>Sauce maison</li></ul>
+    </div></details>
+    <details open><summary>Allergènes <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="acc__body">
+      <h3>Contient</h3><ul class="al-list"><li>Gluten</li><li>Lait</li><li>Moutarde</li></ul>
+      <h3>Peut contenir des traces de</h3><ul class="al-list traces"><li>Sésame</li><li>Œufs</li><li>Soja</li></ul>
+      <small>Ces informations portent sur les 14 allergènes à déclaration obligatoire et viennent de nos fournisseurs. En cuisine, un contact accidentel avec d'autres allergènes ne peut pas être exclu. Données d'exemple pour la maquette.</small>
+    </div></details>
+    <details><summary>Valeurs nutritionnelles <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></summary><div class="acc__body">
+      <table><thead><tr><th scope="col">Pour</th><th scope="col">1 portion</th><th scope="col">100&#8239;g</th></tr></thead><tbody>
+      <tr><td>Énergie (kcal)</td><td>[—]</td><td>[—]</td></tr><tr><td>Matières grasses (g)</td><td>[—]</td><td>[—]</td></tr><tr><td>dont saturées (g)</td><td>[—]</td><td>[—]</td></tr><tr><td>Glucides (g)</td><td>[—]</td><td>[—]</td></tr><tr><td>dont sucres (g)</td><td>[—]</td><td>[—]</td></tr><tr><td>Protéines (g)</td><td>[—]</td><td>[—]</td></tr><tr><td>Sel (g)</td><td>[—]</td><td>[—]</td></tr>
+      </tbody></table>
+    </div></details>
+  </div>
+  <section class="with" aria-labelledby="t-with">
+    <h2 id="t-with">Ça va bien avec</h2>
+    <div class="with__grid">
+      <a class="tile" href="carte.html#petite-faim"><div class="tile__img"><img src="assets/img/p-frites.jpg" alt="" width="600" height="600" loading="lazy"></div><span class="tile__label">Frites</span></a>
+      <a class="tile" href="carte.html#petite-faim"><div class="tile__img"><img src="assets/img/p-nuggets.jpg" alt="" width="600" height="600" loading="lazy"></div><span class="tile__label">Nuggets</span></a>
+      <a class="tile" href="carte.html#boissons"><div class="tile__img"><img src="assets/img/p-streetcola.jpg" alt="" width="600" height="600" loading="lazy"></div><span class="tile__label">Street Cola</span></a>
+    </div>
+  </section>
+</main>
+<nav class="tabbar" aria-label="Navigation rapide">
+  <div class="tabbar__bar">
+    <a class="tabbar__item" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="tabbar__ico" d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg>Accueil</a>
+    <a class="tabbar__item" href="carte.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="tabbar__ico" d="M4 10a8 6 0 0 1 16 0z M3 13.5h18 M4.5 17h15v.5a2.5 2.5 0 0 1-2.5 2.5H7a2.5 2.5 0 0 1-2.5-2.5z"/></svg>La carte</a>
+    <a class="tabbar__fab" href="index.html#appli" aria-label="Commander"><img src="assets/img/logo.webp" alt="" width="273" height="352"></a>
+    <a class="tabbar__item" href="index.html#restaurants"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="tabbar__ico" d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z M12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg>Restos</a>
+    <button class="tabbar__item" type="button" data-open-drawer aria-controls="drawer" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="tabbar__ico" d="M4 7h16M4 12h16M4 17h16"/></svg>Plus</button>
+    <span class="tabbar__label" aria-hidden="true">Commander</span>
+  </div>
+</nav>
+<footer class="footer">
+  <div class="container footer__top">
+    <div class="footer__brand">
+      <img src="assets/img/logo.webp" alt="Big M" width="273" height="352" loading="lazy">
+      <div class="footer__social">
+        <a href="https://www.instagram.com/bigm_officiel/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg></a>
+        <a href="https://www.snapchat.com/add/bigm.officiel" aria-label="Snapchat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 0 5 2.2 5 5.2v2.3l1.8.6-.9 1.6 1.6 1.2c-1.4.9-3 .9-3.7 1.9-.5.8-1.3 1.7-3.8 1.7s-3.3-.9-3.8-1.7c-.7-1-2.3-1-3.7-1.9l1.6-1.2-.9-1.6 1.8-.6V8.2C7 5.2 9 3 12 3z"/></svg></a>
+        <a href="https://twitter.com/BigM_officiel" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20"/></svg></a>
+      </div>
+      <p style="font-family: var(--display); font-weight: 600; font-size: 18px; color: #fff">Big M dans votre poche</p>
+      <div class="stores">
+  <a class="store" href="https://apps.apple.com/fr/app/big-m/id6444707190"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9s-1.8-.9-3-.8C7 7.3 5.6 8.2 4.8 9.6c-1.6 2.8-.4 6.9 1.1 9.2.8 1.1 1.7 2.3 2.9 2.3s1.6-.7 3-.7 1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.5 1.3-2.6 0 0-2.5-1-2.5-3.6zM14.1 5.6c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.3z"/></svg><span><small>Télécharger dans</small><b>l'App Store</b></span></a>
+  <a class="store" href="https://play.google.com/store/apps/details?id=com.dishop.big&amp;gl=FR"><svg viewBox="0 0 24 26" aria-hidden="true"><path d="M3 2l11 11L3 24c-.6-.3-1-.9-1-1.6V3.6C2 2.9 2.4 2.3 3 2z" fill="#34A853"/><path d="M14 13l3.5-3.5 3.6 2c1.2.7 1.2 2.3 0 3l-3.6 2L14 13z" fill="#FBBC04"/><path d="M3 2c.4-.2 1-.2 1.5.1l13 7.4L14 13 3 2z" fill="#4285F4"/><path d="M3 24l11-11 3.5 3.5-13 7.4c-.5.3-1.1.3-1.5.1z" fill="#EA4335"/></svg><span><small>Disponible sur</small><b>Google Play</b></span></a>
+</div>
+    </div>
+    <div>
+      <h3>Produits</h3>
+      <ul>
+        <li><a href="carte.html">Notre carte</a></li>
+        <li><a href="categorie.html">Nos burgers</a></li>
+        <li><a href="carte.html">Nos menus</a></li>
+        <li><a href="categorie.html#allergenes">Allergènes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>L'entreprise</h3>
+      <ul>
+        <li><a href="index.html#legendes">Notre histoire</a></li>
+        <li><a href="index.html#actus">Actualités et presse</a></li>
+        <li><a href="index.html#franchise">Devenir franchisé</a></li>
+        <li><a href="index.html#recrutement">Recrutement</a></li>
+        <li><a href="index.html#legendes">Jeu concours</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <ul>
+        <li><a href="mailto:contact@bigm-burger.fr">contact@bigm-burger.fr</a></li>
+        <li>Siège&#8239;: Villeneuve-la-Garenne</li>
+        <li><a href="#">Mentions légales</a></li>
+        <li><a href="#">Politique de confidentialité</a></li>
+        <li><a href="#">Gestion des cookies</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer__bottom">
+    <span>© 2026 Big M, c'est ça qu'on aime&#8239;!</span>
+    <span>Pour votre santé, mangez au moins cinq fruits et légumes par jour. www.mangerbouger.fr</span>
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

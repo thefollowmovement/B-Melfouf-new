@@ -1,0 +1,72 @@
+/* Big M — en-tête en capsule et menu latéral (tiroir).
+   Repris de prototype/assets/site.css (bloc « en-tête »), dans le même ordre. */
+
+/* en-tête */
+.header { position: sticky; top: 0; z-index: 50; padding: 14px var(--pad) 0; pointer-events: none; }
+.header__inner { pointer-events: auto; max-width: 1240px; margin-inline: auto; padding-inline: 14px 10px; height: 72px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; border-radius: 24px; background: rgba(255, 255, 255, .78); -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%); box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 0 0 1px rgba(43, 20, 6, .06), 0 10px 30px -14px rgba(43, 20, 6, .25); transition: height .35s cubic-bezier(.22, 1, .36, 1), box-shadow .3s ease, background-color .3s ease, max-width .35s cubic-bezier(.22, 1, .36, 1); }
+.header.is-scrolled .header__inner { height: 64px; background: rgba(255, 255, 255, .9); box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 0 0 1px rgba(43, 20, 6, .07), 0 16px 36px -14px rgba(43, 20, 6, .32); }
+@media (prefers-reduced-transparency: reduce) { .header__inner { background: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; } }
+.header__left { display: flex; align-items: center; gap: 26px; }
+.header__nav { display: flex; gap: 24px; font-family: var(--font-display); font-weight: 600; font-size: 16px; }
+.header__nav a { text-decoration: none; padding-block: 6px; border-bottom: 3px solid transparent; transition: border-color .18s ease, color .18s ease; }
+.header__nav a:hover { color: var(--btn); }
+.header__nav a[aria-current="page"] { border-color: var(--btn); }
+.header__logo { display: block; justify-self: center; }
+.header__logo img { height: 56px; width: auto; transition: height .35s cubic-bezier(.22, 1, .36, 1), transform .4s cubic-bezier(.34, 1.56, .64, 1); }
+.header.is-scrolled .header__logo img { height: 48px; }
+.header__logo:hover img { transform: rotate(-6deg) scale(1.06); }
+.header__right { display: flex; align-items: center; justify-content: flex-end; gap: 22px; font-family: var(--font-display); font-weight: 600; font-size: 16px; }
+.header__right > a:not(.btn) { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
+.header__right > a:not(.btn):hover { color: var(--btn); }
+.header__right svg { width: 18px; height: 18px; }
+/* Icône panier (Commander) : seulement sur mobile, voir plus bas. */
+.header__right > a.header__panier { display: none; }
+.burger { display: inline-flex; width: 40px; height: 40px; align-items: center; justify-content: center; border-radius: 10px; }
+.burger:hover { background: var(--tile); }
+.burger svg { width: 24px; height: 24px; }
+.drawer { position: fixed; inset: 0; z-index: 60; display: none; }
+.drawer[data-open="true"] { display: block; }
+.drawer__scrim { position: absolute; inset: 0; background: rgba(43, 20, 6, .45); }
+.drawer__panel { position: absolute; top: 0; left: 0; bottom: 0; width: min(380px, 88vw); background: var(--bg); padding: 24px; display: flex; flex-direction: column; gap: 6px; overflow-y: auto; }
+.drawer__panel a { font-family: var(--font-display); font-weight: 600; font-size: 24px; text-decoration: none; padding: 10px 0; }
+.drawer__close { align-self: flex-end; width: 44px; height: 44px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; }
+.drawer__close:hover { background: var(--tile); }
+
+@media (max-width: 960px) {
+  .header__nav { display: none; }
+  /* Lien Restaurants en icône seule, en face du bouton menu ; son nom reste lu par les lecteurs d'écran. */
+  .header__right { gap: 8px; }
+  .header__right > a.hide-sm { width: 44px; height: 44px; justify-content: center; border-radius: 10px; font-size: 0; gap: 0; }
+  .header__right > a.hide-sm svg { width: 24px; height: 24px; }
+  .header__right > a.hide-sm:hover { background: var(--tile); color: inherit; }
+  .header__right > a.hide-sm[aria-current="page"] { color: var(--btn); }
+  .header { padding: 10px 10px 0; }
+  .header__inner, .header.is-scrolled .header__inner { height: 60px; border-radius: 20px; padding-inline: 8px; }
+  .header__logo img, .header.is-scrolled .header__logo img { height: 46px; }
+  .header__right .btn { min-height: 42px; padding: 0 16px; font-size: 15px; }
+}
+
+@media (max-width: 760px) {
+  /* Le bouton Commander est caché (tabbar.css) ; l'icône panier prend la place de l'icône
+     Restaurants, qui est dans la barre d'onglets (« Restos »). */
+  .header__right > a.hide-sm { display: none; }
+  .header__right > a.header__panier { display: inline-flex; width: 44px; height: 44px; justify-content: center; border-radius: 10px; }
+  .header__right > a.header__panier svg { width: 26px; height: 26px; }
+  .header__right > a.header__panier:hover { background: var(--tile); color: inherit; }
+}
+
+/* repris du bloc « animations des boutons » */
+.header .btn svg { transform-origin: 50% 20%; }
+
+/* WordPress : la barre d'admin (connecté) passe au-dessus de l'en-tête collant. */
+.admin-bar .header { top: 32px; }
+@media (max-width: 782px) { .admin-bar .header { top: 46px; } }
+@media (max-width: 600px) { .admin-bar .header { top: 0; } }
+
+/* Widget « Big M — En-tête » dans un modèle du Theme Builder : c'est le conteneur
+   d'Elementor qui doit coller en haut, sinon l'en-tête ne reste pas visible. */
+.elementor-location-header:has(.header) { position: sticky; top: 0; z-index: 50; }
+.admin-bar .elementor-location-header:has(.header) { top: 32px; }
+.elementor-location-header .header { top: 0; }
+@media (max-width: 782px) { .admin-bar .elementor-location-header:has(.header) { top: 46px; } }
+@media (max-width: 600px) { .admin-bar .elementor-location-header:has(.header) { top: 0; } }

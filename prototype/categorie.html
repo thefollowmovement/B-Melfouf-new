@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nos burgers · Big M</title>
+<meta name="description" content="Les burgers Big M, bœuf ou poulet, avec filtre par allergène.">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preload" href="assets/fonts/fredoka-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<style>
+
+.cat-tabs { position: sticky; top: 88px; z-index: 40; max-width: 1240px; margin: 10px auto 0; width: calc(100% - 2 * var(--pad)); border-radius: 20px; background: rgba(255, 255, 255, .9); -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%); box-shadow: 0 0 0 1px rgba(43, 20, 6, .06), 0 10px 28px -16px rgba(43, 20, 6, .25); overflow: hidden; }
+@media (prefers-reduced-transparency: reduce) { .cat-tabs { background: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; } }
+.cat-tabs ul { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; justify-content: space-between; padding-inline: 8px; max-width: none; }
+.cat-tabs ul::-webkit-scrollbar { display: none; }
+.cat-tabs a { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 12px 10px; min-width: 88px; text-decoration: none; font-family: var(--display); font-weight: 600; font-size: 15px; white-space: nowrap; color: var(--ink); border-bottom: 3px solid transparent; transition: color .18s ease, border-color .18s ease; }
+.cat-tabs a:hover { color: var(--btn); }
+.cat-tabs a[aria-current="page"] { color: var(--btn); border-color: var(--btn); }
+.cat-tabs svg { width: 28px; height: 28px; }
+@media (max-width: 960px) { .cat-tabs ul { justify-content: flex-start; } }
+@media (max-width: 760px) { .cat-tabs { top: 76px; width: calc(100% - 20px); border-radius: 18px; } .cat-tabs a { min-width: 76px; padding: 8px 10px 10px; font-size: 14px; } .cat-tabs svg { width: 24px; height: 24px; } }
+
+.carte-head { padding-block: 32px 20px; }
+.carte-head h1 { font-size: clamp(36px, 4.4vw, 56px); }
+.carte-head p { color: var(--muted); margin-top: 8px; }
+.filters { margin-top: 28px; }
+.cat-banner { margin-top: 28px; border-radius: 28px; overflow: hidden; position: relative; aspect-ratio: 1240 / 360; background: var(--orange); }
+.cat-banner img { position: absolute; right: 0; top: 0; height: 100%; width: 56%; object-fit: cover; object-position: 50% 85%; }
+.cat-banner__text { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 0 clamp(24px, 4vw, 52px); max-width: 42%; }
+.cat-banner h1 { font-size: clamp(36px, 5vw, 68px); color: #fff; }
+.cat-banner p { font-size: 18px; color: var(--ink); font-weight: 600; }
+.filters { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin: 28px 0 8px; }
+.chips { display: flex; gap: 10px; flex-wrap: wrap; }
+.chip { min-height: 44px; padding: 0 18px; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1.5px rgba(43,20,6,.35); font-weight: 600; transition: background-color .18s ease, color .18s ease; }
+.chip:hover { background: var(--tile); }
+.chip[aria-pressed="true"] { background: var(--ink); color: #fff; box-shadow: none; }
+.allergy { background: #fff; border-radius: var(--radius); padding: 22px; margin-top: 14px; display: none; flex-direction: column; gap: 14px; }
+.allergy[data-open="true"] { display: flex; }
+.allergy h2 { font-size: 22px; }
+.allergy .chip[aria-pressed="true"] { background: var(--btn); text-decoration: line-through; }
+.allergy small { color: var(--muted); }
+.group { margin-top: 36px; }
+.group h2 { font-size: 30px; margin-bottom: 16px; }
+.products { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.product { background: #fff; border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column; gap: 12px; text-decoration: none; position: relative; transition: transform .2s var(--ease); }
+.product:hover { transform: translateY(-3px); }
+.product:hover .product__name { color: var(--btn); }
+.product__name { font-family: var(--display); font-weight: 600; font-size: 20px; line-height: 1.15; min-height: 2.3em; }
+.product__img { aspect-ratio: 1 / 1; border-radius: var(--radius-sm); overflow: hidden; position: relative; }
+.product__img img { width: 100%; height: 100%; object-fit: cover; }
+.badge { position: absolute; z-index: 1; top: 10px; left: 10px; background: var(--yellow); border-radius: 999px; padding: 2px 10px; font-weight: 600; font-size: 13px; }
+.empty { display: none; margin-top: 36px; background: #fff; border-radius: var(--radius); padding: 32px; text-align: center; }
+.empty[data-show="true"] { display: block; }
+[hidden] { display: none !important; }
+@media (max-width: 960px) {
+  .cat-banner { aspect-ratio: auto; display: flex; flex-direction: column; }
+  .cat-banner img { position: static; width: 100%; height: 200px; }
+  .cat-banner__text { max-width: none; padding-block: 24px; order: -1; }
+  .products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .product { padding: 12px; }
+  .product__name { font-size: 17px; }
+}
+
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header__inner">
+    <div class="header__left">
+      <button class="burger" type="button" data-open-drawer aria-expanded="false" aria-controls="drawer" aria-label="Ouvrir le menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <nav class="header__nav" aria-label="Navigation principale">
+        <a href="carte.html" aria-current="page">Notre carte</a>
+        <a href="index.html#actus">Actualités</a>
+        <a href="index.html#franchise">Franchise</a>
+        <a href="index.html#recrutement">Recrutez-nous&#8239;!</a>
+      </nav>
+    </div>
+    <a class="header__logo" href="index.html" aria-label="Big M, accueil"><img src="assets/img/logo.webp" alt="Big M" width="273" height="352"></a>
+    <div class="header__right">
+      <a class="hide-sm" href="index.html#restaurants"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Restaurants</a>
+      <a class="btn" href="index.html#appli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>Commander</a>
+    </div>
+  </div>
+</header>
+<div class="drawer" id="drawer" data-open="false" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="drawer__scrim" data-close-drawer></div>
+  <nav class="drawer__panel" aria-label="Menu">
+    <button class="drawer__close" type="button" data-close-drawer aria-label="Fermer le menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <a href="index.html">Accueil</a>
+    <a href="carte.html">Notre carte</a>
+    <a href="index.html#restaurants">Nos restaurants</a>
+    <a href="index.html#actus">Actualités</a>
+    <a href="index.html#franchise">Devenir franchisé</a>
+    <a href="index.html#recrutement">Recrutez-nous&#8239;!</a>
+    <a href="index.html#legendes">Jeu concours</a>
+  </nav>
+</div>
+<nav class="cat-tabs" aria-label="Catégories de la carte"><ul class="container"><li><a href="carte.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg>Toute la carte</a></li><li><a href="carte.html#nouveautes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Nouveautés</a></li><li><a href="carte.html#menus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8z M9 8V6a3 3 0 0 1 6 0v2"/></svg>Menus</a></li><li><a href="categorie.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10a8 6 0 0 1 16 0z M3 13.5h18 M4.5 17h15v.5a2.5 2.5 0 0 1-2.5 2.5H7a2.5 2.5 0 0 1-2.5-2.5z"/></svg>Burgers</a></li><li><a href="carte.html#poulet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3.5a5.5 5.5 0 0 1 3.9 9.4l-2.4 2.4-4.6-4.6.2-.3A5.5 5.5 0 0 1 15 3.5z M11.9 10.7 6.5 16.1 M5 15a2 2 0 1 0 2.5 2.5 2 2 0 1 0 1.5-2.6"/></svg>Poulet</a></li><li><a href="carte.html#tex-mex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c1 3 5 4.5 5 9.5a5 5 0 0 1-10 0c0-2.3 1.2-3.7 2.4-4.8 0 2 .9 3.3 2.1 3.3 0-3.3-.9-5.4.5-8z"/></svg>Tex-Mex</a></li><li><a href="carte.html#petite-faim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 10h12l-1.5 10h-9z M8 10V4 M11 10V3 M14 10V4 M16.5 10V5.5"/></svg>Petite faim</a></li><li><a href="carte.html#desserts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 10a4.5 4.5 0 0 1 9 0z M7.5 10 12 21l4.5-11"/></svg>Desserts</a></li><li><a href="carte.html#boissons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10l-1.2 13H8.2z M6 7h12 M12 7l2-4h3"/></svg>Boissons</a></li></ul></nav>
+<main class="container">
+  <div class="carte-head"><div><h1 id="titre">Nos burgers</h1><p>Bœuf ou poulet, simple ou double&#8239;: les légendes du burger, 100&#8239;% halal.</p></div></div>
+</main>
+<section aria-label="Offres burgers"><div class="hs hs--banner" data-hs data-interval="5000" aria-roledescription="carrousel" aria-label="Offres burgers">
+  <div class="hs__viewport">
+    <div class="hs__track"><div class="hs__slide"><a href="categorie.html" draggable="false"><video class="hs__media" data-src="assets/video/banner-doubles.mp4" poster="assets/video/banner-doubles-poster.jpg" muted playsinline preload="none" aria-label="Menu Doublés : deux burgers, frites et boisson" style="object-position:50% 50%"></video></a></div><div class="hs__slide"><a href="produit.html" draggable="false"><img class="hs__media" src="assets/img/b-offre-menu-simple.jpg" alt="Menu Simple : smash naan, frites et boisson" style="object-position:50% 60%" draggable="false"></a></div><div class="hs__slide"><a href="carte.html#boissons" draggable="false"><img class="hs__media" src="assets/img/b-street-cola.jpg" alt="Le Street Cola" style="object-position:50% 50%" draggable="false"></a></div></div>
+    <button class="hs__arrow hs__arrow--prev" type="button" aria-label="Diapositive précédente"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <button class="hs__arrow hs__arrow--next" type="button" aria-label="Diapositive suivante"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+  </div>
+  <div class="hs__bar"><div class="hs__dots"></div><button class="hs__pause" type="button"></button></div>
+</div></section>
+<main class="container">
+  <div class="filters" id="allergenes">
+    <div class="chips" role="group" aria-label="Filtrer par viande">
+      <button class="chip" type="button" data-meat-filter="tous" aria-pressed="true">Tous</button>
+      <button class="chip" type="button" data-meat-filter="boeuf" aria-pressed="false">Bœuf</button>
+      <button class="chip" type="button" data-meat-filter="poulet" aria-pressed="false">Poulet</button>
+    </div>
+    <button class="chip" type="button" data-toggle-allergy aria-expanded="false" aria-controls="allergy">Filtrer par allergène</button>
+  </div>
+  <div class="allergy" id="allergy" data-open="false">
+    <h2>Masquer les produits qui contiennent&#8239;:</h2>
+    <div class="chips"><button class="chip" type="button" data-allergen="gluten" aria-pressed="false">Gluten</button><button class="chip" type="button" data-allergen="lait" aria-pressed="false">Lait</button><button class="chip" type="button" data-allergen="oeufs" aria-pressed="false">Œufs</button><button class="chip" type="button" data-allergen="moutarde" aria-pressed="false">Moutarde</button><button class="chip" type="button" data-allergen="sesame" aria-pressed="false">Sésame</button><button class="chip" type="button" data-allergen="soja" aria-pressed="false">Soja</button><button class="chip" type="button" data-allergen="celeri" aria-pressed="false">Céleri</button><button class="chip" type="button" data-allergen="poissons" aria-pressed="false">Poissons</button><button class="chip" type="button" data-allergen="crustaces" aria-pressed="false">Crustacés</button><button class="chip" type="button" data-allergen="mollusques" aria-pressed="false">Mollusques</button><button class="chip" type="button" data-allergen="arachides" aria-pressed="false">Arachides</button><button class="chip" type="button" data-allergen="fruitsacoque" aria-pressed="false">Fruits à coque</button><button class="chip" type="button" data-allergen="sulfites" aria-pressed="false">Sulfites</button><button class="chip" type="button" data-allergen="lupin" aria-pressed="false">Lupin</button></div>
+    <small>Données d'exemple pour la maquette. Les traces éventuelles sont indiquées sur chaque fiche produit.</small>
+  </div>
+  <section class="group" data-group="boeuf" aria-labelledby="t-boeuf"><h2 id="t-boeuf">Bœuf</h2><div class="products"><a class="product has-video" href="produit.html" data-meat="boeuf" data-allergens="gluten lait moutarde sesame oeufs" data-reveal style="--i:0"><span class="product__name">Le Big M</span><div class="product__img"><img src="assets/img/p-bigm.jpg" alt="Le Big M" width="600" height="600" loading="lazy"><video data-tile-video data-src="assets/video/tile-bigm.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div></a><a class="product" href="produit.html" data-meat="boeuf" data-allergens="gluten lait moutarde sesame" data-reveal style="--i:1"><span class="product__name">Le Giant</span><div class="product__img"><img src="assets/img/p-giant.jpg" alt="Le Giant" width="600" height="600" loading="lazy"></div></a><a class="product has-video" href="produit.html" data-meat="boeuf" data-allergens="gluten lait moutarde sesame" data-reveal style="--i:2"><span class="product__name">Le Double Jumbo</span><div class="product__img"><img src="assets/img/p-jumbo.jpg" alt="Le Double Jumbo" width="600" height="600" loading="lazy"><video data-tile-video data-src="assets/video/tile-jumbo.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div></a><a class="product" href="produit.html" data-meat="boeuf" data-allergens="gluten lait moutarde" data-reveal style="--i:3"><span class="product__name">Smash Naan</span><div class="product__img"><span class="badge">Nouveau</span><img src="assets/img/p-smashnaan.jpg" alt="Smash Naan" width="600" height="600" loading="lazy"></div></a></div></section>
+  <section class="group" id="poulet" data-group="poulet" aria-labelledby="t-poulet"><h2 id="t-poulet">Poulet</h2><div class="products"><a class="product has-video" href="produit.html" data-meat="poulet" data-allergens="gluten oeufs lait sesame moutarde" data-reveal style="--i:0"><span class="product__name">Le Tower</span><div class="product__img"><img src="assets/img/p-tower.jpg" alt="Le Tower" width="600" height="600" loading="lazy"><video data-tile-video data-src="assets/video/tile-tower.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div></a><a class="product" href="produit.html" data-meat="poulet" data-allergens="gluten oeufs lait sesame" data-reveal style="--i:1"><span class="product__name">Chicken Burger</span><div class="product__img"><img src="assets/img/p-chicken.jpg" alt="Chicken Burger" width="600" height="600" loading="lazy"></div></a></div></section>
+  <div class="empty" data-empty><h2 style="font-size:26px">Aucun burger ne correspond</h2><p style="margin:8px 0 16px;color:var(--muted)">Retirez un allergène ou changez de filtre.</p><button class="btn" type="button" data-reset>Réinitialiser les filtres</button></div>
+</main>
+<script>
+(() => {
+  let meat = 'tous';
+  const off = new Set();
+  const cards = [...document.querySelectorAll('.product')];
+  const groups = [...document.querySelectorAll('[data-group]')];
+  const empty = document.querySelector('[data-empty]');
+  const label = document.querySelector('[data-toggle-allergy]');
+  const apply = () => {
+    cards.forEach((c) => {
+      const al = c.dataset.allergens.split(' ');
+      c.hidden = (meat !== 'tous' && c.dataset.meat !== meat) || al.some((x) => off.has(x));
+    });
+    let any = false;
+    groups.forEach((g) => { const v = [...g.querySelectorAll('.product')].some((c) => !c.hidden); g.hidden = !v; any = any || v; });
+    empty.dataset.show = String(!any);
+    label.textContent = off.size ? 'Allergènes (' + off.size + ')' : 'Filtrer par allergène';
+    label.setAttribute('aria-pressed', String(off.size > 0));
+  };
+  document.querySelectorAll('[data-meat-filter]').forEach((b) => b.addEventListener('click', () => {
+    meat = b.dataset.meatFilter;
+    document.querySelectorAll('[data-meat-filter]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    apply();
+  }));
+  document.querySelectorAll('[data-allergen]').forEach((b) => b.addEventListener('click', () => {
+    const k = b.dataset.allergen; off.has(k) ? off.delete(k) : off.add(k);
+    b.setAttribute('aria-pressed', String(off.has(k))); apply();
+  }));
+  const panel = document.getElementById('allergy');
+  label.addEventListener('click', () => { const o = panel.dataset.open !== 'true'; panel.dataset.open = String(o); label.setAttribute('aria-expanded', String(o)); });
+  document.querySelector('[data-reset]').addEventListener('click', () => {
+    meat = 'tous'; off.clear();
+    document.querySelectorAll('[data-meat-filter]').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.meatFilter === 'tous')));
+    document.querySelectorAll('[data-allergen]').forEach((x) => x.setAttribute('aria-pressed', 'false'));
+    apply();
+  });
+  if (location.hash === '#allergenes') { panel.dataset.open = 'true'; label.setAttribute('aria-expanded', 'true'); }
+})();
+</script>
+<nav class="tabbar" aria-label="Navigation rapide">
+  <div class="tabbar__bar">
+    <a class="tabbar__item" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="tabbar__ico" d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg>Accueil</a>
+    <a class="tabbar__item" href="carte.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="tabbar__ico" d="M4 10a8 6 0 0 1 16 0z M3 13.5h18 M4.5 17h15v.5a2.5 2.5 0 0 1-2.5 2.5H7a2.5 2.5 0 0 1-2.5-2.5z"/></svg>La carte</a>
+    <a class="tabbar__fab" href="index.html#appli" aria-label="Commander"><img src="assets/img/logo.webp" alt="" width="273" height="352"></a>
+    <a class="tabbar__item" href="index.html#restaurants"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="tabbar__ico" d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z M12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg>Restos</a>
+    <button class="tabbar__item" type="button" data-open-drawer aria-controls="drawer" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="tabbar__ico" d="M4 7h16M4 12h16M4 17h16"/></svg>Plus</button>
+    <span class="tabbar__label" aria-hidden="true">Commander</span>
+  </div>
+</nav>
+<footer class="footer">
+  <div class="container footer__top">
+    <div class="footer__brand">
+      <img src="assets/img/logo.webp" alt="Big M" width="273" height="352" loading="lazy">
+      <div class="footer__social">
+        <a href="https://www.instagram.com/bigm_officiel/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg></a>
+        <a href="https://www.snapchat.com/add/bigm.officiel" aria-label="Snapchat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 0 5 2.2 5 5.2v2.3l1.8.6-.9 1.6 1.6 1.2c-1.4.9-3 .9-3.7 1.9-.5.8-1.3 1.7-3.8 1.7s-3.3-.9-3.8-1.7c-.7-1-2.3-1-3.7-1.9l1.6-1.2-.9-1.6 1.8-.6V8.2C7 5.2 9 3 12 3z"/></svg></a>
+        <a href="https://twitter.com/BigM_officiel" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20"/></svg></a>
+      </div>
+      <p style="font-family: var(--display); font-weight: 600; font-size: 18px; color: #fff">Big M dans votre poche</p>
+      <div class="stores">
+  <a class="store" href="https://apps.apple.com/fr/app/big-m/id6444707190"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9s-1.8-.9-3-.8C7 7.3 5.6 8.2 4.8 9.6c-1.6 2.8-.4 6.9 1.1 9.2.8 1.1 1.7 2.3 2.9 2.3s1.6-.7 3-.7 1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.5 1.3-2.6 0 0-2.5-1-2.5-3.6zM14.1 5.6c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.3z"/></svg><span><small>Télécharger dans</small><b>l'App Store</b></span></a>
+  <a class="store" href="https://play.google.com/store/apps/details?id=com.dishop.big&amp;gl=FR"><svg viewBox="0 0 24 26" aria-hidden="true"><path d="M3 2l11 11L3 24c-.6-.3-1-.9-1-1.6V3.6C2 2.9 2.4 2.3 3 2z" fill="#34A853"/><path d="M14 13l3.5-3.5 3.6 2c1.2.7 1.2 2.3 0 3l-3.6 2L14 13z" fill="#FBBC04"/><path d="M3 2c.4-.2 1-.2 1.5.1l13 7.4L14 13 3 2z" fill="#4285F4"/><path d="M3 24l11-11 3.5 3.5-13 7.4c-.5.3-1.1.3-1.5.1z" fill="#EA4335"/></svg><span><small>Disponible sur</small><b>Google Play</b></span></a>
+</div>
+    </div>
+    <div>
+      <h3>Produits</h3>
+      <ul>
+        <li><a href="carte.html">Notre carte</a></li>
+        <li><a href="categorie.html">Nos burgers</a></li>
+        <li><a href="carte.html">Nos menus</a></li>
+        <li><a href="categorie.html#allergenes">Allergènes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>L'entreprise</h3>
+      <ul>
+        <li><a href="index.html#legendes">Notre histoire</a></li>
+        <li><a href="index.html#actus">Actualités et presse</a></li>
+        <li><a href="index.html#franchise">Devenir franchisé</a></li>
+        <li><a href="index.html#recrutement">Recrutement</a></li>
+        <li><a href="index.html#legendes">Jeu concours</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <ul>
+        <li><a href="mailto:contact@bigm-burger.fr">contact@bigm-burger.fr</a></li>
+        <li>Siège&#8239;: Villeneuve-la-Garenne</li>
+        <li><a href="#">Mentions légales</a></li>
+        <li><a href="#">Politique de confidentialité</a></li>
+        <li><a href="#">Gestion des cookies</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer__bottom">
+    <span>© 2026 Big M, c'est ça qu'on aime&#8239;!</span>
+    <span>Pour votre santé, mangez au moins cinq fruits et légumes par jour. www.mangerbouger.fr</span>
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

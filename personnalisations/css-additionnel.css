@@ -1,0 +1,16 @@
+/* En-tête mobile : icône de localisation vers la liste des restaurants (lien « Restaurants » du thème, en icône seule) */
+@media (max-width: 960px) {
+  .header .header__right > a.hide-sm {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 0; /* le texte « Restaurants » reste lu par les lecteurs d'écran */
+    gap: 0;
+  }
+  .header .header__right > a.hide-sm svg { width: 24px; height: 24px; }
+  .header .header__right > a.hide-sm:hover { background: var(--tile); color: inherit; }
+  .header .header__right > a.hide-sm[aria-current="page"] { color: var(--btn); }
+}
