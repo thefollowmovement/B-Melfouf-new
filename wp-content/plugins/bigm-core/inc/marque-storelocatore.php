@@ -4,7 +4,8 @@
  *
  * - page d'avis /avis/{restaurant}/ (QR code) : polices Fredoka et Figtree, couleurs de la
  *   charte (action tfmsl_rb_page_head) ;
- * - affiches QR imprimables : polices de la charte (filtre tfmsl_poster_style) ;
+ * - affiches QR imprimables : polices et couleurs de la charte (filtres tfmsl_poster_style et
+ *   tfmsl_poster_default_colors) ;
  * - réseaux sociaux d'un restaurant : ceux de Big M (Réglages Big M → Réseaux sociaux) quand sa
  *   fiche n'en a pas (filtre tfmsl_store_socials) ;
  * - pastille « Nouveau » des restaurants : jaune de la charte, texte brun.
@@ -72,40 +73,54 @@ add_action(
 		$c = bigm_marque_couleurs();
 		$f = bigm_marque_familles();
 		echo '<style id="bigm-page-avis">' . bigm_marque_polices_css() // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS construit ici, adresses échappées.
-			. ':root{--tfmsl-rb-accent:' . $c['bouton'] . ';--tfmsl-rb-font:' . $f['texte'] . ';--tfmsl-rb-font-title:' . $f['titre'] . ';--tfmsl-rb-ink:' . $c['encre'] . ';--tfmsl-rb-bg:' . $c['fond'] . ';--tfmsl-rb-card:#ffffff;--tfmsl-rb-btn-text:#ffffff;--tfmsl-new-bg:' . $c['jaune'] . ';--tfmsl-new-fg:' . $c['encre'] . '}'
+			. ':root{--tfmsl-rb-accent:' . $c['bouton'] . ';--tfmsl-rb-font:' . $f['texte'] . ';--tfmsl-rb-font-title:' . $f['titre'] . ';--tfmsl-rb-ink:' . $c['encre'] . ';--tfmsl-rb-muted:' . $c['doux'] . ';--tfmsl-rb-line:#e8ddd2;--tfmsl-rb-star:' . $c['jaune'] . ';--tfmsl-rb-bg:' . $c['fond'] . ';--tfmsl-rb-card:#ffffff;--tfmsl-rb-btn-text:#ffffff;--tfmsl-new-bg:' . $c['jaune'] . ';--tfmsl-new-fg:' . $c['encre'] . '}'
 			. '</style>';
 	}
 );
 
 /*
- * Affiches QR : polices de la charte, et ses couleurs (bandeau brun, accents orange, étoiles
- * jaunes, papier blanc cassé) tant qu'aucune couleur n'est choisie dans Collecte d'avis ▸
- * Réglages ▸ Affiches. Logo : celui du site (réglage de l'affiche vide).
+ * Affiches QR : couleurs de la charte par défaut (bandeau brun, accents orange, texte brun,
+ * papier blanc cassé, étoiles jaunes). Ce sont aussi les couleurs que montrent les sélecteurs de
+ * Collecte d'avis ▸ Réglages ▸ Affiches : une couleur choisie là les remplace.
+ */
+add_filter(
+	'tfmsl_poster_default_colors',
+	static function ( $defaut ) {
+		$c = bigm_marque_couleurs();
+		return array_merge(
+			is_array( $defaut ) ? $defaut : array(),
+			array(
+				'band'   => $c['encre'],
+				'accent' => $c['bouton'],
+				'ink'    => $c['encre'],
+				'paper'  => $c['fond'],
+				'star'   => $c['jaune'],
+			)
+		);
+	}
+);
+
+/*
+ * Affiches QR : polices de la charte. Logo : celui de l'affiche, sinon celui du site, sinon celui
+ * du thème (assets/img/logo.webp).
  */
 add_filter(
 	'tfmsl_poster_style',
 	static function ( $affiche ) {
 		$affiche               = is_array( $affiche ) ? $affiche : array();
 		$f                     = bigm_marque_familles();
-		$c                     = bigm_marque_couleurs();
 		$affiche['font_css']   = bigm_marque_polices_css() . ( (string) ( $affiche['font_css'] ?? '' ) );
 		$affiche['font_title'] = $f['titre'];
 		$affiche['font_text']  = $f['texte'];
-		$choix                 = class_exists( 'TFMSL_Review_Booster' ) && method_exists( 'TFMSL_Review_Booster', 'get_settings' ) ? (array) TFMSL_Review_Booster::get_settings() : array();
-		$marque                = array(
-			'band'   => array( 'poster_band', $c['encre'] ),
-			'accent' => array( 'poster_accent', $c['bouton'] ),
-			'ink'    => array( 'poster_ink', $c['encre'] ),
-			'paper'  => array( 'poster_paper', $c['fond'] ),
-		);
-		$couleurs              = (array) ( $affiche['colors'] ?? array() );
-		foreach ( $marque as $cle => list( $reglage, $valeur ) ) {
-			if ( empty( $choix[ $reglage ] ) ) {
-				$couleurs[ $cle ] = $valeur;
-			}
+		if ( empty( $affiche['logo'] ) && function_exists( 'bigm_child_logo' ) ) {
+			$affiche['logo'] = (string) ( bigm_child_logo()['url'] ?? '' );
 		}
-		$couleurs['star']  = $c['jaune'];
-		$affiche['colors'] = $couleurs;
+		// Logo orange posé sur le bandeau brun, sans cadre blanc : plus grand.
+		$affiche['logo_box'] = (bool) apply_filters( 'bigm_affiche_logo_cadre', false );
+		// Ligne promos : « … de votre restaurant Big M », sauf texte changé dans Traductions.
+		if ( 'Et suivez les promos de votre restaurant' === ( $affiche['follow'] ?? '' ) ) {
+			$affiche['follow'] .= ' Big M';
+		}
 		return $affiche;
 	}
 );

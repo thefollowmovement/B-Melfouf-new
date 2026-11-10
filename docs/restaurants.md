@@ -1,6 +1,6 @@
 # Restaurants (plugin StoreLocatore)
 
-Les restaurants utilisent le plugin **StoreLocatore** de l'agence (dépôt `thefollowmovement/storelocatore-wordpress`, version 2.5 ou plus). On l'intègre sans le modifier : `bigm-core` (`inc/restaurants.php`) passe par les filtres et réglages de WordPress.
+Les restaurants utilisent le plugin **StoreLocatore** de l'agence (dépôt `thefollowmovement/storelocatore-wordpress`, version 2.6 ou plus). On ne le modifie pas dans ce dépôt : `bigm-core` (`inc/restaurants.php`, `inc/marque-storelocatore.php`) passe par les filtres et réglages de WordPress. Ce dont Big M a besoin et que le plugin ne fait pas s'ajoute dans son propre dépôt, de façon générique (version 2.6 : réseaux sociaux, pastille « Nouveau », page d'avis et affiches habillables, à la demande de Big M le 10 novembre 2026).
 
 Depuis sa version 2.2, le plugin fait lui-même ce que Big M lui demandait :
 
@@ -122,6 +122,26 @@ L'e-mail général ajoute en tête la note du réseau (moyenne pondérée par le
 - Les e-mails partent par `wp_mail`. Si rien n'arrive, installer une extension SMTP (ou l'outil e-mail d'Hostinger) avec l'adresse du domaine.
 
 Test : `tests/wp/test-bigm-recap.php`.
+
+## Page d'avis, affiches QR, réseaux sociaux et pastille « Nouveau »
+
+StoreLocatore 2.6 ou plus. L'habillage Big M est dans `bigm-core/inc/marque-storelocatore.php`. Sans StoreLocatore 2.6, ses crochets ne sont jamais appelés.
+
+**Page d'avis** (`/avis/{restaurant}/`, ouverte par le QR code). Elle est hors thème : bigm-core y ajoute, par l'action `tfmsl_rb_page_head`, les polices Fredoka et Figtree auto-hébergées et les couleurs de la charte (variables `--tfmsl-rb-*` : bouton orange, texte brun, texte secondaire `--muted`, fond blanc cassé, étoiles jaunes). En bas de la page et à l'étape « Merci » :
+- « Suivez les promos de votre restaurant », avec le nom du restaurant, mène à la page Promos de StoreLocatore avec ce restaurant déjà choisi (réglage « Suivez les promos » de Collecte d'avis ▸ Réglages) ;
+- « Suivez-nous » montre les réseaux sociaux de la fiche du restaurant.
+
+**Réseaux sociaux des restaurants.** Onglet Intégrations de la fiche, section « Réseaux sociaux » : Instagram (handle), Facebook, TikTok, Snapchat, X, YouTube (aussi en colonnes de l'import CSV). Une fiche sans aucun réseau prend ceux de Big M (Réglages Big M → Réseaux sociaux), par le filtre `tfmsl_store_socials` ; filtre `bigm_reseaux_restaurant` pour changer ce repli.
+
+**Affiches QR** (Collecte d'avis ▸ QR codes & supports : affiche A5 et chevalet de table A4). Par défaut, aux couleurs de Big M : bandeau brun, logo orange posé dessus sans cadre blanc, étoiles jaunes, accents orange, papier blanc cassé, titres en Fredoka, texte en Figtree, ligne « Et suivez les promos de votre restaurant Big M ».
+- Logo : celui choisi dans Collecte d'avis ▸ Réglages ▸ Affiches, sinon le logo du site (Apparence → Personnaliser), sinon celui du thème. Filtre `bigm_affiche_logo_cadre` (`true`) pour remettre le cadre blanc.
+- Couleurs : les sélecteurs de Collecte d'avis ▸ Réglages ▸ Affiches montrent celles de la charte (filtre `tfmsl_poster_default_colors`) ; une couleur changée là les remplace, une couleur remise à celle de la charte suit à nouveau la charte.
+- Textes : Restaurants → Traductions (section Affiches QR code). La ligne promos change seulement si son texte est celui d'origine.
+- Polices : celles du thème, en adresses complètes (filtre `tfmsl_poster_style`).
+
+**Pastille « Nouveau ».** Encart latéral « Pastille Nouveau » de la fiche d'un restaurant : case à cocher, premier jour (vide : le jour de l'enregistrement) et durée en jours (30 par défaut). La pastille s'affiche dans le bandeau de la fiche, sur les cartes et les bulles du locator et dans le carrousel, jusqu'au dernier jour indiqué sous les champs. Les dates sont relues par le navigateur, donc une page en cache n'affiche pas la pastille un jour de trop. Couleurs de la charte (jaune `#ffc21a`, texte brun) par `--tfmsl-new-bg` / `--tfmsl-new-fg`.
+
+Test : `tests/wp/test-bigm-marque.php`.
 
 ## Fenêtre Commander
 
