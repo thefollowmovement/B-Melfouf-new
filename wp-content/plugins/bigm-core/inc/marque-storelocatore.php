@@ -78,17 +78,34 @@ add_action(
 );
 
 /*
- * Affiches QR : polices de la charte (couleurs et logo : réglages de l'affiche dans Collecte
- * d'avis, remplis aux couleurs de Big M par bigm_marque_affiche_reglages()).
+ * Affiches QR : polices de la charte, et ses couleurs (bandeau brun, accents orange, étoiles
+ * jaunes, papier blanc cassé) tant qu'aucune couleur n'est choisie dans Collecte d'avis ▸
+ * Réglages ▸ Affiches. Logo : celui du site (réglage de l'affiche vide).
  */
 add_filter(
 	'tfmsl_poster_style',
 	static function ( $affiche ) {
 		$affiche               = is_array( $affiche ) ? $affiche : array();
 		$f                     = bigm_marque_familles();
+		$c                     = bigm_marque_couleurs();
 		$affiche['font_css']   = bigm_marque_polices_css() . ( (string) ( $affiche['font_css'] ?? '' ) );
 		$affiche['font_title'] = $f['titre'];
 		$affiche['font_text']  = $f['texte'];
+		$choix                 = class_exists( 'TFMSL_Review_Booster' ) && method_exists( 'TFMSL_Review_Booster', 'get_settings' ) ? (array) TFMSL_Review_Booster::get_settings() : array();
+		$marque                = array(
+			'band'   => array( 'poster_band', $c['encre'] ),
+			'accent' => array( 'poster_accent', $c['bouton'] ),
+			'ink'    => array( 'poster_ink', $c['encre'] ),
+			'paper'  => array( 'poster_paper', $c['fond'] ),
+		);
+		$couleurs              = (array) ( $affiche['colors'] ?? array() );
+		foreach ( $marque as $cle => list( $reglage, $valeur ) ) {
+			if ( empty( $choix[ $reglage ] ) ) {
+				$couleurs[ $cle ] = $valeur;
+			}
+		}
+		$couleurs['star']  = $c['jaune'];
+		$affiche['colors'] = $couleurs;
 		return $affiche;
 	}
 );

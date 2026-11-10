@@ -40,6 +40,7 @@ $affiche = apply_filters(
 		'font_css' => '',
 	)
 );
+$ok( isset( $affiche['colors'] ) && '#2b1406' === $affiche['colors']['band'] && '#ffc21a' === $affiche['colors']['star'] && '#faf8f5' === $affiche['colors']['paper'], 'couleurs de la charte quand aucune n’est choisie (bandeau brun, étoiles jaunes)' );
 $ok( str_contains( (string) $affiche['font_css'], 'Fredoka' ) && str_contains( (string) $affiche['font_title'], 'Fredoka' ) && str_contains( (string) $affiche['font_text'], 'Figtree' ) && 'Votre avis compte !' === $affiche['title'], 'polices de la charte, textes de l’affiche gardés' );
 
 WP_CLI::log( 'Réseaux des restaurants' );
