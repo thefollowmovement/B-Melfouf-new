@@ -1,6 +1,6 @@
 # Restaurants (plugin StoreLocatore)
 
-Les restaurants utilisent le plugin **StoreLocatore** de l'agence (dépôt `thefollowmovement/storelocatore-wordpress`, version 2.6 ou plus). On ne le modifie pas dans ce dépôt : `bigm-core` (`inc/restaurants.php`, `inc/marque-storelocatore.php`) passe par les filtres et réglages de WordPress. Ce dont Big M a besoin et que le plugin ne fait pas s'ajoute dans son propre dépôt, de façon générique (version 2.6 : réseaux sociaux, pastille « Nouveau », page d'avis et affiches habillables, à la demande de Big M le 10 novembre 2026).
+Les restaurants utilisent le plugin **StoreLocatore** de l'agence (dépôt `thefollowmovement/storelocatore-wordpress`, version 2.7 ou plus). On ne le modifie pas dans ce dépôt : `bigm-core` (`inc/restaurants.php`, `inc/marque-storelocatore.php`) passe par les filtres et réglages de WordPress. Ce dont Big M a besoin et que le plugin ne fait pas s'ajoute dans son propre dépôt, de façon générique (version 2.6 : réseaux sociaux, pastille « Nouveau », page d'avis et affiches habillables ; version 2.7 : itinéraire vers Google Maps et choix de l'application sur mobile ; à la demande de Big M le 10 novembre 2026).
 
 Depuis sa version 2.2, le plugin fait lui-même ce que Big M lui demandait :
 
@@ -140,6 +140,16 @@ StoreLocatore 2.6 ou plus. L'habillage Big M est dans `bigm-core/inc/marque-stor
 - Polices : celles du thème, en adresses complètes (filtre `tfmsl_poster_style`).
 
 **Pastille « Nouveau ».** Encart latéral « Pastille Nouveau » de la fiche d'un restaurant : case à cocher, premier jour (vide : le jour de l'enregistrement) et durée en jours (30 par défaut). La pastille s'affiche dans le bandeau de la fiche, sur les cartes et les bulles du locator et dans le carrousel, jusqu'au dernier jour indiqué sous les champs. Les dates sont relues par le navigateur, donc une page en cache n'affiche pas la pastille un jour de trop. Couleurs de la charte (jaune `#ffc21a`, texte brun) par `--tfmsl-new-bg` / `--tfmsl-new-fg`.
+
+**Itinéraire** (StoreLocatore 2.7 ou plus). Le bouton « Itinéraire » et l'adresse d'une fiche, comme ceux du locator, mènent à Google Maps, et non plus à OpenStreetMap. Avec le Place ID Google du restaurant, Google ouvre directement sa fiche.
+- Sur ordinateur, Google Maps s'ouvre dans un nouvel onglet.
+- Sur téléphone et tablette, une fenêtre « Ouvrir avec » propose :
+  - sur iPhone et iPad : Plans, Google Maps et Waze ;
+  - sur Android : Google Maps, Waze et « Autre application » (liste des applications installées).
+- L'application s'ouvre si elle est installée, sinon son site.
+- bigm-core lui donne les couleurs de la charte (`--tfmsl-dir-*` : texte brun, cases beiges, icônes orange) ; les polices viennent du kit Elementor.
+- Les textes se changent dans Restaurants → Traductions (section « Itinéraire (mobile) »).
+- Chaque toucher compte toujours comme « Itinéraire » dans le tableau de bord.
 
 Test : `tests/wp/test-bigm-marque.php`.
 

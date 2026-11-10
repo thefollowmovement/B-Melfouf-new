@@ -50,6 +50,18 @@ $affiche = apply_filters(
 );
 $ok( str_contains( (string) $affiche['font_css'], 'Fredoka' ) && str_contains( (string) $affiche['font_title'], 'Fredoka' ) && str_contains( (string) $affiche['font_text'], 'Figtree' ) && 'Votre avis compte !' === $affiche['title'], 'polices de la charte, textes de l’affiche gardés' );
 
+WP_CLI::log( 'Pastille « Nouveau » et fenêtre « Ouvrir avec »' );
+if ( ! wp_style_is( 'tfmsl-public', 'registered' ) ) {
+	wp_register_style( 'tfmsl-public', 'https://exemple.test/store-public.css', array(), '1' );
+}
+// Seulement les crochets de priorité 31 (habillage) : tout wp_enqueue_scripts réveille Elementor.
+foreach ( (array) ( $GLOBALS['wp_filter']['wp_enqueue_scripts']->callbacks[31] ?? array() ) as $crochet ) {
+	call_user_func( $crochet['function'] );
+}
+$en_ligne = implode( '', (array) wp_styles()->get_data( 'tfmsl-public', 'after' ) );
+$ok( str_contains( $en_ligne, '--tfmsl-new-bg:#ffc21a' ) && str_contains( $en_ligne, '--tfmsl-new-fg:#2b1406' ), 'pastille « Nouveau » : jaune de la charte, texte brun' );
+$ok( str_contains( $en_ligne, '--tfmsl-dir-tile:#f2ede7' ) && str_contains( $en_ligne, '--tfmsl-dir-muted:#6b4a3a' ) && str_contains( $en_ligne, '--tfmsl-dir-accent:#c8400a' ), 'fenêtre « Ouvrir avec » : cases beiges, texte secondaire brun, accent orange' );
+
 WP_CLI::log( 'Réseaux des restaurants' );
 $propres = array(
 	'facebook' => array(

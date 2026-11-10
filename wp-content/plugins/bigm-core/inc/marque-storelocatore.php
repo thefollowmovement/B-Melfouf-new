@@ -8,7 +8,8 @@
  *   tfmsl_poster_default_colors) ;
  * - réseaux sociaux d'un restaurant : ceux de Big M (Réglages Big M → Réseaux sociaux) quand sa
  *   fiche n'en a pas (filtre tfmsl_store_socials) ;
- * - pastille « Nouveau » des restaurants : jaune de la charte, texte brun.
+ * - pastille « Nouveau » des restaurants : jaune de la charte, texte brun ;
+ * - fenêtre « Ouvrir avec » des liens Itinéraire (2.7) : couleurs de la charte.
  *
  * Sans StoreLocatore 2.6, ces crochets ne sont jamais appelés : rien ne change.
  *
@@ -160,13 +161,19 @@ add_filter(
 
 /*
  * Pastille « Nouveau » des fiches et de la liste des restaurants : jaune de la charte, texte brun.
+ * Fenêtre « Ouvrir avec » des liens Itinéraire sur mobile (StoreLocatore 2.7) : texte brun, cases
+ * beiges, accent orange.
  */
 add_action(
 	'wp_enqueue_scripts',
 	static function () {
 		if ( wp_style_is( 'tfmsl-public', 'enqueued' ) || wp_style_is( 'tfmsl-public', 'registered' ) ) {
 			$c = bigm_marque_couleurs();
-			wp_add_inline_style( 'tfmsl-public', ':root{--tfmsl-new-bg:' . $c['jaune'] . ';--tfmsl-new-fg:' . $c['encre'] . '}' );
+			wp_add_inline_style(
+					'tfmsl-public',
+					':root{--tfmsl-new-bg:' . $c['jaune'] . ';--tfmsl-new-fg:' . $c['encre']
+					. ';--tfmsl-dir-ink:' . $c['encre'] . ';--tfmsl-dir-muted:' . $c['doux'] . ';--tfmsl-dir-tile:' . $c['tuile'] . ';--tfmsl-dir-accent:' . $c['bouton'] . '}'
+				);
 		}
 	},
 	31
