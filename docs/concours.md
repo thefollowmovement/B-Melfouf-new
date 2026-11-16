@@ -56,7 +56,7 @@ Sur mobile, la bande montre l'affiche seule, sans vidéo, pour économiser les d
 
 **Bannière.** Widget « Big M — Bannière jeu concours » ou code court `[bigm_jeu_concours_banniere]`. C'est la même bande que sur les fiches, à la largeur du site, avec « Jeu concours avec … » en surtitre. Elle n'affiche rien hors des dates du jeu : le widget peut rester en place d'un jeu à l'autre (dans l'éditeur, un cadre en pointillés le signale). Elle n'est pas posée sur l'accueil : Big M a préféré le garder tel quel (10 novembre 2026). Pour l'ajouter, il suffit de glisser le widget sous « Nos Box » dans Elementor.
 
-**Bouton flottant.** Une pastille « Jeu concours en cours · Plus que N jours pour jouer » mène à la page du jeu. Elle se place en bas à gauche (à droite, il y a le bouton des promos de StoreLocatore). Sur mobile, elle se place au-dessus de la barre d'onglets.
+**Bouton flottant.** Une pastille « Jeu concours en cours · Plus que N jours pour jouer » mène à la page du jeu. Elle se place en bas à gauche (à droite, il y a le bouton des promos de StoreLocatore). Sur mobile, elle se place au-dessus de la barre d'onglets, et au-dessus du bouton des promos quand il est affiché (sinon ils se touchent, et sur 390 px le bouton des promos couvre la croix) ; elle monte encore pendant les 6 secondes de la bulle « 1 promo à … » (`body:has(.tfmsl-fab…)`, bigm-core 0.14.3).
 - **Où :** sur toutes les pages, sauf celle du jeu et les fiches des restaurants participants, qui ont déjà la bande.
 - **Quand :** imprimée cachée en pied de page (`wp_footer`), puis montrée par le JS pendant le jeu, une fois le bandeau des cookies fermé.
 - **Bannière à l'écran :** la pastille s'efface et revient après.
