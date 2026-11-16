@@ -75,6 +75,9 @@ add_action(
 		$f = bigm_marque_familles();
 		echo '<style id="bigm-page-avis">' . bigm_marque_polices_css() // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS construit ici, adresses échappées.
 			. ':root{--tfmsl-rb-accent:' . $c['bouton'] . ';--tfmsl-rb-font:' . $f['texte'] . ';--tfmsl-rb-font-title:' . $f['titre'] . ';--tfmsl-rb-ink:' . $c['encre'] . ';--tfmsl-rb-muted:' . $c['doux'] . ';--tfmsl-rb-line:#e8ddd2;--tfmsl-rb-star:' . $c['jaune'] . ';--tfmsl-rb-bg:' . $c['fond'] . ';--tfmsl-rb-card:#ffffff;--tfmsl-rb-btn-text:#ffffff;--tfmsl-new-bg:' . $c['jaune'] . ';--tfmsl-new-fg:' . $c['encre'] . '}'
+			// Roue de la fortune (StoreLocatore 2.10) : scène brune, jante brune, ampoules et pointeur jaunes,
+			// bouton orange, confettis aux couleurs de la charte.
+			. ':root{--tfmsl-rb-stage:' . $c['encre'] . ';--tfmsl-rb-stage-2:#7a2e0c;--tfmsl-rb-stage-ink:' . $c['fond'] . ';--tfmsl-rb-wheel-rim:#1f0d03;--tfmsl-rb-bulb:' . $c['jaune'] . ';--tfmsl-rb-pointer:' . $c['jaune'] . ';--tfmsl-rb-gift:linear-gradient(180deg,' . $c['orange'] . ',' . $c['bouton'] . ');--tfmsl-rb-wheel-sep:rgba(250,248,245,.75);--tfmsl-rb-confetti:' . $c['orange'] . ',' . $c['jaune'] . ',' . $c['fond'] . ',' . $c['bouton'] . ',#ffffff}'
 			. '</style>';
 	}
 );

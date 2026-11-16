@@ -31,6 +31,7 @@ do_action( 'tfmsl_rb_page_head', 0 );
 $tete = (string) ob_get_clean();
 $ok( str_contains( $tete, '@font-face{font-family:"Fredoka"' ) && str_contains( $tete, 'fredoka-latin-600-normal.woff2' ) && str_contains( $tete, 'figtree-latin-400-normal.woff2' ), 'polices auto-hébergées du thème (pas de Google Fonts)' );
 $ok( str_contains( $tete, '--tfmsl-rb-accent:#c8400a' ) && str_contains( $tete, '--tfmsl-rb-ink:#2b1406' ) && str_contains( $tete, '--tfmsl-rb-bg:#faf8f5' ) && str_contains( $tete, '--tfmsl-rb-muted:#6b4a3a' ), 'couleurs de la charte (bouton, encre, texte secondaire, fond)' );
+$ok( str_contains( $tete, '--tfmsl-rb-stage:#2b1406' ) && str_contains( $tete, '--tfmsl-rb-bulb:#ffc21a' ) && str_contains( $tete, '--tfmsl-rb-gift:linear-gradient(180deg,#fa5c19,#c8400a)' ) && str_contains( $tete, '--tfmsl-rb-confetti:#fa5c19,#ffc21a' ), 'roue (StoreLocatore 2.10) : scène brune, ampoules jaunes, bouton orange, confettis' );
 
 WP_CLI::log( 'Affiches QR' );
 $defaut = apply_filters( 'tfmsl_poster_default_colors', array( 'band' => '#e94560', 'accent' => '#e94560', 'ink' => '#0f172a', 'paper' => '#ffffff', 'star' => '#fbbf24' ) );
