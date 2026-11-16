@@ -204,6 +204,20 @@ add_action(
 				)
 			);
 		}
+		// Adresse et téléphone : correction d'une fiche par l'API (adresse de la fiche Google, affiche).
+		foreach ( array( 'tfmsl_address', 'tfmsl_zip', 'tfmsl_city', 'tfmsl_phone' ) as $cle ) {
+			register_post_meta(
+				'tfmsl_store',
+				$cle,
+				array(
+					'type'              => 'string',
+					'single'            => true,
+					'show_in_rest'      => true,
+					'sanitize_callback' => static fn( $valeur ): string => sanitize_text_field( (string) $valeur ),
+					'auth_callback'     => static fn( $permis, $k, $post_id ): bool => current_user_can( 'edit_post', (int) $post_id ),
+				)
+			);
+		}
 		register_post_meta(
 			'tfmsl_store',
 			'tfmsl_order_url',

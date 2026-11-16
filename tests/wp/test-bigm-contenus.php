@@ -219,6 +219,17 @@ if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() )
 		)
 	);
 	$ok( 200 === rest_do_request( $maj )->get_status() && 'Vente à emporter, Livraison, Sur place' === get_post_meta( $resto, 'tfmsl_services', true ) && 'Carte bancaire, Espèces, Ticket restaurant' === get_post_meta( $resto, 'tfmsl_payment_methods', true ) && 'https://www.ubereats.com/fr/store/big-m-test/abc' === get_post_meta( $resto, 'tfmsl_order_url', true ), 'services, paiements et lien Commander modifiables par l’API REST (nettoyés)' );
+	$maj->set_body_params(
+		array(
+			'meta' => array(
+				'tfmsl_address' => ' 5 Pl. de la Boule<br> ',
+				'tfmsl_zip'     => '92000',
+				'tfmsl_city'    => 'Nanterre',
+				'tfmsl_phone'   => '09 67 28 03 98',
+			),
+		)
+	);
+	$ok( 200 === rest_do_request( $maj )->get_status() && '5 Pl. de la Boule' === get_post_meta( $resto, 'tfmsl_address', true ) && '92000' === get_post_meta( $resto, 'tfmsl_zip', true ) && 'Nanterre' === get_post_meta( $resto, 'tfmsl_city', true ) && '09 67 28 03 98' === get_post_meta( $resto, 'tfmsl_phone', true ), 'adresse, code postal, ville et téléphone modifiables par l’API REST (nettoyés)' );
 	$moi = get_current_user_id();
 	wp_set_current_user( 0 );
 	$maj->set_body_params( array( 'meta' => array( 'tfmsl_gmb_place_id' => 'ChIJpirate' ) ) );
