@@ -9,7 +9,9 @@
  * - réseaux sociaux d'un restaurant : ceux de Big M (Réglages Big M → Réseaux sociaux) quand sa
  *   fiche n'en a pas (filtre tfmsl_store_socials) ;
  * - pastille « Nouveau » des restaurants : jaune de la charte, texte brun ;
- * - fenêtre « Ouvrir avec » des liens Itinéraire (2.7) : couleurs de la charte.
+ * - fenêtre « Ouvrir avec » des liens Itinéraire (2.7) : couleurs de la charte ;
+ * - alertes promos (2.12) : e-mails aux couleurs de la charte (filtre tfmsl_alert_email_style),
+ *   application web « Big M » de l'écran d'accueil au fond blanc cassé (filtre tfmsl_alerts_manifest).
  *
  * Sans StoreLocatore 2.6, ces crochets ne sont jamais appelés : rien ne change.
  *
@@ -180,4 +182,54 @@ add_action(
 		}
 	},
 	31
+);
+
+/*
+ * Alertes promos (StoreLocatore 2.12) : e-mails (styles en ligne) aux couleurs de la charte, bouton
+ * --btn avec texte blanc (contraste AA), polices de la charte avec leurs replis (les messageries
+ * n'ont pas les polices du site).
+ */
+add_filter(
+	'tfmsl_alert_email_style',
+	static function ( $style ) {
+		$c = bigm_marque_couleurs();
+		return array_merge(
+			(array) $style,
+			array(
+				'band'       => $c['orange'],
+				'band_text'  => '#ffffff',
+				'button'     => $c['bouton'],
+				'btn_text'   => '#ffffff',
+				'badge'      => $c['jaune'],
+				'badge_text' => $c['encre'],
+				'ink'        => $c['encre'],
+				'muted'      => $c['doux'],
+				'bg'         => $c['fond'],
+				'card'       => '#ffffff',
+				'font'       => 'Figtree, Helvetica, Arial, sans-serif',
+				'font_title' => 'Fredoka, "Arial Rounded MT Bold", Helvetica, Arial, sans-serif',
+			)
+		);
+	}
+);
+
+/*
+ * Application web (écran d'accueil, condition des notifications sur iPhone) : « Big M », fond et
+ * barre d'état blanc cassé comme le site.
+ */
+add_filter(
+	'tfmsl_alerts_manifest',
+	static function ( $manifeste ) {
+		$c = bigm_marque_couleurs();
+		return array_merge(
+			(array) $manifeste,
+			array(
+				'name'             => 'Big M',
+				'short_name'       => 'Big M',
+				'background_color' => $c['fond'],
+				'theme_color'      => $c['fond'],
+				'lang'             => 'fr-FR',
+			)
+		);
+	}
 );

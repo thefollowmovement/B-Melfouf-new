@@ -74,6 +74,12 @@ $ok( $propres === apply_filters( 'tfmsl_store_socials', $propres, 1 ), 'restaura
 $marque = apply_filters( 'tfmsl_store_socials', array(), 1 );
 $ok( isset( $marque['instagram'] ) && (string) bigm_reglage( 'instagram_url' ) === $marque['instagram']['url'] && 'Instagram' === $marque['instagram']['label'], 'restaurant sans réseau : ceux de Big M (Réglages Big M)' );
 
+WP_CLI::log( 'Alertes promos (StoreLocatore 2.12)' );
+$courriel = apply_filters( 'tfmsl_alert_email_style', array( 'band' => '#000000', 'logo' => 'https://exemple.test/logo.png' ) );
+$ok( '#fa5c19' === $courriel['band'] && '#c8400a' === $courriel['button'] && '#ffffff' === $courriel['btn_text'] && '#2b1406' === $courriel['ink'] && '#faf8f5' === $courriel['bg'] && 'https://exemple.test/logo.png' === $courriel['logo'], 'e-mails : bandeau orange, bouton --btn, encre brune, fond blanc cassé, logo gardé' );
+$appli = apply_filters( 'tfmsl_alerts_manifest', array( 'name' => 'x', 'start_url' => '/promos/', 'icons' => array() ) );
+$ok( 'Big M' === $appli['name'] && 'Big M' === $appli['short_name'] && '#faf8f5' === $appli['theme_color'] && '/promos/' === $appli['start_url'], 'application web : « Big M », fond blanc cassé, adresse de départ gardée' );
+
 if ( $echecs ) {
 	WP_CLI::error( "$echecs vérification(s) en échec." );
 }
