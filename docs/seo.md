@@ -52,9 +52,19 @@ Le référencement Big M s'efface de lui-même si une extension SEO est active (
 | Plan du site | Celui de WordPress : `/wp-sitemap.xml`, sans la liste des comptes ni les formats d'articles. Le plugin StoreLocatore ajoute `/tfmsl-sitemap.xml`. |
 | Zoom | Autorisé : `width=device-width, initial-scale=1`, sans `maximum-scale` |
 
-Les fiches restaurants gardent le référencement du plugin (onglet SEO de la fiche).
+Les fiches restaurants gardent le référencement du plugin (onglet SEO de la fiche). Depuis StoreLocatore 2.15, leurs données structurées `Restaurant` donnent aussi les moyens de paiement, les services, les réseaux et la fiche Google (`sameAs`, `hasMap`), les horaires exceptionnels des 60 prochains jours (`specialOpeningHoursSpecification`) et le lien de commande ; `bigm-core/inc/restaurants.php` (filtre `tfmsl_store_schema`) les rattache à l'organisation Big M de l'accueil (`parentOrganization`, même `@id` `#organisation`) et donne la carte du site comme menu (`hasMenu`, `/carte/`).
 
 À la bascule, déclarer `https://bigm-burger.fr/wp-sitemap.xml` dans Google Search Console. En préprod, tout est en `noindex` (socle).
+
+## IndexNow (Bing, Copilot, ChatGPT)
+
+[IndexNow](https://www.indexnow.org) prévient Bing, Yandex, Seznam et Naver dès qu'une page change, au lieu d'attendre leur prochain passage. Bing alimente aussi Copilot et la recherche de ChatGPT. Google ne s'en sert pas (il lit le plan du site).
+
+- `bigm-core/inc/indexnow.php` (0.15.0) : à la publication, la modification, la dépublication, la mise à la corbeille ou la suppression d'un contenu public (page, article, produit, restaurant…, sauf « ne pas indexer » et mot de passe), son adresse (et l'ancienne si elle a changé) part en file (`bigm_indexnow_file`) ; la file est envoyée une minute plus tard (tâche `bigm_indexnow_envoi`) à `https://api.indexnow.org/indexnow`. Refus temporaire (429, erreur du serveur ou du réseau) : nouvel essai 10 minutes plus tard. Une modification en lot de restaurants (StoreLocatore 2.14) les signale tous.
+- Clé : 32 caractères, option `bigm_indexnow_cle`, servie en texte brut à `https://bigm-burger.fr/{clé}.txt` (WordPress répond avant tout le reste).
+- Actif seulement en production (`wp_get_environment_type()`, site visible des moteurs) et si la case **Réglages Big M → Référencement → IndexNow** est cochée (par défaut) ; s'efface avec une extension SEO. Filtre `bigm_indexnow_actif`. Le dernier envoi s'affiche sous la case ; journal des 20 derniers (`bigm_indexnow_journal`).
+- `GET /wp-json/bigm/v1/indexnow` : état, adresse de la clé, file, journal. `POST /wp-json/bigm/v1/indexnow` avec `urls` (adresses du site) ou `tout: true` (accueil, toutes les pages publiques, la carte et ses catégories, les catégories d'articles) : envoi immédiat. Faire un `tout: true` après la mise à jour.
+- Bing Webmaster Tools (facultatif) montre les adresses reçues par IndexNow.
 
 ## llms.txt (assistants d'IA)
 
@@ -217,3 +227,9 @@ wp eval-file tests/wp/test-bigm-seo.php --user=IDENTIFIANT_ADMIN
 ```
 
 Il fait 34 vérifications (redirections, référencement, WebP, cache des slides programmées, reprise sans contacter l'ancien site, en-têtes de sécurité). Il crée une page, un produit, un slider et un article, puis les supprime.
+
+```bash
+wp eval-file tests/wp/test-bigm-indexnow.php --user=IDENTIFIANT_ADMIN
+```
+
+IndexNow (file, envoi, refus, corbeille, API) sans contacter IndexNow (requêtes interceptées), et données structurées des restaurants (enseigne, menu). 27 vérifications.

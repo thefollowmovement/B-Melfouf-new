@@ -136,6 +136,13 @@ function bigm_reglages_champs(): array {
 					'aide'   => 'Désactiver l’option LLMs.txt de l’extension Hostinger, qui écrit le même fichier.',
 					'defaut' => '1',
 				),
+				'indexnow_actif' => array(
+					'label'  => 'IndexNow',
+					'type'   => 'case',
+					'case'   => 'Prévenir les moteurs de recherche qui lisent IndexNow (Bing, Yandex, Seznam, Naver) de chaque changement',
+					'aide'   => function_exists( 'bigm_indexnow_resume' ) ? bigm_indexnow_resume() : '',
+					'defaut' => '1',
+				),
 				'llms_resume'   => array(
 					'label'  => 'llms.txt : présentation',
 					'type'   => 'long',

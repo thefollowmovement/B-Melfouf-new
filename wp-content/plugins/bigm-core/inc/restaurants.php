@@ -148,6 +148,38 @@ add_filter(
 );
 
 /*
+ * Données structurées des restaurants (StoreLocatore 2.15, filtre tfmsl_store_schema) : l'enseigne
+ * est l'organisation Big M de l'accueil (même @id, nom, logo), et la carte du site sert de menu
+ * quand la fiche n'a pas de lien de menu.
+ */
+add_filter(
+	'tfmsl_store_schema',
+	static function ( $schema ) {
+		if ( ! is_array( $schema ) || ! $schema ) {
+			return $schema;
+		}
+		$org  = array(
+			'@type' => 'Organization',
+			'@id'   => home_url( '/#organisation' ),
+			'name'  => wp_strip_all_tags( html_entity_decode( (string) get_bloginfo( 'name' ), ENT_QUOTES, 'UTF-8' ) ),
+			'url'   => home_url( '/' ),
+		);
+		$logo = (int) get_theme_mod( 'custom_logo' );
+		if ( $logo && wp_get_attachment_url( $logo ) ) {
+			$org['logo'] = wp_get_attachment_url( $logo );
+		}
+		$schema['parentOrganization'] = $org;
+		if ( empty( $schema['hasMenu'] ) && post_type_exists( 'bigm_produit' ) ) {
+			$carte = get_post_type_archive_link( 'bigm_produit' );
+			if ( $carte ) {
+				$schema['hasMenu'] = $carte;
+			}
+		}
+		return $schema;
+	}
+);
+
+/*
  * Google Place ID des restaurants (avis Google, horaires, lien « Laisser un avis » du plugin),
  * coordonnées, services, paiements et lien du bouton Commander dans l'API REST : champs meta de
  * /wp/v2/tfmsl_store/{id}, modifiables par les comptes qui peuvent modifier le restaurant. Une saisie en lot (75 restaurants) n'a plus à passer par l'écran de
