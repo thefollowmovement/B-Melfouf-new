@@ -180,6 +180,17 @@ add_filter(
 );
 
 /*
+ * Pages par ville et par département (StoreLocatore 2.16) : publiées pour Big M, titres
+ * « Burger halal à Bondy », « Burger halal en Seine-Saint-Denis ». Restaurants ▸ Pages par ville.
+ */
+add_filter(
+	'tfmsl_areas_defaults',
+	static function ( $d ) {
+		return array_merge( $d, array( 'enabled' => '1', 'activity' => 'Burger halal' ) );
+	}
+);
+
+/*
  * Google Place ID des restaurants (avis Google, horaires, lien « Laisser un avis » du plugin),
  * coordonnées, services, paiements et lien du bouton Commander dans l'API REST : champs meta de
  * /wp/v2/tfmsl_store/{id}, modifiables par les comptes qui peuvent modifier le restaurant. Une saisie en lot (75 restaurants) n'a plus à passer par l'écran de

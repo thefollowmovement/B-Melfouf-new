@@ -177,7 +177,9 @@ add_action(
 			wp_add_inline_style(
 					'tfmsl-public',
 					':root{--tfmsl-new-bg:' . $c['jaune'] . ';--tfmsl-new-fg:' . $c['encre']
-					. ';--tfmsl-dir-ink:' . $c['encre'] . ';--tfmsl-dir-muted:' . $c['doux'] . ';--tfmsl-dir-tile:' . $c['tuile'] . ';--tfmsl-dir-accent:' . $c['bouton'] . '}'
+					. ';--tfmsl-dir-ink:' . $c['encre'] . ';--tfmsl-dir-muted:' . $c['doux'] . ';--tfmsl-dir-tile:' . $c['tuile'] . ';--tfmsl-dir-accent:' . $c['bouton']
+					// Pages par ville (StoreLocatore 2.16) : bouton --btn (contraste AA), texte brun.
+					. ';--tfmsl-area-btn:' . $c['bouton'] . ';--tfmsl-area-ink:' . $c['encre'] . ';--tfmsl-area-heading:' . $c['encre'] . ';--tfmsl-area-muted:' . $c['doux'] . '}'
 				);
 		}
 	},

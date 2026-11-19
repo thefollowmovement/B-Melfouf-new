@@ -54,6 +54,8 @@ Le référencement Big M s'efface de lui-même si une extension SEO est active (
 
 Les fiches restaurants gardent le référencement du plugin (onglet SEO de la fiche). Depuis StoreLocatore 2.15, leurs données structurées `Restaurant` donnent aussi les moyens de paiement, les services, les réseaux et la fiche Google (`sameAs`, `hasMap`), les horaires exceptionnels des 60 prochains jours (`specialOpeningHoursSpecification`) et le lien de commande ; `bigm-core/inc/restaurants.php` (filtre `tfmsl_store_schema`) les rattache à l'organisation Big M de l'accueil (`parentOrganization`, même `@id` `#organisation`) et donne la carte du site comme menu (`hasMenu`, `/carte/`).
 
+**Pages par ville et par département** (StoreLocatore 2.16, activées pour Big M) : `/restaurants/ville/{ville}/` et `/restaurants/departement/{nom-code}/`, avec leur titre (« Burger halal à Bondy : 1 restaurant Big M »), description, adresse canonique, Open Graph et données structurées (`BreadcrumbList`, `ItemList`, `FAQPage`) écrits par StoreLocatore (le module de bigm-core ne s'y applique pas) ; plan du site `wp-sitemap-tfmslareas-1.xml` (dans `/wp-sitemap.xml`) ; envoyées à IndexNow avec le reste du site et quand un restaurant change. Liées depuis la liste sous la carte de `/restaurants/`.
+
 À la bascule, déclarer `https://bigm-burger.fr/wp-sitemap.xml` dans Google Search Console. En préprod, tout est en `noindex` (socle).
 
 ## IndexNow (Bing, Copilot, ChatGPT)

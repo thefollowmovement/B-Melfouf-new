@@ -116,6 +116,10 @@ add_action(
 		if ( 'publish' === $post->post_status && bigm_indexnow_signaler( $post ) ) {
 			$urls[] = get_permalink( $post );
 		}
+		// Restaurant changé : ses pages par ville et par département aussi (StoreLocatore 2.16).
+		if ( 'tfmsl_store' === $post->post_type && is_callable( array( 'TFMSL_Areas', 'urls_of_store' ) ) ) {
+			$urls = array_merge( $urls, TFMSL_Areas::urls_of_store( $post->ID ) );
+		}
 		if ( $urls ) {
 			bigm_indexnow_ajouter( array_unique( array_filter( $urls ) ) );
 		}
@@ -239,6 +243,9 @@ function bigm_indexnow_toutes(): array {
 				$urls[] = get_permalink( $p );
 			}
 		}
+	}
+	if ( is_callable( array( 'TFMSL_Areas', 'all_urls' ) ) ) {
+		$urls = array_merge( $urls, TFMSL_Areas::all_urls() ); // pages par ville (StoreLocatore 2.16)
 	}
 	foreach ( array( 'bigm_categorie', 'category' ) as $tax ) {
 		if ( taxonomy_exists( $tax ) ) {

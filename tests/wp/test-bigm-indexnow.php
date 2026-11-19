@@ -119,6 +119,9 @@ $etat = rest_do_request( new WP_REST_Request( 'GET', '/bigm/v1/indexnow' ) )->ge
 $ok( true === $etat['actif'] && bigm_indexnow_url_cle() === $etat['cle_url'] && count( $etat['journal'] ) >= 5, 'GET bigm/v1/indexnow : état et journal' );
 $toutes = bigm_indexnow_toutes();
 $ok( in_array( home_url( '/' ), $toutes, true ) && ! in_array( get_permalink( $brouillon ), $toutes, true ), 'toutes les adresses : accueil, sans brouillon' );
+if ( is_callable( array( 'TFMSL_Areas', 'all_urls' ) ) && TFMSL_Areas::all_urls() ) {
+	$ok( ! array_diff( TFMSL_Areas::all_urls(), $toutes ), 'toutes les adresses : pages par ville et par département (StoreLocatore 2.16)' );
+}
 $utilisateur = get_current_user_id();
 wp_set_current_user( 0 );
 $ok( 401 === rest_do_request( new WP_REST_Request( 'GET', '/bigm/v1/indexnow' ) )->get_status(), 'API refusée aux visiteurs' );
