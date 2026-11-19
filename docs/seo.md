@@ -109,7 +109,7 @@ Ils restent modifiables dans **LiteSpeed Cache → Réglages** : `bigm-core` ne 
 **Règles posées page par page** (`bigm_cache_regle_page()`, sur `template_redirect`, visiteurs seulement) :
 
 - **Pages à formulaire** (WPForms ou formulaire Elementor Pro : franchise, recrutement…) : jamais en cache (`DONOTCACHEPAGE` et `litespeed_control_set_nocache`), pour que le jeton anti-spam du formulaire reste valable. Reconnues seules (`bigm_page_a_formulaire()`), quelle que soit leur adresse.
-- **Fiches restaurants** : en cache jusqu'au prochain changement d'horaire (ouverture, pause, fermeture) ou au prochain minuit, plus une minute (`bigm_restaurant_duree_cache()`), pour que « Ouvert / Fermé » et la ligne du jour restent justes. StoreLocatore lit le jour en UTC (`date( 'N' )`) : la fiche est aussi régénérée à minuit UTC (1 h ou 2 h à Paris).
+- **Fiches restaurants** : en cache jusqu'au prochain changement d'horaire (ouverture, pause, fermeture) ou au prochain minuit, plus une minute (`bigm_restaurant_duree_cache()`), pour que « Ouvert / Fermé » et la ligne du jour restent justes. Les horaires exceptionnels du jour (fermeture, horaires spéciaux) sont comptés depuis StoreLocatore 2.14 (bigm-core 0.14.6), et la fiche est vidée quand ils changent. StoreLocatore lit le jour en UTC (`date( 'N' )`) : la fiche est aussi régénérée à minuit UTC (1 h ou 2 h à Paris).
 - **Collecte d'avis** (`/avis/…`) : StoreLocatore pose déjà `DONOTCACHEPAGE`.
 
 **Vidages automatiques** :

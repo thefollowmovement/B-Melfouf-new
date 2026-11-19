@@ -191,6 +191,10 @@ function bigm_restaurant_duree_cache( int $post_id, ?int $maintenant = null ): i
 	$decalage = wp_timezone()->getOffset( new DateTimeImmutable( '@' . $reel ) ); // Comme current_time( 'timestamp' ), l'horloge de StoreLocatore.
 	$local    = $reel + $decalage;
 	$heures   = get_post_meta( $post_id, 'tfmsl_hours', true );
+	if ( is_callable( array( 'TFMSL_Special_Hours', 'week_for_status' ) ) ) {
+		// Horaires exceptionnels d'aujourd'hui et d'hier, comme le statut « Ouvert / Fermé » (StoreLocatore 2.14).
+		$heures = TFMSL_Special_Hours::week_for_status( $post_id, $heures, $local );
+	}
 	$dates    = array(
 		bigm_horaires_prochain_changement( is_array( $heures ) ? $heures : array(), $local ),
 		( intdiv( $local, DAY_IN_SECONDS ) + 1 ) * DAY_IN_SECONDS,            // Minuit, heure de Paris.
@@ -222,11 +226,11 @@ function bigm_cache_regle_page(): void {
 add_action( 'template_redirect', 'bigm_cache_regle_page' );
 
 /*
- * Horaires d'un restaurant changés sans enregistrer la fiche (import de Google, la nuit) :
- * sa page est vidée.
+ * Horaires d'un restaurant changés sans enregistrer la fiche (import de Google, la nuit ;
+ * horaires exceptionnels par l'API) : sa page est vidée.
  */
 $bigm_vider_restaurant = static function ( $meta_id, $post_id, $cle ) {
-	if ( 'tfmsl_hours' === $cle && 'tfmsl_store' === get_post_type( (int) $post_id ) ) {
+	if ( in_array( $cle, array( 'tfmsl_hours', 'tfmsl_special_hours' ), true ) && 'tfmsl_store' === get_post_type( (int) $post_id ) ) {
 		do_action( 'litespeed_purge_post', (int) $post_id );
 	}
 };

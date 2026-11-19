@@ -68,6 +68,13 @@ if ( post_type_exists( 'tfmsl_store' ) ) {
 	$ok( 31 * MINUTE_IN_SECONDS === bigm_restaurant_duree_cache( $resto, $t( '2026-11-10 22:30' ) ), 'à 23:30 : jusqu’à minuit et une minute (ligne du jour)' );
 	// 00:30 à Paris = 23:30 UTC : StoreLocatore lit encore le jour en UTC, à revoir à minuit UTC.
 	$ok( 31 * MINUTE_IN_SECONDS === bigm_restaurant_duree_cache( $resto, $t( '2026-11-10 23:30' ) ), 'à 00:30 (Paris) : jusqu’à 01:01, minuit UTC (jour lu par StoreLocatore)' );
+	if ( is_callable( array( 'TFMSL_Special_Hours', 'week_for_status' ) ) ) {
+		update_post_meta( $resto, 'tfmsl_special_hours', array( array( 'date' => '2026-11-10', 'closed' => '1', 'open' => '', 'close' => '', 'label' => '' ) ) );
+		$ok( 12 * HOUR_IN_SECONDS + MINUTE_IN_SECONDS === bigm_restaurant_duree_cache( $resto, $t( '2026-11-10 11:00' ) ), 'fermé exceptionnellement : jusqu’à minuit (StoreLocatore 2.14)' );
+		update_post_meta( $resto, 'tfmsl_special_hours', array( array( 'date' => '2026-11-10', 'closed' => '0', 'open' => '10:00', 'close' => '16:00', 'label' => '' ) ) );
+		$ok( 4 * HOUR_IN_SECONDS + MINUTE_IN_SECONDS === bigm_restaurant_duree_cache( $resto, $t( '2026-11-10 11:00' ) ), 'horaires exceptionnels 10:00–16:00 : jusqu’à 16:01' );
+		delete_post_meta( $resto, 'tfmsl_special_hours' );
+	}
 	update_post_meta( $resto, 'tfmsl_hours', array() );
 	$ok( 12 * HOUR_IN_SECONDS + MINUTE_IN_SECONDS === bigm_restaurant_duree_cache( $resto, $t( '2026-11-10 11:00' ) ), 'sans horaires : jusqu’à minuit' );
 
@@ -77,8 +84,11 @@ if ( post_type_exists( 'tfmsl_store' ) ) {
 	};
 	add_action( 'litespeed_purge_post', $espion );
 	update_post_meta( $resto, 'tfmsl_hours', $heures );
-	remove_action( 'litespeed_purge_post', $espion );
 	$ok( in_array( $resto, $vides, true ), 'horaires changés sans enregistrer la fiche (import de Google) : sa page est vidée' );
+	$vides = array();
+	update_post_meta( $resto, 'tfmsl_special_hours', array( array( 'date' => '2026-12-25', 'closed' => '1', 'open' => '', 'close' => '', 'label' => 'Noël' ) ) );
+	remove_action( 'litespeed_purge_post', $espion );
+	$ok( in_array( $resto, $vides, true ), 'horaires exceptionnels changés sans enregistrer la fiche : sa page est vidée' );
 
 	// Règle de la page, vue par un visiteur.
 	$ttl     = array();
