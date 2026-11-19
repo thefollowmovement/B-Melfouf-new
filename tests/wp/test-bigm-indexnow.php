@@ -98,7 +98,9 @@ $r = bigm_indexnow_envoyer();
 $ok( 429 === $r['code'] && isset( get_option( 'bigm_indexnow_file', array() )[ $lien ] ) && wp_next_scheduled( 'bigm_indexnow_envoi' ) > time() + 5 * MINUTE_IN_SECONDS, '429 : file gardée, nouvel essai dans 10 min' );
 $reponse = 403;
 $r       = bigm_indexnow_envoyer();
-$ok( 403 === $r['code'] && array() === get_option( 'bigm_indexnow_file', array() ), '403 (clé refusée) : file vidée, refus au journal' );
+$ok( 403 === $r['code'] && isset( get_option( 'bigm_indexnow_file', array() )[ $lien ] ), 'premier 403 (clé peut-être en vérification) : file gardée, nouvel essai' );
+$r = bigm_indexnow_envoyer();
+$ok( 403 === $r['code'] && array() === get_option( 'bigm_indexnow_file', array() ), 'deuxième 403 de suite : file vidée, refus au journal' );
 $reponse = 202;
 
 // Tâche planifiée : do_action() sans argument
@@ -114,7 +116,7 @@ $rep = rest_do_request( $req );
 $e   = end( $envois );
 $ok( 200 === $rep->get_status() && array( home_url( '/carte/' ) ) === $e['urlList'], 'POST bigm/v1/indexnow : adresses du site seulement' );
 $etat = rest_do_request( new WP_REST_Request( 'GET', '/bigm/v1/indexnow' ) )->get_data();
-$ok( true === $etat['actif'] && bigm_indexnow_url_cle() === $etat['cle_url'] && count( $etat['journal'] ) >= 4, 'GET bigm/v1/indexnow : état et journal' );
+$ok( true === $etat['actif'] && bigm_indexnow_url_cle() === $etat['cle_url'] && count( $etat['journal'] ) >= 5, 'GET bigm/v1/indexnow : état et journal' );
 $toutes = bigm_indexnow_toutes();
 $ok( in_array( home_url( '/' ), $toutes, true ) && ! in_array( get_permalink( $brouillon ), $toutes, true ), 'toutes les adresses : accueil, sans brouillon' );
 $utilisateur = get_current_user_id();

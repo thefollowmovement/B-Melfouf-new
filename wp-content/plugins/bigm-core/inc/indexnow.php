@@ -185,6 +185,14 @@ function bigm_indexnow_envoyer( ?array $urls = null ): array {
 	);
 	$message    = is_wp_error( $rep ) ? $rep->get_error_message() : ( $messages[ $code ] ?? 'Réponse ' . $code . '.' );
 	$temporaire = 0 === $code || 429 === $code || $code >= 500;
+	// Premier refus de la clé : IndexNow la vérifie peut-être encore (cas vu à la mise en service,
+	// accepté une minute plus tard) ; nouvel essai. Deux refus de suite : file abandonnée.
+	$journal = get_option( 'bigm_indexnow_journal', array() );
+	$journal = is_array( $journal ) ? $journal : array();
+	if ( 403 === $code && 403 !== (int) ( $journal[0]['code'] ?? 0 ) ) {
+		$temporaire = true;
+		$message    = 'Clé refusée : nouvel essai dans 10 minutes (vérification de la clé en cours ?).';
+	}
 
 	if ( $depuis_file ) {
 		$file = get_option( 'bigm_indexnow_file', array() );
@@ -198,8 +206,6 @@ function bigm_indexnow_envoyer( ?array $urls = null ): array {
 		}
 	}
 
-	$journal = get_option( 'bigm_indexnow_journal', array() );
-	$journal = is_array( $journal ) ? $journal : array();
 	array_unshift(
 		$journal,
 		array(
