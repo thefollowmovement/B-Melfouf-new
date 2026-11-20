@@ -1,0 +1,97 @@
+/* Big M — fenêtre « Commander » (inc/commander.php, assets/js/commander.js).
+   Chargée par le script à la première ouverture. Boîte centrée sur ordinateur, feuille
+   en bas de l'écran sur mobile. Les boutons sont préfixés .bigm-cmd button… : Hello Elementor
+   colore les boutons au survol (rose). */
+
+html.bigm-cmd-ouverte { overflow: hidden; }
+
+.bigm-cmd { width: min(480px, calc(100vw - 32px)); max-width: none; max-height: min(720px, calc(100dvh - 48px)); margin: auto; padding: 0; border: 0; border-radius: 28px; background: var(--card, #fff); color: var(--ink, #2b1406); box-shadow: 0 24px 64px rgba(43, 20, 6, .28); overflow: hidden; font-family: var(--font-text); }
+.bigm-cmd::backdrop { background: rgba(43, 20, 6, .45); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.bigm-cmd__boite { display: flex; flex-direction: column; max-height: inherit; }
+
+.bigm-cmd__tete { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 18px 6px 24px; }
+.bigm-cmd__titre { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: 26px; line-height: 1.1; color: var(--ink); }
+.bigm-cmd button.bigm-cmd__fermer { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 999px; background: var(--tile); color: var(--ink); cursor: pointer; }
+.bigm-cmd button.bigm-cmd__fermer:hover, .bigm-cmd button.bigm-cmd__fermer:focus { background: #e8dfd5; color: var(--ink); }
+.bigm-cmd__fermer svg { width: 20px; height: 20px; }
+.bigm-cmd__corps { padding: 10px 24px 24px; overflow-y: auto; overscroll-behavior: contain; }
+.bigm-cmd .screen-reader-text { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+/* Restaurant choisi */
+.bigm-cmd__resto { display: flex; align-items: center; gap: 12px; padding: 14px 12px 14px 14px; border-radius: 20px; background: var(--tile); }
+.bigm-cmd__pin { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 44px; height: 44px; border-radius: 999px; background: #fff; color: var(--btn); }
+.bigm-cmd__pin svg { width: 22px; height: 22px; }
+.bigm-cmd__resto-txt { flex: 1 1 auto; min-width: 0; }
+.bigm-cmd__surtitre { margin: 0; font-size: 13px; line-height: 1.3; color: var(--muted); }
+.bigm-cmd__nom { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: 19px; line-height: 1.2; overflow-wrap: anywhere; }
+.bigm-cmd__nom:focus { outline: none; }
+.bigm-cmd__adr { margin: 2px 0 0; font-size: 14px; line-height: 1.35; color: var(--muted); }
+.bigm-cmd button.bigm-cmd__changer { flex: 0 0 auto; min-height: 44px; padding: 0 14px; border: 0; border-radius: 12px; background: #fff; color: var(--ink); font: 600 15px/1 var(--font-display); cursor: pointer; }
+.bigm-cmd button.bigm-cmd__changer:hover, .bigm-cmd button.bigm-cmd__changer:focus { background: var(--ink); color: #fff; }
+
+/* Façons de commander */
+.bigm-cmd__options { display: grid; gap: 10px; margin: 16px 0 0; padding: 0; list-style: none; }
+.bigm-cmd__option { display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 14px 10px 10px; border-radius: 18px; background: #fff; box-shadow: inset 0 0 0 1.5px rgba(43, 20, 6, .16); color: var(--ink); text-decoration: none; }
+.bigm-cmd__option:hover { box-shadow: inset 0 0 0 2px var(--ink); color: var(--ink); }
+.bigm-cmd__logo { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 44px; height: 44px; border-radius: 12px; background: var(--c, var(--ink)); color: #fff; font: 600 21px/1 var(--font-display); overflow: hidden; }
+.bigm-cmd__logo--icone { background: var(--btn); }
+.bigm-cmd__logo--img { background: var(--tile); }
+.bigm-cmd .bigm-cmd__logo--img img { display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; border-radius: 0; }
+.bigm-cmd__logo svg { width: 22px; height: 22px; }
+.bigm-cmd__opt { display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; }
+.bigm-cmd__opt strong { font-family: var(--font-display); font-weight: 600; font-size: 18px; line-height: 1.2; }
+.bigm-cmd__opt small { font-size: 14px; line-height: 1.35; color: var(--muted); }
+.bigm-cmd__fleche { flex: 0 0 auto; width: 20px; height: 20px; color: var(--muted); }
+
+.bigm-cmd__fiche, .bigm-cmd__sans { margin: 16px 0 0; font-size: 15px; text-align: center; }
+.bigm-cmd__fiche a, .bigm-cmd__sans a, .bigm-cmd__vide a { display: inline-block; padding: 10px 4px; color: var(--ink); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.bigm-cmd__vide { margin: 16px 0 0; padding: 16px; border-radius: 16px; background: var(--tile); color: var(--ink); line-height: 1.45; }
+.bigm-cmd__vide a { padding: 0; }
+.bigm-cmd__note { margin: 14px 0 0; font-size: 14px; line-height: 1.4; color: var(--muted); }
+.bigm-cmd__attente { margin: 0; padding: 32px 0; text-align: center; color: var(--muted); }
+
+/* Choix du restaurant */
+.bigm-cmd__intro { margin: 0 0 16px; font-size: 16px; line-height: 1.45; color: var(--muted); }
+.bigm-cmd button.btn.bigm-cmd__geo { width: 100%; border: 0; background: var(--btn); color: #fff; }
+.bigm-cmd button.btn.bigm-cmd__geo:hover, .bigm-cmd button.btn.bigm-cmd__geo:focus { background: var(--btn-hover); color: #fff; }
+.bigm-cmd button.btn.bigm-cmd__geo[disabled] { background: var(--btn-hover); cursor: progress; }
+.bigm-cmd__statut { margin: 8px 0 0; font-size: 14px; color: var(--muted); }
+.bigm-cmd__statut:empty, .bigm-cmd__aucun:empty { display: none; }
+.bigm-cmd__label { display: block; margin: 18px 0 6px; font-weight: 600; font-size: 15px; color: var(--ink); }
+.bigm-cmd input.bigm-cmd__q { box-sizing: border-box; width: 100%; min-height: 48px; margin: 0; padding: 0 16px; border: 0; border-radius: 12px; background: var(--tile); color: var(--ink); font: 16px/1.2 var(--font-text); }
+.bigm-cmd__liste { display: grid; gap: 6px; margin: 10px 0 0; padding: 0; list-style: none; }
+.bigm-cmd button.bigm-cmd__item { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; width: 100%; min-height: 56px; margin: 0; padding: 10px 14px; border: 0; border-radius: 14px; background: #fff; box-shadow: inset 0 0 0 1.5px rgba(43, 20, 6, .14); color: var(--ink); font: inherit; text-align: left; white-space: normal; cursor: pointer; }
+.bigm-cmd button.bigm-cmd__item:hover, .bigm-cmd button.bigm-cmd__item:focus { background: var(--tile); color: var(--ink); }
+.bigm-cmd button.bigm-cmd__item[aria-current="true"] { box-shadow: inset 0 0 0 2px var(--btn); }
+.bigm-cmd__item-nom { font-family: var(--font-display); font-weight: 600; font-size: 17px; line-height: 1.25; }
+.bigm-cmd__item-adr { font-size: 14px; line-height: 1.35; color: var(--muted); }
+.bigm-cmd__aucun { margin: 12px 0 0; color: var(--muted); }
+.bigm-cmd__retour { margin: 14px 0 0; text-align: center; }
+.bigm-cmd__retour button { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 12px; border: 0; border-radius: 12px; background: none; color: var(--ink); font: 600 15px var(--font-display); cursor: pointer; }
+.bigm-cmd .bigm-cmd__retour button:hover, .bigm-cmd .bigm-cmd__retour button:focus { background: var(--tile); color: var(--ink); }
+.bigm-cmd__retour svg { width: 18px; height: 18px; }
+
+/* Mobile : feuille en bas de l'écran, au-dessus de la barre d'onglets. */
+@media (max-width: 760px) {
+  .bigm-cmd { width: 100%; max-height: calc(100dvh - 24px); margin: auto 0 0; border-radius: 28px 28px 0 0; }
+  .bigm-cmd__tete { padding-left: 20px; }
+  .bigm-cmd__corps { padding: 10px 20px calc(24px + env(safe-area-inset-bottom, 0px)); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bigm-cmd[open] { animation: bigm-cmd-in .32s var(--ease, ease-out); }
+  .bigm-cmd[open]::backdrop { animation: bigm-cmd-fond .25s ease-out; }
+  .bigm-cmd__option { transition: transform .2s var(--ease, ease-out), box-shadow .2s ease; }
+  .bigm-cmd__option:hover { transform: translateY(-1px); }
+  .bigm-cmd__option:active { transform: scale(.98); }
+  @media (max-width: 760px) {
+    .bigm-cmd[open] { animation-name: bigm-cmd-monte; }
+  }
+}
+@keyframes bigm-cmd-in { from { opacity: 0; transform: translateY(12px) scale(.98); } }
+@keyframes bigm-cmd-monte { from { transform: translateY(100%); } }
+@keyframes bigm-cmd-fond { from { opacity: 0; } }
+
+@media (prefers-reduced-transparency: reduce) {
+  .bigm-cmd::backdrop { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(43, 20, 6, .72); }
+}

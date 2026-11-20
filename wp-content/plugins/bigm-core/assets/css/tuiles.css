@@ -1,0 +1,26 @@
+/* Big M — vignettes produit (.tile) et vidéo de fond des vignettes.
+   Repris de prototype/assets/site.css (blocs « vignettes produit », « vignettes avec vidéo de fond »
+   et, du bloc « animations des boutons », le survol et l'enfoncement des vignettes). */
+
+/* vignettes produit communes */
+.tile { display: flex; flex-direction: column; border-radius: var(--radius); overflow: hidden; background: var(--card); text-decoration: none; transition: transform .2s var(--ease); }
+.tile__img { aspect-ratio: 1 / 1; overflow: hidden; background: var(--tile); }
+.tile__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s var(--ease); }
+.tile__label { padding: 14px 16px 16px; font-family: var(--font-display); font-weight: 600; font-size: 19px; line-height: 1.15; text-align: center; }
+.tile:hover .tile__img img { transform: scale(1.06); }
+.tile:hover .tile__label { color: var(--btn); }
+
+/* ---------- vignettes avec vidéo de fond ---------- */
+.tile__img, .product__img { position: relative; }
+.tile__img video, .product__img video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .35s ease; }
+.tile__img video.is-playing, .product__img video.is-playing { opacity: 1; }
+.has-video .tile__img::after { display: none;  content: ""; position: absolute; right: 10px; top: 10px; width: 26px; height: 26px; border-radius: 50%; background: rgba(20, 10, 4, 0.5) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 5.5v13l11-6.5z' fill='white'/%3E%3C/svg%3E") center / 14px no-repeat; pointer-events: none; transition: opacity .2s ease; }
+.has-video.is-playing-tile .tile__img::after { opacity: 0; }
+
+/* animations des vignettes */
+@media (hover: hover) and (pointer: fine) { .tile:hover { transform: translateY(-4px); } }
+.tile { transition: transform .35s cubic-bezier(.34, 1.56, .64, 1); }
+.tile:active, .product:active { transform: scale(.97); transition-duration: .1s; }
+
+/* Elementor : .elementor img { height: auto } déformerait le carré de la vignette. */
+.elementor :is(.tile__img, .product__img) img { height: 100%; }

@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Big M burgers</title>
+<meta name="description" content="Big M, burgers 100 % halal depuis 2019 : actualités, carte, restaurants, appli, franchise.">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preload" href="assets/fonts/fredoka-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<style>
+
+.page-title { font-size: clamp(30px, 3.4vw, 44px); margin: 28px 0 22px; }
+.news { position: relative; }
+.news__track { display: grid; grid-auto-flow: column; grid-auto-columns: min(72%, 900px); gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 4px; }
+.news__track::-webkit-scrollbar { display: none; }
+.slide { scroll-snap-align: start; display: flex; flex-direction: column; gap: 14px; text-decoration: none; }
+.slide__img { aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden; background: var(--tile); }
+.slide__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
+.slide:hover .slide__img img { transform: scale(1.03); }
+.slide__cap { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.slide__cap b { font-family: var(--display); font-weight: 600; font-size: 22px; }
+.slide__cap span { font-family: var(--display); font-weight: 600; color: var(--btn); display: inline-flex; gap: 6px; align-items: center; white-space: nowrap; }
+.carousel-ctrl { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; }
+.dots { display: flex; gap: 8px; }
+.dots button { width: 10px; height: 10px; border-radius: 99px; background: rgba(43,20,6,.25); transition: width .25s var(--ease), background-color .2s ease; }
+.dots button[aria-current="true"] { width: 32px; background: var(--btn); }
+.arrows { display: flex; gap: 10px; }
+.arrows button { width: 48px; height: 48px; border-radius: 50%; background: #fff; display: inline-flex; align-items: center; justify-content: center; transition: background-color .18s ease, opacity .18s ease; }
+.arrows button:hover:not(:disabled) { background: var(--tile); }
+.arrows button:disabled { opacity: .35; cursor: default; }
+
+.app-band { background: var(--orange); border-radius: 28px; display: grid; grid-template-columns: 0.9fr 1.1fr; align-items: center; gap: 24px; overflow: hidden; padding: 0 clamp(24px, 4vw, 56px); }
+.app-band__img { align-self: end; padding-top: 32px; }
+.app-band__img img { width: min(100%, 440px); margin-inline: auto; margin-bottom: -40px; }
+.app-band__text { display: flex; flex-direction: column; gap: 16px; padding-block: 48px; }
+.app-band__text h2 { font-size: clamp(30px, 3.4vw, 46px); color: #fff; }
+.app-band__text p { font-size: 19px; color: var(--ink); max-width: 40ch; }
+.app-band__text ul { display: flex; flex-direction: column; gap: 8px; font-weight: 600; }
+.app-band__text li { display: flex; gap: 10px; align-items: center; }
+.app-band__text li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--ink); flex: 0 0 auto; }
+
+.restos { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: stretch; }
+.restos__search { background: #fff; border-radius: 28px; padding: clamp(24px, 4vw, 48px); display: flex; flex-direction: column; gap: 18px; justify-content: center; }
+.restos__search h2 { font-size: clamp(30px, 3.4vw, 44px); }
+.restos__search label { font-weight: 600; }
+.search { display: flex; gap: 10px; }
+.search input { flex: 1 1 auto; min-width: 0; min-height: 52px; border-radius: 12px; border: 2px solid rgba(43,20,6,.2); padding: 0 16px; background: var(--bg); font-size: 16px; }
+.search input:focus { outline: none; border-color: var(--ink); }
+.restos__links { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+.restos__photo { border-radius: 28px; overflow: hidden; position: relative; min-height: 360px; }
+.restos__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.restos__photo figcaption { position: absolute; left: 16px; bottom: 16px; background: #fff; border-radius: 999px; padding: 6px 14px; font-weight: 600; font-size: 14px; }
+
+.services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.service { background: #fff; border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; text-decoration: none; }
+.service__img { aspect-ratio: 4 / 3; overflow: hidden; }
+.service__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s var(--ease); }
+.service:hover .service__img img { transform: scale(1.04); }
+.service__body { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.service__body h3 { font-size: 24px; }
+.service__body p { color: var(--muted); }
+.service__body .link { margin-top: auto; padding-top: 6px; }
+
+.classics__track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 4 * 18px) / 5); gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.classics__track::-webkit-scrollbar { display: none; }
+.classics__track .tile { scroll-snap-align: start; }
+
+.legends { background: var(--tile); }
+.legends__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.legend { display: flex; flex-direction: column; gap: 12px; }
+.legend b { font-family: var(--display); font-weight: 600; font-size: 34px; color: var(--btn); line-height: 1; }
+.legend img { border-radius: var(--radius); aspect-ratio: 9 / 16; object-fit: cover; width: 100%; }
+.legend span { font-weight: 600; }
+
+.news-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.news-card { background: #fff; border-radius: var(--radius); overflow: hidden; text-decoration: none; display: flex; flex-direction: column; }
+.news-card__img { aspect-ratio: 16 / 9; overflow: hidden; }
+.news-card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s var(--ease); }
+.news-card:hover .news-card__img img { transform: scale(1.04); }
+.news-card__body { padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 8px; }
+.news-card__body small { color: var(--muted); font-size: 14px; }
+.news-card__body h3 { font-size: 21px; line-height: 1.2; }
+
+.join { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 20px; }
+.join__card { border-radius: 28px; overflow: hidden; position: relative; min-height: 420px; display: flex; flex-direction: column; justify-content: flex-end; }
+.join__card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.join__card::after { content: ""; position: absolute; inset: 0; background: rgba(20, 10, 4, .42); }
+.join__body { position: relative; z-index: 1; padding: clamp(24px, 3.5vw, 44px); color: #fff; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+.join__body h2 { font-size: clamp(30px, 3.2vw, 44px); }
+.join__body p { max-width: 42ch; font-size: 18px; }
+.figures { display: flex; gap: 12px; flex-wrap: wrap; }
+.figures span { background: rgba(255,255,255,.16); border-radius: 12px; padding: 8px 14px; font-weight: 600; }
+.figures b { font-family: var(--display); font-size: 20px; }
+
+@media (max-width: 960px) {
+  .news__track { grid-auto-columns: 88%; }
+  .app-band { grid-template-columns: 1fr; }
+  .app-band__img { order: 2; }
+  .app-band__text { padding-bottom: 8px; }
+  .restos { grid-template-columns: minmax(0, 1fr); }
+  .search { flex-wrap: wrap; }
+  .search .btn { flex: 1 1 auto; }
+  .services, .news-cards { grid-template-columns: 1fr; }
+  .classics__track { grid-auto-columns: 46%; }
+  .legends__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .join { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header__inner">
+    <div class="header__left">
+      <button class="burger" type="button" data-open-drawer aria-expanded="false" aria-controls="drawer" aria-label="Ouvrir le menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <nav class="header__nav" aria-label="Navigation principale">
+        <a href="carte.html">Notre carte</a>
+        <a href="index.html#actus">Actualités</a>
+        <a href="index.html#franchise">Franchise</a>
+        <a href="index.html#recrutement">Recrutez-nous&#8239;!</a>
+      </nav>
+    </div>
+    <a class="header__logo" href="index.html" aria-label="Big M, accueil"><img src="assets/img/logo.webp" alt="Big M" width="273" height="352"></a>
+    <div class="header__right">
+      <a class="hide-sm" href="index.html#restaurants"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Restaurants</a>
+      <a class="btn" href="index.html#appli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>Commander</a>
+    </div>
+  </div>
+</header>
+<div class="drawer" id="drawer" data-open="false" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="drawer__scrim" data-close-drawer></div>
+  <nav class="drawer__panel" aria-label="Menu">
+    <button class="drawer__close" type="button" data-close-drawer aria-label="Fermer le menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <a href="index.html">Accueil</a>
+    <a href="carte.html">Notre carte</a>
+    <a href="index.html#restaurants">Nos restaurants</a>
+    <a href="index.html#actus">Actualités</a>
+    <a href="index.html#franchise">Devenir franchisé</a>
+    <a href="index.html#recrutement">Recrutez-nous&#8239;!</a>
+    <a href="index.html#legendes">Jeu concours</a>
+  </nav>
+</div>
+<main>
+<section aria-labelledby="t-news" style="padding-top: 20px">
+  <h1 class="sr-only" id="t-news">L'actualité Big M</h1>
+  <div class="hs " data-hs data-interval="6000" aria-roledescription="carrousel" aria-label="L'actualité Big M">
+  <div class="hs__viewport">
+    <div class="hs__track"><div class="hs__slide"><a href="carte.html#boissons" draggable="false"><video class="hs__media" data-src="assets/video/hero-streetcola.mp4" poster="assets/video/hero-streetcola-poster.jpg" muted playsinline preload="none" aria-label="Big M, c'est ça qu'on aime : trois burgers au naan et le Street Cola" style="object-position:50% 50%"></video></a></div><div class="hs__slide"><a href="categorie.html" draggable="false"><img class="hs__media" src="assets/img/b-offre-doubles.jpg" alt="Menu Doublés : deux burgers, frites et boisson" style="object-position:50% 30%" draggable="false"></a></div><div class="hs__slide"><a href="carte.html#tex-mex" draggable="false"><img class="hs__media" src="assets/img/b-offre-texmex.jpg" alt="Tex-Mex : tenders, nuggets et frites" style="object-position:50% 30%" draggable="false"></a></div><div class="hs__slide"><a href="produit.html" draggable="false"><img class="hs__media" src="assets/img/b-offre-menu-simple.jpg" alt="Menu Simple : smash naan, frites et boisson" style="object-position:50% 30%" draggable="false"></a></div><div class="hs__slide"><a href="#actus" draggable="false"><img class="hs__media" src="assets/img/b-franchise-poignee.jpg" alt="Nouveaux restaurants Big M ouverts en co-franchise" style="object-position:50% 40%" draggable="false"></a></div><div class="hs__slide"><a href="#actus" draggable="false"><img class="hs__media" src="assets/img/b-mhsc-maillot.jpg" alt="Big M, partenaire officiel du Montpellier Hérault SC" style="object-position:50% 40%" draggable="false"></a></div></div>
+    <button class="hs__arrow hs__arrow--prev" type="button" aria-label="Diapositive précédente"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <button class="hs__arrow hs__arrow--next" type="button" aria-label="Diapositive suivante"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+  </div>
+  <div class="hs__bar"><div class="hs__dots"></div><button class="hs__pause" type="button"></button></div>
+</div>
+</section>
+
+<section class="container section" id="appli" aria-labelledby="t-app">
+  <div class="app-band" data-reveal>
+    <div class="app-band__img"><img src="assets/img/app-phone.webp" alt="L'application Big M sur un iPhone" width="504" height="599" loading="lazy"></div>
+    <div class="app-band__text">
+      <h2 id="t-app">Profitez d'offres exclusives</h2>
+      <p>Commandez sur l'application Big M auprès de votre restaurant préféré.</p>
+      <ul><li>Livraison ou click &amp; collect</li><li>5&#8239;€ offerts tous les 100&#8239;€ d'achat</li><li>Des offres réservées à l'appli</li></ul>
+      <div class="stores">
+  <a class="store" href="https://apps.apple.com/fr/app/big-m/id6444707190"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9s-1.8-.9-3-.8C7 7.3 5.6 8.2 4.8 9.6c-1.6 2.8-.4 6.9 1.1 9.2.8 1.1 1.7 2.3 2.9 2.3s1.6-.7 3-.7 1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.5 1.3-2.6 0 0-2.5-1-2.5-3.6zM14.1 5.6c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.3z"/></svg><span><small>Télécharger dans</small><b>l'App Store</b></span></a>
+  <a class="store" href="https://play.google.com/store/apps/details?id=com.dishop.big&amp;gl=FR"><svg viewBox="0 0 24 26" aria-hidden="true"><path d="M3 2l11 11L3 24c-.6-.3-1-.9-1-1.6V3.6C2 2.9 2.4 2.3 3 2z" fill="#34A853"/><path d="M14 13l3.5-3.5 3.6 2c1.2.7 1.2 2.3 0 3l-3.6 2L14 13z" fill="#FBBC04"/><path d="M3 2c.4-.2 1-.2 1.5.1l13 7.4L14 13 3 2z" fill="#4285F4"/><path d="M3 24l11-11 3.5 3.5-13 7.4c-.5.3-1.1.3-1.5.1z" fill="#EA4335"/></svg><span><small>Disponible sur</small><b>Google Play</b></span></a>
+</div>
+    </div>
+  </div>
+</section>
+
+<section class="container" id="restaurants" aria-labelledby="t-restos">
+  <div class="restos">
+    <form class="restos__search" action="#restaurants" onsubmit="event.preventDefault()" data-reveal>
+      <h2 id="t-restos">Tous nos restaurants</h2>
+      <label for="adresse">Entrez une adresse pour trouver le Big M le plus proche</label>
+      <div class="search">
+        <input id="adresse" name="adresse" type="text" placeholder="Ville, code postal ou adresse" autocomplete="street-address">
+        <button class="btn" type="submit">Rechercher</button>
+      </div>
+      <div class="restos__links">
+        <a class="link" href="#restaurants"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg> Autour de moi</a>
+        <a class="link" href="#restaurants">Voir tous les restaurants <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </form>
+    <figure class="restos__photo" data-reveal style="--i:1"><img src="assets/img/b-restaurant-saint-ouen.jpg" alt="Le comptoir du Big M de Saint-Ouen" width="1390" height="868" loading="lazy"><figcaption>Big M Saint-Ouen</figcaption></figure>
+  </div>
+</section>
+
+<section class="container section" aria-labelledby="t-services">
+  <div class="section-head"><h2 id="t-services">Choisissez le service qui vous ressemble</h2></div>
+  <div class="services">
+    <a class="service" href="#restaurants" data-reveal><div class="service__img"><img src="assets/img/b-restaurant-saint-ouen.jpg" alt="" width="1390" height="868" loading="lazy" style="object-position: 30% 50%"></div><div class="service__body"><h3>Sur place</h3><p>Installez-vous dans le Big M le plus proche.</p><span class="link">Trouver un restaurant <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></div></a>
+    <a class="service" href="#appli" data-reveal style="--i:1"><div class="service__img"><img src="assets/img/b-offre-menu-simple.jpg" alt="" width="672" height="448" loading="lazy"></div><div class="service__body"><h3>Click &amp; collect</h3><p>Commandez sur l'appli, récupérez votre menu sans attendre.</p><span class="link">Commander <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></div></a>
+    <a class="service" href="#appli" data-reveal style="--i:2"><div class="service__img"><img src="assets/img/b-street-cola.jpg" alt="" width="1456" height="818" loading="lazy"></div><div class="service__body"><h3>Livraison</h3><p>Vos burgers livrés chez vous, avec les offres de l'appli.</p><span class="link">Se faire livrer <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></div></a>
+  </div>
+</section>
+
+<section class="container" aria-labelledby="t-classics">
+  <div class="section-head">
+    <div><h2 id="t-classics">Découvrez nos classiques</h2><p>Grand, géant, au poulet ou à la flamme&#8239;: il y en a pour tous les goûts.</p></div>
+    <a class="btn btn--outline" href="carte.html">Voir la carte</a>
+  </div>
+  <div data-carousel>
+    <div class="classics__track" data-track>
+      <a class="tile has-video" href="produit.html"><div class="tile__img"><img src="assets/img/p-bigm.jpg" alt="" width="600" height="600" loading="lazy"><video data-tile-video data-src="assets/video/tile-bigm.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div><span class="tile__label">Le Big M</span></a><a class="tile" href="produit.html"><div class="tile__img"><img src="assets/img/p-giant.jpg" alt="" width="600" height="600" loading="lazy"></div><span class="tile__label">Le Giant</span></a><a class="tile has-video" href="produit.html"><div class="tile__img"><img src="assets/img/p-tower.jpg" alt="" width="600" height="600" loading="lazy"><video data-tile-video data-src="assets/video/tile-tower.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div><span class="tile__label">Le Tower</span></a><a class="tile has-video" href="produit.html"><div class="tile__img"><img src="assets/img/p-jumbo.jpg" alt="" width="600" height="600" loading="lazy"><video data-tile-video data-src="assets/video/tile-jumbo.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div><span class="tile__label">Le Double Jumbo</span></a><a class="tile" href="produit.html"><div class="tile__img"><img src="assets/img/p-smashnaan.jpg" alt="" width="600" height="600" loading="lazy"></div><span class="tile__label">Smash Naan</span></a><a class="tile" href="produit.html"><div class="tile__img"><img src="assets/img/p-chicken.jpg" alt="" width="600" height="600" loading="lazy"></div><span class="tile__label">Chicken Burger</span></a><a class="tile" href="produit.html"><div class="tile__img"><img src="assets/img/p-tenders.jpg" alt="" width="600" height="600" loading="lazy"></div><span class="tile__label">Tenders</span></a><a class="tile" href="produit.html"><div class="tile__img"><img src="assets/img/p-nuggets.jpg" alt="" width="600" height="600" loading="lazy"></div><span class="tile__label">Nuggets</span></a><a class="tile" href="produit.html"><div class="tile__img"><img src="assets/img/p-streetcola.jpg" alt="" width="600" height="600" loading="lazy"></div><span class="tile__label">Street Cola</span></a>
+    </div>
+    <div class="carousel-ctrl"><span></span><div class="arrows"><button type="button" data-prev aria-label="Précédent"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><button type="button" data-next aria-label="Suivant"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div></div>
+  </div>
+</section>
+
+<section class="legends section" id="legendes" aria-labelledby="t-legends" style="margin-top: clamp(48px, 7vw, 88px)">
+  <div class="container">
+    <div class="section-head"><div><h2 id="t-legends">Big M les a réunis pour vous</h2><p>Né à Bondy en 2019, Big M est l'un des pionniers du fast-food halal en France. L'idée&#8239;: réunir le meilleur du burger au même endroit.</p></div></div>
+    <div class="legends__grid">
+      <div class="legend" data-reveal><b>1967</b><img src="assets/img/poster-grand.jpg" alt="Affiche : certains les préfèrent grand" width="818" height="1456" loading="lazy"><span>Certains les préfèrent grand</span></div>
+      <div class="legend" data-reveal style="--i:1"><b>1971</b><img src="assets/img/poster-geant.jpg" alt="Affiche : d'autres les aiment géant" width="818" height="1456" loading="lazy"><span>D'autres les aiment géant</span></div>
+      <div class="legend" data-reveal style="--i:2"><b>1993</b><img src="assets/img/poster-poulet.jpg" alt="Affiche : la plupart au poulet" width="818" height="1456" loading="lazy"><span>La plupart au poulet</span></div>
+      <div class="legend" data-reveal style="--i:3"><b>1957</b><img src="assets/img/poster-flamme.jpg" alt="Affiche : et pour d'autres à la flamme" width="818" height="1456" loading="lazy"><span>Et pour d'autres, à la flamme</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="container section" id="actus" aria-labelledby="t-actus">
+  <div class="section-head"><h2 id="t-actus">Actualités et presse</h2><a class="link" href="#actus">Toutes les actualités <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></div>
+  <div class="news-cards">
+    <a class="news-card" href="#actus" data-reveal><div class="news-card__img"><img src="assets/img/b-franchise-poignee.jpg" alt="Deux associés se serrent la main dans un restaurant Big M" width="1456" height="817" loading="lazy"></div><div class="news-card__body"><small>Presse · 9 octobre 2026</small><h3>France Snacking&#8239;: «&#8239;Ça vient d'ouvrir&#8239;!&#8239;»</h3></div></a>
+    <a class="news-card" href="#actus" data-reveal style="--i:1"><div class="news-card__img"><img src="assets/img/b-street-cola.jpg" alt="Le Street Cola de Big M" width="1456" height="818" loading="lazy"></div><div class="news-card__body"><small>News · 20 septembre 2024</small><h3>Big M révolutionne la street food avec son Street Cola</h3></div></a>
+    <a class="news-card" href="#actus" data-reveal style="--i:2"><div class="news-card__img"><img src="assets/img/b-mhsc-maillot.jpg" alt="Le logo Big M sur le maillot du MHSC" width="1456" height="817" loading="lazy"></div><div class="news-card__body"><small>News · 15 novembre 2023</small><h3>Big M devient partenaire officiel du Montpellier HSC</h3></div></a>
+  </div>
+</section>
+
+<section class="container" aria-label="Nous rejoindre">
+  <div class="join">
+    <div class="join__card" id="franchise" data-reveal>
+      <img src="assets/img/b-franchise-poignee.jpg" alt="" width="1456" height="817" loading="lazy">
+      <div class="join__body">
+        <h2>Devenez franchisé Big M</h2>
+        <p>Créez, transformez ou reprenez un restaurant avec un concept clé en main, une formation complète et des campagnes TV.</p>
+        <div class="figures"><span><b>5 ans</b> de contrat</span><span><b>30&#8239;000&#8239;€&#8239;HT</b> d'entrée</span><span><b>5&#8239;%</b> de redevance</span></div>
+        <a class="btn" href="#franchise">Déposer ma candidature</a>
+      </div>
+    </div>
+    <div class="join__card" id="recrutement" data-reveal style="--i:1">
+      <img src="assets/img/b-chicken-gants.jpg" alt="" width="1256" height="836" loading="lazy">
+      <div class="join__body">
+        <h2>Recrutez-nous&#8239;!</h2>
+        <p>Équipiers, managers, formateurs&#8239;: rejoignez Big M près de chez vous.</p>
+        <a class="btn btn--light" href="#recrutement">Postuler</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<nav class="tabbar" aria-label="Navigation rapide">
+  <div class="tabbar__bar">
+    <a class="tabbar__item" href="index.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="tabbar__ico" d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg>Accueil</a>
+    <a class="tabbar__item" href="carte.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="tabbar__ico" d="M4 10a8 6 0 0 1 16 0z M3 13.5h18 M4.5 17h15v.5a2.5 2.5 0 0 1-2.5 2.5H7a2.5 2.5 0 0 1-2.5-2.5z"/></svg>La carte</a>
+    <a class="tabbar__fab" href="index.html#appli" aria-label="Commander"><img src="assets/img/logo.webp" alt="" width="273" height="352"></a>
+    <a class="tabbar__item" href="index.html#restaurants"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="tabbar__ico" d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z M12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg>Restos</a>
+    <button class="tabbar__item" type="button" data-open-drawer aria-controls="drawer" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="tabbar__ico" d="M4 7h16M4 12h16M4 17h16"/></svg>Plus</button>
+    <span class="tabbar__label" aria-hidden="true">Commander</span>
+  </div>
+</nav>
+<footer class="footer">
+  <div class="container footer__top">
+    <div class="footer__brand">
+      <img src="assets/img/logo.webp" alt="Big M" width="273" height="352" loading="lazy">
+      <div class="footer__social">
+        <a href="https://www.instagram.com/bigm_officiel/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg></a>
+        <a href="https://www.snapchat.com/add/bigm.officiel" aria-label="Snapchat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 0 5 2.2 5 5.2v2.3l1.8.6-.9 1.6 1.6 1.2c-1.4.9-3 .9-3.7 1.9-.5.8-1.3 1.7-3.8 1.7s-3.3-.9-3.8-1.7c-.7-1-2.3-1-3.7-1.9l1.6-1.2-.9-1.6 1.8-.6V8.2C7 5.2 9 3 12 3z"/></svg></a>
+        <a href="https://twitter.com/BigM_officiel" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20"/></svg></a>
+      </div>
+      <p style="font-family: var(--display); font-weight: 600; font-size: 18px; color: #fff">Big M dans votre poche</p>
+      <div class="stores">
+  <a class="store" href="https://apps.apple.com/fr/app/big-m/id6444707190"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9s-1.8-.9-3-.8C7 7.3 5.6 8.2 4.8 9.6c-1.6 2.8-.4 6.9 1.1 9.2.8 1.1 1.7 2.3 2.9 2.3s1.6-.7 3-.7 1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.5 1.3-2.6 0 0-2.5-1-2.5-3.6zM14.1 5.6c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.3z"/></svg><span><small>Télécharger dans</small><b>l'App Store</b></span></a>
+  <a class="store" href="https://play.google.com/store/apps/details?id=com.dishop.big&amp;gl=FR"><svg viewBox="0 0 24 26" aria-hidden="true"><path d="M3 2l11 11L3 24c-.6-.3-1-.9-1-1.6V3.6C2 2.9 2.4 2.3 3 2z" fill="#34A853"/><path d="M14 13l3.5-3.5 3.6 2c1.2.7 1.2 2.3 0 3l-3.6 2L14 13z" fill="#FBBC04"/><path d="M3 2c.4-.2 1-.2 1.5.1l13 7.4L14 13 3 2z" fill="#4285F4"/><path d="M3 24l11-11 3.5 3.5-13 7.4c-.5.3-1.1.3-1.5.1z" fill="#EA4335"/></svg><span><small>Disponible sur</small><b>Google Play</b></span></a>
+</div>
+    </div>
+    <div>
+      <h3>Produits</h3>
+      <ul>
+        <li><a href="carte.html">Notre carte</a></li>
+        <li><a href="categorie.html">Nos burgers</a></li>
+        <li><a href="carte.html">Nos menus</a></li>
+        <li><a href="categorie.html#allergenes">Allergènes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>L'entreprise</h3>
+      <ul>
+        <li><a href="index.html#legendes">Notre histoire</a></li>
+        <li><a href="index.html#actus">Actualités et presse</a></li>
+        <li><a href="index.html#franchise">Devenir franchisé</a></li>
+        <li><a href="index.html#recrutement">Recrutement</a></li>
+        <li><a href="index.html#legendes">Jeu concours</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <ul>
+        <li><a href="mailto:contact@bigm-burger.fr">contact@bigm-burger.fr</a></li>
+        <li>Siège&#8239;: Villeneuve-la-Garenne</li>
+        <li><a href="#">Mentions légales</a></li>
+        <li><a href="#">Politique de confidentialité</a></li>
+        <li><a href="#">Gestion des cookies</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer__bottom">
+    <span>© 2026 Big M, c'est ça qu'on aime&#8239;!</span>
+    <span>Pour votre santé, mangez au moins cinq fruits et légumes par jour. www.mangerbouger.fr</span>
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

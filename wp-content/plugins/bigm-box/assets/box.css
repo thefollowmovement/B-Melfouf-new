@@ -1,0 +1,135 @@
+/* Big M — Nos Box.
+   Ordinateur : visuel de la Box choisie à gauche, titre et cartes à droite.
+   Mobile et tablette (≤ 960 px) : titre, visuel, puis les cartes en bande qui défile au doigt.
+   Charte : variables du thème (tokens.css), avec des valeurs de secours si le thème change. */
+
+.bigm-boxes {
+  --bb-bg: var(--orange, #fa5c19);
+  --bb-title: #fff;
+  --bb-text: var(--ink, #2b1406);
+  --bb-ring: var(--ink, #2b1406);
+  --bb-pad: clamp(24px, 4vw, 56px);
+  --bb-bleed: var(--bb-pad);
+  background: var(--bb-bg);
+  border-radius: 28px;
+  padding: var(--bb-pad);
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  grid-template-rows: 1fr auto auto 1fr;
+  grid-template-areas: "stage ." "stage head" "stage tabs" "stage .";
+  column-gap: clamp(28px, 4vw, 56px);
+  row-gap: 28px;
+  color: var(--bb-text);
+}
+.bigm-boxes--creme { --bb-bg: var(--tile, #f2ede7); --bb-title: var(--ink, #2b1406); --bb-ring: var(--btn, #c8400a); }
+.bigm-boxes--aucun { --bb-bg: transparent; --bb-title: var(--ink, #2b1406); --bb-ring: var(--btn, #c8400a); --bb-pad: 0px; --bb-bleed: var(--pad, 16px); border-radius: 0; }
+
+/* titre */
+.bigm-boxes__head { grid-area: head; display: flex; flex-direction: column; gap: 12px; }
+.bigm-boxes__head h2 { font-size: clamp(30px, 3.4vw, 46px); color: var(--bb-title); }
+.bigm-boxes__head p { font-size: 19px; color: var(--bb-text); max-width: 40ch; }
+
+/* cartes (onglets) */
+.bigm-boxes__tabs { grid-area: tabs; position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+/* Sélecteurs doublés : les thèmes (Hello Elementor) colorent souvent button:hover / :focus. */
+.bigm-boxes .bigm-boxes__card,
+.bigm-boxes .bigm-boxes__card:hover,
+.bigm-boxes .bigm-boxes__card:focus {
+  background: var(--card, #fff);
+  color: var(--ink, #2b1406);
+  border: 0;
+  text-decoration: none;
+}
+.bigm-boxes .bigm-boxes__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 0;
+  border-radius: var(--radius, 20px);
+  overflow: hidden;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: transform .35s cubic-bezier(.34, 1.56, .64, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+.bigm-boxes__thumb { display: block; aspect-ratio: 1 / 1; overflow: hidden; background: var(--tile, #f2ede7); }
+.bigm-boxes__thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s var(--ease, ease); }
+.bigm-boxes__name { display: block; padding: 12px 10px 14px; font-family: var(--font-display, sans-serif); font-weight: 600; font-size: 18px; line-height: 1.15; text-wrap: balance; transition: color .18s ease; }
+.bigm-boxes__badge { position: absolute; top: 10px; left: 10px; max-width: calc(100% - 20px); padding: 3px 10px; border-radius: 999px; background: var(--yellow, #ffc21a); color: var(--ink, #2b1406); font-size: 13px; font-weight: 600; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* carte choisie : contour et nom à la couleur des boutons.
+   Contour en pseudo-élément : le reset de Hello Elementor retire box-shadow et outline des boutons qui ont le focus. */
+.bigm-boxes__card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 3px var(--bb-ring); opacity: 0; transition: opacity .18s ease; pointer-events: none; }
+.bigm-boxes__card[aria-selected="true"]::after { opacity: 1; }
+.bigm-boxes__card[aria-selected="true"] .bigm-boxes__name { color: var(--btn, #c8400a); }
+.bigm-boxes .bigm-boxes__card:focus-visible { outline: 3px solid var(--bb-ring); outline-offset: 4px; border-radius: var(--radius, 20px); }
+@media (hover: hover) and (pointer: fine) {
+  .bigm-boxes .bigm-boxes__card:hover { transform: translateY(-4px); }
+  .bigm-boxes__card:hover .bigm-boxes__thumb img { transform: scale(1.06); }
+  .bigm-boxes__card:hover .bigm-boxes__name { color: var(--btn, #c8400a); }
+}
+.bigm-boxes .bigm-boxes__card:active { transform: scale(.97); transition-duration: .1s; }
+
+/* visuel de la Box choisie */
+.bigm-boxes__stage { grid-area: stage; display: grid; align-self: center; min-width: 0; }
+.bigm-boxes__panel { grid-area: 1 / 1; display: flex; flex-direction: column; background: var(--card, #fff); border-radius: 22px; overflow: hidden; }
+/* Toutes les Box restent empilées dans la même case : le bloc garde la hauteur de la plus haute,
+   rien ne saute quand on change de Box. visibility retire les Box cachées de la lecture et du clavier. */
+.bigm-boxes__panel[hidden] { display: flex; visibility: hidden; }
+.bigm-boxes__visual { aspect-ratio: 4 / 3; overflow: hidden; background: var(--tile, #f2ede7); }
+.bigm-boxes__visual img { width: 100%; height: 100%; object-fit: cover; }
+.bigm-boxes--contain .bigm-boxes__visual img { object-fit: contain; }
+.bigm-boxes__body { flex: 1 1 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px 24px; padding: 20px 24px 24px; }
+.bigm-boxes__info { flex: 1 1 260px; min-width: 0; }
+.bigm-boxes__info h3 { font-size: clamp(24px, 2.4vw, 30px); color: var(--ink, #2b1406); }
+.bigm-boxes__info p { margin-top: 6px; color: var(--muted, #6b4a3a); max-width: 46ch; }
+.bigm-boxes__body .btn { flex: 0 0 auto; }
+.bigm-boxes .bigm-boxes__body .btn svg { width: 20px; height: 20px; flex: 0 0 auto; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* La carte blanche reste en place : seuls le visuel et le texte apparaissent. */
+  .bigm-boxes__panel.is-entering .bigm-boxes__visual img { animation: bigm-boxes-zoom .5s var(--ease, ease) both; }
+  .bigm-boxes__panel.is-entering .bigm-boxes__body { animation: bigm-boxes-in .4s var(--ease, ease) both; }
+}
+@keyframes bigm-boxes-in { from { opacity: 0; transform: translateY(6px); } }
+@keyframes bigm-boxes-zoom { from { opacity: 0; transform: scale(1.04); } }
+
+/* Elementor : .elementor img { height: auto; border-radius: 0 } déformerait les images. */
+.elementor .bigm-boxes :is(.bigm-boxes__thumb, .bigm-boxes__visual) img { height: 100%; }
+
+/* mobile et tablette : titre, visuel, puis les cartes en bande qui défile au doigt */
+@media (max-width: 960px) {
+  .bigm-boxes {
+    --bb-pad: clamp(20px, 4vw, 32px);
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-template-areas: "head" "stage" "tabs";
+    row-gap: 20px;
+  }
+  .bigm-boxes--aucun { --bb-pad: 0px; }
+  .bigm-boxes__tabs {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 30%;
+    gap: 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--bb-bleed);
+    scrollbar-width: none;
+    margin-inline: calc(-1 * var(--bb-bleed));
+    padding: 0 var(--bb-bleed) 2px;
+  }
+  .bigm-boxes__tabs::-webkit-scrollbar { display: none; }
+  .bigm-boxes .bigm-boxes__card { scroll-snap-align: start; }
+  .bigm-boxes__name { font-size: 17px; }
+}
+@media (max-width: 600px) {
+  .bigm-boxes__tabs { grid-auto-columns: 42%; }
+  /* texte en haut, bouton en bas : l'espace laissé par une Box au texte court passe entre les deux */
+  .bigm-boxes__body { flex-direction: column; align-items: stretch; justify-content: flex-start; flex-wrap: nowrap; padding: 18px 18px 20px; }
+  .bigm-boxes__info { flex: 0 0 auto; }
+  .bigm-boxes__body .btn { width: 100%; margin-top: auto; }
+}

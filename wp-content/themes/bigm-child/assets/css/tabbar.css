@@ -1,0 +1,33 @@
+/* Big M — barre d'onglets mobile (≤ 760 px) avec le bouton central Commander.
+   Repris de prototype/assets/site.css (bloc « barre d'onglets mobile »). */
+
+/* ---------- barre d'onglets mobile ---------- */
+.tabbar { display: none; }
+@media (max-width: 760px) {
+  body { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+  .header__right .btn { display: none; }
+  .header__inner { grid-template-columns: 44px 1fr 44px; }
+  .tabbar { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 55; padding: 0 10px calc(10px + env(safe-area-inset-bottom, 0px)); pointer-events: none; }
+  .tabbar__bar { pointer-events: auto; position: relative; height: 68px; border-radius: 22px; background: rgba(255, 255, 255, .92); -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%); box-shadow: 0 10px 30px -8px rgba(43, 20, 6, .28), 0 0 0 1px rgba(43, 20, 6, .05); display: grid; grid-template-columns: 1fr 1fr 84px 1fr 1fr; align-items: center; }
+  .tabbar__item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; height: 100%; text-decoration: none; color: #8a7a70; font-family: var(--font-display); font-weight: 600; font-size: 12px; -webkit-tap-highlight-color: transparent; background: none; }
+  .tabbar__item svg { width: 24px; height: 24px; transition: transform .35s cubic-bezier(.34, 1.56, .64, 1); }
+  .tabbar__item:active svg { transform: scale(.82); }
+  /* Contraste AA (brief, § 3) : la barre est translucide (92 % de blanc). Au pire, sur un fond noir,
+     elle vaut #ebebeb : le gris du prototype (#8a7a70) n'y atteint que 3,4:1 ; #706056 atteint 5:1,
+     et l'onglet actif prend le ton foncé des boutons (5,5:1). */
+  .tabbar__item { color: #706056; }
+  .tabbar__item[aria-current="page"] { color: var(--btn-hover); }
+  .tabbar__item[aria-current="page"] svg { animation: pop .4s cubic-bezier(.34, 1.56, .64, 1); }
+  .tabbar__item[aria-current="page"] .tabbar__ico { fill: currentColor; fill-opacity: .18; }
+  .tabbar__fab { position: relative; justify-self: center; align-self: start; margin-top: -26px; width: 72px; height: 72px; border-radius: 50%; background: var(--ink); border: 4px solid #fff; box-shadow: 0 8px 22px -4px rgba(43, 20, 6, .45), 0 0 0 2px var(--orange); display: flex; align-items: center; justify-content: center; overflow: hidden; isolation: isolate; text-decoration: none; transition: transform .35s cubic-bezier(.34, 1.56, .64, 1); -webkit-tap-highlight-color: transparent; color: #fff; }
+  .tabbar__fab img { width: 44px; height: auto; transition: transform .45s cubic-bezier(.34, 1.56, .64, 1); }
+  .tabbar__fab:active { transform: scale(.9); }
+  .tabbar__fab:active img { transform: rotate(-10deg); }
+  .tabbar__fab::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 3px solid var(--orange); opacity: 0; animation: halo 2.8s ease-out infinite 1.5s; z-index: -1; }
+  .tabbar__label { position: absolute; left: 50%; bottom: 5px; transform: translateX(-50%); font-family: var(--font-display); font-weight: 600; font-size: 12px; color: var(--btn); pointer-events: none; }
+  /* Contraste AA : la barre est translucide, le libellé passe au ton plus foncé des boutons. */
+  .tabbar__label { color: var(--btn-hover); }
+  @keyframes halo { 0% { transform: scale(1); opacity: .6; } 70%, 100% { transform: scale(1.45); opacity: 0; } }
+}
+@media (max-width: 760px) and (prefers-reduced-transparency: reduce) { .tabbar__bar { background: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; } }
+@media (prefers-reduced-motion: reduce) { .tabbar__fab::after { display: none; } }

@@ -1,0 +1,85 @@
+/* Big M — bandeau de consentement aux cookies (extension bigm-cookies).
+   Couleurs et polices du thème (tokens.css), avec des valeurs de secours sans le thème.
+   « Tout refuser » et « Tout accepter » ont exactement le même aspect (CNIL). */
+
+.bigm-cookies {
+  --bc-ink: var(--ink, #2b1406);
+  --bc-muted: var(--muted, #6b4a3a);
+  --bc-btn: var(--btn, #c8400a);
+  --bc-tile: var(--tile, #f2ede7);
+  position: fixed; z-index: 10000; left: 24px; bottom: 24px;
+  width: min(560px, calc(100vw - 48px));
+  font-family: var(--font-text, system-ui, sans-serif); color: var(--bc-ink);
+}
+.bigm-cookies[hidden] { display: none; }
+.bigm-cookies__carte {
+  background: #fff; border-radius: 24px; padding: 24px;
+  box-shadow: 0 18px 50px rgba(43, 20, 6, .22), 0 0 0 1px rgba(43, 20, 6, .06);
+  max-height: calc(100vh - 48px); overflow: auto; overscroll-behavior: contain;
+}
+.bigm-cookies__titre { margin: 0 0 8px; font-family: var(--font-display, inherit); font-weight: 600; font-size: 22px; line-height: 1.2; color: var(--bc-ink); }
+.bigm-cookies__titre:focus { outline: none; }
+.bigm-cookies__titre:focus-visible { outline: 3px solid var(--bc-btn); outline-offset: 4px; border-radius: 4px; }
+.bigm-cookies__texte { margin: 0; font-size: 15px; line-height: 1.5; color: var(--bc-muted); }
+.bigm-cookies__texte a { color: var(--bc-btn); font-weight: 600; text-underline-offset: 3px; }
+
+.bigm-cookies__boutons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.bigm-cookies__btn {
+  flex: 1 1 140px; min-height: 48px; padding: 0 18px; border: 0; border-radius: 12px; cursor: pointer;
+  background: var(--bc-btn); color: #fff; font-family: var(--font-display, inherit); font-weight: 600; font-size: 16px; line-height: 1.1;
+}
+.bigm-cookies__btn:hover { background: #a93506; color: #fff; }
+.bigm-cookies__btn:focus-visible { outline: 3px solid var(--bc-ink); outline-offset: 3px; }
+.bigm-cookies__btn--lien { background: transparent; color: var(--bc-ink); box-shadow: inset 0 0 0 2px var(--bc-ink); }
+.bigm-cookies__btn--lien:hover { background: var(--bc-tile); color: var(--bc-ink); }
+.bigm-cookies__btn[hidden] { display: none; }
+
+.bigm-cookies__choix { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+.bigm-cookies__choix[hidden] { display: none; }
+.bigm-cookies__cat { background: var(--bc-tile); border-radius: 16px; padding: 14px 16px; }
+.bigm-cookies__cat-tete { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.bigm-cookies__cat-tete label { font-weight: 600; font-size: 16px; }
+.bigm-cookies__cat p { margin: 6px 0 0; font-size: 14px; line-height: 1.45; color: var(--bc-muted); }
+.bigm-cookies__toujours { font-size: 13px; font-weight: 600; color: var(--bc-muted); white-space: nowrap; }
+.bigm-cookies__cat details { margin-top: 8px; font-size: 14px; }
+.bigm-cookies__cat summary { cursor: pointer; font-weight: 600; color: var(--bc-ink); min-height: 32px; display: flex; align-items: center; }
+
+/* Interrupteur : une vraie case à cocher (role="switch"), dessinée. */
+.bigm-cookies__interrupteur {
+  appearance: none; -webkit-appearance: none; flex: 0 0 auto; position: relative; margin: 0; cursor: pointer;
+  width: 52px; height: 30px; border-radius: 999px; background: #8a7468; transition: background-color .2s ease;
+}
+.bigm-cookies__interrupteur::after {
+  content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%;
+  background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, .3); transition: transform .2s ease;
+}
+.bigm-cookies__interrupteur:checked { background: var(--bc-btn); }
+.bigm-cookies__interrupteur:checked::after { transform: translateX(22px); }
+.bigm-cookies__interrupteur:focus-visible { outline: 3px solid var(--bc-ink); outline-offset: 3px; }
+
+.bigm-cookies__table { width: 100%; margin-top: 8px; border-collapse: collapse; font-size: 13px; }
+.bigm-cookies__table th, .bigm-cookies__table td { text-align: left; vertical-align: top; padding: 6px 8px; border-bottom: 1px solid rgba(43, 20, 6, .12); }
+.bigm-cookies__table th { font-weight: 600; }
+.bigm-cookies__statut:empty { display: none; }
+.bigm-cookies__statut { margin: 10px 0 0; font-size: 14px; }
+
+/* Contenu d'un autre site en attente d'accord. */
+.bigm-cookies-contenu {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center;
+  min-height: 220px; padding: 24px; margin: 16px 0; border-radius: 20px; background: var(--tile, #f2ede7); color: var(--ink, #2b1406);
+}
+.bigm-cookies-contenu p { margin: 0; }
+.bigm-cookies-contenu .bigm-cookies-contenu__note { font-size: 13px; color: var(--muted, #6b4a3a); }
+.bigm-cookies-liste .bigm-cookies__table { margin-bottom: 24px; font-size: 15px; }
+
+/* Mobile : feuille en bas de l'écran, par-dessus la barre d'onglets. */
+@media (max-width: 760px) {
+  .bigm-cookies { left: 0; right: 0; bottom: 0; width: 100%; }
+  .bigm-cookies__carte { border-radius: 24px 24px 0 0; padding: 20px 16px calc(16px + env(safe-area-inset-bottom)); max-height: 85vh; }
+  .bigm-cookies__titre { font-size: 20px; }
+  .bigm-cookies__btn { flex-basis: 100%; }
+  .bigm-cookies__boutons { gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bigm-cookies__interrupteur, .bigm-cookies__interrupteur::after { transition: none; }
+}
