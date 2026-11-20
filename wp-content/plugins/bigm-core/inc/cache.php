@@ -181,15 +181,20 @@ function bigm_horaires_prochain_changement( array $heures, int $maintenant ): in
 
 /**
  * Durée de cache d'une fiche restaurant, en secondes : jusqu'au prochain changement d'horaire
- * ou au prochain minuit (ligne du jour), plus une minute ; entre 2 minutes et 1 jour.
+ * ou au prochain minuit (ligne du jour), à l'heure du restaurant, plus une minute ; entre
+ * 2 minutes et 1 jour.
  *
  * @param int      $post_id Restaurant.
  * @param int|null $maintenant Heure réelle (time()), pour les tests.
  */
 function bigm_restaurant_duree_cache( int $post_id, ?int $maintenant = null ): int {
 	$reel     = $maintenant ?? time();
-	$decalage = wp_timezone()->getOffset( new DateTimeImmutable( '@' . $reel ) ); // Comme current_time( 'timestamp' ), l'horloge de StoreLocatore.
-	$local    = $reel + $decalage;
+	// Horloge de StoreLocatore : heure du restaurant (fuseau de la fiche ou d'après le pays, Tanger,
+	// Dakar : StoreLocatore 2.17), sinon heure du site comme current_time( 'timestamp' ).
+	$local    = is_callable( array( 'TFMSL_Store_Meta', 'now' ) )
+		? (int) TFMSL_Store_Meta::now( $post_id, $reel )
+		: $reel + wp_timezone()->getOffset( new DateTimeImmutable( '@' . $reel ) );
+	$decalage = $local - $reel;
 	$heures   = get_post_meta( $post_id, 'tfmsl_hours', true );
 	if ( is_callable( array( 'TFMSL_Special_Hours', 'week_for_status' ) ) ) {
 		// Horaires exceptionnels d'aujourd'hui et d'hier, comme le statut « Ouvert / Fermé » (StoreLocatore 2.14).
@@ -197,7 +202,7 @@ function bigm_restaurant_duree_cache( int $post_id, ?int $maintenant = null ): i
 	}
 	$dates    = array(
 		bigm_horaires_prochain_changement( is_array( $heures ) ? $heures : array(), $local ),
-		( intdiv( $local, DAY_IN_SECONDS ) + 1 ) * DAY_IN_SECONDS,            // Minuit, heure de Paris.
+		( intdiv( $local, DAY_IN_SECONDS ) + 1 ) * DAY_IN_SECONDS,            // Minuit, heure du restaurant.
 		( intdiv( $reel, DAY_IN_SECONDS ) + 1 ) * DAY_IN_SECONDS + $decalage, // Minuit UTC : StoreLocatore lit le jour avec date( 'N' ).
 	);
 	$prochain = min( array_filter( $dates ) );

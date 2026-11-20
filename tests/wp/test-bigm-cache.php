@@ -75,6 +75,13 @@ if ( post_type_exists( 'tfmsl_store' ) ) {
 		$ok( 4 * HOUR_IN_SECONDS + MINUTE_IN_SECONDS === bigm_restaurant_duree_cache( $resto, $t( '2026-11-10 11:00' ) ), 'horaires exceptionnels 10:00–16:00 : jusqu’à 16:01' );
 		delete_post_meta( $resto, 'tfmsl_special_hours' );
 	}
+	if ( is_callable( array( 'TFMSL_Store_Meta', 'timezone' ) ) ) {
+		// Restaurant de Dakar (UTC+0, StoreLocatore 2.17) : mardi 10, 10:00 UTC = 10:00 à Dakar,
+		// ouverture à 11:15 heure de Dakar (11:15 UTC), et non 11:15 heure de Paris.
+		update_post_meta( $resto, 'tfmsl_country', 'Sénégal' );
+		$ok( 76 * MINUTE_IN_SECONDS === bigm_restaurant_duree_cache( $resto, $t( '2026-11-10 10:00' ) ), 'Dakar : à 10:00 (heure de Dakar), jusqu’à 11:16 heure de Dakar' );
+		delete_post_meta( $resto, 'tfmsl_country' );
+	}
 	update_post_meta( $resto, 'tfmsl_hours', array() );
 	$ok( 12 * HOUR_IN_SECONDS + MINUTE_IN_SECONDS === bigm_restaurant_duree_cache( $resto, $t( '2026-11-10 11:00' ) ), 'sans horaires : jusqu’à minuit' );
 
