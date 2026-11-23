@@ -71,6 +71,30 @@ $defaut = bigm_redirections( bigm_redirections_par_defaut() );
 $ok( home_url( '/actualites/' ) === bigm_redirection_cible( '/news/', $defaut ) && home_url( '/actualites/presse/' ) === bigm_redirection_cible( '/category/presse/web/', $defaut ) && home_url( '/carte/burgers/' ) === bigm_redirection_cible( '/categorie-de-produit/burger/', $defaut ), 'règles par défaut : anciennes rubriques vers les nouvelles' );
 $ok( '' !== (string) bigm_reglage( 'redirections' ), 'règles par défaut dans Réglages Big M' );
 
+// Fiches restaurants de l'ancien site : /boutique/{nom}-{ville}/, accents remplacés par un tiret.
+if ( post_type_exists( 'tfmsl_store' ) ) {
+	$anciens = array();
+	foreach ( array( array( 'Pont-de-Zéphyr', 'Pont-de-Zéphyr' ), array( 'Zakar 2 - Plateau', 'Zakar' ), array( 'Zakar', 'Zakar' ), array( 'Zyon 8', 'Zyon' ), array( 'Zyon Vaise', 'Zyon' ) ) as $r ) {
+		$id = wp_insert_post( array( 'post_type' => 'tfmsl_store', 'post_status' => 'publish', 'post_title' => $r[0] ) );
+		update_post_meta( $id, 'tfmsl_city', $r[1] );
+		$anciens[ $r[0] ] = $id;
+	}
+	bigm_redirection_index_restaurants( true );
+	$fiche = static fn( string $t ): string => (string) get_permalink( $anciens[ $t ] );
+	$ok( 'pont-de-z-phyr' === bigm_redirection_ancien_slug( 'Pont-de-Zéphyr' ) && 'saint-tienne' === bigm_redirection_ancien_slug( 'Saint-Étienne' ), 'adresse à la façon de l’ancien site : accents remplacés par un tiret' );
+	$ok( $fiche( 'Pont-de-Zéphyr' ) === bigm_redirection_adresse( '/boutique/pont-de-z-phyr-pont-de-z-phyr/' ) && $fiche( 'Zakar 2 - Plateau' ) === bigm_redirection_adresse( '/boutique/zakar-2-plateau-zakar/' ) && $fiche( 'Zakar' ) === bigm_redirection_adresse( '/boutique/zakar-zakar/' ), 'ancienne adresse {nom}-{ville} : fiche du restaurant' );
+	$ok( $fiche( 'Pont-de-Zéphyr' ) === bigm_redirection_adresse( '/boutiques/pont-de-zephyr/' ) && $fiche( 'Pont-de-Zéphyr' ) === bigm_redirection_adresse( '/boutique/pont-de-z%C3%A9phyr/' ), 'adresse actuelle ou accents dans l’adresse : fiche du restaurant' );
+	$ok( $fiche( 'Pont-de-Zéphyr' ) === bigm_redirection_adresse( '/boutique/big-m-pont-de-zephyr/' ), 'nom proche (mots en commun) : fiche du restaurant' );
+	$zyon = bigm_redirection_adresse( '/boutique/zyon-zyon/' );
+	$ok( ! in_array( $zyon, array( $fiche( 'Zyon 8' ), $fiche( 'Zyon Vaise' ) ), true ) && ( home_url( '/restaurants/' ) === $zyon || str_contains( $zyon, '/ville/zyon/' ) ), 'deux restaurants aussi proches : page de la ville (ou liste), jamais l’un au hasard' );
+	$ok( home_url( '/restaurants/' ) === bigm_redirection_adresse( '/boutique/sarreguemines-sarreguemines/' ), 'restaurant fermé : liste des restaurants' );
+	$ok( home_url( '/actualites/' ) === bigm_redirection_adresse( '/news/' ) || '' === (string) bigm_reglage( 'redirections' ), 'autres adresses : règles des réglages' );
+	foreach ( $anciens as $id ) {
+		wp_delete_post( $id, true );
+	}
+	bigm_redirection_index_restaurants( true );
+}
+
 WP_CLI::log( 'Référencement' );
 $ok( bigm_seo_actif(), 'aucune extension SEO : le référencement Big M est actif' );
 add_filter( 'bigm_seo_actif', '__return_false' );

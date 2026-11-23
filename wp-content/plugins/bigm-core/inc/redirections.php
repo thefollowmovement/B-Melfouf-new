@@ -12,6 +12,10 @@
  * Une règle ne s'applique que si l'adresse demandée n'existe pas (page 404) : une page créée
  * plus tard à la même adresse reste visible. La première règle qui correspond l'emporte.
  *
+ * Fiches restaurants de l'ancien site (/boutique/{nom}-{ville}/, /boutiques/{…}/) : retrouvées
+ * avant les règles par bigm_redirection_restaurant() (fiche du restaurant, sinon page de sa
+ * ville, sinon /restaurants/), quelles que soient les règles enregistrées.
+ *
  * @package BigM\Core
  */
 
@@ -26,7 +30,8 @@ function bigm_redirections_par_defaut(): string {
 		array(
 			'# Ancien site → nouveau site. Appliquées seulement si l’adresse n’existe pas.',
 			'/nos-restaurants/ /restaurants/',
-			'/boutique/ /restaurants/',
+			'# /boutique/{nom}-{ville}/ et /boutiques/…/ : fiche du restaurant retrouvée automatiquement.',
+			'/boutique/* /restaurants/',
 			'/boutiques/* /restaurants/*',
 			'/storelocator-test/ /restaurants/',
 			'/template-boutique/ /restaurants/',
@@ -128,6 +133,139 @@ function bigm_redirection_cible( string $demande, ?array $regles = null ): strin
 	return '';
 }
 
+/**
+ * Adresse d'un nom à la façon de l'ancien site (extension de boutiques) : minuscules, tout ce
+ * qui n'est pas une lettre ou un chiffre sans accent devient un tiret (« Pont-De-Chéruy » →
+ * « pont-de-ch-ruy », « Saint-Étienne » → « saint-tienne »).
+ *
+ * @param string $texte Nom ou ville.
+ */
+function bigm_redirection_ancien_slug( string $texte ): string {
+	$texte = html_entity_decode( $texte, ENT_QUOTES, 'UTF-8' );
+	return trim( (string) preg_replace( '/[^a-z0-9]+/', '-', strtolower( $texte ) ), '-' );
+}
+
+/**
+ * Mots d'une adresse (« dakar-2-plateau-dakar » → dakar, 2, plateau), sans doublon.
+ *
+ * @param string $slug Adresse.
+ * @return string[]
+ */
+function bigm_redirection_mots( string $slug ): array {
+	return array_values( array_unique( array_filter( explode( '-', $slug ), 'strlen' ) ) );
+}
+
+/**
+ * Restaurants publiés et leurs adresses possibles sur l'ancien site, pour une requête.
+ *
+ * @param bool $recharger Relire les restaurants (tests).
+ * @return array<int, array{url: string, cles: string[], mots: string[][], ville: string}>
+ */
+function bigm_redirection_index_restaurants( bool $recharger = false ): array {
+	static $index = null;
+	if ( null !== $index && ! $recharger ) {
+		return $index;
+	}
+	$index = array();
+	if ( ! post_type_exists( 'tfmsl_store' ) ) {
+		return $index;
+	}
+	foreach ( get_posts( array( 'post_type' => 'tfmsl_store', 'post_status' => 'publish', 'posts_per_page' => -1, 'orderby' => 'ID', 'order' => 'ASC' ) ) as $p ) {
+		$titre   = (string) $p->post_title;
+		$ville   = (string) get_post_meta( $p->ID, 'tfmsl_city', true );
+		$ancien  = array( bigm_redirection_ancien_slug( $titre ), bigm_redirection_ancien_slug( $ville ) );
+		$nouveau = array( sanitize_title( $titre ), sanitize_title( $ville ) );
+		$index[] = array(
+			'url'   => (string) get_permalink( $p ),
+			// Adresse de l'ancien site ({nom}-{ville}), nom seul, adresse actuelle de la fiche.
+			'cles'  => array_values( array_unique( array_filter( array( trim( implode( '-', $ancien ), '-' ), trim( implode( '-', $nouveau ), '-' ), $ancien[0], $nouveau[0], (string) $p->post_name ) ) ) ),
+			'mots'  => array(
+				bigm_redirection_mots( implode( '-', $ancien ) ),
+				bigm_redirection_mots( implode( '-', $nouveau ) . '-' . $p->post_name ),
+			),
+			'ville' => $nouveau[1],
+		);
+	}
+	return $index;
+}
+
+/**
+ * Fiche d'un restaurant de l'ancien site (/boutique/soissons-soissons/) : adresse de sa fiche
+ * (adresse exacte de l'ancien site, sinon le restaurant dont le nom et la ville ressemblent le
+ * plus, sans ex aequo), sinon page de sa ville (StoreLocatore 2.16), sinon /restaurants/.
+ * Filtre bigm_redirection_restaurant ( $url, $ancien ).
+ *
+ * @param string $ancien Dernière partie de l'ancienne adresse (« soissons-soissons »).
+ */
+function bigm_redirection_restaurant( string $ancien ): string {
+	$ancien = trim( (string) preg_replace( '/[^a-z0-9]+/', '-', strtolower( rawurldecode( $ancien ) ) ), '-' );
+	$url    = '';
+	if ( '' !== $ancien ) {
+		$index = bigm_redirection_index_restaurants();
+		foreach ( $index as $r ) {
+			if ( in_array( $ancien, $r['cles'], true ) ) {
+				$url = $r['url'];
+				break;
+			}
+		}
+		if ( '' === $url ) {
+			// Mots en commun / mots en tout (Jaccard) : nom changé depuis l'ancien site.
+			$mots    = bigm_redirection_mots( $ancien );
+			$scores  = array();
+			foreach ( $index as $i => $r ) {
+				$s = 0.0;
+				foreach ( $r['mots'] as $m ) {
+					$union = count( array_unique( array_merge( $mots, $m ) ) );
+					$s     = max( $s, $union ? count( array_intersect( $mots, $m ) ) / $union : 0.0 );
+				}
+				$scores[ $i ] = $s;
+			}
+			arsort( $scores );
+			$premiers = array_slice( $scores, 0, 2, true );
+			$meilleur = (float) reset( $premiers );
+			$second   = count( $premiers ) > 1 ? (float) array_values( $premiers )[1] : 0.0;
+			if ( $meilleur >= 0.5 && $meilleur > $second ) {
+				$url = $index[ (int) array_key_first( $premiers ) ]['url'];
+			}
+		}
+		if ( '' === $url && class_exists( 'TFMSL_Areas' ) && is_callable( array( 'TFMSL_Areas', 'data' ) ) && is_callable( array( 'TFMSL_Areas', 'city_url' ) ) ) {
+			// Page de la ville dont tous les mots sont dans l'ancienne adresse (la plus longue).
+			$mots  = bigm_redirection_mots( $ancien );
+			$ville = '';
+			foreach ( array_keys( (array) ( TFMSL_Areas::data()['cities'] ?? array() ) ) as $slug ) {
+				$slug = (string) $slug;
+				if ( strlen( $slug ) > strlen( $ville ) && ! array_diff( bigm_redirection_mots( $slug ), $mots ) ) {
+					$ville = $slug;
+				}
+			}
+			$page = '' !== $ville ? (string) TFMSL_Areas::city_url( $ville ) : '';
+			if ( '' !== $page && is_callable( array( 'TFMSL_Areas', 'all_urls' ) ) && in_array( $page, (array) TFMSL_Areas::all_urls(), true ) ) {
+				$url = $page; // pages par ville activées
+			}
+		}
+	}
+	if ( '' === $url ) {
+		$url = home_url( '/restaurants/' );
+	}
+	return (string) apply_filters( 'bigm_redirection_restaurant', $url, $ancien );
+}
+
+/**
+ * Destination d'une adresse introuvable : fiche restaurant de l'ancien site, sinon règles de
+ * Réglages Big M ; chaîne vide s'il n'y en a pas.
+ *
+ * @param string $demande Chemin demandé (/boutique/soissons-soissons/).
+ */
+function bigm_redirection_adresse( string $demande ): string {
+	if ( preg_match( '#^/boutiques?/([^/]+)/?$#i', bigm_redirection_chemin( $demande ), $m ) ) {
+		$url = bigm_redirection_restaurant( $m[1] );
+		if ( '' !== $url && bigm_redirection_chemin( $url ) !== bigm_redirection_chemin( $demande ) ) {
+			return $url;
+		}
+	}
+	return bigm_redirection_cible( $demande );
+}
+
 /*
  * Redirection des adresses introuvables, avant les devinettes de WordPress (redirect_canonical).
  */
@@ -142,7 +280,7 @@ add_action(
 		if ( '/' !== $home && str_starts_with( $demande, rtrim( $home, '/' ) ) ) {
 			$demande = substr( $demande, strlen( rtrim( $home, '/' ) ) );
 		}
-		$cible = bigm_redirection_cible( $demande );
+		$cible = bigm_redirection_adresse( $demande );
 		if ( '' !== $cible ) {
 			wp_redirect( $cible, 301, 'Big M' ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- cibles réglées par l'administrateur (lien Commander externe).
 			exit;
@@ -197,6 +335,38 @@ add_action(
 		}
 		echo '</tbody></table>';
 		echo '<p><a class="button" href="' . esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=bigm_vider_404' ), 'bigm_vider_404' ) ) . '">Vider le journal</a></p>';
+	}
+);
+
+/*
+ * GET /wp-json/bigm/v1/redirections[?chemins[]=/boutique/soissons-soissons/] : journal des
+ * adresses introuvables et destination des chemins donnés (sans rediriger), administrateurs.
+ */
+add_action(
+	'rest_api_init',
+	static function () {
+		register_rest_route(
+			'bigm/v1',
+			'/redirections',
+			array(
+				'methods'             => 'GET',
+				'permission_callback' => static fn(): bool => current_user_can( 'manage_options' ),
+				'callback'            => static function ( WP_REST_Request $r ) {
+					$journal = (array) get_option( 'bigm_404', array() );
+					uasort( $journal, static fn( array $a, array $b ): int => $b[0] <=> $a[0] ?: strcmp( $b[1], $a[1] ) );
+					$essais = array();
+					foreach ( array_slice( array_map( 'strval', (array) $r->get_param( 'chemins' ) ), 0, 100 ) as $chemin ) {
+						$essais[ $chemin ] = bigm_redirection_adresse( $chemin );
+					}
+					return rest_ensure_response(
+						array(
+							'journal' => array_map( static fn( array $l ): array => array( 'visites' => (int) $l[0], 'derniere' => (string) $l[1] ), $journal ),
+							'essais'  => $essais,
+						)
+					);
+				},
+			)
+		);
 	}
 );
 

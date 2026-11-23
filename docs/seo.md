@@ -22,7 +22,7 @@ Les règles par défaut viennent du plan du site de l'ancien bigm-burger.fr et d
 | Ancienne adresse | Nouvelle |
 |---|---|
 | `/nos-restaurants/`, `/boutique/`, `/storelocator-test/`, `/template-boutique/` | `/restaurants/` |
-| `/boutiques/{restaurant}/` | `/restaurants/{restaurant}/` |
+| `/boutique/{nom}-{ville}/`, `/boutiques/{restaurant}/` (fiches de l'ancien site) | fiche du restaurant, retrouvée automatiquement (0.16.2), sinon page de sa ville, sinon `/restaurants/` |
 | `/contact/`, `/recrutement/` | `/nous-rejoindre/` |
 | `/news/`, `/presse/` | `/actualites/` |
 | `/category/presse/…` | `/actualites/presse/` |
@@ -33,6 +33,8 @@ Les règles par défaut viennent du plan du site de l'ancien bigm-burger.fr et d
 | `/le-big/`, `/menu-test/`, `/menu-test-2/`, `/produit/…`, `/categorie-de-produit/…` | `/carte/` (`/categorie-de-produit/burger/` → `/carte/burgers/`) |
 | `/privacy-policy/` | `/mentions-legales/` |
 | `/accueil-2/` | `/` |
+
+**Fiches restaurants de l'ancien site (0.16.2).** L'ancien site donnait aux fiches l'adresse `/boutique/{nom}-{ville}/`, accents remplacés par un tiret : `/boutique/soissons-soissons/`, `/boutique/saint-tienne-saint-tienne/` (Saint-Étienne), `/boutique/pont-de-ch-ruy-pont-de-ch-ruy/` (Pont-de-Chéruy). `bigm_redirection_restaurant()` (`inc/redirections.php`) les retrouve avant les règles, quelles que soient les règles enregistrées : adresse refaite à partir du nom et de la ville de chaque restaurant (`bigm_redirection_ancien_slug()`), nom seul ou adresse actuelle ; sinon le restaurant dont les mots ressemblent le plus (au moins la moitié des mots en commun, sans ex aequo) ; sinon la page de sa ville (StoreLocatore 2.16, deux restaurants à égalité : `/boutique/lyon-lyon/` → `/restaurants/ville/lyon/`) ; sinon `/restaurants/` (restaurant fermé : Sarreguemines, Le Creusot). Filtre `bigm_redirection_restaurant`. Essai sans rediriger et journal des adresses introuvables : `GET bigm/v1/redirections?chemins[]=/boutique/soissons-soissons/` (administrateurs).
 
 `/devenir-franchise/` garde la même adresse. Les articles repris gardent leur adresse (`/{article}/`).
 
