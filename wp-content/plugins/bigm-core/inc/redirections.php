@@ -291,9 +291,15 @@ function bigm_redirection_article( string $slug ): string {
 			)
 		);
 		if ( $jete ) {
-			$cats = wp_get_post_categories( $jete );
+			// Sa catégorie (Presse, News), jamais la catégorie par défaut (« Non classé ») : un article
+			// de presse de l'ancien site (web-, print-…) va alors vers Presse, sinon /actualites/.
+			$cats = array_values( array_diff( wp_get_post_categories( $jete ), array( (int) get_option( 'default_category' ) ) ) );
 			$lien = $cats ? get_category_link( (int) $cats[0] ) : '';
-			$url  = $lien && ! is_wp_error( $lien ) ? (string) $lien : home_url( '/actualites/' );
+			if ( $lien && ! is_wp_error( $lien ) ) {
+				$url = (string) $lien;
+			} elseif ( ! preg_match( '/^(web|print|tv|radio|rs|presse|press)-/', $slug ) ) {
+				$url = home_url( '/actualites/' );
+			}
 		}
 	}
 	if ( '' === $url ) {
