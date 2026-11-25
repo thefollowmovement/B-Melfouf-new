@@ -16,6 +16,11 @@
  * avant les règles par bigm_redirection_restaurant() (fiche du restaurant, sinon page de sa
  * ville, sinon /restaurants/), quelles que soient les règles enregistrées.
  *
+ * Articles (0.16.3) : adresse d'un article à la corbeille ou d'une variante d'un article publié
+ * (« …-2 », adresse de l'ancien site sous /presse/ ou /news/) : bigm_redirection_article().
+ * Adresses terminées par /null ou /undefined (lien fabriqué à partir d'une valeur vide) : la page
+ * d'avant.
+ *
  * @package BigM\Core
  */
 
@@ -251,15 +256,98 @@ function bigm_redirection_restaurant( string $ancien ): string {
 }
 
 /**
+ * Article d'une adresse introuvable (0.16.3), ou chaîne vide :
+ * 1. article publié de même adresse (/presse/{article}/, /news/{article}/ de l'ancien site) ;
+ * 2. article de même adresse à la corbeille (retiré volontairement) : page de sa catégorie
+ *    (Presse, News), sinon /actualites/ ;
+ * 3. variante d'un article publié (« …-2 », mots presque tous en commun : au moins 75 %,
+ *    sans ex aequo) : cet article ;
+ * 4. adresse d'article de presse de l'ancien site (web-, print-, tv-, radio-, rs-…) : /actualites/presse/.
+ * Filtre bigm_redirection_article ( $url, $slug ).
+ *
+ * @param string $slug Dernière partie de l'adresse (« web-capital-cette-chaine… »).
+ */
+function bigm_redirection_article( string $slug ): string {
+	global $wpdb;
+	$slug = sanitize_title( rawurldecode( $slug ) );
+	$url  = '';
+	if ( '' === $slug || strlen( $slug ) < 8 ) {
+		return (string) apply_filters( 'bigm_redirection_article', '', $slug );
+	}
+	$publie = get_posts( array( 'post_type' => 'post', 'post_status' => 'publish', 'name' => $slug, 'posts_per_page' => 1, 'fields' => 'ids' ) );
+	if ( $publie ) {
+		$url = (string) get_permalink( (int) $publie[0] );
+	}
+	if ( '' === $url ) {
+		// Corbeille : WordPress renomme l'adresse en « {adresse}__trashed » et garde l'ancienne en
+		// _wp_desired_post_slug.
+		$jete = (int) $wpdb->get_var( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$wpdb->prepare(
+				"SELECT p.ID FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} m ON m.post_id = p.ID AND m.meta_key = '_wp_desired_post_slug'
+				WHERE p.post_type = 'post' AND p.post_status = 'trash' AND ( m.meta_value = %s OR p.post_name = %s OR p.post_name LIKE %s ) ORDER BY p.ID DESC LIMIT 1",
+				$slug,
+				$slug . '__trashed',
+				$wpdb->esc_like( $slug . '__trashed-' ) . '%'
+			)
+		);
+		if ( $jete ) {
+			$cats = wp_get_post_categories( $jete );
+			$lien = $cats ? get_category_link( (int) $cats[0] ) : '';
+			$url  = $lien && ! is_wp_error( $lien ) ? (string) $lien : home_url( '/actualites/' );
+		}
+	}
+	if ( '' === $url ) {
+		$base  = (string) preg_replace( '/-\d+$/', '', $slug );
+		$mots  = bigm_redirection_mots( $base );
+		$noms  = $wpdb->get_col( "SELECT post_name FROM {$wpdb->posts} WHERE post_type = 'post' AND post_status = 'publish'" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$meil  = array( '', 0.0 );
+		$sec   = 0.0;
+		foreach ( (array) $noms as $nom ) {
+			$m     = bigm_redirection_mots( (string) preg_replace( '/-\d+$/', '', (string) $nom ) );
+			$union = count( array_unique( array_merge( $mots, $m ) ) );
+			$score = $union ? count( array_intersect( $mots, $m ) ) / $union : 0.0;
+			if ( $score > $meil[1] ) {
+				$sec  = $meil[1];
+				$meil = array( (string) $nom, $score );
+			} elseif ( $score > $sec ) {
+				$sec = $score;
+			}
+		}
+		if ( $meil[1] >= 0.75 && $meil[1] > $sec ) {
+			$p   = get_posts( array( 'post_type' => 'post', 'post_status' => 'publish', 'name' => $meil[0], 'posts_per_page' => 1, 'fields' => 'ids' ) );
+			$url = $p ? (string) get_permalink( (int) $p[0] ) : '';
+		}
+	}
+	if ( '' === $url && preg_match( '/^(web|print|tv|radio|rs|presse|press)-/', $slug ) ) {
+		$cat = get_category_by_slug( 'presse' );
+		$url = $cat ? (string) get_category_link( $cat ) : home_url( '/actualites/' );
+	}
+	return (string) apply_filters( 'bigm_redirection_article', $url, $slug );
+}
+
+/**
  * Destination d'une adresse introuvable : fiche restaurant de l'ancien site, sinon règles de
  * Réglages Big M ; chaîne vide s'il n'y en a pas.
  *
  * @param string $demande Chemin demandé (/boutique/soissons-soissons/).
  */
 function bigm_redirection_adresse( string $demande ): string {
-	if ( preg_match( '#^/boutiques?/([^/]+)/?$#i', bigm_redirection_chemin( $demande ), $m ) ) {
+	$chemin = bigm_redirection_chemin( $demande );
+	$autre  = static fn( string $url ): bool => '' !== $url && bigm_redirection_chemin( $url ) !== $chemin;
+	// « …/null », « …/undefined » : lien fabriqué à partir d'une valeur vide ; la page d'avant.
+	if ( preg_match( '#^(.*)/(null|undefined)$#', $chemin, $m ) ) {
+		return home_url( trailingslashit( '' === $m[1] ? '/' : $m[1] ) );
+	}
+	if ( preg_match( '#^/boutiques?/([^/]+)$#', $chemin, $m ) ) {
 		$url = bigm_redirection_restaurant( $m[1] );
-		if ( '' !== $url && bigm_redirection_chemin( $url ) !== bigm_redirection_chemin( $demande ) ) {
+		if ( $autre( $url ) ) {
+			return $url;
+		}
+	}
+	// Article : /{article}/, ou /presse/{article}/, /news/{article}/ de l'ancien site.
+	if ( preg_match( '#^(?:/(?:presse|news|actualites|actualites/presse|actualites/news))?/([a-z0-9][a-z0-9-]*)$#', $chemin, $m ) ) {
+		$url = bigm_redirection_article( $m[1] );
+		if ( $autre( $url ) ) {
 			return $url;
 		}
 	}
@@ -303,9 +391,14 @@ add_action(
 		if ( strlen( $chemin ) > 200 || preg_match( '#^/(wp-|xmlrpc|\.well-known)|\.(php|js|css|map|png|jpe?g|gif|webp|avif|svg|ico|txt|xml|json|env|bak|sql|zip|woff2?)$#i', $chemin ) ) {
 			return;
 		}
-		$journal            = (array) get_option( 'bigm_404', array() );
-		$ligne              = $journal[ $chemin ] ?? array( 0, '' );
-		$journal[ $chemin ] = array( (int) $ligne[0] + 1, current_time( 'mysql' ) );
+		$journal = (array) get_option( 'bigm_404', array() );
+		$ligne   = $journal[ $chemin ] ?? array( 0, '' );
+		// Provenance de la dernière visite (0.16.3) : page d'où vient le lien (adresse sans
+		// paramètres) et navigateur ou robot, pour trouver l'origine d'un lien cassé.
+		$ref                = (string) wp_get_referer();
+		$ref                = $ref ? (string) strtok( $ref, '?#' ) : '';
+		$agent              = substr( sanitize_text_field( wp_unslash( (string) ( $_SERVER['HTTP_USER_AGENT'] ?? '' ) ) ), 0, 160 ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+		$journal[ $chemin ] = array( (int) $ligne[0] + 1, current_time( 'mysql' ), substr( esc_url_raw( $ref ), 0, 200 ), $agent );
 		if ( count( $journal ) > 100 ) {
 			uasort( $journal, static fn( array $a, array $b ): int => strcmp( $b[1], $a[1] ) );
 			$journal = array_slice( $journal, 0, 100, true );
@@ -329,9 +422,10 @@ add_action(
 			echo '<p>Aucune pour l’instant.</p>';
 			return;
 		}
-		echo '<table class="widefat striped" style="max-width:820px"><thead><tr><th>Adresse</th><th>Visites</th><th>Dernière</th></tr></thead><tbody>';
+		echo '<table class="widefat striped" style="max-width:1100px"><thead><tr><th>Adresse</th><th>Visites</th><th>Dernière</th><th>Venant de</th></tr></thead><tbody>';
 		foreach ( array_slice( $journal, 0, 50, true ) as $chemin => $l ) {
-			echo '<tr><td><code>' . esc_html( (string) $chemin ) . '</code></td><td>' . (int) $l[0] . '</td><td>' . esc_html( mysql2date( 'j M Y H:i', (string) $l[1] ) ) . '</td></tr>';
+			$depuis = (string) ( $l[2] ?? '' );
+			echo '<tr><td><code>' . esc_html( (string) $chemin ) . '</code></td><td>' . (int) $l[0] . '</td><td>' . esc_html( mysql2date( 'j M Y H:i', (string) $l[1] ) ) . '</td><td title="' . esc_attr( (string) ( $l[3] ?? '' ) ) . '">' . ( $depuis ? '<code>' . esc_html( $depuis ) . '</code>' : '—' ) . '</td></tr>';
 		}
 		echo '</tbody></table>';
 		echo '<p><a class="button" href="' . esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=bigm_vider_404' ), 'bigm_vider_404' ) ) . '">Vider le journal</a></p>';
@@ -360,7 +454,15 @@ add_action(
 					}
 					return rest_ensure_response(
 						array(
-							'journal' => array_map( static fn( array $l ): array => array( 'visites' => (int) $l[0], 'derniere' => (string) $l[1] ), $journal ),
+							'journal' => array_map(
+								static fn( array $l ): array => array(
+									'visites'  => (int) $l[0],
+									'derniere' => (string) $l[1],
+									'depuis'   => (string) ( $l[2] ?? '' ),
+									'agent'    => (string) ( $l[3] ?? '' ),
+								),
+								$journal
+							),
 							'essais'  => $essais,
 						)
 					);

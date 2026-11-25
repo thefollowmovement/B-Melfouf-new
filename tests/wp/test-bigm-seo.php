@@ -95,6 +95,21 @@ if ( post_type_exists( 'tfmsl_store' ) ) {
 	bigm_redirection_index_restaurants( true );
 }
 
+// Articles (0.16.3) : retirés (corbeille), variantes, anciennes adresses de presse ; « …/null ».
+$presse = get_category_by_slug( 'presse' );
+$cat    = $presse ? (int) $presse->term_id : (int) wp_create_category( 'Presse' );
+$lien   = (string) get_category_link( $cat );
+$garde  = wp_insert_post( array( 'post_type' => 'post', 'post_status' => 'publish', 'post_title' => 'ZZ article de presse gardé', 'post_name' => 'web-zz-article-de-presse-garde', 'post_category' => array( $cat ) ) );
+$retire = wp_insert_post( array( 'post_type' => 'post', 'post_status' => 'publish', 'post_title' => 'ZZ article retiré', 'post_name' => 'web-zz-article-retire-de-test', 'post_category' => array( $cat ) ) );
+wp_trash_post( $retire );
+$ok( $lien === bigm_redirection_adresse( '/web-zz-article-retire-de-test/' ), 'article mis à la corbeille : page de sa catégorie (Presse)' );
+$ok( get_permalink( $garde ) === bigm_redirection_adresse( '/presse/web-zz-article-de-presse-garde/' ) && get_permalink( $garde ) === bigm_redirection_adresse( '/web-zz-article-de-presse-garde-2/' ), 'ancienne adresse sous /presse/ ou variante « -2 » : l’article publié' );
+$ok( $lien === bigm_redirection_adresse( '/web-zz-autre-article-inconnu/' ) && $lien === bigm_redirection_adresse( '/print-zz-journal-inconnu/' ), 'article de presse de l’ancien site introuvable : page Presse' );
+$ok( '' === bigm_redirection_article( 'nous-contacter-zz' ) && '' === bigm_redirection_article( 'about' ), 'autre adresse : pas un article (règles ou 404)' );
+$ok( home_url( '/restaurants/metz/' ) === bigm_redirection_adresse( '/restaurants/metz/null' ) && home_url( '/' ) === bigm_redirection_adresse( '/null' ) && home_url( '/actualites/presse/' ) === bigm_redirection_adresse( '/actualites/presse/undefined/' ), '« …/null », « …/undefined » : la page d’avant' );
+wp_delete_post( $garde, true );
+wp_delete_post( $retire, true );
+
 WP_CLI::log( 'Référencement' );
 $ok( bigm_seo_actif(), 'aucune extension SEO : le référencement Big M est actif' );
 add_filter( 'bigm_seo_actif', '__return_false' );
