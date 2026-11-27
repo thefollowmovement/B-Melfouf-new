@@ -1,0 +1,37 @@
+/* Big M — charte : polices auto-hébergées et tokens.
+   Repris de prototype/assets/site.css, avec deux noms changés :
+     --display → --font-display   et   --text → --font-text
+   car Elementor écrit --display: flex sur chacun de ses conteneurs, ce qui
+   écraserait la police des titres. En reprenant le CSS d'un composant du
+   prototype, remplacer var(--display) et var(--text) par ces nouveaux noms.
+   Les couleurs sont aussi déclarées dans inc/tokens.php (pour Elementor) :
+   les changer aux deux endroits. */
+
+@font-face { font-family: "Fredoka"; src: url("../fonts/fredoka-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Fredoka"; src: url("../fonts/fredoka-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Figtree"; src: url("../fonts/figtree-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Figtree"; src: url("../fonts/figtree-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+:root {
+  color-scheme: light;
+  --bg: #faf8f5;          /* blanc cassé */
+  --bg-glass: rgba(250, 248, 245, 0.78);
+  --tile: #f2ede7;        /* fond des vignettes produits */
+  --line: rgba(43, 20, 6, 0.08);
+  --card: #ffffff;
+  --ink: #2b1406;         /* brun très foncé */
+  --muted: #6b4a3a;
+  --orange: #fa5c19;      /* orange de la marque, grands aplats */
+  --btn: #c8400a;         /* orange des boutons (texte blanc lisible) */
+  --btn-hover: #a93506;
+  --yellow: #ffc21a;
+  --footer: #2b1406;
+  --footer-ink: #f6e4d6;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --max: 1240px;
+  --pad: clamp(16px, 3vw, 32px);
+  --font-display: "Fredoka", "Arial Rounded MT Bold", ui-rounded, system-ui, sans-serif;
+  --font-text: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}

@@ -1,0 +1,447 @@
+{
+ "source": "Google Place ID des restaurants (champ tfmsl_gmb_place_id), saisis sur la préprod le 9 novembre 2026 : recherche « Big M » + adresse de la fiche dans l’API Places (GET /wp-json/bigm/v1/restaurants/{id}/place-id), établissement « Big M » ouvert à l’adresse de la fiche. Réenvoi : POST /wp-json/wp/v2/tfmsl_store/{id} {\"meta\": {\"tfmsl_gmb_place_id\": \"…\"}}.",
+ "restaurants": [
+  {
+   "id": 138,
+   "nom": "Agen",
+   "place_id": "ChIJpX_ExtazqxIRVRzQ0jLex9k",
+   "google": "Big M — 5 Rue des Cornières, 47000 Agen"
+  },
+  {
+   "id": 139,
+   "nom": "Angers",
+   "place_id": "ChIJqb9MdOJ5CEgRxZJ2895K5DQ",
+   "google": "Big M — 15 Rue Beaurepaire, 49100 Angers"
+  },
+  {
+   "id": 148,
+   "nom": "Annemasse",
+   "place_id": "ChIJKT7ZqchxjEcRmWt2Cr0pEDA",
+   "google": "Big M Annemasse | Burgers — 40 Rte de Bonneville, 74100 Annemasse"
+  },
+  {
+   "id": 188,
+   "nom": "Argenteuil",
+   "place_id": "ChIJQ4nvUp1n5kcR498urVOGIFA",
+   "google": "BIG M — COTE SEINE - CENTRE COMMERCIAL, 22 Rue Carême Prenant, 95100 Argenteuil",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 118 m)"
+  },
+  {
+   "id": 119,
+   "nom": "Avignon",
+   "place_id": "ChIJu4POxKLttRIR8qRWiPYDKho",
+   "google": "Big M — 64T Chem. des Petits Rougiers, 84130 Le Pontet"
+  },
+  {
+   "id": 155,
+   "nom": "Bagneux",
+   "place_id": "ChIJSWfQDI1x5kcRhFWSxlHrZ1M",
+   "google": "Big M — 8 Av. Victor Hugo, 92220 Bagneux"
+  },
+  {
+   "id": 185,
+   "nom": "Boissy-Saint-Léger",
+   "place_id": "ChIJubWdRQAL5kcRBJQq2wqAZMA",
+   "google": "Big M — 13 Bd de la Gare, 94470 Boissy-Saint-Léger",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 161 m)"
+  },
+  {
+   "id": 120,
+   "nom": "Bondy",
+   "place_id": "ChIJg10lvOwT5kcRLjsX2B4usTw",
+   "google": "Big M — 24 Rue Jules Guesde, 93140 Bondy"
+  },
+  {
+   "id": 121,
+   "nom": "Boulogne Billancourt",
+   "place_id": "ChIJpZDYGfB65kcRKlGgUF4ivdo",
+   "google": "Big M — 5 Place Jules Guesde, 92100 Boulogne-Billancourt"
+  },
+  {
+   "id": 166,
+   "nom": "Bourg-en-Bresse",
+   "place_id": "ChIJ22NUbDRT80cR1AN2D5snHAw",
+   "google": "Big M - Bourg en Bresse — 39 Av. Jean Jaurès, 01000 Bourg-en-Bresse"
+  },
+  {
+   "id": 168,
+   "nom": "Bourgoin-Jallieu",
+   "place_id": "ChIJJdir9OIvi0cRLkGcgHorg1c",
+   "google": "Big M Bourgoin-jallieu — 2 Rue des Marettes, 38300 Bourgoin-Jallieu"
+  },
+  {
+   "id": 176,
+   "nom": "Bron - Les Sept Chemins",
+   "place_id": "ChIJw408W3vB9EcROu6c-2r3yUY",
+   "google": "Big M Bron / Les Septs Chemins (ex-Cheese Nan Bron) — 1 Av. Gallieni, 69500 Bron",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 200 m)"
+  },
+  {
+   "id": 143,
+   "nom": "Béziers",
+   "place_id": "ChIJUYiqdcwPsRIRSid8PO7RcDg",
+   "google": "Big M — 32 Rue Lieutenant Pasquet, 34500 Béziers"
+  },
+  {
+   "id": 170,
+   "nom": "Caen",
+   "place_id": "ChIJ-0JIJwBDCkgRj6tjyZilcwI",
+   "google": "Big M Caen — 26 Quai Amiral Hamelin, 14000 Caen"
+  },
+  {
+   "id": 149,
+   "nom": "Cannes",
+   "place_id": "ChIJpW-UjluBzhIRYxWlYMVV42I",
+   "google": "Big M — 50 Rue Jean Jaures, 06400 Cannes"
+  },
+  {
+   "id": 172,
+   "nom": "Centre Commercial O'Parinor",
+   "place_id": "ChIJaf7cvlMV5kcR6FW4IzxsAqc",
+   "google": "Big M O'parinor — Centre commercial OParinor, 93600 Aulnay-sous-Bois",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026"
+  },
+  {
+   "id": 171,
+   "nom": "Centre Commercial Rosny 2",
+   "place_id": "ChIJe_a629AT5kcRWKsO2ocaQDU",
+   "google": "Big M Centre Commercial Rosny 2 — Av. du Général de Gaulle, 93110 Rosny-sous-Bois",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026"
+  },
+  {
+   "id": 192,
+   "nom": "Centre commercial Aéroville",
+   "place_id": "ChIJgXyqYwAV5kcRTkqDfTSQf7c",
+   "google": "BIG M — 30 Rue des Buissons, 95700 Roissy-en-France",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 201 m)"
+  },
+  {
+   "id": 122,
+   "nom": "Claye-Souilly",
+   "place_id": "ChIJe_kWRWoZ5kcRzX79dAflLZE",
+   "google": "BIG M Claye-Souilly — Centre Commercial, 77410 Claye-Souilly",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026"
+  },
+  {
+   "id": 190,
+   "nom": "Colmar - Big Canteen",
+   "place_id": "ChIJFw3mubxlkUcRizhsYocrNZs",
+   "google": "BIG CANTEEN COLMAR — 21 Av. de l'Europe, 68000 Colmar",
+   "note": "Place ID du Big Canteen (food court du groupe), à la demande de l’agence"
+  },
+  {
+   "id": 167,
+   "nom": "Compiègne",
+   "place_id": "ChIJL3mky2fX50cRR6f5s-19A0A",
+   "google": "BIG M — 12 Rue Magenta, 60200 Compiègne"
+  },
+  {
+   "id": 160,
+   "nom": "Dakar",
+   "place_id": "ChIJoQuMdWsNwQ4RodoTKgsDFRI",
+   "google": "Big M® - Dakar I Fast Food I Restaurant de burgers I Sandwicherie — Dakar",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 210 m)"
+  },
+  {
+   "id": 189,
+   "nom": "Dakar 2 - Mariste",
+   "place_id": "ChIJX47yIwANwQ4RcmDQTWCPi7Q",
+   "google": "BIG M mariste — PHM8+G7H, Dakar",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 277 m)"
+  },
+  {
+   "id": 177,
+   "nom": "Dakar 2 - Plateau",
+   "place_id": "ChIJpzJR3QJzwQ4R-D8j88zSaWY",
+   "google": "Big M 2 Dakar plateau — 33 rue Abdou Karim Bourgi, Dakar 00010",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 265 m)"
+  },
+  {
+   "id": 124,
+   "nom": "Décines-Charpieu",
+   "place_id": "ChIJLY6XdifH9EcRSnb6rhfpOOw",
+   "google": "Big M - Décines-Charpieu — 57 Rte de Jonage, 69150 Décines-Charpieu"
+  },
+  {
+   "id": 163,
+   "nom": "Ferney-Voltaire",
+   "place_id": "ChIJ5bCrCQBljEcReEAB53K_YrI",
+   "google": "Big M — 41 Av. du Jura, 01210 Ferney-Voltaire",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 259 m)"
+  },
+  {
+   "id": 130,
+   "nom": "Forbach",
+   "place_id": "ChIJ8QY58CGzlUcRB0ebe8mtbj0",
+   "google": "BIG M FORBACH — 280 Rue Nationale, 57600 Forbach"
+  },
+  {
+   "id": 125,
+   "nom": "Givors",
+   "place_id": "ChIJx_VZwZjn9EcRUKkv76ni0w0",
+   "google": "Big M - Givors — 5 Rue Roger Salengro, 69700 Givors"
+  },
+  {
+   "id": 161,
+   "nom": "Grenoble",
+   "place_id": "ChIJr_HhMbT1ikcR93MgJOs-gww",
+   "google": "BIG M — 67 Av. Alsace Lorraine, 38000 Grenoble"
+  },
+  {
+   "id": 178,
+   "nom": "Joué-lès-Tours",
+   "place_id": "ChIJRRSXDZPX_EcRnPvxzrDiy0c",
+   "google": "BIG M Joué-lès-Tours — 78 Bd Jean Jaurès, 37300 Joué-lès-Tours"
+  },
+  {
+   "id": 126,
+   "nom": "La Verpillière",
+   "place_id": "ChIJDSsX0yTT9EcRrbYVfb4sBYw",
+   "google": "Big M — 142 Rue du Stade, 38290 La Verpillière"
+  },
+  {
+   "id": 175,
+   "nom": "Lyon - Rillieux-la-Pape",
+   "place_id": "ChIJfwmpnvm_9EcRX_TFkaTgyCU",
+   "google": "Big M - Rillieux-La-Pape — 25 Rue Jules Michelet, 69140 Rillieux-la-Pape",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 200 m)"
+  },
+  {
+   "id": 131,
+   "nom": "Lyon - Saint-Fons",
+   "place_id": "ChIJG_ahCYLp9EcRHeCr2OztcAw",
+   "google": "Big M - Saint-Fons — 15 Rue Charles Plasse, 69190 Saint-Fons"
+  },
+  {
+   "id": 158,
+   "nom": "Lyon 8",
+   "place_id": "ChIJfVurGNbB9EcRdfCSTwDX-o0",
+   "google": "Big M - Lyon 8ème — 139 Av. Paul Santy, 69008 Lyon"
+  },
+  {
+   "id": 156,
+   "nom": "Lyon Vaise",
+   "place_id": "ChIJKaAdVHbr9EcRY3z1BrjQ0MU",
+   "google": "Big M - Vaise — 32 Rue Marietton, 69009 Lyon",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 162 m)"
+  },
+  {
+   "id": 127,
+   "nom": "Marseille",
+   "place_id": "ChIJyV0CSlm_yRIRqQDrnuRu8ys",
+   "google": "Big M — 118 Av. des Poilus, 13013 Marseille"
+  },
+  {
+   "id": 169,
+   "nom": "Metz",
+   "place_id": "ChIJL5wbAgDdlEcR1-dDpDoSgEU",
+   "google": "Big M — 62 Rue Serpenoise, 57000 Metz",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026"
+  },
+  {
+   "id": 179,
+   "nom": "Mondeville",
+   "place_id": "ChIJXacQSWVpCkgR1lhO6sawBzA",
+   "google": "BIG M MONDEVILLE — 9011 Rue Aristide Boucicaut, 14120 Mondeville"
+  },
+  {
+   "id": 186,
+   "nom": "Montluel",
+   "place_id": "ChIJR5nr58G59EcRtuJp1dftF1k",
+   "google": "Big M Montluel Beynost — 74 Grande Rue, 01120 Montluel",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 199 m)"
+  },
+  {
+   "id": 145,
+   "nom": "Montpellier nord",
+   "place_id": "ChIJwQAXl9CtthIRlYKxkj5zaKk",
+   "google": "Big M — 65 Av. du Lauragais, 34080 Montpellier"
+  },
+  {
+   "id": 159,
+   "nom": "Mâcon",
+   "place_id": "ChIJxbRiitJv80cRBpqLjVznxBQ",
+   "google": "Big M — 69 Rue Sigorgne, 71000 Mâcon"
+  },
+  {
+   "id": 164,
+   "nom": "Nanterre",
+   "place_id": "ChIJQ5i2bgBl5kcRn1Q-p6JY2M4",
+   "google": "BIG M — 5 Pl. de la Boule, 92000 Nanterre"
+  },
+  {
+   "id": 128,
+   "nom": "Nantes",
+   "place_id": "ChIJv0KbzhztBUgRTSU1sJLhZFA",
+   "google": "Big M — 78 Bd Pierre de Coubertin, 44100 Nantes"
+  },
+  {
+   "id": 129,
+   "nom": "Nevers",
+   "place_id": "ChIJB2oeXGxF8EcRe3_jNyQeQxI",
+   "google": "BigM Nevers — 7 Rue de la Passière, 58000 Nevers",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026"
+  },
+  {
+   "id": 150,
+   "nom": "Nice",
+   "place_id": "ChIJV_0f_tXRzRIRECwtQxtJNFc",
+   "google": "Big M — 75 Bd François Grosso, 06000 Nice",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 178 m)"
+  },
+  {
+   "id": 123,
+   "nom": "Paris 20 - Pyrénées",
+   "place_id": "ChIJfZVrQT9t5kcRqfbtu4Ve4CA",
+   "google": "BIG M PARIS — 74 Rue des Pyrénées, 75020 Paris"
+  },
+  {
+   "id": 144,
+   "nom": "Perpignan",
+   "place_id": "ChIJmzH_-cBvsBIRkKAmHXmTPxU",
+   "google": "Big M — 235 Av. d'Espagne, 66000 Perpignan"
+  },
+  {
+   "id": 154,
+   "nom": "Poitiers",
+   "place_id": "ChIJawZd9Jq__UcRV_g3VQmzftg",
+   "google": "Big M — 2 Bd Maréchal de Lattre de Tassigny, 86000 Poitiers"
+  },
+  {
+   "id": 153,
+   "nom": "Pont-de-Chéruy",
+   "place_id": "ChIJx2YgVrLL9EcROK9koP0cSR0",
+   "google": "Big M — 6 Rue Centrale, 38230 Pont-de-Chéruy"
+  },
+  {
+   "id": 142,
+   "nom": "Roanne",
+   "place_id": "ChIJ1wfru3IP9EcRaYSavYK5NJk",
+   "google": "Big M Roanne — 4 Pl. du Marché, 42300 Roanne"
+  },
+  {
+   "id": 183,
+   "nom": "Rouen",
+   "place_id": "ChIJb4lwduvd4EcRha64pNtcAJk",
+   "google": "BIG M — 40 Quai Gaston Boulet, 76000 Rouen"
+  },
+  {
+   "id": 162,
+   "nom": "Saint-Avold",
+   "place_id": "ChIJ-8QqKklVlEcRSilZTMXDN6I",
+   "google": "Big M Saint-Avold — 7 Rue de Brack, 57500 Saint-Avold"
+  },
+  {
+   "id": 181,
+   "nom": "Saint-Chamond",
+   "place_id": "ChIJMcKyNwAB9UcRCvkMooELZ_U",
+   "google": "Big M — 2 Rte Du Cantonnement, 42400 Saint-Chamond"
+  },
+  {
+   "id": 133,
+   "nom": "Saint-Denis",
+   "place_id": "ChIJAQCwZEtp5kcR_0GXrjk8Hew",
+   "google": "Big M - Burger Saint Denis — 4 Bd Félix Faure, 93200 Saint-Denis",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 67 m)"
+  },
+  {
+   "id": 140,
+   "nom": "Saint-Ouen",
+   "place_id": "ChIJrZ5f5oNv5kcR_-RNNP0ZfKM",
+   "google": "Big M — 45 Rue du Dr Bauer, 93400 Saint-Ouen-sur-Seine"
+  },
+  {
+   "id": 135,
+   "nom": "Saint-Ouen-l'Aumône",
+   "place_id": "ChIJrzDBBMn15kcRQuVMMHOKoJQ",
+   "google": "Big M — 1 Rue du Mail, 95310 Saint-Ouen-l'Aumône"
+  },
+  {
+   "id": 134,
+   "nom": "Saint-Étienne",
+   "place_id": "ChIJvxw8am-t9UcR4OlNd5jbpJc",
+   "google": "Big M — 91 Rue Bergson, 42000 Saint-Étienne"
+  },
+  {
+   "id": 182,
+   "nom": "Salaise-sur-Sanne",
+   "place_id": "ChIJi93IZH499UcR-rLKZfXQqcU",
+   "google": "BIG M Salaise-sur-Sanne — 23 Chem. de Gampaloup, 38150 Salaise-sur-Sanne"
+  },
+  {
+   "id": 173,
+   "nom": "Saumur",
+   "place_id": "ChIJW_bWw1L3B0gRWXNXJVLRZAY",
+   "google": "Big M Saumur — 50 Av. du Général de Gaulle, 49400 Saumur",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026"
+  },
+  {
+   "id": 118,
+   "nom": "Soissons",
+   "place_id": "ChIJMWzWxzVZ6EcRdHUE1O6t5g4",
+   "google": "Big M — 85 Rue Jean de la Fontaine, 02200 Soissons"
+  },
+  {
+   "id": 151,
+   "nom": "Thionville",
+   "place_id": "ChIJxVQjqwQllUcRdB22i_z8OBg",
+   "google": "Big M — 69 Bd Foch, 57970 Thionville",
+   "gps_corrige": "coordonnées de la fiche remplacées par celles de Google le 9 novembre 2026 (écart : 159 m)"
+  },
+  {
+   "id": 137,
+   "nom": "Toulouse",
+   "place_id": "ChIJj3j97zC5rhIRca_6XkBD594",
+   "google": "Big M — 41 Bd de Thibaud, 31100 Toulouse"
+  },
+  {
+   "id": 180,
+   "nom": "Toulouse - Purpan",
+   "place_id": "ChIJl-GQKAC7rhIRvatTGPcY5pY",
+   "google": "Big M Purpan — 33 Rte de Bayonne, 31300 Toulouse"
+  },
+  {
+   "id": 141,
+   "nom": "Valence",
+   "place_id": "ChIJqd_WdmZX9UcRj6SSNg-qxCk",
+   "google": "Big M Valence — 143 Av. de Chabeuil, 26000 Valence"
+  },
+  {
+   "id": 146,
+   "nom": "Vaulx-en-Velin",
+   "place_id": "ChIJRxtDUtPB9EcRObF529GZngE",
+   "google": "Big M - Vaulx-en-Velin Mas Du Taureau — Pl. Guy Môquet, 69120 Vaulx-en-Velin"
+  },
+  {
+   "id": 157,
+   "nom": "Vienne",
+   "place_id": "ChIJH-TxBADf9EcRjY4puTqBJ0I",
+   "google": "BIG M Vienne — 45 Rue Francisque Bonnier, 38200 Vienne"
+  },
+  {
+   "id": 147,
+   "nom": "Villefranche",
+   "place_id": "ChIJw0BWlMiF9EcRUm7LWfCTkmA",
+   "google": "Big M — 39 Rue d'Anse, 69400 Villefranche-sur-Saône"
+  },
+  {
+   "id": 136,
+   "nom": "Villepinte",
+   "place_id": "ChIJI_ZRhisV5kcRvogc7T8kzL0",
+   "google": "Big M — 2 All. Antoine de Saint-Exupéry, 93420 Villepinte"
+  },
+  {
+   "id": 184,
+   "nom": "Villeurbanne - Charpennes",
+   "place_id": "ChIJn1ObX93r9EcRdETQL0Giap4",
+   "google": "Big M - Villeurbanne Charpennes — 15 Rue Bellecombe, 69100 Villeurbanne"
+  },
+  {
+   "id": 165,
+   "nom": "Villeurbanne - Salengro",
+   "place_id": "ChIJ-b9ep1rB9EcREyDoPqbOssc",
+   "google": "Big M - Salengro/Croix-Luizet — 161 Av. Roger Salengro, 69100 Villeurbanne"
+  }
+ ],
+ "non_remplis": []
+}

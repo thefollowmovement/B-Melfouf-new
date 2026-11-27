@@ -1,0 +1,208 @@
+# Restaurants (plugin StoreLocatore)
+
+Les restaurants utilisent le plugin **StoreLocatore** de l'agence (dépôt `thefollowmovement/storelocatore-wordpress`, version 2.7 ou plus). On ne le modifie pas dans ce dépôt : `bigm-core` (`inc/restaurants.php`, `inc/marque-storelocatore.php`) passe par les filtres et réglages de WordPress. Ce dont Big M a besoin et que le plugin ne fait pas s'ajoute dans son propre dépôt, de façon générique (version 2.6 : réseaux sociaux, pastille « Nouveau », page d'avis et affiches habillables ; version 2.7 : itinéraire vers Google Maps et choix de l'application sur mobile ; à la demande de Big M le 10 novembre 2026).
+
+Depuis sa version 2.2, le plugin fait lui-même ce que Big M lui demandait :
+
+- il ne charge ses fichiers (jQuery, Leaflet, styles) que sur les pages restaurants ;
+- il lit la recherche `?q=` venue de l'accueil ;
+- sa recherche ignore les accents, les majuscules et les tirets ;
+- son habillage « Aux couleurs du site » reprend les couleurs et polices du kit Elementor, donc la charte.
+
+L'ancien habillage de bigm-core (`restaurants.css`, `restaurants.js`) et le gabarit `archive-tfmsl_store.php` du thème ont donc été retirés.
+
+## Installer ou mettre à jour
+
+1. Fabriquer le zip, avec le dépôt du plugin cloné à côté de celui-ci (`../storelocatore-wordpress`, ou la variable `STORELOCATOR_DIR`) :
+
+   ```bash
+   ops/build-zips.sh
+   ```
+
+   Il produit `dist/storelocatore.zip`, sans les notes de développement du plugin. On peut aussi prendre le zip directement dans le dépôt du plugin.
+2. Dans l'admin : **Extensions → Ajouter → Téléverser**, puis **Remplacer la version actuelle** si le plugin est déjà là.
+3. Ne jamais téléverser une version plus ancienne que celle installée.
+
+Si la démo est installée, elle crée une fois la page **Nos restaurants** (`/restaurants/`) et trois restaurants d'exemple, marqués « [Démo] ». Une page qui existe déjà à cette adresse n'est pas touchée.
+
+Les restaurants réels se saisissent dans le menu **Restaurants**, ou s'importent en CSV (**Restaurants → Outils** du plugin, horaires compris). Les données sont à fournir par le client : adresse, horaires, services, liens de livraison.
+
+## Ce que fait l'intégration
+
+| Sujet | Réglage |
+|---|---|
+| Adresses | Fiches sous `/restaurants/{restaurant}/` (au lieu de `/boutiques/`). Pas de liste du plugin : `/restaurants/` est la page Elementor qui contient le widget **Store – Locator**. Le plugin la retrouve seul (fil d'Ariane, lien « retour à la liste »). |
+| Libellés | « Restaurants », « Restaurant » dans l'admin ; textes du site (« Voir le restaurant », « Aucun restaurant ne correspond… »). Les surcharges de la page **Traductions** du plugin restent prioritaires. |
+| Style des fiches | « Clair, aux couleurs du site » par défaut (réglage du plugin, tant qu'il n'a pas été enregistré) |
+| Barre d'actions mobile du plugin | Coupée par défaut : la barre d'onglets Big M occupe le bas de l'écran. Si on l'active, elle se place au-dessus. |
+| Recherche de l'accueil | Le bloc « Tous nos restaurants » envoie vers `/restaurants/?q=bondy`. Le plugin remplit la recherche et filtre à l'arrivée. |
+| Données structurées | Celles du plugin : `Restaurant` quand le « Type de cuisine » est rempli, `LocalBusiness` sinon. Sans saisie, bigm-core lui donne « Burgers halal », donc toujours `Restaurant`. |
+| Google Place ID | Champ du plugin (avis Google, horaires, lien « Laisser un avis »), aussi modifiable par l'API REST : `POST /wp-json/wp/v2/tfmsl_store/{id}` avec `{"meta": {"tfmsl_gmb_place_id": "ChIJ…"}}` (comptes qui modifient le restaurant), pour une saisie en lot. Coordonnées GPS (`tfmsl_lat`, `tfmsl_lng`), services (`tfmsl_services`), moyens de paiement (`tfmsl_payment_methods`), URL du bouton Commander (`tfmsl_order_url`), adresse (`tfmsl_address`, `tfmsl_zip`, `tfmsl_city`) et téléphone (`tfmsl_phone`) modifiables de la même façon, ainsi que les textes de la fiche (0.16.5, pour relire et corriger ceux de l'IA du plugin) : présentation (`tfmsl_long_description`, HTML autorisé), « Pourquoi choisir » (`tfmsl_why_us`), titre et description pour Google (`tfmsl_seo_title`, `tfmsl_seo_description`), quartier et « À proximité » de l'encart « En bref » (`tfmsl_neighborhood`, `tfmsl_local_keywords`) et FAQ (`tfmsl_faq`, liste de `{question, answer}` qui remplace toute la FAQ ; entrée sans question retirée). Mêmes nettoyages que l'écran de la fiche. `GET /wp-json/bigm/v1/restaurants/{id}/place-id` propose les Place ID possibles, avec leurs coordonnées (recherche Google « Big M » + adresse, près de la fiche) avec la clé Google des réglages de StoreLocatore, qui reste sur le serveur ; rien n'est enregistré |
+| Référencement | Titre, description et Open Graph des fiches viennent du plugin ; ceux de bigm-core s'effacent sur ces pages (`docs/seo.md`). |
+
+Le widget Store – Locator de la page Nos restaurants est en habillage « Aux couleurs du site ». Ses réglages (hauteur, textes, mode mobile « Carte d'abord ») se modifient dans Elementor.
+
+## Horaires importés de Google (pause de midi)
+
+StoreLocatore 2.5 importe les horaires de Google (bouton « Synchroniser » de la fiche, import quotidien des fiches en synchronisation automatique), mais garde une seule plage par jour : un restaurant ouvert 11:15–14:00 puis 18:30–23:00 n'avait plus que 18:30–23:00. bigm-core (`inc/horaires.php`) corrige juste après chaque import, sans modifier le plugin : il relit les plages reçues de Google et réécrit les horaires de la fiche (première ouverture, dernière fermeture, et la plus longue coupure comme pause, que la fiche affiche et compte pour « Ouvert / Fermé »). StoreLocatore 2.5.1 et suivants gardent eux-mêmes la pause (et lisent un lieu ouvert 24 h sur 24) : la correction de bigm-core s'efface alors. `POST /wp-json/bigm/v1/restaurants/{id}/horaires-google` relance l'import d'un restaurant (tous d'un coup : la boucler sur les restaurants). Import quotidien automatique : case « Synchronisation automatique » de la fiche (onglet Intégrations), aussi modifiable par l'API REST (meta `tfmsl_gmb_sync` = `1`).
+
+## Appels à Google : planifiés et plafonnés
+
+Google facture les appels de StoreLocatore au-delà de 1 000 par mois et par catégorie : horaires et note (« Place Details Enterprise », 20 $ les 1 000), avis (« Enterprise + Atmosphere », environ 25 $ les 1 000). Laissé seul, le plugin recharge les avis d'une fiche à chaque visite après 6 h, et son import quotidien fait deux appels par restaurant et par nuit. bigm-core (`inc/google.php`) :
+
+| Quoi | Comment |
+|---|---|
+| Planification | Chaque nuit vers 4 h : les horaires d'un tiers des restaurants (tous les 3 jours), la note et les avis d'un septième (toutes les semaines). Un appel par restaurant pour les avis remplit la fiche et le tableau de bord, gardés jusqu'au passage suivant (+ 8 jours). Pour 70 restaurants : ≈ 720 appels « horaires » et ≈ 300 « avis » par mois, gratuits |
+| Import de StoreLocatore | Son import quotidien est débranché : la case « Synchronisation automatique » des fiches n'a plus d'effet |
+| Disjoncteur | Une page vue par un visiteur n'appelle jamais Google. Seuls la planification, l'admin (bouton « Synchroniser » d'une fiche, « Actualiser » du tableau de bord : un appel par restaurant) et l'API des comptes qui modifient les restaurants le peuvent. Au-delà du plafond (900 par mois et par catégorie), plus aucun appel jusqu'au mois suivant |
+| Réglages | Réglages Big M → Google : fréquence des horaires (jours), des avis (jours), plafond ; compteur du mois, dernier et prochain passage |
+| Avis de la fiche | Les 5 étoiles seulement (filtre `bigm_google_avis_note_min`) : le gabarit de StoreLocatore les présente comme « avis 5 étoiles vérifiés ». Le tableau de bord garde tous les avis |
+| Données structurées de la fiche | Sans note (`aggregateRating`) : StoreLocatore la calculait sur les quelques avis en mémoire, pas sur la vraie note Google, et Google n'affiche pas la note qu'un commerce publie sur son propre site |
+
+`POST /wp-json/bigm/v1/google/planification` (administrateurs) lance un passage tout de suite, par exemple `{"horaires": 0, "avis": 70}` pour remplir les avis de toutes les fiches d'un coup (dans la limite du plafond). WP-Cron ne tourne qu'avec des visites : sur la production, une tâche cron d'Hostinger qui appelle `wp-cron.php` toutes les heures garantit le passage de la nuit.
+
+## Food courts (Big Canteen)
+
+Certains Big M sont dans un **Big Canteen**, le food court du groupe : plusieurs enseignes (Big M, Fatburger, Buffalo's Café, Original Riz Crousty, ADS…) partagent la même salle. bigm-core (`inc/food-court.php`) :
+
+| Où | Quoi |
+|---|---|
+| Restaurants → Food courts | Un food court : nom, présentation (description), logo carré, marques par défaut (une par ligne), site web (bouton « Découvrir le … ») |
+| Fiche d'un restaurant | Case du food court (bloc « Food courts ») ; bloc « Food court : marques sur place » si ses enseignes diffèrent de celles du food court |
+| Site | Bloc « Ce Big M est au Big Canteen » sous le bandeau de la fiche (crochet `tfmsl_after_store_hero` du gabarit de StoreLocatore), avec la présentation et les marques ; shortcode `[bigm_food_court]` pour un modèle Elementor de fiche. CSS (`assets/css/food-court.css`) chargé seulement sur ces fiches |
+
+Le Place ID d'un restaurant de food court est celui du food court sur Google (fiche « Big Canteen »). `GET /wp-json/bigm/v1/restaurants/{id}/place-id?q=Big Canteen Mérignac` cherche un nom libre. Food courts, champs et marques sont aussi dans l'API REST (`/wp/v2/bigm_food_court`, meta `_bigm_fc_logo`, `_bigm_fc_marques`, `_bigm_fc_site` ; meta `_bigm_fc_marques` du restaurant).
+
+## Galerie commune
+
+Les photos de la section « Galerie » des fiches sont les mêmes pour tous les restaurants. Elles se règlent une seule fois dans **Restaurants → Galerie commune** (`bigm-core/inc/galerie-restaurants.php`, option `bigm_galerie_restaurants`, aussi dans `/wp-json/wp/v2/settings`).
+
+- **Sur la page de réglage :**
+  - « Ajouter des photos » ouvre la médiathèque ;
+  - on glisse les photos pour changer l'ordre et la croix retire une photo ;
+  - « Reprendre la galerie d'un restaurant » copie celle d'une fiche ;
+  - une étiquette rouge signale les photos sans texte de remplacement, avec un lien pour le saisir.
+- **Sur le site :** StoreLocatore lit la galerie d'une fiche par `get_post_meta( …, 'tfmsl_gallery', true )`. Dans son gabarit, son widget Elementor, son API et son score de complétude, cette lecture passe par le filtre `get_post_metadata` : toutes les fiches reçoivent la galerie commune, sans modifier le plugin. Les mêmes fichiers servent partout, donc le navigateur les garde en cache d'une fiche à l'autre.
+- **Galerie commune vide :** chaque restaurant garde sa propre galerie. Elle n'est jamais effacée et se lit par `bigm_galerie_du_restaurant()`.
+- **Dans la fiche d'un restaurant :** le champ « Galerie » du plugin est remplacé par un renvoi vers la page de réglage. Il n'est plus envoyé à l'enregistrement, donc la galerie propre reste telle quelle.
+- **Cache :** le cache des pages (LiteSpeed) est vidé à chaque enregistrement.
+
+État au 10 novembre 2026, avant la galerie commune : 9 fiches sur 70 avaient une galerie (Roanne et Agen 7 photos, Compiègne et Bondy 6, Aéroville, Argenteuil, Rosny 2, Ferney-Voltaire et Décines 5), avec 9 photos différentes en tout.
+
+Test : `tests/wp/test-bigm-galerie.php`.
+
+## Récapitulatif des avis par e-mail
+
+`bigm-core/inc/recap-avis.php`. L'e-mail est aux couleurs de Big M : en-tête brun avec le logo, filet orange, tuiles beiges, étoiles jaunes, boutons orange et texte brun. Les polices sont Fredoka et Figtree, avec un repli sur Arial dans les messageries qui ne les chargent pas. Une version texte est jointe.
+
+**Ce qu'il contient**, par restaurant, sur la période :
+- la note Google et son évolution, calculée depuis `tfmsl_rating_history` ;
+- le nombre d'avis Google ;
+- les nouveaux avis Google : note, auteur, date, texte et bouton « Répondre sur Google » ;
+- les retours privés laissés sur la page d'avis du site (table `tfmsl_feedback`) : note, message, nom, contact cliquable ;
+- les chiffres de la page d'avis (`tfmsl_events`) : notes données et clics vers Google.
+
+L'e-mail général ajoute en tête la note du réseau (moyenne pondérée par le nombre d'avis), le total des nouveaux avis et des retours, puis le tableau de tous les restaurants. Il détaille ensuite ceux qui ont du nouveau.
+
+**Réglages** (Réglages Big M → Avis) :
+- adresse générale, qui reçoit tous les restaurants ;
+- « Envoyer aussi à chaque restaurant » : à l'adresse « Email du responsable » de sa fiche (onglet Intégrations de StoreLocatore, la même qui reçoit déjà les retours privés), seulement s'il y a du nouveau ;
+- fréquence : le lundi pour la semaine écoulée (par défaut), chaque jour pour la veille, le 1er du mois pour le mois écoulé, ou jamais.
+
+**Envoi :** tâche `bigm_recap_avis` chaque jour à 9 h, une seule fois par jour (`bigm_recap_dernier_jour`). Le bilan du dernier envoi est gardé dans `bigm_recap_dernier`. L'expéditeur s'appelle « Big M », avec l'adresse d'envoi du site.
+
+**Restaurants → Récapitulatif des avis :**
+- aperçu de l'e-mail général ou de celui d'un restaurant ;
+- « M'envoyer un essai » : tout part vers soi, rien aux restaurants ;
+- « Envoyer maintenant » ;
+- API : `POST bigm/v1/avis/recap` (`action` : `apercu`, `essai` ou `envoyer` ; `restaurant` ; `jours`).
+
+**Limites :**
+- Google ne donne que 5 avis par restaurant, les plus utiles selon lui. Ils sont relevés par la planification de `inc/google.php` (tous les 7 jours par défaut, voir « Appels à Google »). Un avis très récent ou noyé parmi d'autres peut donc manquer, alors que la note et le nombre d'avis sont toujours à jour.
+- Les e-mails partent par `wp_mail`. Si rien n'arrive, installer une extension SMTP (ou l'outil e-mail d'Hostinger) avec l'adresse du domaine.
+
+Test : `tests/wp/test-bigm-recap.php`.
+
+## Page d'avis, affiches QR, réseaux sociaux et pastille « Nouveau »
+
+StoreLocatore 2.6 ou plus. L'habillage Big M est dans `bigm-core/inc/marque-storelocatore.php`. Sans StoreLocatore 2.6, ses crochets ne sont jamais appelés.
+
+**Page d'avis** (`/avis/{restaurant}/`, ouverte par le QR code). Elle est hors thème : bigm-core y ajoute, par l'action `tfmsl_rb_page_head`, les polices Fredoka et Figtree auto-hébergées et les couleurs de la charte (variables `--tfmsl-rb-*` : bouton orange, texte brun, texte secondaire `--muted`, fond blanc cassé, étoiles jaunes). En bas de la page et à l'étape « Merci » :
+- « Suivez les promos de votre restaurant », avec le nom du restaurant, mène à la page Promos de StoreLocatore avec ce restaurant déjà choisi (réglage « Suivez les promos » de Collecte d'avis ▸ Réglages) ;
+- « Suivez-nous » montre les réseaux sociaux de la fiche du restaurant.
+
+**Roue de la fortune** (StoreLocatore 2.10 ; Restaurants → Collecte d'avis → Roue de la fortune, ou `GET` / `PATCH /wp-json/tfmsl/v1/wheel` avec un compte administrateur). Aux couleurs de Big M par `tfmsl_rb_page_head` : scène brune à rayons, jante brune, ampoules et pointeur jaunes, bouton « Tourner la roue » orange, confettis orange, jaune et blanc cassé, logo du site au centre. Réglages utiles pour Big M :
+- **Boutiques** : seulement les restaurants cochés (test du 16 novembre 2026 : Avignon et Nanterre).
+- **Lots** : une photo produit de la médiathèque par lot (celles de la carte), un stock par restaurant si le lot coûte (ex. Max Box), des cases de couleurs alternées (orange `#fa5c19`, blanc cassé `#faf8f5`, jaune `#ffc21a`, orange foncé `#c8400a`, brun `#2b1406`).
+- **Accès à la roue** : « Après l'ouverture de Google » à la demande de Big M (la page s'ouvre sur la roue verrouillée, le client ouvre la page d'avis Google et revient au bout de 20 s). Personne ne peut vérifier qu'un avis a été publié ni sa note, et Google interdit de lier un cadeau à un avis : les avis obtenus ainsi peuvent être supprimés par Google. Jamais de condition sur la note, jamais de texte qui demande 5 étoiles.
+- **Une participation** : par e-mail et par restaurant tous les N jours (réglage « Une participation tous les »), et 3 parties au plus par appareil et par jour. Le gain (code `W-XXXXXX`, valable 30 jours) s'affiche, part par e-mail et reste à l'écran si le client rouvre la page ; il se valide dans « Gains & validation ».
+
+**Réseaux sociaux des restaurants.** Onglet Intégrations de la fiche, section « Réseaux sociaux » : Instagram (handle), Facebook, TikTok, Snapchat, X, YouTube (aussi en colonnes de l'import CSV). Une fiche sans aucun réseau prend ceux de Big M (Réglages Big M → Réseaux sociaux), par le filtre `tfmsl_store_socials` ; filtre `bigm_reseaux_restaurant` pour changer ce repli.
+
+**Affiches QR** (Collecte d'avis ▸ QR codes & supports : affiche A5 et chevalet de table A4). Par défaut, aux couleurs de Big M : bandeau brun, logo orange posé dessus sans cadre blanc, étoiles jaunes, accents orange, papier blanc cassé, titres en Fredoka, texte en Figtree, ligne « Et suivez les promos de votre restaurant Big M ».
+- Logo : celui choisi dans Collecte d'avis ▸ Réglages ▸ Affiches, sinon le logo du site (Apparence → Personnaliser), sinon celui du thème. Filtre `bigm_affiche_logo_cadre` (`true`) pour remettre le cadre blanc.
+- Couleurs : les sélecteurs de Collecte d'avis ▸ Réglages ▸ Affiches montrent celles de la charte (filtre `tfmsl_poster_default_colors`) ; une couleur changée là les remplace, une couleur remise à celle de la charte suit à nouveau la charte.
+- Textes : Restaurants → Traductions (section Affiches QR code). La ligne promos change seulement si son texte est celui d'origine.
+- Polices : celles du thème, en adresses complètes (filtre `tfmsl_poster_style`).
+
+**Pastille « Nouveau ».** Encart latéral « Pastille Nouveau » de la fiche d'un restaurant : case à cocher, premier jour (vide : le jour de l'enregistrement) et durée en jours (30 par défaut). La pastille s'affiche dans le bandeau de la fiche, sur les cartes et les bulles du locator et dans le carrousel, jusqu'au dernier jour indiqué sous les champs. Les dates sont relues par le navigateur, donc une page en cache n'affiche pas la pastille un jour de trop. Couleurs de la charte (jaune `#ffc21a`, texte brun) par `--tfmsl-new-bg` / `--tfmsl-new-fg`.
+
+**Itinéraire** (StoreLocatore 2.7 ou plus). Le bouton « Itinéraire » et l'adresse d'une fiche, comme ceux du locator, mènent à Google Maps, et non plus à OpenStreetMap. Avec le Place ID Google du restaurant, Google ouvre directement sa fiche.
+- Sur ordinateur, Google Maps s'ouvre dans un nouvel onglet.
+- Sur téléphone et tablette, une fenêtre « Ouvrir avec » propose :
+  - sur iPhone et iPad : Plans, Google Maps et Waze ;
+  - sur Android : Google Maps, Waze et « Autre application » (liste des applications installées).
+- L'application s'ouvre si elle est installée, sinon son site.
+- bigm-core lui donne les couleurs de la charte (`--tfmsl-dir-*` : texte brun, cases beiges, icônes orange) ; les polices viennent du kit Elementor.
+- Les textes se changent dans Restaurants → Traductions (section « Itinéraire (mobile) »).
+- Chaque toucher compte toujours comme « Itinéraire » dans le tableau de bord.
+
+Test : `tests/wp/test-bigm-marque.php`.
+
+## Fenêtre Commander
+
+Les boutons Commander du site (en-tête, bouton central mobile, fiches produit sans lien propre, widgets) ouvrent une fenêtre, gérée par bigm-core (`inc/commander.php`, `assets/js/commander.js`) :
+
+1. **Choix du restaurant.** « Me localiser » (le plus proche est choisi) ou recherche par ville, code postal ou nom (accents et tirets ignorés).
+2. **Façons de commander de ce restaurant**, dans l'ordre des plateformes :
+   - un bouton par plateforme pour laquelle il a un lien (Uber Eats, Deliveroo…) ;
+   - « Commander en ligne » si son lien Commander StoreLocatore n'est d'aucune plateforme connue ;
+   - « Appeler pour commander » si la case Téléphone est cochée (restaurant qui livre lui-même).
+   - Sans rien de tout cela : le lien Commander par défaut (« Tous les restaurants Big M »).
+3. **Mémoire.** Le restaurant reste choisi dans le navigateur (stockage local, rien n'est envoyé) : à la visite suivante, la fenêtre s'ouvre sur lui (bouton « Changer »). Il devient le restaurant choisi quand on le choisit, par la position, ou quand on commande chez lui.
+
+**Promos.** La fenêtre et les promos de StoreLocatore partagent la même mémoire (clé `tfmsl_promo_store`) : la page Promos et le bouton flottant montrent directement les offres du restaurant choisi pour commander, et inversement.
+
+| Où | Quoi |
+|---|---|
+| Réglages Big M → Commande | Fenêtre active ou non, lien Commander par défaut, titre et texte, **plateformes** (nom, texte, couleur, logo carré, ordre par glisser-déposer ; vider le nom la retire), textes du bouton d'appel |
+| Restaurants → Liens de commande | Tous les restaurants sur une page : un lien par plateforme, case Téléphone. En gris : le lien Commander de la fiche StoreLocatore, utilisé tant que le champ est vide (rangé sous Uber Eats s'il vise ubereats.com…) |
+| Fiche d'un restaurant, bloc « Commander » | Les mêmes champs, plus le numéro à appeler s'il diffère du téléphone de la fiche |
+
+- Un bouton d'Elementor ouvre la fenêtre avec le lien `#commander` ; une adresse `…/#commander` l'ouvre à l'arrivée. Les boutons Commander de StoreLocatore (liste, fiche) l'ouvrent sur leur restaurant.
+- Les liens saisis sont nettoyés : paramètres de suivi retirés (`?srsltid=…` ajouté par Google, `utm_…`), adresse et heure de livraison de la personne qui a copié le lien retirées (`pl=` d'Uber Eats, `geohash=` de Deliveroo), page française d'Uber Eats (`/fr/` au lieu de `/fr-en/`).
+- Saisie en lot par l'API (comptes qui modifient les restaurants, mot de passe d'application) : `GET /wp-json/bigm/v1/commander/restaurants` lit les liens saisis ; `POST` avec `{"restaurants": {"123": {"liens": {"ubereats": "…", "deliveroo": "…"}, "tel": "1"}}}` les enregistre (seules les clés envoyées changent, un lien vide retire le bouton).
+- Données : `GET /wp-json/bigm/v1/commander` (plateformes et restaurants publiés), lu à la première ouverture, en cache 5 minutes. Le script (19 Ko, 6 Ko compressé, différé) est sur toutes les pages ; son CSS n'est chargé qu'à l'ouverture.
+- Sans JavaScript, ou fenêtre désactivée, les boutons mènent au lien Commander par défaut.
+
+## Points à savoir
+
+- **Carte.** Leaflet vient de unpkg.com et les fonds de carte d'OpenStreetMap : deux services externes, à citer dans la politique de confidentialité.
+- **Recherche.** Elle filtre sur le nom et l'adresse, sans géocodage : « 93 » trouve les codes postaux qui contiennent 93. Le bouton de géolocalisation trie par distance.
+- **Description générée.** Le plugin écrit une description automatique quand la fiche n'en a pas (« Découvrez Big M Bondy… »). Il vaut mieux remplir la meta description de chaque fiche (onglet SEO de la fiche).
+- **Promos.** Le module Promos du plugin (bouton flottant, page Promos) est indépendant. Sur mobile, régler le décalage du bouton flottant (**Promos → Réglages**, ~100 px) pour qu'il passe au-dessus de la barre d'onglets (fait en production : 100 px). Une promo réservée à des restaurants (`scope` = `stores`) n'apparaît qu'aux visiteurs qui ont choisi l'un d'eux, et sur leurs fiches : une promo par restaurant quand chaque affiche porte l'adresse. Depuis StoreLocatore 2.8, les promos se créent aussi par l'API (`POST /wp-json/tfmsl/v1/promos`, compte éditeur, mêmes champs que le formulaire) : exemple de la Max Box (Nanterre, Avignon, Toulouse Thibaud, 17 et 18 novembre 2026), affiches story et un visuel carré commun tiré du haut de l'affiche. Depuis StoreLocatore 2.9, une promo datée est annoncée 1 jour avant son début (Promos ▸ Réglages ▸ Annoncer les promos, 0 à 7 jours) : compte à rebours « Commence dans … », dates, pas de bouton Commander ; la bande des fiches apparaît dès minuit le jour de l'annonce (cache des fiches jusqu'à minuit). Depuis StoreLocatore 2.11, chaque promo datée a un bouton « Ajouter à mon calendrier » (page Promos, bouton flottant, bande des fiches, lecteur story) : Calendrier Apple, Google Agenda, Outlook ou fichier .ics, avec le restaurant choisi, le lien vers la page Promos et le lien Commander ; rappels la veille à 18 h et le premier jour à 11 h (Promos ▸ Réglages ▸ Ajouter à mon calendrier). La liste des promos compte les ajouts.
+
+  **Me prévenir des promos (StoreLocatore 2.12).** Un bouton « Me prévenir des promos » (encart de la page Promos, panneau du bouton flottant, « Me prévenir » sur la bande des fiches) inscrit le client pour son restaurant : notification sur le téléphone ou l'ordinateur quand l'appareil l'accepte (Android, ordinateur ; iPhone et iPad seulement une fois Big M ajouté à l'écran d'accueil, iOS 16.4 ou plus : la fenêtre l'explique, et l'application « Big M » s'ouvre sur la page Promos avec la fenêtre d'activation), sinon par e-mail (adresse confirmée par un lien, désinscription en un clic). Envoi automatique le premier jour de chaque promo à 11 h (la veille à 18 h en option, jamais après 21 h), case « Prévenir les abonnés » et bouton « Envoyer maintenant » dans l'encart « Alertes » de chaque promo ; la tâche cron d'Hostinger (toutes les 5 min) fait partir les lots. **Désactivé par défaut** : à cocher dans **Promos ▸ Réglages ▸ Me prévenir des promos**, après avoir ajouté à la politique de confidentialité le texte proposé (Réglages ▸ Confidentialité ▸ Guide de politique). Abonnés, derniers envois, essai (« M'envoyer un essai ») et export CSV dans **Promos ▸ Abonnés**. Habillage Big M (`bigm-core` 0.14.5, `inc/marque-storelocatore.php`) : e-mails aux couleurs de la charte (bandeau orange, bouton `--btn`, encre brune, fond blanc cassé), application « Big M » au fond blanc cassé ; icône de l'écran d'accueil = icône du site (déjà réglée en production). Depuis StoreLocatore 2.12.1, une offre déclinée en une promo par restaurant (même nom, même premier jour, comme la Max Box de Nanterre, Avignon et Toulouse) ne prévient qu'une fois : l'abonné de tous les restaurants reçoit « Aujourd'hui à Avignon, Nanterre et Toulouse », celui d'un restaurant seulement la sienne, et personne ne reçoit deux fois la même offre le même jour (le premier essai sur iPhone, abonné à tous les restaurants, en avait reçu trois). La fenêtre propose la liste « Votre restaurant ». Depuis StoreLocatore 2.13, **Promos ▸ Envoyer une notification** envoie un message libre (titre, texte, lien, image ; `{restaurant}` = restaurant de l'abonné) à tous les abonnés ou à ceux de certains restaurants, par notification et / ou e-mail, tout de suite ou programmé (heure de Paris) : aperçu, nombre d'abonnés, essai sur ses appareils, historique, annulation. Aussi par l'API (`POST /wp-json/tfmsl/v1/alerts/messages`, administrateurs ; `test: true` pour un essai), ce qui permet d'envoyer depuis une session Claude Code.
+  **Modifier en lot (StoreLocatore 2.14).** Restaurants ▸ Modifier en lot (ou l'action groupée « Modifier en lot » de la liste des restaurants) : cocher des restaurants (filtre par nom ou ville, par catégorie), puis ajouter ou retirer des horaires exceptionnels (une date ou une période, fermé ou ouvert de … à …, avec un libellé : Noël, 1er mai, Ramadan…), changer des horaires habituels (jours cochés), ajouter, retirer ou remplacer des services ou des moyens de paiement. « Vérifier les changements » montre ce qui change sur chaque fiche sans rien écrire ; « Appliquer » enregistre ; les 5 dernières modifications s'annulent depuis la même page (une valeur changée depuis est gardée). **Sur Big M, les horaires habituels sont réimportés de Google tous les 3 jours** (`inc/google.php`) : pour une fermeture ou des horaires de fête, passer par les horaires exceptionnels, que la synchronisation ne touche jamais, ou changer aussi la fiche Google Business Profile. Depuis 2.14, le badge « Ouvert / Fermé » de la fiche et de l'API tient compte des horaires exceptionnels, et la durée de cache de la fiche aussi (`bigm_restaurant_duree_cache()`, 0.14.6). API : `POST /wp-json/tfmsl/v1/stores/bulk` (`dry_run` pour un aperçu), avec le mot de passe d'application.
+  **Alertes de l'équipe et tableau de bord (StoreLocatore 2.16).** Un retour privé de 2 étoiles ou moins (réglage « Alerte immédiate » de Restaurants ▸ Collecte d'avis ▸ Réglages) part en e-mail urgent (« ⚠️ Retour négatif ») au responsable du restaurant (`tfmsl_manager_email`) et aux adresses du siège indiquées, et en notification sur les téléphones et ordinateurs de l'équipe qui l'activent (bouton « Activer sur cet appareil » en haut de Restaurants ▸ Avis ; sur iPhone, depuis le site ajouté à l'écran d'accueil). Le tableau de bord montre aussi les vues, clics et ajouts à l'agenda des promos par restaurant, les abonnés aux alertes promos et le calculateur d'avis (avis 5 étoiles qu'il faut pour gagner un dixième de note sur Google).
+  **Pages par ville, campagnes d'avis, score v2 (StoreLocatore 2.16, bigm-core 0.16.0).** Une page par ville et par département qui ont un restaurant : `/restaurants/ville/bondy/` (« Burger halal à Bondy »), `/restaurants/departement/seine-saint-denis-93/` (« Burger halal en Seine-Saint-Denis ») : restaurants avec adresse, horaires et boutons (Commander ouvre la fenêtre Commander), restaurants proches, questions fréquentes, données structurées, plan du site `wp-sitemap-tfmslareas-1.xml`, envoyées à IndexNow. Activées pour Big M (`tfmsl_areas_defaults`, `inc/restaurants.php`) ; réglages dans Restaurants ▸ Pages par ville ; liste des départements et des villes sous la carte de `/restaurants/`. Les 3 restaurants de Dakar ont une page de ville, sans département. **Campagnes d'avis** : Restaurants ▸ Campagnes d'avis, e-mail vers la page d'avis aux abonnés e-mail des promos qui ont coché « Vous pouvez aussi me demander mon avis » (au plus un tous les 90 jours). **Score d'optimisation** de chaque fiche : ville et « burger » ou « halal » dans le titre et la description SEO, 10 photos, horaires identiques à Google.
+- **Fuseau horaire des restaurants à l'étranger (StoreLocatore 2.17, bigm-core 0.16.1).** Les horaires de chaque restaurant se lisent à son heure : champ « Fuseau horaire » de la fiche (onglet Coordonnées), « Automatique » d'après le pays (Maroc, Sénégal…), sinon heure de Paris. Tanger (pays « Maroc ») : heure GMT, comme Dakar (pays « Sénégal ») ; le Maroc a quitté UTC+1 pour l'heure GMT définitive le 20 septembre 2026, ce que StoreLocatore corrige même sur un serveur à la base de fuseaux ancienne. Badge « Ouvert / Fermé », ligne du jour, horaires exceptionnels et durée du cache de la fiche (`bigm_restaurant_duree_cache()`) suivent ce fuseau. Pour un nouveau restaurant hors de France : renseigner le pays ; choisir le fuseau à la main seulement pour un pays qui en a plusieurs.
+- **Anciennes adresses.** `/nos-restaurants/`, `/boutique/` et `/boutiques/…` de l'ancien site sont redirigées vers `/restaurants/…` ; les anciennes fiches `/boutique/{nom}-{ville}/` (`/boutique/soissons-soissons/`) vers la fiche du restaurant, retrouvée automatiquement (0.16.2, `docs/seo.md`).
+
+## Tester
+
+```bash
+wp eval-file tests/wp/test-bigm-contenus.php --user=IDENTIFIANT_ADMIN
+```
+
+Les vérifications « Restaurants » et « Fenêtre Commander » ne tournent que si le plugin est actif.

@@ -1,0 +1,53 @@
+/* Big M — actualités : cartes d'articles (accueil et page Actualités), liste, article.
+   Les cartes sont reprises du <style> de prototype/index.html (HOME_CSS) et du bloc
+   « animations des boutons » de site.css. La liste et l'article n'ont pas de page dans le
+   prototype : ils en reprennent les composants (en-tête .carte-head de carte.css, pastilles,
+   cartes, lien de retour de la fiche produit). */
+
+/* ---------- cartes d'articles (HOME_CSS) ---------- */
+.news-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.news-card { background: #fff; border-radius: var(--radius); overflow: hidden; text-decoration: none; display: flex; flex-direction: column; }
+.news-card__img { aspect-ratio: 16 / 9; overflow: hidden; }
+.news-card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s var(--ease); }
+.news-card:hover .news-card__img img { transform: scale(1.04); }
+.news-card__body { padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 8px; }
+.news-card__body small { color: var(--muted); font-size: 14px; }
+.news-card__body :is(h2, h3) { font-size: 21px; line-height: 1.2; }
+@media (max-width: 960px) { .news-cards { grid-template-columns: 1fr; } }
+@media (hover: hover) and (pointer: fine) { .news-card:hover { transform: translateY(-4px); } }
+.news-card { transition: transform .35s cubic-bezier(.34, 1.56, .64, 1); }
+.news-card:active { transform: scale(.97); transition-duration: .1s; }
+/* Elementor : .elementor img { height: auto } déformerait la photo. */
+.elementor .news-card__img img { height: 100%; }
+
+/* ---------- page Actualités : catégories, liste, pages ---------- */
+.news-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+.news-tabs a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1.5px rgba(43, 20, 6, .35); font-weight: 600; text-decoration: none; transition: background-color .18s ease, color .18s ease; }
+.news-tabs a:hover { background: var(--tile); }
+.news-tabs a[aria-current="page"] { background: var(--ink); color: #fff; box-shadow: none; }
+.news-cards--liste { row-gap: 24px; }
+.news-none { background: #fff; border-radius: var(--radius); padding: 32px; text-align: center; color: var(--muted); }
+.news-pages .nav-links { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 40px; }
+.news-pages .page-numbers { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 0 14px; border-radius: 12px; background: #fff; font-family: var(--font-display); font-weight: 600; text-decoration: none; }
+.news-pages a.page-numbers:hover { background: var(--tile); }
+.news-pages .page-numbers.current { background: var(--ink); color: #fff; }
+
+/* ---------- article ---------- */
+.article { max-width: 860px; margin-inline: auto; padding: 32px var(--pad) 0; }
+.article__back { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; background: #fff; border-radius: 999px; padding: 8px 16px 8px 10px; font-family: var(--font-display); font-weight: 600; text-decoration: none; }
+.article__back:hover { background: var(--tile); }
+.article__meta { margin-top: 24px; color: var(--muted); font-size: 15px; }
+.article h1 { margin-top: 8px; font-size: clamp(36px, 4.4vw, 56px); }
+.article__img { margin-top: 28px; border-radius: 28px; overflow: hidden; aspect-ratio: 16 / 9; background: var(--tile); }
+.article__img img { width: 100%; height: 100%; object-fit: cover; }
+.article__body { margin-top: 32px; font-size: 18px; line-height: 1.65; }
+.article__body :is(h2, h3) { margin-block: 1.4em .5em; }
+.article__body h2 { font-size: clamp(26px, 2.8vw, 34px); }
+.article__body h3 { font-size: 22px; }
+.article__body a { color: var(--btn); text-underline-offset: 3px; }
+.article__body img { border-radius: var(--radius); }
+.article__body blockquote { margin-inline: 0; padding-left: 20px; border-left: 4px solid var(--orange); font-size: 20px; }
+@media (max-width: 760px) { .article__img { border-radius: 22px; } }
+/* Boutons de l'éditeur de blocs (articles repris de l'ancien site) : ceux de la charte (.btn). */
+.article__body .wp-block-button__link { display: inline-flex; align-items: center; min-height: 48px; padding: 0 24px; border-radius: 12px; background: var(--btn); color: #fff; font-family: var(--font-display); font-weight: 600; font-size: 17px; text-decoration: none; }
+.article__body .wp-block-button__link:hover { background: var(--btn-hover); color: #fff; }

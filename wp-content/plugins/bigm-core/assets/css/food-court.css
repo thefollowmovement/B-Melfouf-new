@@ -1,0 +1,23 @@
+/* Big M — bloc « Food court » (Big Canteen) de la fiche d'un restaurant (inc/food-court.php).
+   Sous le bandeau de la fiche de StoreLocatore, à la largeur de son contenu (1200 px). */
+
+.bigm-fc { max-width: 1200px; margin: 0 auto; padding: 40px 24px 0; }
+.bigm-fc__carte { display: flex; gap: 24px; align-items: flex-start; padding: 28px; border-radius: 24px; background: #fff; color: var(--ink); box-shadow: inset 0 0 0 2px var(--btn); }
+.bigm-fc__logo { flex: 0 0 auto; width: 88px; height: 88px; border-radius: 20px; background: var(--tile); overflow: hidden; }
+.bigm-fc .bigm-fc__logo-img { display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; border-radius: 0; }
+.bigm-fc__corps { flex: 1 1 auto; min-width: 0; }
+.bigm-fc__surtitre { margin: 0 0 4px; font-family: var(--font-display); font-weight: 600; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--btn); }
+.bigm-fc__titre { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: clamp(24px, 2.6vw, 30px); line-height: 1.15; color: var(--ink); }
+.bigm-fc__texte { margin-top: 10px; color: var(--muted); font-size: 16px; line-height: 1.5; }
+.bigm-fc__texte p { margin: 0; }
+.bigm-fc__texte p + p { margin-top: 8px; }
+.bigm-fc__label { margin: 16px 0 8px; font-weight: 600; font-size: 15px; color: var(--ink); }
+.bigm-fc__marques { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.bigm-fc__marques li { display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 999px; background: var(--tile); font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--ink); }
+.bigm-fc__lien { margin: 18px 0 0; }
+
+@media (max-width: 760px) {
+  .bigm-fc { padding: 24px 16px 0; }
+  .bigm-fc__carte { flex-direction: column; gap: 16px; padding: 22px 20px; }
+  .bigm-fc__logo { width: 72px; height: 72px; }
+}

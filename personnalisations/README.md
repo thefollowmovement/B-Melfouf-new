@@ -1,0 +1,69 @@
+# Personnalisations du site (preprod Big M)
+
+Réglages faits dans l'admin WordPress, gardés ici pour ne pas les perdre.
+
+## `css-additionnel.css` → Apparence → Personnaliser → CSS additionnel
+
+- **Icône de localisation dans l'en-tête mobile** (≤ 960 px) : le thème `bigm-child` masque sur mobile le lien
+  « Restaurants » de l'en-tête (classe `hide-sm`). Ce CSS l'affiche en icône seule (40 × 40 px), à droite,
+  en face du bouton menu. Le lien va vers la page Restaurants des Réglages Big M (`/restaurants/` par défaut),
+  passe en orange sur cette page, et garde son nom « Restaurants » pour les lecteurs d'écran.
+  Sur ordinateur, rien ne change.
+
+**Reporté dans le thème** (`bigm-child/assets/css/header.css`, version 0.6.1, en 44 × 44 px : taille tactile minimale du brief). Une fois le thème 0.6.1 installé, vider ce CSS additionnel.
+
+## `liens-commande.json`
+
+Liens Uber Eats et Deliveroo de chaque restaurant (**Restaurants → Liens de commande**), saisis sur la préprod le 9 novembre 2026 d'après les fiches trouvées par recherche web : 69 liens Uber Eats et 58 liens Deliveroo, sur 70 restaurants. La clé `a_verifier` signale les cas douteux. Pour les remettre sur un autre site (la production après la bascule, si sa base ne vient pas de la préprod), les envoyer à `POST /wp-json/bigm/v1/commander/restaurants` (voir `docs/restaurants.md`) : les identifiants des restaurants doivent être les mêmes.
+
+## `place-id.json`
+
+Google Place ID des restaurants (champ « Google Place ID » des fiches StoreLocatore : avis Google, horaires, lien « Laisser un avis »), saisis sur la préprod le 9 novembre 2026 : les 70 restaurants (Colmar avec le Place ID de son Big Canteen). Mérignac, Le Creusot, Sarreguemines, Villeurbanne – Croix Luizet et Sète, fermés, ont été mis à la corbeille le 9 novembre 2026 (sauvegardes gardées hors du dépôt). Trouvés par l'API Places de Google (« Big M » + adresse de la fiche, avec la clé des réglages de StoreLocatore), en ne gardant qu'un établissement « Big M » ouvert à l'adresse de la fiche. Les 5 Place ID déjà saisis à la main étaient identiques. `gps_corrige` signale les 20 fiches (21 avec Sète, fermé depuis) dont l'épingle était à plus de 50 m du restaurant sur Google (jusqu'à 937 m pour Nevers) : coordonnées remplacées par celles de Google le 9 novembre 2026, anciennes valeurs sauvegardées hors du dépôt. Toutes les fiches sont maintenant à moins de 50 m de leur établissement Google.
+
+## Food court Big Canteen
+
+Restaurants → Food courts → **Big Canteen** (créé le 9 novembre 2026 sur la préprod) : présentation « Le food court du groupe Big M : plusieurs enseignes sous un même toit, une grande salle, et chacun choisit ce qu’il aime. », marques par défaut Big M, Fatburger, Buffalo’s Café, Original Riz Crousty, ADS. Associé à **Colmar - Big Canteen** (marques sur place : Big M, ADS ; la fiche s'appelait « Colmar », son adresse `/restaurants/colmar/` n'a pas changé). Le Big Canteen de Mérignac a fermé : sa fiche a été mise à la corbeille le 9 novembre 2026 (sauvegarde gardée hors du dépôt). Marques d'après la presse des ouvertures (2026), à confirmer. Logo et site web à ajouter.
+
+
+## Catégories Poulet et Sauces retirées de la carte
+
+Supprimées dans l'admin par l'agence le 9 novembre 2026, volontairement et pour le moment : pas de commande de ces produits actuellement. Les 2 Chick'n Box (Curry, Tandoori) et les 13 sauces restent publiés, sans catégorie, donc absents de la carte. Ne pas les recréer ni ranger ces produits ailleurs sans demande. `data/carte.json` contient toujours ces deux catégories : un import complet (Produits → Importer la carte) les recréerait et y remettrait ces produits. Pour ajouter ou corriger un produit, passer par l'import ciblé (`POST bigm/v1/carte/importer`), qui ne crée que les catégories du produit demandé.
+
+## Services, paiements et bouton Commander des restaurants
+
+Remplis le 9 novembre 2026 en production, par l'API REST (bigm-core 0.8.9), sur les 70 restaurants : **Services proposés** « Vente à emporter, Livraison, Sur place », **Moyens de paiement acceptés** « Carte bancaire, Espèces, Ticket restaurant ». **URL du bouton Commander** (`tfmsl_order_url`) : le lien Uber Eats du restaurant (celui de Restaurants → Liens de commande) pour 64 restaurants. Inchangés : Boulogne-Billancourt, Dakar, Dakar 2 – Mariste, Dakar 2 – Plateau et Nevers (pas de lien Uber Eats) ; Vienne garde `https://borneoapp.com/BigMVienne`, son appli de commande, proposée en « Commander en ligne » dans la fenêtre Commander. Anciennes valeurs sauvegardées hors du dépôt.
+
+## `google-business-profile.csv`
+
+Pour les fiches Google Business Profile des 70 restaurants (9 novembre 2026) : nom, adresse, téléphone, Place ID, lien vers la fiche Google, **adresse de la page du restaurant à mettre dans le champ « Site Web »**, lien du menu (`/carte/`), liens Uber Eats et Deliveroo. Le classeur envoyé à l'agence (`Big-M-Google-Business-Profile.xlsx`) a les mêmes colonnes et un mode d'emploi (modification des fiches par tableur dans Business Profile).
+
+## Page « Devenir franchisé »
+
+Son titre était son adresse (« devenir-franchise », repris dans l'onglet et le partage) : renommée « Devenir franchisé » le 9 novembre 2026, adresse inchangée.
+
+## Page « Gestion des cookies »
+
+Réécrite le 9 novembre 2026 avec l'extension bigm-cookies (texte dans le widget « Big M — Texte » de la page Elementor `/cookies/`) : bandeau et choix, Google Analytics (Google Ireland, transfert possible aux États-Unis, cookies 13 mois au plus), contenus d'autres sites, tableau des cookies par le code court `[bigm_cookies_liste]`, bouton `[bigm_cookies_gestion]`. Ancienne version sauvegardée hors du dépôt.
+
+## Politique de confidentialité
+
+Corrigée le 9 novembre 2026 (widget « Big M — Texte » de `/politique-de-confidentialite/`) : Google (Google Ireland Ltd, Google Analytics, seulement avec accord, transfert possible aux États-Unis) ajouté aux prestataires ; paragraphe « Cookies » remplacé (plus de « ni de mesure d'audience »). Ancienne version sauvegardée hors du dépôt.
+
+## LiteSpeed Cache et tâche cron
+
+LiteSpeed Cache 7.9 actif en production (installé avant ses réglages). Le 9 novembre 2026, après bigm-core 0.9.1, `POST /wp-json/bigm/v1/litespeed` a appliqué la liste de `inc/cache.php` (relue : cache des pages oui ; connectés, API REST, navigateur, optimisations CSS/JS, QUIC.cloud non ; tout vidé à chaque contenu et mise à jour) et vidé le cache. Vérifié : accueil, carte et fiches restaurants `miss` puis `hit` (premier octet 0,23 s contre 0,6 s), `/devenir-franchise/` et `/nous-rejoindre/` en `no-cache`, API REST `no-cache`, en-têtes de sécurité et bandeau cookies présents sur les pages en cache.
+
+Tâche cron du compte Hostinger (hPanel → Avancé → Tâches cron), créée le même jour : `*/5 * * * *` `wget -q -O /dev/null "https://bigm-burger.fr/wp-cron.php?doing_wp_cron"`, pour que les tâches planifiées de WordPress partent à l'heure malgré le cache (`docs/seo.md`).
+
+## Accueil : titre et description pour Google
+
+Saisis le 9 novembre 2026 dans le bloc Référencement de la page Accueil (avant : titre « Big M · C'est ça qu'on aime! », description tirée du début de la page, « L'actualité Big M Découvrez Nos Box… ») :
+
+- titre : « Big M · Burgers 100 % halal nés à Bondy » ;
+- description (151 caractères) : « Big M, le fast-food 100 % halal né à Bondy en 2019 : burgers, wraps, poulet, tex-mex et Box à partager. Trouvez votre restaurant et commandez en ligne. » Sans nombre de restaurants, pour rester juste après les ouvertures.
+
+Repris tels quels dans `og:title`, `og:description` et Twitter. Image de partage de l'accueil : « Trio de burgers italiens Mamamia » (1024 × 507).
+
+## Jeu Big M × Oasis
+
+Créé le 9 novembre 2026 dans Jeux concours (identifiant 4827), par l'API REST, à partir du règlement d'Orangina Schweppes France : dates, lien NoPo, étapes, lots, questions, mentions, affiche story, vidéo (MP4 1,5 Mo, WebM 2,1 Mo, aperçu), règlement PDF. 67 restaurants cochés : les 68 de l'annexe qui ont une fiche, moins les 3 de Dakar (jeu réservé à la France métropolitaine), plus Aéroville et Colmar à la demande de Big M. Page `/jeu-concours/` : le widget « Big M — Jeu concours » remplace l'en-tête et le texte d'attente (repris comme texte sans jeu), ancienne version sauvegardée hors du dépôt. Détails : `docs/concours.md`.

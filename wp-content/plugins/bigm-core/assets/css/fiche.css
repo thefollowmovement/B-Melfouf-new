@@ -1,0 +1,41 @@
+/* Big M — fiche produit : bandeau orange, présentation, sections dépliables
+   (ingrédients, allergènes, valeurs nutritionnelles), « Ça va bien avec ».
+   Repris de prototype/pages.py (PROD_CSS). Les vignettes .tile sont dans tuiles.css. */
+
+.p-band { background: var(--orange); }
+.p-band__inner { position: relative; display: flex; justify-content: center; padding-block: 28px 0; }
+.p-back { position: absolute; left: var(--pad); top: 24px; z-index: 1; display: inline-flex; align-items: center; gap: 6px; background: #fff; border-radius: 999px; padding: 8px 16px 8px 10px; font-family: var(--font-display); font-weight: 600; text-decoration: none; }
+.p-back:hover { background: var(--tile); }
+/* Zone tactile de 44 px minimum (brief, § 3) : 42 px dans le prototype. */
+.p-back { min-height: 44px; }
+.p-band img { width: min(640px, 100%); aspect-ratio: 520 / 350; object-fit: cover; border-radius: 28px 28px 0 0; margin-top: 52px; }
+/* Elementor : .elementor img { border-radius: 0 } arrondirait la photo à angle droit. */
+.elementor .p-band img { border-radius: 28px 28px 0 0; }
+.p-main { max-width: 860px; margin-inline: auto; padding: 40px var(--pad) 0; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.p-main h1 { font-size: clamp(40px, 5vw, 64px); }
+.p-main > p { font-size: 19px; color: var(--muted); max-width: 52ch; }
+.p-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+.acc { max-width: 860px; margin: 40px auto 0; padding-inline: var(--pad); display: flex; flex-direction: column; gap: 12px; }
+.acc details { background: #fff; border-radius: var(--radius); }
+.acc summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; font-family: var(--font-display); font-weight: 600; font-size: 22px; }
+.acc summary::-webkit-details-marker { display: none; }
+/* Titre h2 du résumé (ordre des titres) : même aspect que le texte du résumé du prototype. */
+.acc__titre { font: inherit; letter-spacing: normal; }
+.acc summary svg { transition: transform .2s var(--ease); transform: rotate(90deg); }
+.acc details[open] summary svg { transform: rotate(-90deg); }
+.acc__body { padding: 0 24px 24px; display: flex; flex-direction: column; gap: 14px; }
+.ingredients { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 24px; }
+.ingredients li { display: flex; align-items: center; gap: 10px; }
+.ingredients li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--btn); flex: 0 0 auto; }
+.al-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.al-list li { border-radius: 999px; padding: 6px 14px; font-weight: 600; background: var(--ink); color: #fff; }
+.al-list.traces li { background: var(--tile); color: var(--ink); }
+.acc h3 { font-size: 18px; }
+.acc small { color: var(--muted); font-size: 14px; }
+.acc table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.acc th, .acc td { padding: 10px 0; border-bottom: 1px solid rgba(43,20,6,.12); text-align: left; }
+.acc td + td, .acc th + th { text-align: right; }
+.with { max-width: 860px; margin: 56px auto 0; padding-inline: var(--pad); }
+.with h2 { font-size: 30px; margin-bottom: 16px; }
+.with__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 700px) { .ingredients { grid-template-columns: 1fr; } .with__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .p-back { top: 14px; } .p-band img { margin-top: 56px; } }

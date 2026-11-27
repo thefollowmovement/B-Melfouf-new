@@ -1,0 +1,32 @@
+/* Big M — barre de catégories en capsule, collante sous l'en-tête.
+   Repris de prototype/build.py (TABS_CSS) et, du bloc « animations des boutons » de
+   prototype/assets/site.css, l'icône qui bouge au survol (@keyframes wiggle : base.css du thème). */
+
+@media (hover: hover) and (pointer: fine) {
+  .cat-tabs a:hover svg { animation: wiggle .5s ease; }
+}
+
+.cat-tabs { position: sticky; top: 88px; z-index: 40; max-width: 1240px; margin: 10px auto 0; width: calc(100% - 2 * var(--pad)); border-radius: 20px; background: rgba(255, 255, 255, .9); -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%); box-shadow: 0 0 0 1px rgba(43, 20, 6, .06), 0 10px 28px -16px rgba(43, 20, 6, .25); overflow: hidden; }
+@media (prefers-reduced-transparency: reduce) { .cat-tabs { background: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; } }
+.cat-tabs ul { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; justify-content: space-between; padding-inline: 8px; max-width: none; }
+.cat-tabs ul::-webkit-scrollbar { display: none; }
+.cat-tabs a { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 12px 10px; min-width: 88px; text-decoration: none; font-family: var(--font-display); font-weight: 600; font-size: 15px; white-space: nowrap; color: var(--ink); border-bottom: 3px solid transparent; transition: color .18s ease, border-color .18s ease; }
+.cat-tabs a:hover { color: var(--btn); }
+.cat-tabs a[aria-current="page"] { color: var(--btn); border-color: var(--btn); }
+/* Sous-catégorie ou fiche produit : la catégorie parente reste allumée. */
+.cat-tabs a[aria-current="true"] { color: var(--btn); border-color: var(--btn); }
+.cat-tabs svg { width: 28px; height: 28px; }
+@media (max-width: 960px) { .cat-tabs ul { justify-content: flex-start; } }
+@media (max-width: 760px) { .cat-tabs { top: 76px; width: calc(100% - 20px); border-radius: 18px; } .cat-tabs a { min-width: 76px; padding: 8px 10px 10px; font-size: 14px; } .cat-tabs svg { width: 24px; height: 24px; } }
+
+/* Elementor : la barre est enfermée dans le bloc du widget. C'est donc ce bloc qui colle
+   sous l'en-tête (dans le conteneur qui le porte). */
+.elementor-widget-bigm-barre-categories { position: sticky; top: 88px; z-index: 40; }
+@media (max-width: 760px) { .elementor-widget-bigm-barre-categories { top: 76px; } }
+
+/* Barre d'administration de WordPress : la barre descend avec l'en-tête (header.css). */
+.admin-bar :is(.cat-tabs, .elementor-widget-bigm-barre-categories) { top: 120px; }
+@media (max-width: 782px) { .admin-bar :is(.cat-tabs, .elementor-widget-bigm-barre-categories) { top: 134px; } }
+@media (max-width: 760px) { .admin-bar :is(.cat-tabs, .elementor-widget-bigm-barre-categories) { top: 122px; } }
+@media (max-width: 600px) { .admin-bar :is(.cat-tabs, .elementor-widget-bigm-barre-categories) { top: 76px; } }
+body .elementor-widget-bigm-barre-categories .cat-tabs { position: relative; top: 0; }
