@@ -283,9 +283,82 @@ add_action(
 				'auth_callback'     => static fn( $permis, $cle, $post_id ): bool => current_user_can( 'edit_post', (int) $post_id ),
 			)
 		);
+		// Textes de la fiche (présentation, « Pourquoi choisir », encart « En bref », titre et
+		// description pour Google) : relecture et correction par l'API des textes écrits par l'IA du
+		// plugin (0.16.5). Mêmes nettoyages que l'écran de la fiche (TFMSL_Store_Meta::save_meta).
+		$textes = array(
+			'tfmsl_long_description' => static fn( $v ): string => wp_kses_post( (string) $v ),
+			'tfmsl_why_us'           => static fn( $v ): string => sanitize_textarea_field( (string) $v ),
+			'tfmsl_seo_description'  => static fn( $v ): string => sanitize_textarea_field( (string) $v ),
+			'tfmsl_seo_title'        => static fn( $v ): string => sanitize_text_field( (string) $v ),
+			'tfmsl_neighborhood'     => static fn( $v ): string => sanitize_text_field( (string) $v ),
+			'tfmsl_local_keywords'   => static fn( $v ): string => sanitize_text_field( (string) $v ),
+		);
+		foreach ( $textes as $cle => $nettoyage ) {
+			register_post_meta(
+				'tfmsl_store',
+				$cle,
+				array(
+					'type'              => 'string',
+					'single'            => true,
+					'show_in_rest'      => true,
+					'sanitize_callback' => $nettoyage,
+					'auth_callback'     => static fn( $permis, $k, $post_id ): bool => current_user_can( 'edit_post', (int) $post_id ),
+				)
+			);
+		}
+		// FAQ : liste de { question, answer }, dans l'ordre d'affichage (une liste envoyée remplace
+		// toute la FAQ). Question en texte, réponse en HTML autorisé, comme l'écran de la fiche.
+		register_post_meta(
+			'tfmsl_store',
+			'tfmsl_faq',
+			array(
+				'type'              => 'array',
+				'single'            => true,
+				'show_in_rest'      => array(
+					'schema' => array(
+						'type'  => 'array',
+						'items' => array(
+							'type'                 => 'object',
+							'properties'           => array(
+								'question' => array( 'type' => 'string' ),
+								'answer'   => array( 'type' => 'string' ),
+							),
+							'additionalProperties' => false,
+						),
+					),
+				),
+				'sanitize_callback' => 'bigm_restaurant_faq_propre',
+				'auth_callback'     => static fn( $permis, $k, $post_id ): bool => current_user_can( 'edit_post', (int) $post_id ),
+			)
+		);
 	},
 	20
 );
+
+/**
+ * FAQ d'un restaurant nettoyée comme par l'écran de la fiche de StoreLocatore : question en texte,
+ * réponse en HTML autorisé, entrées sans question retirées, liste renumérotée. Sert à toute
+ * écriture de `tfmsl_faq` (API REST, plugin), donc ne change rien à une FAQ déjà propre.
+ *
+ * @param mixed $faq Liste de { question, answer }.
+ * @return array<int, array{question: string, answer: string}>
+ */
+function bigm_restaurant_faq_propre( $faq ): array {
+	$out = array();
+	foreach ( is_array( $faq ) ? $faq : array() as $item ) {
+		$item     = (array) $item;
+		$question = sanitize_text_field( (string) ( $item['question'] ?? '' ) );
+		if ( '' === $question ) {
+			continue;
+		}
+		$out[] = array(
+			'question' => $question,
+			'answer'   => wp_kses_post( (string) ( $item['answer'] ?? '' ) ),
+		);
+	}
+	return $out;
+}
 
 /**
  * Place ID possibles d'un restaurant : recherche texte de l'API Places (New) de Google

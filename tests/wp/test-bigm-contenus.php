@@ -230,11 +230,54 @@ if ( function_exists( 'bigm_storelocator_actif' ) && bigm_storelocator_actif() )
 		)
 	);
 	$ok( 200 === rest_do_request( $maj )->get_status() && '5 Pl. de la Boule' === get_post_meta( $resto, 'tfmsl_address', true ) && '92000' === get_post_meta( $resto, 'tfmsl_zip', true ) && 'Nanterre' === get_post_meta( $resto, 'tfmsl_city', true ) && '09 67 28 03 98' === get_post_meta( $resto, 'tfmsl_phone', true ), 'adresse, code postal, ville et téléphone modifiables par l’API REST (nettoyés)' );
+	// Textes de la fiche et FAQ (0.16.5) : mêmes nettoyages que l'écran du plugin.
+	$maj->set_body_params(
+		array(
+			'meta' => array(
+				'tfmsl_long_description' => '<p>Près de la <strong>cathédrale</strong>.</p><script>x()</script>',
+				'tfmsl_why_us'           => "- Burgers halal\n- <b>Menus</b> généreux",
+				'tfmsl_seo_title'        => ' Big M Nanterre | Burgers halal<br> ',
+				'tfmsl_seo_description'  => "Burgers halal.\nCommandez.",
+				'tfmsl_neighborhood'     => 'Centre-ville',
+				'tfmsl_local_keywords'   => 'Gare, <i>Mairie</i>',
+				'tfmsl_faq'              => array(
+					array( 'question' => 'Où se garer ?<br>', 'answer' => '<p>Parking <a href="https://exemple.fr">Boule</a>.</p><script>x()</script>' ),
+					array( 'question' => '', 'answer' => 'Sans question' ),
+					array( 'question' => 'Livrez-vous ?', 'answer' => 'Oui.' ),
+				),
+			),
+		)
+	);
+	$rep = rest_do_request( $maj );
+	$faq = get_post_meta( $resto, 'tfmsl_faq', true );
+	$ok(
+		200 === $rep->get_status()
+		&& '<p>Près de la <strong>cathédrale</strong>.</p>x()' === get_post_meta( $resto, 'tfmsl_long_description', true )
+		&& "- Burgers halal\n- Menus généreux" === get_post_meta( $resto, 'tfmsl_why_us', true )
+		&& 'Big M Nanterre | Burgers halal' === get_post_meta( $resto, 'tfmsl_seo_title', true )
+		&& "Burgers halal.\nCommandez." === get_post_meta( $resto, 'tfmsl_seo_description', true )
+		&& 'Centre-ville' === get_post_meta( $resto, 'tfmsl_neighborhood', true )
+		&& 'Gare, Mairie' === get_post_meta( $resto, 'tfmsl_local_keywords', true ),
+		'présentation, « Pourquoi choisir », titre et description pour Google, quartier et « À proximité » modifiables par l’API REST (nettoyés comme dans la fiche)'
+	);
+	$ok(
+		array(
+			array( 'question' => 'Où se garer ?', 'answer' => '<p>Parking <a href="https://exemple.fr">Boule</a>.</p>x()' ),
+			array( 'question' => 'Livrez-vous ?', 'answer' => 'Oui.' ),
+		) === $faq
+		&& 2 === count( (array) ( $rep->get_data()['meta']['tfmsl_faq'] ?? array() ) ),
+		'FAQ modifiable par l’API REST : liste remplacée, entrée sans question retirée, réponse en HTML autorisé'
+	);
+	update_post_meta( $resto, 'tfmsl_faq', $faq );
+	$ok( $faq === get_post_meta( $resto, 'tfmsl_faq', true ), 'FAQ déjà propre enregistrée par le plugin : inchangée' );
 	$moi = get_current_user_id();
 	wp_set_current_user( 0 );
 	$maj->set_body_params( array( 'meta' => array( 'tfmsl_gmb_place_id' => 'ChIJpirate' ) ) );
 	rest_do_request( $maj );
 	$ok( 'ChIJ_test-123' === get_post_meta( $resto, 'tfmsl_gmb_place_id', true ), 'Place ID : fermé aux visiteurs' );
+	$maj->set_body_params( array( 'meta' => array( 'tfmsl_faq' => array( array( 'question' => 'Piratée ?', 'answer' => 'Oui' ) ) ) ) );
+	rest_do_request( $maj );
+	$ok( $faq === get_post_meta( $resto, 'tfmsl_faq', true ), 'FAQ : fermée aux visiteurs' );
 	wp_set_current_user( $moi );
 
 	$cle_avant = get_option( 'tfmsl_google_api_key', false );
